@@ -4,6 +4,21 @@
       "id": "lab_smoke_v3",
       "file": "sample_placeholder.wav",
       "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "v3_stream_s001_a001",
+      "file": "stream_s001_a001.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "v3_stream_s002_a255",
+      "file": "stream_s002_a255.wav",
+      "expected_verses": [{ "surah": 2, "ayah": 255 }]
+    },
+    {
+      "id": "v3_stream_s112_a004",
+      "file": "stream_s112_a004.wav",
+      "expected_verses": [{ "surah": 112, "ayah": 4 }]
     }
   ]
 }

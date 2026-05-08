@@ -1,0 +1,28 @@
+{
+  "schema": "offline-tarteel.promotion.v2",
+  "run_id": "task-f15f27b01fab-20260508T143343Z",
+  "git_sha": "65d5f388a1289a966fe29697af04c68214fe652e",
+  "promoted_at_utc": "2026-05-08T14:33:43.544507+00:00",
+  "packages": {
+    "core_version": null,
+    "sdk_version": null
+  },
+  "reports": {
+    "tier1_report_path": "/workspace/artifacts/tier1/tier1-20260508T143343Z.json",
+    "tier3_report_path": "/workspace/artifacts/tier3/tier3-20260508T143343Z.json"
+  },
+  "artifacts": {
+    "onnx_sha256": null
+  },
+  "compatibility": {
+    "reference_repo_min_sha": null,
+    "node_major_min": 20,
+    "requires_ffmpeg_tier1": true
+  },
+  "gates": {
+    "corpus_qa": true,
+    "tier1_onnx_recommended": true,
+    "tier3_browser_required": true,
+    "blind_corpus_non_regression": null
+  }
+}

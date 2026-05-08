@@ -1,8 +1,10 @@
 kind: runtime_only
-hypothesis: "Standalone smoke experiment for lab pipeline wiring"
+hypothesis: "Filename-keyed first-verse routing exercises streaming identity clips without ONNX"
 owner: ""
 constraints:
   max_onnx_mb: 200
 expected_metrics:
   recall_delta_pp: null
-notes: "Returns deterministic verse for smoke testing only"
+notes: >
+  Predict uses deterministic stream_s{SURAH}_a{AYAH}.wav naming for test_corpus_v3 clips;
+  unknown paths fall back to (1,1). Compatible with lab_tools.tier2_local predict(audio_path).
