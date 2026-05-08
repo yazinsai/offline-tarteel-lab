@@ -35,12 +35,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
-      contents: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
-
-      - name: Publish exact Cursor start branch
-        run: git push --force origin HEAD:refs/heads/cursor-autonomy-start
 
       - uses: actions/setup-node@v4
         with:
@@ -57,7 +54,7 @@ jobs:
         env:
           CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
           OFFLINE_TARTEEL_REPO_URL: ${{ github.server_url }}/${{ github.repository }}.git
-          OFFLINE_TARTEEL_REF: cursor-autonomy-start
+          OFFLINE_TARTEEL_REF: main
           CURSOR_SKIP_REVIEWER: "1"
           LAB_AUTONOMY_MAX_CYCLES: ${{ github.event.inputs.max_cycles || '1' }}
           LAB_AUTONOMY_TARGET_BACKLOG: "3"
