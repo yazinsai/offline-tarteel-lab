@@ -10,7 +10,7 @@ This repo is the **research velocity** side of the split:
 - Cursor SDK cloud planner / workers / judge loop
 - Modal training/eval integration hooks
 
-**Consumer-facing packages** live in [`../offline-tarteel-sdk`](../offline-tarteel-sdk).
+**Consumer-facing packages** live in [`offline-tarteel-sdk`](https://github.com/yazinsai/offline-tarteel-sdk) (standalone repo).
 
 ## Quick start
 
