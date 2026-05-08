@@ -6,5 +6,11 @@ __pycache__/
 .ruff_cache/
 artifacts/*
 !artifacts/.gitkeep
+!artifacts/queue/
+!artifacts/queue/state.json
+!artifacts/runs/
+!artifacts/runs/*.json
+!artifacts/promotions/
+!artifacts/promotions/*.json
 orchestration/node_modules/
 orchestration/dist/

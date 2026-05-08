@@ -30,3 +30,20 @@ def test_seed_sweeps_increases_count(tmp_path, monkeypatch):
     n = tq.seed_runtime_sweeps()
     assert n >= 1
     assert len(tq.load_state().tasks) == n
+
+    assert tq.seed_runtime_sweeps() == 0
+    assert len(tq.load_state().tasks) == n
+
+
+def test_add_task_once_dedupes_by_key(tmp_path, monkeypatch):
+    monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
+    tq.save_state(tq.QueueState())
+
+    first = tq.add_task_once("runtime_only", "one", {}, key="same")
+    second = tq.add_task_once("runtime_only", "two", {}, key="same")
+
+    assert first is not None
+    assert second is None
+    state = tq.load_state()
+    assert len(state.tasks) == 1
+    assert state.tasks[0].payload["autopilot_key"] == "same"

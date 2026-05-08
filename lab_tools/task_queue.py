@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
+import fcntl
 import json
+import os
 import sys
 import uuid
 from dataclasses import asdict, dataclass, field
@@ -62,6 +65,18 @@ def state_path() -> Path:
     return p
 
 
+@contextlib.contextmanager
+def queue_lock():
+    path = state_path().with_suffix(".lock")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as f:
+        fcntl.flock(f, fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(f, fcntl.LOCK_UN)
+
+
 def load_state() -> QueueState:
     path = state_path()
     if not path.is_file():
@@ -72,17 +87,14 @@ def load_state() -> QueueState:
 def save_state(state: QueueState) -> None:
     path = state_path()
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(state.to_json(), indent=2), encoding="utf-8")
+    tmp = path.with_suffix(f"{path.suffix}.{os.getpid()}.tmp")
+    tmp.write_text(json.dumps(state.to_json(), indent=2), encoding="utf-8")
+    tmp.replace(path)
 
 
-def add_task(
-    kind: str,
-    title: str,
-    payload: dict[str, Any] | None = None,
-) -> Task:
-    state = load_state()
+def _build_task(kind: str, title: str, payload: dict[str, Any] | None = None) -> Task:
     now = datetime.now(timezone.utc).isoformat()
-    t = Task(
+    return Task(
         id=f"task-{uuid.uuid4().hex[:12]}",
         status="queued",
         kind=kind,
@@ -91,9 +103,45 @@ def add_task(
         created_at=now,
         updated_at=now,
     )
-    state.tasks.append(t)
-    save_state(state)
-    return t
+
+
+def add_task(
+    kind: str,
+    title: str,
+    payload: dict[str, Any] | None = None,
+) -> Task:
+    with queue_lock():
+        state = load_state()
+        t = _build_task(kind, title, payload)
+        state.tasks.append(t)
+        save_state(state)
+        return t
+
+
+def add_task_once(
+    kind: str,
+    title: str,
+    payload: dict[str, Any] | None = None,
+    *,
+    key: str,
+) -> Task | None:
+    """Add a task unless a task with the same autopilot key already exists."""
+    with queue_lock():
+        state = load_state()
+        for existing in state.tasks:
+            if (existing.payload or {}).get("autopilot_key") == key:
+                return None
+        body = dict(payload or {})
+        body["autopilot_key"] = key
+        task = _build_task(kind, title, body)
+        state.tasks.append(task)
+        save_state(state)
+        return task
+
+
+def count_active() -> int:
+    state = load_state()
+    return sum(1 for t in state.tasks if t.status in {"queued", "running", "needs_eval"})
 
 
 def next_queued() -> Task | None:
@@ -105,30 +153,41 @@ def next_queued() -> Task | None:
 
 
 def set_status(task_id: str, status: TaskStatus, **extra: Any) -> bool:
-    state = load_state()
-    for t in state.tasks:
-        if t.id == task_id:
-            t.status = status
-            for k, v in extra.items():
-                if hasattr(t, k):
-                    setattr(t, k, v)
-            t.touch()
-            save_state(state)
-            return True
-    return False
+    with queue_lock():
+        state = load_state()
+        for t in state.tasks:
+            if t.id == task_id:
+                t.status = status
+                for k, v in extra.items():
+                    if hasattr(t, k):
+                        setattr(t, k, v)
+                t.touch()
+                save_state(state)
+                return True
+        return False
 
 
 def seed_runtime_sweeps() -> int:
     """Enqueue a small set of runtime-only sweep placeholders (hypothesis params via env)."""
     ideas = [
-        ("runtime_only", "Sweep chunk 0.25–0.35s (manual worker)", {"param": "chunk_seconds"}),
-        ("runtime_only", "Sweep FIRST_MATCH_THRESHOLD ±0.05", {"param": "FIRST_MATCH_THRESHOLD"}),
-        ("runtime_only", "Sweep VERSE_MATCH_THRESHOLD ±0.05", {"param": "VERSE_MATCH_THRESHOLD"}),
+        ("runtime_only", "Sweep chunk 0.25-0.35s", {"param": "chunk_seconds"}, "runtime.chunk_seconds"),
+        (
+            "runtime_only",
+            "Sweep FIRST_MATCH_THRESHOLD +/-0.05",
+            {"param": "FIRST_MATCH_THRESHOLD"},
+            "runtime.first_match_threshold",
+        ),
+        (
+            "runtime_only",
+            "Sweep VERSE_MATCH_THRESHOLD +/-0.05",
+            {"param": "VERSE_MATCH_THRESHOLD"},
+            "runtime.verse_match_threshold",
+        ),
     ]
     n = 0
-    for kind, title, payload in ideas:
-        add_task(kind, title, payload)
-        n += 1
+    for kind, title, payload, key in ideas:
+        if add_task_once(kind, title, payload, key=key) is not None:
+            n += 1
     return n
 
 
