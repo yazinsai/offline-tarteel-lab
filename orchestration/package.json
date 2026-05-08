@@ -1,0 +1,17 @@
+{
+  "name": "@offline-tarteel/lab-orchestration",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dispatch": "tsx src/dispatch.ts",
+    "judge": "tsx src/judgeCli.ts"
+  },
+  "dependencies": {
+    "@cursor/sdk": "*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "~5.9.3"
+  }
+}

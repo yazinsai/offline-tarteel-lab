@@ -1,0 +1,9 @@
+# Copy to experiments/<name>/experiment.yaml
+kind: runtime_only # model_only | runtime_only | joint_model_runtime
+hypothesis: "One-line hypothesis"
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: ""

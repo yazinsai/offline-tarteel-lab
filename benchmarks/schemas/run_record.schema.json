@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://offline-tarteel.dev/schemas/run_record.v1.json",
+  "title": "LabRunRecord",
+  "type": "object",
+  "required": ["schema", "run_id", "created_at_utc", "git_sha", "dataset_revision", "experiment_kind", "parameter_vector", "metrics", "tier_completed"],
+  "properties": {
+    "schema": { "const": "offline-tarteel.run_record.v1" },
+    "run_id": { "type": "string" },
+    "created_at_utc": { "type": "string", "format": "date-time" },
+    "git_sha": { "type": "string" },
+    "dataset_revision": { "type": "string", "description": "Corpus id + revision from datasets/registry.yaml" },
+    "experiment_kind": { "enum": ["model_only", "runtime_only", "joint_model_runtime"] },
+    "parameter_vector": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "tier_completed": {
+      "type": "array",
+      "items": { "type": "integer", "minimum": 1, "maximum": 3 }
+    },
+    "artifact_hashes": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "commands": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

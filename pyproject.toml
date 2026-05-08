@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "offline-tarteel-lab"
+version = "0.1.0"
+description = "Autonomous lab: corpora QA, tiered eval, HF intake, orchestration helpers"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.0",
+  "pyyaml>=6.0",
+  "huggingface_hub>=0.20.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+lab-validate-corpus = "lab_tools.validate_corpus:main"
+lab-discover-experiments = "lab_tools.discover_experiments:main"
+lab-eval-tier = "lab_tools.eval_tier:main"
+lab-hf-intake = "lab_tools.hf_intake:main"
+lab-promote = "lab_tools.promote:main"
+lab-judge = "lab_tools.judge_policy:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["lab_tools"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
