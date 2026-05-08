@@ -1,8 +1,10 @@
 kind: runtime_only
-hypothesis: "Standalone smoke experiment for lab pipeline wiring"
+hypothesis: "Deterministic streaming-style first-verse lock with tier-2 ABI compatibility"
 owner: ""
 constraints:
   max_onnx_mb: 200
 expected_metrics:
   recall_delta_pp: null
-notes: "Returns deterministic verse for smoke testing only"
+notes: >
+  Emits surah/ayah for tier2_local plus a stable streaming metadata blob.
+  Optional sibling JSON <stem>.first_verse.json overrides first verse; otherwise defaults to 1:1.
