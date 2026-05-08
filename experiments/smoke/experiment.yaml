@@ -7,4 +7,6 @@ expected_metrics:
   recall_delta_pp: null
 notes: >
   Emits surah/ayah for tier2_local plus a stable streaming metadata blob.
-  Optional sibling JSON <stem>.first_verse.json overrides first verse; otherwise defaults to 1:1.
+  Optional sibling JSON <stem>.first_verse.json overrides first verse (no threshold gate).
+  Otherwise stem hints (sNN-aMM) set the candidate verse; FIRST_MATCH_THRESHOLD gates the
+  candidate vs holding 1:1 until lock_confidence clears the bar (see run.py).

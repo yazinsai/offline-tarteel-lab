@@ -22,7 +22,7 @@
     },
     {
       "id": "task-c1178780d937",
-      "status": "queued",
+      "status": "promoted",
       "kind": "runtime_only",
       "title": "Tune first-match streaming threshold",
       "payload": {
@@ -32,11 +32,11 @@
         "autopilot_key": "runtime.threshold_sweep.first_match"
       },
       "created_at": "2026-05-08T17:25:18.695383+00:00",
-      "updated_at": "2026-05-08T17:25:18.695383+00:00",
+      "updated_at": "2026-05-08T18:49:51.909037+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-c1178780d937-20260508T184951Z.json",
+      "judge_reasons": [],
       "notes": ""
     },
     {
@@ -52,6 +52,27 @@
       },
       "created_at": "2026-05-08T17:25:18.695736+00:00",
       "updated_at": "2026-05-08T17:25:18.695736+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-4e8a4c8dd7d9",
+      "status": "queued",
+      "kind": "model_only",
+      "title": "Evaluate phoneme FastConformer training candidate",
+      "payload": {
+        "modal_training": true,
+        "job_name": "fastconformer-phoneme-autopilot",
+        "min_accuracy": 0.85,
+        "max_onnx_mb": 200,
+        "agent_instructions": "Only launch Modal when LAB_AUTONOMY_ALLOW_MODAL is enabled. Otherwise inspect the training entrypoint and prepare a small, reviewable training/eval improvement that keeps local tests passing. Never commit model binaries.",
+        "autopilot_key": "model.fastconformer_phoneme_smoke"
+      },
+      "created_at": "2026-05-08T18:48:26.812980+00:00",
+      "updated_at": "2026-05-08T18:48:26.812980+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,

@@ -4,6 +4,11 @@
       "id": "lab_smoke_v3",
       "file": "sample_placeholder.wav",
       "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "stem_hint_surah114",
+      "file": "s114-a6_placeholder.wav",
+      "expected_verses": [{ "surah": 114, "ayah": 6 }]
     }
   ]
 }
