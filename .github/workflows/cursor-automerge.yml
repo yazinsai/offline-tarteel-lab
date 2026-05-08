@@ -43,6 +43,8 @@ jobs:
           state="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin)["state"])')"
           title="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin)["title"])')"
           base_ref="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin)["base"]["ref"])')"
+          original_base_ref="$base_ref"
+          base_sha="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin)["base"]["sha"])')"
           head_sha="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin)["head"]["sha"])')"
           mergeable_state="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin).get("mergeable_state"))')"
 
@@ -52,8 +54,33 @@ jobs:
           fi
 
           if [ "$base_ref" != "main" ]; then
-            echo "PR base is not main: $base_ref"
-            exit 0
+            case "$base_ref" in
+              cursor-autonomy-base-*)
+                main_sha="$(gh api "repos/$REPO/git/ref/heads/main" --jq '.object.sha')"
+                if [ "$base_sha" != "$main_sha" ]; then
+                  echo "Cursor base $base_ref is not current main; base=$base_sha main=$main_sha"
+                  exit 0
+                fi
+                echo "Retargeting PR from exact Cursor base $base_ref to main"
+                gh pr edit "$PR_NUMBER" --repo "$REPO" --base main
+                for _ in 1 2 3 4 5 6 7 8 9 10; do
+                  sleep 2
+                  pr_json="$(gh api "repos/$REPO/pulls/$PR_NUMBER")"
+                  base_ref="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin)["base"]["ref"])')"
+                  head_sha="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin)["head"]["sha"])')"
+                  mergeable_state="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin).get("mergeable_state"))')"
+                  [ "$base_ref" = "main" ] && break
+                done
+                if [ "$base_ref" != "main" ]; then
+                  echo "PR retarget did not settle on main: $base_ref"
+                  exit 1
+                fi
+                ;;
+              *)
+                echo "PR base is not main or an exact Cursor base branch: $base_ref"
+                exit 0
+                ;;
+            esac
           fi
 
           mode=""
@@ -179,6 +206,7 @@ jobs:
 
           echo "mergeable_state=$mergeable_state"
           echo "pr=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+          echo "original_base_ref=$original_base_ref" >> "$GITHUB_OUTPUT"
 
       - name: Merge promotion PR
         if: steps.gate.outputs.pr != ''
@@ -186,6 +214,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           PR_NUMBER: ${{ steps.gate.outputs.pr }}
+          ORIGINAL_BASE_REF: ${{ steps.gate.outputs.original_base_ref }}
         run: |
           set -euo pipefail
           gh pr merge "$PR_NUMBER" --repo "$REPO" --squash --delete-branch
+          case "$ORIGINAL_BASE_REF" in
+            cursor-autonomy-base-*)
+              gh api -X DELETE "repos/$REPO/git/refs/heads/$ORIGINAL_BASE_REF" || true
+              ;;
+          esac
