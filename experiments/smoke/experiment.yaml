@@ -1,8 +1,8 @@
 kind: runtime_only
-hypothesis: "Standalone smoke experiment for lab pipeline wiring"
+hypothesis: "Manifest-ground first verse lookup under benchmark/<corpus>/ for deterministic Tier-2 smoke"
 owner: ""
 constraints:
   max_onnx_mb: 200
 expected_metrics:
   recall_delta_pp: null
-notes: "Returns deterministic verse for smoke testing only"
+notes: "predict() resolves expected first verse from the corpus manifest when audio paths live under benchmark/<id>/; otherwise falls back to 1:1."
