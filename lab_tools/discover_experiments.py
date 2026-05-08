@@ -37,7 +37,7 @@ def main() -> None:
         "--experiments-dir",
         type=Path,
         default=None,
-        help="Default: OFFLINE_TARTEEL_ROOT/experiments",
+        help="Default: <lab-root>/experiments",
     )
     p.add_argument("--json", action="store_true", help="Print JSON list")
     args = p.parse_args()

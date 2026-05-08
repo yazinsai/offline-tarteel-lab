@@ -1,21 +1,20 @@
-# Immutable corpus registry. Bump `revision` when manifest or audio set changes.
-# Paths are relative to OFFLINE_TARTEEL_ROOT (repo root containing benchmark/).
+# Immutable corpus registry. Paths are relative to offline-tarteel-lab root by default.
 
 corpora:
   - id: test_corpus_v1
     revision: "2026-05-08"
     manifest: benchmark/test_corpus/manifest.json
     audio_root: benchmark/test_corpus
-    description: "v1 benchmark (54 samples)"
+    description: "local lab corpus v1"
 
   - id: test_corpus_v2
     revision: "2026-05-08"
     manifest: benchmark/test_corpus_v2/manifest.json
     audio_root: benchmark/test_corpus_v2
-    description: "v2 blind-style corpus"
+    description: "local lab corpus v2"
 
   - id: test_corpus_v3
     revision: "2026-05-08"
     manifest: benchmark/test_corpus_v3/manifest.json
     audio_root: benchmark/test_corpus_v3
-    description: "v3 product contract corpus (256 samples)"
+    description: "local lab corpus v3"

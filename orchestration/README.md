@@ -6,7 +6,7 @@
 cd orchestration
 npm install
 export CURSOR_API_KEY=...
-export OFFLINE_TARTEEL_REPO_URL=https://github.com/your-org/offline-tarteel.git
+export OFFLINE_TARTEEL_REPO_URL=https://github.com/your-org/offline-tarteel-lab.git
 export OFFLINE_TARTEEL_REF=main
 npx tsx src/dispatch.ts "Your experiment prompt — edit tracker thresholds, run Tier 1, etc."
 ```

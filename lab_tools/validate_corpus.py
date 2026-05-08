@@ -99,7 +99,7 @@ def main() -> None:
         "--root",
         type=Path,
         default=None,
-        help="Reference offline-tarteel root (default: OFFLINE_TARTEEL_ROOT or parent repo)",
+        help="Root containing benchmark/ (default: offline-tarteel-lab root)",
     )
     parser.add_argument(
         "--checksums",

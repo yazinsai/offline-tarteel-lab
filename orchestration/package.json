@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dispatch": "tsx src/dispatch.ts",
-    "judge": "tsx src/judgeCli.ts"
+    "judge": "tsx src/judgeCli.ts",
+    "planner": "tsx src/planner.ts"
   },
   "dependencies": {
     "@cursor/sdk": "*"

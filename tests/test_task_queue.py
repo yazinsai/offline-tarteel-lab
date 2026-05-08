@@ -1,0 +1,32 @@
+import json
+
+import lab_tools.task_queue as tq
+
+
+def test_add_list_set_status(tmp_path, monkeypatch):
+    monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
+    tq.save_state(tq.QueueState())
+    task = tq.add_task("runtime_only", "unit test task", {"k": "v"})
+    st = tq.load_state()
+    assert len(st.tasks) == 1
+    assert st.tasks[0].status == "queued"
+
+    ok = tq.set_status(task.id, "running", cursor_run_id="run-1", run_record_path="/tmp/r.json")
+    assert ok
+    st2 = tq.load_state()
+    assert st2.tasks[0].status == "running"
+    assert st2.tasks[0].cursor_run_id == "run-1"
+    assert st2.tasks[0].run_record_path == "/tmp/r.json"
+
+    path = tq.state_path()
+    assert path.is_file()
+    blob = json.loads(path.read_text(encoding="utf-8"))
+    assert blob["schema"] == "offline-tarteel.task_queue.v1"
+
+
+def test_seed_sweeps_increases_count(tmp_path, monkeypatch):
+    monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
+    tq.save_state(tq.QueueState())
+    n = tq.seed_runtime_sweeps()
+    assert n >= 1
+    assert len(tq.load_state().tasks) == n

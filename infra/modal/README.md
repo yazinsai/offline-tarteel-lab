@@ -1,12 +1,11 @@
 # Modal (lab)
 
-GPU training and heavy eval stay in the reference tree under `scripts/*_modal.py`.
+GPU training and heavy eval entrypoints should live in this repo under `training/`.
 
 From lab, invoke via:
 
 ```bash
-cd ../../   # offline-tarteel root
-modal run --detach scripts/train_fastconformer_phoneme_modal.py
+modal run --detach training/train_fastconformer_phoneme_modal.py
 ```
 
 Record each Modal run id + volume path in the lab run record (`commands[]` + `artifact_hashes`).

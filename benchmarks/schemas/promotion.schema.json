@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "offline-tarteel.promotion.v2",
+  "title": "Promotion manifest",
+  "type": "object",
+  "required": ["schema", "run_id", "promoted_at_utc"],
+  "properties": {
+    "schema": { "const": "offline-tarteel.promotion.v2" },
+    "run_id": { "type": "string" },
+    "git_sha": { "type": ["string", "null"] },
+    "promoted_at_utc": { "type": "string", "format": "date-time" },
+    "packages": {
+      "type": "object",
+      "properties": {
+        "core_version": { "type": ["string", "null"] },
+        "sdk_version": { "type": ["string", "null"] }
+      }
+    },
+    "reports": {
+      "type": "object",
+      "properties": {
+        "tier1_report_path": { "type": ["string", "null"] },
+        "tier3_report_path": { "type": ["string", "null"] }
+      }
+    },
+    "artifacts": { "type": "object", "additionalProperties": true },
+    "compatibility": {
+      "type": "object",
+      "properties": {
+        "reference_repo_min_sha": { "type": ["string", "null"] },
+        "node_major_min": { "type": "integer" },
+        "requires_ffmpeg_tier1": { "type": "boolean" }
+      }
+    },
+    "gates": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,9 @@
+{
+  "samples": [
+    {
+      "id": "lab_smoke_v3",
+      "file": "sample_placeholder.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    }
+  ]
+}

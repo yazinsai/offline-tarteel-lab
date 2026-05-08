@@ -6,6 +6,7 @@ import argparse
 import json
 import sys
 from dataclasses import dataclass, asdict
+from pathlib import Path
 from typing import Any
 
 from huggingface_hub import HfApi
@@ -39,6 +40,19 @@ def main() -> None:
     p.add_argument("--query", default="arabic speech asr", help="Search string")
     p.add_argument("--limit", type=int, default=30)
     p.add_argument("--kind", choices=("model", "dataset", "both"), default="model")
+    p.add_argument(
+        "--output",
+        type=Path,
+        default=None,
+        help="Write ranked JSON to this file (still prints to stdout unless --quiet)",
+    )
+    p.add_argument(
+        "--append-to",
+        type=Path,
+        default=None,
+        help="Merge with existing backlog JSON array (dedupe by id, keep higher score)",
+    )
+    p.add_argument("--quiet", action="store_true", help="Do not print JSON to stdout")
     args = p.parse_args()
     api = HfApi()
 
@@ -91,8 +105,33 @@ def main() -> None:
     for it in sorted(items, key=score_item, reverse=True):
         ranked.append({**asdict(it), "score": score_item(it)})
 
-    json.dump(ranked, sys.stdout, indent=2)
-    print()
+    if args.append_to and args.append_to.is_file():
+        try:
+            prev = json.loads(args.append_to.read_text(encoding="utf-8"))
+            if isinstance(prev, list):
+                by_id: dict[str, dict[str, Any]] = {}
+                for row in prev:
+                    if isinstance(row, dict) and "id" in row:
+                        by_id[str(row["id"])] = row
+                for row in ranked:
+                    rid = str(row["id"])
+                    old = by_id.get(rid)
+                    if old is None or float(row.get("score") or 0) >= float(
+                        old.get("score") or 0,
+                    ):
+                        by_id[rid] = row
+                ranked = sorted(by_id.values(), key=lambda z: float(z.get("score") or 0), reverse=True)
+        except json.JSONDecodeError as e:
+            print(f"Warning: could not merge --append-to: {e}", file=sys.stderr)
+
+    text = json.dumps(ranked, indent=2)
+    if not args.quiet:
+        print(text)
+        print()
+
+    if args.output:
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(text + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

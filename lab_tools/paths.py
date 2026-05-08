@@ -4,14 +4,16 @@ import os
 from pathlib import Path
 
 
-def reference_root() -> Path:
-    """Root of the reference offline-tarteel tree (contains benchmark/, web/, etc.)."""
-    env = os.environ.get("OFFLINE_TARTEEL_ROOT")
-    if env:
-        return Path(env).resolve()
-    # Default: parent of offline-tarteel-lab directory
-    return Path(__file__).resolve().parent.parent.parent
-
-
 def lab_root() -> Path:
     return Path(__file__).resolve().parent.parent
+
+
+def reference_root() -> Path:
+    """Root containing benchmark/experiments/web assets used by lab tools.
+
+    Standalone default is this lab repository root.
+    """
+    env = os.environ.get("OFFLINE_TARTEEL_ROOT") or os.environ.get("OFFLINE_TARTEEL_REFERENCE_ROOT")
+    if env:
+        return Path(env).resolve()
+    return lab_root()
