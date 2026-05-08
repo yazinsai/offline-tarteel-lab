@@ -54,7 +54,7 @@ jobs:
         env:
           CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
           OFFLINE_TARTEEL_REPO_URL: ${{ github.server_url }}/${{ github.repository }}.git
-          OFFLINE_TARTEEL_REF: ${{ github.ref_name }}
+          OFFLINE_TARTEEL_REF: ${{ github.sha }}
           CURSOR_SKIP_REVIEWER: "1"
           LAB_AUTONOMY_MAX_CYCLES: ${{ github.event.inputs.max_cycles || '1' }}
           LAB_AUTONOMY_TARGET_BACKLOG: "3"
