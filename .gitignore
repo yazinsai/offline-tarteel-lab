@@ -8,6 +8,7 @@ artifacts/*
 !artifacts/.gitkeep
 !artifacts/queue/
 !artifacts/queue/state.json
+artifacts/queue/*.lock
 !artifacts/runs/
 !artifacts/runs/*.json
 !artifacts/promotions/
