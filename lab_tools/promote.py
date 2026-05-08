@@ -33,7 +33,8 @@ def main() -> None:
     args = p.parse_args()
 
     out = args.output
-    if out.is_dir():
+    if out.is_dir() or out.suffix == "":
+        out.mkdir(parents=True, exist_ok=True)
         ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         out = out / f"promotion-{args.run_id}-{ts}.json"
 

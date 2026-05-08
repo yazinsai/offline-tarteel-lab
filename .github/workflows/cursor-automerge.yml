@@ -1,0 +1,168 @@
+name: Cursor Promotion Auto-Merge
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: "PR number to evaluate and merge"
+        required: true
+
+concurrency:
+  group: cursor-promotion-automerge-${{ github.event.inputs.pr || github.event.workflow_run.id || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event.workflow_run.event == 'pull_request' &&
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.pull_requests[0].number
+      )
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Evaluate promotion merge policy
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.inputs.pr || github.event.workflow_run.pull_requests[0].number }}
+          WORKFLOW_RUN_CONCLUSION: ${{ github.event.workflow_run.conclusion || 'manual' }}
+        run: |
+          set -euo pipefail
+
+          pr_json="$(gh api "repos/$REPO/pulls/$PR_NUMBER")"
+          state="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin)["state"])')"
+          title="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin)["title"])')"
+          base_ref="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin)["base"]["ref"])')"
+          head_sha="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin)["head"]["sha"])')"
+          mergeable_state="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin).get("mergeable_state"))')"
+
+          if [ "$state" != "open" ]; then
+            echo "PR is not open: $state"
+            exit 0
+          fi
+
+          if [ "$base_ref" != "main" ]; then
+            echo "PR base is not main: $base_ref"
+            exit 0
+          fi
+
+          mode=""
+          case "$title" in
+            "Promote offline-tarteel experiment:"*) mode="promotion" ;;
+            "Autopilot offline-tarteel state:"*) mode="state" ;;
+            *)
+              echo "PR title does not opt into autonomous merge: $title"
+              exit 0
+              ;;
+          esac
+          export MODE="$mode"
+
+          if [ "${WORKFLOW_RUN_CONCLUSION}" != "success" ] && [ "${WORKFLOW_RUN_CONCLUSION}" != "manual" ]; then
+            echo "CI did not succeed: ${WORKFLOW_RUN_CONCLUSION}"
+            exit 1
+          fi
+
+          files_json="$(gh api "repos/$REPO/pulls/$PR_NUMBER/files?per_page=100")"
+          printf '%s' "$files_json" > files.json
+
+          python - <<'PY'
+          import json
+          import os
+          import sys
+
+          files = json.load(open("files.json", encoding="utf-8"))
+          names = [f["filename"] for f in files]
+          if not names:
+              raise SystemExit("PR has no changed files")
+
+          mode = os.environ["MODE"]
+          promotion_prefixes = (
+              "artifacts/queue/",
+              "artifacts/runs/",
+              "artifacts/promotions/",
+              "experiments/",
+              "tests/",
+              "benchmark/",
+              "benchmarks/",
+          )
+          state_prefixes = (
+              "artifacts/queue/",
+              "artifacts/runs/",
+          )
+          allowed_prefixes = promotion_prefixes if mode == "promotion" else state_prefixes
+          blocked = [
+              p for p in names
+              if not (p.startswith(allowed_prefixes) or p in allowed_prefixes)
+          ]
+          if blocked:
+              print("Blocked changed files:")
+              for p in blocked:
+                  print(f"  - {p}")
+              raise SystemExit(1)
+
+          promotions = [
+              p for p in names
+              if p.startswith("artifacts/promotions/") and p.endswith(".json")
+          ]
+          if mode == "promotion" and not promotions:
+              raise SystemExit("No promotion manifest changed")
+          if mode == "state" and promotions:
+              raise SystemExit("State PR unexpectedly includes promotion manifests")
+
+          print("promotion_files=" + ",".join(promotions))
+          PY
+
+          promotion_files="$(python - <<'PY'
+          import json
+          files = json.load(open("files.json", encoding="utf-8"))
+          print(",".join(
+              f["filename"] for f in files
+              if f["filename"].startswith("artifacts/promotions/") and f["filename"].endswith(".json")
+          ))
+          PY
+          )"
+
+          IFS=',' read -r -a promotions <<< "$promotion_files"
+          for path in "${promotions[@]}"; do
+            gh api "repos/$REPO/contents/$path?ref=$head_sha" \
+              --jq '.content' | base64 -d > promotion.json
+            python - <<'PY'
+          import json
+          import sys
+
+          with open("promotion.json", encoding="utf-8") as f:
+              data = json.load(f)
+
+          if data.get("schema") != "offline-tarteel.promotion.v2":
+              raise SystemExit("promotion schema mismatch")
+          if not data.get("run_id"):
+              raise SystemExit("promotion run_id missing")
+          gates = data.get("gates") or {}
+          if gates.get("corpus_qa") is not True:
+              raise SystemExit("promotion corpus_qa gate not true")
+          if gates.get("tier3_browser_required") is not True:
+              raise SystemExit("promotion tier3 gate not true")
+          PY
+          done
+
+          echo "mergeable_state=$mergeable_state"
+          echo "pr=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+
+      - name: Merge promotion PR
+        if: steps.gate.outputs.pr != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.gate.outputs.pr }}
+        run: |
+          set -euo pipefail
+          gh pr merge "$PR_NUMBER" --squash --delete-branch

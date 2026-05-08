@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "cloud:autonomy": "tsx src/cloudAutonomy.ts",
     "dispatch": "tsx src/dispatch.ts",
     "judge": "tsx src/judgeCli.ts",
     "planner": "tsx src/planner.ts"
@@ -12,6 +13,7 @@
     "@cursor/sdk": "*"
   },
   "devDependencies": {
+    "@types/node": "^20.19.40",
     "tsx": "^4.19.0",
     "typescript": "~5.9.3"
   }

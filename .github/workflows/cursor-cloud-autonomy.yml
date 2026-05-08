@@ -1,0 +1,64 @@
+name: Cursor Cloud Autonomy
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_cycles:
+        description: "Maximum queued tasks to evaluate"
+        required: false
+        default: "1"
+      limit:
+        description: "Benchmark sample limit"
+        required: false
+        default: "12"
+      seed_sweeps:
+        description: "Replenish autonomous task backlog"
+        required: false
+        default: "true"
+        type: choice
+        options: ["false", "true"]
+      allow_modal:
+        description: "Allow Modal training launches"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+  schedule:
+    - cron: "17 */6 * * *"
+
+concurrency:
+  group: cursor-cloud-autonomy
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: orchestration/package-lock.json
+
+      - name: Install orchestration dependencies
+        working-directory: orchestration
+        run: npm ci
+
+      - name: Dispatch Cursor Cloud autonomous cycle
+        working-directory: orchestration
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+          OFFLINE_TARTEEL_REPO_URL: ${{ github.server_url }}/${{ github.repository }}.git
+          OFFLINE_TARTEEL_REF: ${{ github.ref_name }}
+          CURSOR_SKIP_REVIEWER: "1"
+          LAB_AUTONOMY_MAX_CYCLES: ${{ github.event.inputs.max_cycles || '1' }}
+          LAB_AUTONOMY_TARGET_BACKLOG: "3"
+          LAB_AUTONOMY_LIMIT: ${{ github.event.inputs.limit || '12' }}
+          LAB_AUTONOMY_PLAN: ${{ github.event.inputs.seed_sweeps || '1' }}
+          LAB_AUTONOMY_ALLOW_MODAL: ${{ github.event.inputs.allow_modal || 'false' }}
+        run: npm run cloud:autonomy
