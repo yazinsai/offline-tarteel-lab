@@ -1,0 +1,62 @@
+{
+  "schema": "offline-tarteel.task_queue.v1",
+  "tasks": [
+    {
+      "id": "task-95c0ac60447c",
+      "status": "promoted",
+      "kind": "runtime_only",
+      "title": "Improve streaming first-verse baseline",
+      "payload": {
+        "experiment": "smoke",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Inspect the current experiments and benchmark manifests. Create or update a small runnable experiment under experiments/ that improves first-verse streaming accuracy without adding large artifacts. Keep it deterministic and compatible with lab_tools.tier2_local predict(audio_path).",
+        "autopilot_key": "runtime.smoke_streaming_baseline"
+      },
+      "created_at": "2026-05-08T15:09:40.946362+00:00",
+      "updated_at": "2026-05-08T15:10:19.863807+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "/workspace/artifacts/runs/task-95c0ac60447c-20260508T151019Z.json",
+      "judge_reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "task-1a9983ea3862",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune first-match streaming threshold",
+      "payload": {
+        "param": "FIRST_MATCH_THRESHOLD",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Search for runtime threshold logic or create an experiment that models a first-match threshold sweep. Evaluate multiple candidates locally and commit the best deterministic experiment only if it improves Tier-2 accuracy.",
+        "autopilot_key": "runtime.threshold_sweep.first_match"
+      },
+      "created_at": "2026-05-08T15:09:40.946746+00:00",
+      "updated_at": "2026-05-08T15:09:40.946746+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-1f03eac83b55",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune streaming chunk/window size",
+      "payload": {
+        "param": "chunk_seconds",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Explore chunk/window parameters for streaming recitation tracking. Prefer small code changes and record the selected parameter vector in the task payload or experiment metadata.",
+        "autopilot_key": "runtime.chunk_window_sweep"
+      },
+      "created_at": "2026-05-08T15:09:40.947124+00:00",
+      "updated_at": "2026-05-08T15:09:40.947124+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    }
+  ]
+}

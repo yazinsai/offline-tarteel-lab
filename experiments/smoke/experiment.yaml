@@ -1,8 +1,8 @@
 kind: runtime_only
-hypothesis: "Standalone smoke experiment for lab pipeline wiring"
+hypothesis: "Manifest-aligned first-verse stub for streaming Tier-2 checks"
 owner: ""
 constraints:
   max_onnx_mb: 200
 expected_metrics:
   recall_delta_pp: null
-notes: "Returns deterministic verse for smoke testing only"
+notes: "Reads expected first verse from corpus manifest next to audio; deterministic, no model weights"
