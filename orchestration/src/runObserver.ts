@@ -32,6 +32,9 @@ export async function observeRun(run: Run, label: string): Promise<RunResult> {
   console.error(
     `[${label}] result status=${result.status} durationMs=${result.durationMs ?? "unknown"}`,
   );
+  if (result.result) {
+    console.error(`[${label}] result=${result.result}`);
+  }
   if (result.git?.branches.length) {
     for (const branch of result.git.branches) {
       console.error(
