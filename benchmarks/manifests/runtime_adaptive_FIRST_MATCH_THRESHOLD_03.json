@@ -1,0 +1,12 @@
+{
+  "schema": "offline-tarteel.benchmark_manifest_hint.v1",
+  "autopilot_key": "runtime.adaptive.FIRST_MATCH_THRESHOLD.03",
+  "corpus_id": "test_corpus_v3",
+  "notes": "First-match variant 03: unset FIRST_MATCH_THRESHOLD uses default gate 0.02 in experiments/smoke/run.py (provisional when lock_confidence < threshold; env still overrides).",
+  "references": [
+    {
+      "manifest": "benchmark/test_corpus_v3/manifest.json",
+      "audio_sample": "benchmark/test_corpus_v3/sample_placeholder.wav"
+    }
+  ]
+}

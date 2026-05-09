@@ -9,11 +9,16 @@ import re
 from pathlib import Path
 
 
+# Variant runtime.adaptive.FIRST_MATCH_THRESHOLD.03: when FIRST_MATCH_THRESHOLD is unset,
+# use a tiny positive gate so synthetic streams rarely stay provisional (~2% vs always-lock at 0.0).
+_DEFAULT_FIRST_MATCH_THRESHOLD = 0.02
+
+
 def _first_match_threshold() -> float:
     """Synthetic streaming gate; lower values lock earlier (more aggressive inference)."""
     raw = os.environ.get("FIRST_MATCH_THRESHOLD")
     if raw is None or raw.strip() == "":
-        return 0.0
+        return _DEFAULT_FIRST_MATCH_THRESHOLD
     return float(raw)
 
 
