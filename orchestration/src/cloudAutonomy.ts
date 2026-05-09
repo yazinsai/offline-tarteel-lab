@@ -80,10 +80,10 @@ Follow this exact operating procedure:
 8. Before running evaluation, implement or tune the next queued task according to its payload.agent_instructions. For model_only or joint_model_runtime tasks, launch Modal only when ${allowModal ? "allowed by this run" : "LAB_AUTONOMY_ALLOW_MODAL is enabled"}; otherwise prepare local training/eval improvements without spending external compute.
 9. Run the bounded controller: ${runCommand}
 10. Run verification: pytest. If orchestration TypeScript changed, also run: cd orchestration && npx tsc --noEmit.
-11. Commit only relevant code changes plus JSON metadata under artifacts/queue, artifacts/runs, and artifacts/promotions.
+11. Commit only relevant code changes plus JSON metadata under artifacts/queue, artifacts/runs, artifacts/promotions, and artifacts/experiment_ledger.jsonl.
 12. Open the PR against the ${config.startingRef} branch.
 13. If a task is promoted, make the PR title start with "Promote offline-tarteel experiment:".
-14. If no task is promoted but the queue/run state changed, make the PR title start with "Autopilot offline-tarteel state:" and include only artifacts/queue and artifacts/runs JSON.
+14. If no task is promoted but queue/run/ledger state changed, make the PR title start with "Autopilot offline-tarteel state:" and include only artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
 15. If no task is promoted and code changed, open a normal PR for human review rather than using an autonomous-merge title.
 
 Do not create, modify, or commit audio files, model binaries, tensor dumps, caches, node_modules, virtualenvs, or secrets.

@@ -9,6 +9,7 @@ artifacts/*
 !artifacts/queue/
 !artifacts/queue/state.json
 artifacts/queue/state.lock
+!artifacts/experiment_ledger.jsonl
 !artifacts/runs/
 !artifacts/runs/*.json
 !artifacts/promotions/

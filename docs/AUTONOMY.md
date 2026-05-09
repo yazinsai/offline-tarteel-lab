@@ -63,6 +63,7 @@ Accepted runs become `promoted` tasks and receive:
 
 - `artifacts/runs/*.json` run records
 - `artifacts/promotions/*.json` promotion manifests
+- `artifacts/experiment_ledger.jsonl` entries for planner memory
 
 Rejected runs keep their run record and judge reasons in `artifacts/queue/state.json`.
 
@@ -110,7 +111,8 @@ enabling scheduled operation.
 Each scheduled run replenishes the backlog with `lab_tools.autopilot` before
 dispatching a bounded Cursor Cloud agent. The planner creates deterministic task
 keys, so already-attempted ideas are not re-added on every fresh clone. Queue
-state is tracked at `artifacts/queue/state.json`; large artifacts remain ignored.
+state is tracked at `artifacts/queue/state.json` and
+`artifacts/experiment_ledger.jsonl`; large artifacts remain ignored.
 
 ## Autonomous Merge Gate
 
@@ -121,14 +123,15 @@ Auto-Merge` workflow. It only merges after the `CI` workflow succeeds and the PR
 - has a title starting with `Promote offline-tarteel experiment:` or
   `Autopilot offline-tarteel state:`
 - for promotion PRs, changes at least one `artifacts/promotions/*.json` manifest
-- for state PRs, changes only `artifacts/queue/` and `artifacts/runs/`
+- for state PRs, changes only `artifacts/queue/`, `artifacts/runs/`, and
+  `artifacts/experiment_ledger.jsonl`
 - keeps changed files inside the matching allowlist
 - for promotion PRs, has promotion manifests with schema
   `offline-tarteel.promotion.v2`
 
 Only `artifacts/queue/`, `artifacts/runs/`, `artifacts/promotions/`,
-`experiments/`, `tests/`, `benchmark/`, and `benchmarks/` are auto-merge
-eligible. Changes to workflows,
+`artifacts/experiment_ledger.jsonl`, `experiments/`, `tests/`, `benchmark/`,
+and `benchmarks/` are auto-merge eligible. Changes to workflows,
 orchestration, package manifests, repo policy, training code, docs, or controller
 code require human review.
 

@@ -131,6 +131,7 @@ jobs:
           mode = os.environ["MODE"]
           promotion_prefixes = (
               "artifacts/queue/",
+              "artifacts/experiment_ledger.jsonl",
               "artifacts/runs/",
               "artifacts/promotions/",
               "experiments/",
@@ -140,6 +141,7 @@ jobs:
           )
           state_prefixes = (
               "artifacts/queue/",
+              "artifacts/experiment_ledger.jsonl",
               "artifacts/runs/",
           )
           allowed_prefixes = promotion_prefixes if mode == "promotion" else state_prefixes
