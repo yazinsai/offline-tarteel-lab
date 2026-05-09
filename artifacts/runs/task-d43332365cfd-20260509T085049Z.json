@@ -1,0 +1,49 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-d43332365cfd-20260509T085049Z",
+  "task_id": "task-d43332365cfd",
+  "created_at_utc": "2026-05-09T08:50:49.336806+00:00",
+  "git_sha": "a9a8e7e8ebe4c4daec2961a8013e59ad0e4ea742",
+  "dataset_revision": "test_corpus_v3",
+  "experiment_kind": "runtime_only",
+  "parameter_vector": {
+    "experiment": "smoke",
+    "champion_run_id": "task-04a1e251d3ba-20260508T172602Z",
+    "champion_parameters": {
+      "agent_instructions": "Inspect the current experiments and benchmark manifests. Create or update a small runnable experiment under experiments/ that improves first-verse streaming accuracy without adding large artifacts. Keep it deterministic and compatible with lab_tools.tier2_local predict(audio_path).",
+      "autopilot_key": "runtime.smoke_streaming_baseline",
+      "experiment": "smoke",
+      "min_accuracy": 0.8
+    },
+    "baseline_objective": 1.0,
+    "min_accuracy": 1.0,
+    "agent_instructions": "Start from the champion parameter vector and try a narrow deterministic runtime mutation. Only keep the change if the scorer objective improves beyond variance and no critical slice regresses.",
+    "autopilot_key": "runtime.exploit_champion.runtime.smoke_streaming_baseline.task-04a1e251d3ba-20260508T172602Z"
+  },
+  "metrics": {
+    "tier1_passed": 1,
+    "tier1_total": 1,
+    "tier2_experiment": "smoke",
+    "tier2_accuracy": 1.0,
+    "tier2_correct": 1,
+    "tier2_samples": 1,
+    "tier2_failures": 0,
+    "tier3_completed": true,
+    "baseline_accuracy": null,
+    "min_accuracy": 1.0,
+    "onnx_mb": null,
+    "max_onnx_mb": 200,
+    "target_recall": 1.0
+  },
+  "tier_completed": [
+    1,
+    2,
+    3
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 1 --corpus test_corpus_v3 --limit 12",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 12 --experiment smoke",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 3"
+  ]
+}
