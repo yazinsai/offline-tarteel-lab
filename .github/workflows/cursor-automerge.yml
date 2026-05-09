@@ -233,6 +233,7 @@ jobs:
           ORIGINAL_BASE_REF: ${{ steps.gate.outputs.original_base_ref }}
         run: |
           set -euo pipefail
+          gh pr ready "$PR_NUMBER" --repo "$REPO" || true
           gh pr merge "$PR_NUMBER" --repo "$REPO" --squash --delete-branch
           case "$ORIGINAL_BASE_REF" in
             cursor-autonomy-base-*)
@@ -342,5 +343,5 @@ jobs:
             -f max_cycles=1 \
             -f limit=12 \
             -f seed_sweeps=true \
-            -f allow_modal=true \
+            -f allow_modal=false \
             -f target_backlog=8 || echo "Follow-up dispatch failed; scheduled autonomy will retry."
