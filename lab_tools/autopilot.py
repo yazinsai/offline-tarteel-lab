@@ -147,6 +147,20 @@ def smoke_runtime_plateau(
     return sum(1 for entry in entries if _is_smoke_runtime_plateau_entry(entry)) >= threshold
 
 
+def _plateau_attempt_generation(entries: list[dict[str, Any]]) -> int:
+    attempts = 0
+    for entry in entries:
+        family = str(entry.get("experiment_family") or "")
+        params = entry.get("parameters") or {}
+        if _is_smoke_runtime_plateau_entry(entry):
+            attempts += 1
+        elif params.get("blocked_family") == "smoke_runtime_plateau":
+            attempts += 1
+        elif family.startswith(("baseline.reference_shipped_fastconformer_v4_tlog.", "escalate.non_smoke.")):
+            attempts += 1
+    return attempts
+
+
 def _candidate_blocked_by_smoke_runtime_plateau(candidate: Candidate) -> bool:
     key = candidate.key
     experiment = candidate.payload.get("experiment")
@@ -158,14 +172,16 @@ def _candidate_blocked_by_smoke_runtime_plateau(candidate: Candidate) -> bool:
 def non_smoke_escalation_candidates(entries: list[dict[str, Any]] | None = None) -> list[Candidate]:
     entries = entries if entries is not None else read_entries()
     failed_count = sum(1 for entry in entries if _is_smoke_runtime_plateau_entry(entry))
+    generation = _plateau_attempt_generation(entries)
     baseline = Candidate(
-        key=f"baseline.reference_shipped_fastconformer_v4_tlog.{failed_count:02d}",
+        key=f"baseline.reference_shipped_fastconformer_v4_tlog.{generation:02d}",
         kind="joint_model_runtime",
         title="Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
         payload={
             "blocked_family": "smoke_runtime_plateau",
             "plateau_failures": failed_count,
             "reference_repo": "../offline-tarteel",
+            "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
             "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
             "target_corpus": "test_corpus_v3",
             "target_correct_range": [223, 225],
@@ -173,8 +189,10 @@ def non_smoke_escalation_candidates(entries: list[dict[str, Any]] | None = None)
             "min_accuracy": 0.8,
             "agent_instructions": (
                 "Stop using the smoke baseline. Port or wrap the shipped baseline from "
-                "../offline-tarteel: fastconformer-phoneme v4-tlog plus the browser/RN "
-                "RecitationTracker and QuranDB matching behavior. Use the reference files "
+                "../offline-tarteel if present; otherwise clone "
+                "https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. "
+                "Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker "
+                "and QuranDB matching behavior. Use the reference files "
                 "web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,"
                 "levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the "
                 "source of truth. The known v3 baseline is 223-225/256 correct; reproduce that "
@@ -210,7 +228,7 @@ def non_smoke_escalation_candidates(entries: list[dict[str, Any]] | None = None)
         kind, title, instructions = focus[(i - 1) % len(focus)]
         out.append(
             Candidate(
-                key=f"escalate.non_smoke.{kind}.{failed_count:02d}.{i:02d}",
+                key=f"escalate.non_smoke.{kind}.{generation:02d}.{i:02d}",
                 kind=kind,
                 title=f"{title} variant {i:02d}",
                 payload={

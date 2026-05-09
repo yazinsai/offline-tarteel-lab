@@ -171,6 +171,24 @@ def test_smoke_runtime_plateau_suppresses_runtime_knobs(monkeypatch):
     }
 
 
+def test_plateau_escape_keys_advance_after_non_smoke_rejections():
+    entries = [_smoke_runtime_failure(i) for i in range(1, 5)]
+    entries.append(
+        {
+            "status": "rejected",
+            "experiment_kind": "joint_model_runtime",
+            "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.04",
+            "parameters": {"blocked_family": "smoke_runtime_plateau"},
+            "failure_modes": ["min_accuracy_not_met"],
+        }
+    )
+
+    planned = ap.candidates(entries)
+
+    assert planned[0].key == "baseline.reference_shipped_fastconformer_v4_tlog.05"
+    assert planned[1].key == "escalate.non_smoke.model_only.05.01"
+
+
 def test_plan_retires_queued_smoke_runtime_after_plateau(tmp_path, monkeypatch):
     entries = [_smoke_runtime_failure(i) for i in range(1, 5)]
     monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
@@ -202,6 +220,7 @@ def test_plan_retires_queued_smoke_runtime_after_plateau(tmp_path, monkeypatch):
     assert all(t.kind in {"model_only", "joint_model_runtime"} for t in active)
     assert all((t.payload or {}).get("experiment") != "smoke" for t in active)
     assert active[0].payload["reference_baseline"] == "fastconformer-phoneme v4-tlog browser/RN streaming"
+    assert active[0].payload["reference_repo_url"] == "https://github.com/yazinsai/offline-tarteel.git"
     assert active[0].payload["target_correct_range"] == [223, 225]
     assert any((t.payload or {}).get("blocked_family") == "smoke_runtime_plateau" for t in active)
 
