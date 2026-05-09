@@ -19,6 +19,9 @@ from lab_tools.task_queue import (
     state_path,
 )
 
+SMOKE_RUNTIME_PLATEAU_THRESHOLD = 4
+SMOKE_RUNTIME_PLATEAU_MAX_ALIGNMENT = 0.01
+
 
 @dataclass(frozen=True)
 class Candidate:
@@ -32,7 +35,8 @@ def _key_token(value: Any) -> str:
     return re.sub(r"[^A-Za-z0-9_.-]+", "_", str(value or "unknown"))
 
 
-def candidates() -> list[Candidate]:
+def candidates(entries: list[dict[str, Any]] | None = None) -> list[Candidate]:
+    entries = entries if entries is not None else read_entries()
     static = [
         Candidate(
             key="runtime.smoke_streaming_baseline",
@@ -108,8 +112,116 @@ def candidates() -> list[Candidate]:
             },
         ),
     ]
-    entries = read_entries()
-    return ledger_guided_candidates(entries) + static + adaptive_runtime_candidates()
+    planned = ledger_guided_candidates(entries) + static + adaptive_runtime_candidates()
+    if smoke_runtime_plateau(entries):
+        planned = non_smoke_escalation_candidates(entries) + [
+            c for c in planned if not _candidate_blocked_by_smoke_runtime_plateau(c)
+        ]
+    return planned
+
+
+def _is_smoke_runtime_plateau_entry(entry: dict[str, Any]) -> bool:
+    params = entry.get("parameters") or {}
+    components = entry.get("components") or {}
+    try:
+        alignment = float(components.get("streaming_alignment_accuracy") or 0.0)
+    except (TypeError, ValueError):
+        alignment = 0.0
+    return (
+        entry.get("status") == "rejected"
+        and entry.get("experiment_kind") == "runtime_only"
+        and entry.get("corpus_revision") == "test_corpus_v3"
+        and params.get("experiment") == "smoke"
+        and params.get("full_corpus_gate") is True
+        and "min_accuracy_not_met" in set(entry.get("failure_modes") or [])
+        and alignment <= SMOKE_RUNTIME_PLATEAU_MAX_ALIGNMENT
+    )
+
+
+def smoke_runtime_plateau(
+    entries: list[dict[str, Any]] | None = None,
+    *,
+    threshold: int = SMOKE_RUNTIME_PLATEAU_THRESHOLD,
+) -> bool:
+    entries = entries if entries is not None else read_entries()
+    return sum(1 for entry in entries if _is_smoke_runtime_plateau_entry(entry)) >= threshold
+
+
+def _candidate_blocked_by_smoke_runtime_plateau(candidate: Candidate) -> bool:
+    key = candidate.key
+    experiment = candidate.payload.get("experiment")
+    return candidate.kind == "runtime_only" and (
+        experiment == "smoke" or key.startswith("runtime.")
+    )
+
+
+def non_smoke_escalation_candidates(entries: list[dict[str, Any]] | None = None) -> list[Candidate]:
+    entries = entries if entries is not None else read_entries()
+    failed_count = sum(1 for entry in entries if _is_smoke_runtime_plateau_entry(entry))
+    baseline = Candidate(
+        key=f"baseline.reference_shipped_fastconformer_v4_tlog.{failed_count:02d}",
+        kind="joint_model_runtime",
+        title="Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+        payload={
+            "blocked_family": "smoke_runtime_plateau",
+            "plateau_failures": failed_count,
+            "reference_repo": "../offline-tarteel",
+            "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+            "target_corpus": "test_corpus_v3",
+            "target_correct_range": [223, 225],
+            "target_recall": 0.893,
+            "min_accuracy": 0.8,
+            "agent_instructions": (
+                "Stop using the smoke baseline. Port or wrap the shipped baseline from "
+                "../offline-tarteel: fastconformer-phoneme v4-tlog plus the browser/RN "
+                "RecitationTracker and QuranDB matching behavior. Use the reference files "
+                "web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,"
+                "levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the "
+                "source of truth. The known v3 baseline is 223-225/256 correct; reproduce that "
+                "from audio/model/tracker behavior before optimizing. Do not read predictions "
+                "from stability JSON, filenames, manifests, row order, or sidecar labels."
+            ),
+        },
+    )
+    focus = [
+        (
+            "model_only",
+            "Evaluate non-smoke ASR candidate on full corpus",
+            "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+        ),
+        (
+            "joint_model_runtime",
+            "Improve real ASR-to-Quran matcher path",
+            "Work on a non-smoke matcher/ASR integration that uses transcript or model evidence from audio. Avoid filename/path/manifest labels and avoid smoke runtime knobs. Keep committed changes inside experiments/, tests/, benchmark/results/, or small JSON metadata.",
+        ),
+        (
+            "model_only",
+            "Probe lightweight offline recognition baseline",
+            "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+        ),
+        (
+            "joint_model_runtime",
+            "Add non-smoke failure analysis experiment",
+            "Use the full v3 failure pattern to create a targeted non-smoke experiment or matcher harness. The goal is to escape the 1/256 smoke plateau, not to adjust streaming metadata.",
+        ),
+    ]
+    out: list[Candidate] = [baseline]
+    for i in range(1, 13):
+        kind, title, instructions = focus[(i - 1) % len(focus)]
+        out.append(
+            Candidate(
+                key=f"escalate.non_smoke.{kind}.{failed_count:02d}.{i:02d}",
+                kind=kind,
+                title=f"{title} variant {i:02d}",
+                payload={
+                    "blocked_family": "smoke_runtime_plateau",
+                    "plateau_failures": failed_count,
+                    "min_accuracy": 0.8,
+                    "agent_instructions": instructions,
+                },
+            ),
+        )
+    return out
 
 
 def ledger_guided_candidates(entries: list[dict[str, Any]] | None = None) -> list[Candidate]:
@@ -286,15 +398,60 @@ def _retire_repeatedly_blocked_tasks(*, threshold: int = 2) -> list[str]:
     return retired
 
 
+def _retire_smoke_runtime_plateau_tasks(entries: list[dict[str, Any]]) -> list[str]:
+    if not smoke_runtime_plateau(entries):
+        return []
+
+    retired: list[str] = []
+    with queue_lock():
+        state = load_state()
+        changed = False
+        for task in state.tasks:
+            if task.status not in {"queued", "running", "needs_eval"}:
+                continue
+            candidate = Candidate(
+                key=str((task.payload or {}).get("autopilot_key") or ""),
+                kind=task.kind,
+                title=task.title,
+                payload=task.payload or {},
+            )
+            payload = task.payload or {}
+            stale_generic_escalation = (
+                payload.get("blocked_family") == "smoke_runtime_plateau"
+                and not payload.get("reference_baseline")
+                and str(payload.get("autopilot_key") or "").startswith("escalate.non_smoke.")
+            )
+            if not (
+                _candidate_blocked_by_smoke_runtime_plateau(candidate) or stale_generic_escalation
+            ):
+                continue
+            task.status = "rejected"
+            task.judge_reasons = ["smoke_runtime_plateau_retired"]
+            task.notes = (
+                "Retired by autopilot after repeated honest full-corpus v3 smoke runtime "
+                "failures at 1/256. Future tasks must start by porting the shipped "
+                "fastconformer-phoneme v4-tlog baseline or use non-smoke ASR/model/matcher "
+                "signals."
+            )
+            task.touch()
+            retired.append(task.id)
+            changed = True
+        if changed:
+            save_state(state)
+    return retired
+
+
 def plan(target_backlog: int) -> dict[str, Any]:
-    retired = _retire_repeatedly_blocked_tasks()
-    added: list[str] = []
     entries = read_entries()
+    retired = _retire_repeatedly_blocked_tasks()
+    retired += _retire_smoke_runtime_plateau_tasks(entries)
+    added: list[str] = []
     blocked_families = failed_families(entries)
     champ = champion(entries)
     weak = worst_slice(entries)
     active = count_active()
-    for candidate in candidates():
+    plateau = smoke_runtime_plateau(entries)
+    for candidate in candidates(entries):
         if candidate.key in blocked_families:
             continue
         if active >= target_backlog:
@@ -324,6 +481,7 @@ def plan(target_backlog: int) -> dict[str, Any]:
         else None,
         "worst_slice": {"name": weak[0], "score": weak[1].get("score")} if weak else None,
         "blocked_families": sorted(blocked_families),
+        "smoke_runtime_plateau": plateau,
     }
 
 
