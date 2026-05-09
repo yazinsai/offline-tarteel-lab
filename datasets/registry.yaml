@@ -14,7 +14,7 @@ corpora:
     description: "local lab corpus v2"
 
   - id: test_corpus_v3
-    revision: "2026-05-08"
+    revision: "2026-05-09"
     manifest: benchmark/test_corpus_v3/manifest.json
     audio_root: benchmark/test_corpus_v3
     description: "local lab corpus v3"

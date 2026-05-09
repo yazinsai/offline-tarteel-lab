@@ -1,7 +1,62 @@
 {
   "samples": [
     {
-      "id": "lab_smoke_v3",
+      "id": "lab_smoke_v3_01",
+      "file": "sample_placeholder.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "lab_smoke_v3_02",
+      "file": "sample_placeholder.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "lab_smoke_v3_03",
+      "file": "sample_placeholder.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "lab_smoke_v3_04",
+      "file": "sample_placeholder.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "lab_smoke_v3_05",
+      "file": "sample_placeholder.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "lab_smoke_v3_06",
+      "file": "sample_placeholder.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "lab_smoke_v3_07",
+      "file": "sample_placeholder.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "lab_smoke_v3_08",
+      "file": "sample_placeholder.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "lab_smoke_v3_09",
+      "file": "sample_placeholder.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "lab_smoke_v3_10",
+      "file": "sample_placeholder.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "lab_smoke_v3_11",
+      "file": "sample_placeholder.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    },
+    {
+      "id": "lab_smoke_v3_12",
       "file": "sample_placeholder.wav",
       "expected_verses": [{ "surah": 1, "ayah": 1 }]
     }
