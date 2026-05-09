@@ -200,14 +200,21 @@ def _maybe_launch_modal(task: Task, allow_modal: bool) -> CommandResult | None:
     if task.kind not in {"model_only", "joint_model_runtime"} or not payload.get("modal_training"):
         return None
     job_name = str(payload.get("job_name", task.id))
-    cmd = ["modal", "run", "--detach", "training/train_fastconformer_phoneme_modal.py", "--job-name", job_name]
+    trainer = lab_root() / "training" / "train_fastconformer_phoneme_modal.py"
+    local_cmd = [sys.executable, str(trainer), "--job-name", job_name]
     if not allow_modal:
         print(
-            f"modal training requested for {task.id}; rerun with --allow-modal to launch: {' '.join(cmd)}",
+            f"training requested for {task.id}; rerun with --allow-modal to execute the local "
+            f"trainer placeholder ({trainer}):\n  {' '.join(local_cmd)}\n",
             file=sys.stderr,
         )
-        return CommandResult(cmd=cmd, returncode=77)
-    return _run(cmd)
+        return CommandResult(cmd=local_cmd + ["(_skipped_no_allow_modal)"], returncode=77)
+    print(
+        f"{task.id}: executing local trainer placeholder ({trainer.name}); Modal cloud invocation is skipped "
+        "until the trainer declares a Modal app/local entrypoint (plain scripts are unsupported by `modal run`).",
+        file=sys.stderr,
+    )
+    return _run(local_cmd)
 
 
 def tick(dry_run: bool = False) -> int:

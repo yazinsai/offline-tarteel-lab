@@ -1,7 +1,32 @@
 import json
 
 import lab_tools.autonomous_loop as al
+from lab_tools.task_queue import Task
 import lab_tools.task_queue as tq
+
+
+def test_maybe_launch_modal_none_without_modal_training():
+    task = Task(
+        id="t1",
+        status="queued",
+        kind="model_only",
+        title="no modal",
+        payload={},
+    )
+    assert al._maybe_launch_modal(task, allow_modal=True) is None
+
+
+def test_maybe_launch_modal_skipped_without_allow():
+    task = Task(
+        id="t2",
+        status="queued",
+        kind="model_only",
+        title="modal stub",
+        payload={"modal_training": True, "job_name": "j1"},
+    )
+    got = al._maybe_launch_modal(task, allow_modal=False)
+    assert got is not None
+    assert got.returncode == 77
 
 
 def test_judge_from_metrics_rejects_missing_accuracy():
