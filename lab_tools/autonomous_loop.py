@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time
@@ -58,6 +59,31 @@ def _run(cmd: list[str]) -> CommandResult:
     print("+", " ".join(cmd), file=sys.stderr)
     r = subprocess.run(cmd, cwd=lab_root())
     return CommandResult(cmd=cmd, returncode=r.returncode)
+
+
+def _truthy_env(name: str) -> bool:
+    raw = os.environ.get(name)
+    if raw is None:
+        return False
+    return raw == "1" or raw.lower() == "true"
+
+
+def _modal_tokens_present() -> bool:
+    return bool(os.environ.get("MODAL_TOKEN_ID") and os.environ.get("MODAL_TOKEN_SECRET"))
+
+
+def _modal_invocation(job_name: str) -> list[str]:
+    """Invoke Modal via the current interpreter so `modal` need not be on PATH."""
+    return [
+        sys.executable,
+        "-m",
+        "modal",
+        "run",
+        "--detach",
+        "training/train_fastconformer_phoneme_modal.py::lab_entry",
+        "--job-name",
+        job_name,
+    ]
 
 
 def _read_json(path: Path | None) -> dict[str, Any]:
@@ -200,10 +226,18 @@ def _maybe_launch_modal(task: Task, allow_modal: bool) -> CommandResult | None:
     if task.kind not in {"model_only", "joint_model_runtime"} or not payload.get("modal_training"):
         return None
     job_name = str(payload.get("job_name", task.id))
-    cmd = ["modal", "run", "--detach", "training/train_fastconformer_phoneme_modal.py", "--job-name", job_name]
-    if not allow_modal:
+    cmd = _modal_invocation(job_name)
+    want_modal = allow_modal or _truthy_env("LAB_AUTONOMY_ALLOW_MODAL")
+    if not want_modal:
         print(
-            f"modal training requested for {task.id}; rerun with --allow-modal to launch: {' '.join(cmd)}",
+            f"modal training requested for {task.id}; set LAB_AUTONOMY_ALLOW_MODAL or pass --allow-modal to launch: "
+            f"{' '.join(cmd)}",
+            file=sys.stderr,
+        )
+        return CommandResult(cmd=cmd, returncode=77)
+    if not _modal_tokens_present():
+        print(
+            f"modal launch enabled for {task.id} but MODAL_TOKEN_ID/MODAL_TOKEN_SECRET not set; skipping remote run",
             file=sys.stderr,
         )
         return CommandResult(cmd=cmd, returncode=77)
