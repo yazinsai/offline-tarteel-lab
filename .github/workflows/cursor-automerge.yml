@@ -335,15 +335,3 @@ jobs:
               ;;
           esac
 
-      - name: Dispatch next autonomy run
-        if: always() && github.event_name == 'workflow_run'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          gh workflow run cursor-cloud-autonomy.yml \
-            -f max_cycles=1 \
-            -f limit=12 \
-            -f seed_sweeps=true \
-            -f allow_modal=false \
-            -f target_backlog=8 || echo "Follow-up dispatch failed; scheduled autonomy will retry."
