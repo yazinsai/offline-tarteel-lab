@@ -1,0 +1,23 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-09T06:19:19.863271+00:00",
+  "workflow_run_id": "25593937744",
+  "pr_number": 17,
+  "title": "Promote offline-tarteel experiment: phoneme smoke shim + Modal bounded soft-fail",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/17",
+  "base_ref": "main",
+  "base_sha": "6b1281c59ab303f297d6c2ea40ff5a14f60d3778",
+  "head_ref": "cursor/offline-tarteel-bounded-lab-3e79",
+  "head_sha": "ef52c6873c471e4b033064eae1ef59087ab97828",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/promotions/promotion-task-048442117107-20260509T061824Z-20260509T061824Z.json",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-048442117107-20260509T061824Z.json",
+    "experiments/fastconformer_phoneme_smoke/experiment.yaml",
+    "experiments/fastconformer_phoneme_smoke/run.py",
+    "lab_tools/autonomous_loop.py",
+    "tests/test_autonomous_loop.py"
+  ],
+  "blocked_file_hints": []
+}
