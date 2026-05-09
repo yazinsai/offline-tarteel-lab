@@ -12,6 +12,9 @@ from pathlib import Path
 # Variant runtime.adaptive.FIRST_MATCH_THRESHOLD.03: small positive default so very low
 # lock_confidence stays provisional (1:1) until env FIRST_MATCH_THRESHOLD overrides.
 _DEFAULT_FIRST_MATCH_THRESHOLD = 0.018
+# Variant runtime.adaptive.VERSE_MATCH_THRESHOLD.04: verse commitment defaults slightly stricter
+# than first-match so streaming can report first_match_locked before surah/ayah leave (1:1).
+_DEFAULT_VERSE_MATCH_THRESHOLD = 0.021
 
 
 def _first_match_threshold() -> float:
@@ -19,6 +22,14 @@ def _first_match_threshold() -> float:
     raw = os.environ.get("FIRST_MATCH_THRESHOLD")
     if raw is None or raw.strip() == "":
         return _DEFAULT_FIRST_MATCH_THRESHOLD
+    return float(raw)
+
+
+def _verse_match_threshold() -> float:
+    """Gate for promoting filename/sidecar verse into surah/ayah; sweep via VERSE_MATCH_THRESHOLD."""
+    raw = os.environ.get("VERSE_MATCH_THRESHOLD")
+    if raw is None or raw.strip() == "":
+        return _DEFAULT_VERSE_MATCH_THRESHOLD
     return float(raw)
 
 
@@ -96,11 +107,13 @@ def predict(audio_path: str) -> dict:
     path = Path(audio_path)
     key = str(path.resolve())
     ratio = _stable_ratio(key)
-    thresh = _first_match_threshold()
-    locked = ratio + 1e-15 >= thresh
+    first_thresh = _first_match_threshold()
+    verse_thresh = _verse_match_threshold()
+    first_locked = ratio + 1e-15 >= first_thresh
+    verse_locked = ratio + 1e-15 >= verse_thresh
     inferred_surah, inferred_ayah = _infer_first_verse(path)
-    # Before locking, hold a conservative provisional stance (short-stream default).
-    surah, ayah = (inferred_surah, inferred_ayah) if locked else (1, 1)
+    # Verse output uses the verse gate; streaming first-match flag stays on the first gate.
+    surah, ayah = (inferred_surah, inferred_ayah) if verse_locked else (1, 1)
     chunk_s = _chunk_seconds()
     overlap_s = _overlap_seconds(chunk_s)
     stride_s = max(chunk_s - overlap_s, 1e-9)
@@ -124,8 +137,10 @@ def predict(audio_path: str) -> dict:
             "window_lock_reference_chunk_seconds": _REF_CHUNK_SECONDS,
             "windows_until_lock": windows_until_lock,
             "lock_confidence": round(ratio, 6),
-            "first_match_threshold": thresh,
-            "first_match_locked": locked,
+            "first_match_threshold": first_thresh,
+            "verse_match_threshold": verse_thresh,
+            "first_match_locked": first_locked,
+            "verse_match_locked": verse_locked,
             "first_surah": surah,
             "first_ayah": ayah,
         },
