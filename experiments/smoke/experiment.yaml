@@ -8,6 +8,9 @@ expected_metrics:
 notes: >
   Emits surah/ayah for tier2_local plus a stable streaming metadata blob.
   Optional sibling JSON <stem>.first_verse.json overrides first verse; otherwise defaults to 1:1.
+  Lock signal (runtime.explore_diverse.v3): lock_confidence uses min(sha256-ratio(full resolve path),
+  sha256-ratio(stem-only)) so inference requires agreement from two structurally independent synthetic
+  telemetry channels; thresholds below still apply to this combined value.
   First-match lock: when lock_confidence (deterministic hash ratio) is below FIRST_MATCH_THRESHOLD,
   predict() keeps provisional (1:1); set env FIRST_MATCH_THRESHOLD for sweeps.
   Default when unset is 0.018 (variant 03 runtime.adaptive.FIRST_MATCH_THRESHOLD.03); lower values lock earlier.

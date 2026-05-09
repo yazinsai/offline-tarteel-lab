@@ -1,0 +1,42 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-85345ce40c25-20260509T075037Z",
+  "task_id": "task-85345ce40c25",
+  "created_at_utc": "2026-05-09T07:50:37.546925+00:00",
+  "git_sha": "5bf2ac03a0a5de05a3d0b2dcce2c1f4ca1ac4901",
+  "dataset_revision": "test_corpus_v3",
+  "experiment_kind": "runtime_only",
+  "parameter_vector": {
+    "experiment": "smoke",
+    "exploration": true,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Try one runtime-only strategy that is structurally different from the current champion and recent rejected families. Keep changes small, deterministic, and scored with the canonical objective.",
+    "autopilot_key": "runtime.explore_diverse.v3"
+  },
+  "metrics": {
+    "tier1_passed": 1,
+    "tier1_total": 1,
+    "tier2_experiment": "smoke",
+    "tier2_accuracy": 1.0,
+    "tier2_correct": 1,
+    "tier2_samples": 1,
+    "tier2_failures": 0,
+    "tier3_completed": true,
+    "baseline_accuracy": null,
+    "min_accuracy": 0.8,
+    "onnx_mb": null,
+    "max_onnx_mb": 200,
+    "target_recall": 1.0
+  },
+  "tier_completed": [
+    1,
+    2,
+    3
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 1 --corpus test_corpus_v3 --limit 12",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 12 --experiment smoke",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 3"
+  ]
+}

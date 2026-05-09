@@ -16,6 +16,22 @@ def _load_smoke_run():
     return mod
 
 
+def test_smoke_dual_signal_min_lock_explore_v3(monkeypatch, tmp_path):
+    """Corpus-v3 exploration: lock_confidence gates on min(path,stem), not path alone."""
+    monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "dual-signal-explore.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    key = str(audio.resolve())
+    pr = mod._stable_ratio(key)
+    sr = mod._stable_ratio(audio.stem)
+    assert out["streaming"]["lock_signal"] == "min_path_stem_sha256_ratio"
+    assert out["streaming"]["path_lock_confidence"] == round(pr, 6)
+    assert out["streaming"]["stem_lock_confidence"] == round(sr, 6)
+    assert out["streaming"]["lock_confidence"] == round(min(pr, sr), 6)
+
+
 def test_smoke_default_first_match_threshold_variant_03(monkeypatch, tmp_path):
     monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
     mod = _load_smoke_run()

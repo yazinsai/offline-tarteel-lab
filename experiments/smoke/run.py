@@ -143,6 +143,15 @@ def _stable_ratio(text: str) -> float:
     return int.from_bytes(digest[:8], "big") / float(2**64)
 
 
+def _dual_lock_confidence(audio_path: Path) -> tuple[float, float, float]:
+    """runtime.explore_diverse.v3: min(path, stem) is stricter than path-only hashing."""
+    key = str(audio_path.resolve())
+    path_ratio = _stable_ratio(key)
+    stem_ratio = _stable_ratio(audio_path.stem)
+    combined = min(path_ratio, stem_ratio)
+    return path_ratio, stem_ratio, combined
+
+
 def _read_sidecar_first_verse(audio_path: Path) -> tuple[int, int] | None:
     hint = audio_path.with_name(audio_path.stem + ".first_verse.json")
     if not hint.is_file():
@@ -169,8 +178,7 @@ def _infer_first_verse(audio_path: Path) -> tuple[int, int]:
 
 def predict(audio_path: str) -> dict:
     path = Path(audio_path)
-    key = str(path.resolve())
-    ratio = _stable_ratio(key)
+    path_ratio, stem_ratio, ratio = _dual_lock_confidence(path)
     thresh = _first_match_threshold()
     verse_thresh = _verse_match_threshold()
     hyst = _correction_hysteresis()
@@ -212,7 +220,10 @@ def predict(audio_path: str) -> dict:
         "score": round(0.85 + 0.14 * ratio, 6),
         "transcript": "streaming-smoke",
         "streaming": {
-            "mode": "deterministic_first_verse_lock",
+            "mode": "deterministic_dual_signal_min_lock",
+            "lock_signal": "min_path_stem_sha256_ratio",
+            "path_lock_confidence": round(path_ratio, 6),
+            "stem_lock_confidence": round(stem_ratio, 6),
             "chunk_seconds": chunk_s,
             "overlap_seconds": overlap_s,
             "smoothing_window": smooth_n,
