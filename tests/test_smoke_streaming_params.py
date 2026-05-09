@@ -52,7 +52,7 @@ def test_smoke_verse_match_threshold_env_override(monkeypatch, tmp_path):
     assert out["streaming"]["verse_match_threshold"] == 0.99
 
 
-def test_smoke_default_chunk_seconds_variant_01(monkeypatch, tmp_path):
+def test_smoke_default_chunk_seconds_variant_09(monkeypatch, tmp_path):
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     mod = _load_smoke_run()
     audio = tmp_path / "s001-a001.wav"
