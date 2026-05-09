@@ -23,6 +23,8 @@ notes: >
   scales windows_until_lock by (1 + 0.035 * frames) for observable delay without changing first-match surah/ayah.
   Correction hysteresis: CORRECTION_HYSTERESIS (variant 06 runtime.adaptive.correction_hysteresis.06 default 0.012 when unset):
   first-match locks when lock_confidence >= FIRST_MATCH_THRESHOLD + hysteresis; windows_until_lock also scales by (1 + 0.045 * hysteresis).
+  Partial-match margin: PARTIAL_MATCH_MARGIN (variant 07 runtime.adaptive.partial_match_margin.07 default 0.008 when unset):
+  first-match lock requires lock_confidence >= first_match_effective_threshold + margin (first_match_lock_bar); tier-2 surah/ayah follow the same lock rule.
 
 streaming_params:
   FIRST_MATCH_THRESHOLD: 0.018
@@ -31,4 +33,5 @@ streaming_params:
   overlap_seconds: 0.062
   smoothing_window: 3
   correction_hysteresis: 0.012
+  partial_match_margin: 0.008
   window_lock_reference_chunk_seconds: 0.25

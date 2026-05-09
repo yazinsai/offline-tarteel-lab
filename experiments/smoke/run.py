@@ -46,6 +46,9 @@ _DEFAULT_STREAM_SMOOTHING_WINDOW = 3
 # Variant runtime.adaptive.correction_hysteresis.06: extra margin on the first-match
 # ratio gate so provisional (1:1) persists until lock_confidence clears thresh+hysteresis.
 _DEFAULT_CORRECTION_HYSTERESIS = 0.012
+# Variant runtime.adaptive.partial_match_margin.07: extra bar beyond thresh+hysteresis before
+# treating lock_confidence as a full first-match lock (metadata/sweeps via PARTIAL_MATCH_MARGIN).
+_DEFAULT_PARTIAL_MATCH_MARGIN = 0.008
 
 
 def _correction_hysteresis() -> float:
@@ -57,6 +60,18 @@ def _correction_hysteresis() -> float:
         v = float(raw)
     except ValueError:
         return _DEFAULT_CORRECTION_HYSTERESIS
+    return max(0.0, v)
+
+
+def _partial_match_margin() -> float:
+    """Extra ratio required past first_match_effective_threshold to lock; PARTIAL_MATCH_MARGIN."""
+    raw = os.environ.get("PARTIAL_MATCH_MARGIN")
+    if raw is None or raw.strip() == "":
+        return _DEFAULT_PARTIAL_MATCH_MARGIN
+    try:
+        v = float(raw)
+    except ValueError:
+        return _DEFAULT_PARTIAL_MATCH_MARGIN
     return max(0.0, v)
 
 
@@ -143,7 +158,9 @@ def predict(audio_path: str) -> dict:
     verse_thresh = _verse_match_threshold()
     hyst = _correction_hysteresis()
     first_effective = thresh + hyst
-    locked = ratio + 1e-15 >= first_effective
+    pm = _partial_match_margin()
+    lock_bar = first_effective + pm
+    locked = ratio + 1e-15 >= lock_bar
     verse_locked = ratio + 1e-15 >= verse_thresh
     inferred_surah, inferred_ayah = _infer_first_verse(path)
     # Before locking, hold a conservative provisional stance (short-stream default).
@@ -181,7 +198,9 @@ def predict(audio_path: str) -> dict:
             "smoothing_window": smooth_n,
             "smoothing_lock_delay_multiplier": round(smoothing_multiplier, 9),
             "correction_hysteresis": round(hyst, 9),
+            "partial_match_margin": round(pm, 9),
             "first_match_effective_threshold": round(first_effective, 9),
+            "first_match_lock_bar": round(lock_bar, 9),
             "hysteresis_lock_delay_multiplier": round(hysteresis_lock_delay_multiplier, 9),
             "window_lock_stride_seconds": round(stride_s, 9),
             "window_lock_reference_chunk_seconds": _REF_CHUNK_SECONDS,
