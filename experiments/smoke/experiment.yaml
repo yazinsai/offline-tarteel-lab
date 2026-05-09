@@ -19,10 +19,13 @@ notes: >
   require more windows before lock.
   Overlap/hop: default overlap_seconds 0.062s when OVERLAP_SECONDS unset (variant 02 runtime.adaptive.overlap_seconds.02);
   stride = chunk_seconds - overlap_seconds (clamped); windows_until_lock multiplies by chunk/stride vs overlap-free scaling.
+  Smoothing window: default smoothing_window 5 frames when SMOOTHING_WINDOW unset (variant 05 runtime.adaptive.smoothing_window.05);
+  exposes lock_confidence_smoothed metadata; first-match lock and tier-2 labels still use raw lock_confidence.
 
 streaming_params:
   FIRST_MATCH_THRESHOLD: 0.018
   VERSE_MATCH_THRESHOLD: 0.412
   chunk_seconds: 0.285
   overlap_seconds: 0.062
+  smoothing_window: 5
   window_lock_reference_chunk_seconds: 0.25

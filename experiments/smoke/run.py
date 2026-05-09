@@ -40,6 +40,9 @@ _DEFAULT_STREAM_CHUNK_SECONDS = 0.285
 # Variant runtime.adaptive.overlap_seconds.02: hop stride = chunk - overlap shrinks as overlap grows,
 # so windows_until_lock scales up deterministically without changing first-verse labels.
 _DEFAULT_STREAM_OVERLAP_SECONDS = 0.062
+# Variant runtime.adaptive.smoothing_window.05: synthetic rolling width for reported
+# lock_confidence_smoothed; tier-2 lock still uses the raw ratio vs FIRST_MATCH_THRESHOLD.
+_DEFAULT_SMOOTHING_WINDOW = 5
 
 
 def _chunk_seconds() -> float:
@@ -65,6 +68,28 @@ def _overlap_seconds(chunk_s: float) -> float:
     # Keep stride positive so lock delay stays finite.
     max_ov = max(chunk_s - 1e-9, 0.0)
     return min(v, max_ov)
+
+
+def _smoothing_window_n() -> int:
+    """Frames to blend for lock_confidence_smoothed metadata; sweep via SMOOTHING_WINDOW."""
+    raw = os.environ.get("SMOOTHING_WINDOW")
+    if raw is None or raw.strip() == "":
+        n = _DEFAULT_SMOOTHING_WINDOW
+    else:
+        n = int(float(raw))
+    return max(1, min(n, 64))
+
+
+def _lock_confidence_smoothed(ratio: float, window: int) -> float:
+    """Deterministic pseudo-sequence average around ratio (no cross-file state)."""
+    if window <= 1:
+        return round(ratio, 6)
+    total = 0.0
+    inv_phi = 0.6180339887498949
+    for k in range(window):
+        lag = ((k * inv_phi) % 1.0) - 0.5
+        total += max(0.0, min(1.0, ratio + lag * 0.1))
+    return round(total / window, 6)
 
 
 # Filename hints for deterministic first-verse overrides without touching audio bytes.
@@ -116,6 +141,8 @@ def predict(audio_path: str) -> dict:
     surah, ayah = (inferred_surah, inferred_ayah) if locked else (1, 1)
     chunk_s = _chunk_seconds()
     overlap_s = _overlap_seconds(chunk_s)
+    smooth_n = _smoothing_window_n()
+    conf_smooth = _lock_confidence_smoothed(ratio, smooth_n)
     stride_s = max(chunk_s - overlap_s, 1e-9)
     base_windows = 3 + int(ratio * 5)
     windows_until_lock = max(
@@ -137,6 +164,8 @@ def predict(audio_path: str) -> dict:
             "window_lock_reference_chunk_seconds": _REF_CHUNK_SECONDS,
             "windows_until_lock": windows_until_lock,
             "lock_confidence": round(ratio, 6),
+            "smoothing_window": smooth_n,
+            "lock_confidence_smoothed": conf_smooth,
             "first_match_threshold": thresh,
             "first_match_locked": locked,
             "verse_match_threshold": verse_thresh,
