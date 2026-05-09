@@ -136,7 +136,7 @@ jobs:
               "artifacts/promotions/",
               "experiments/",
               "tests/",
-              "benchmark/",
+              "benchmark/results/",
               "benchmarks/",
           )
           state_prefixes = (
@@ -290,7 +290,16 @@ jobs:
                   f["filename"]
                   for f in files
                   if f["filename"] in {"pyproject.toml"}
-                  or f["filename"].startswith((".github/", "orchestration/", "training/", "lab_tools/"))
+                  or f["filename"].startswith(
+                      (
+                          ".github/",
+                          "orchestration/",
+                          "training/",
+                          "lab_tools/",
+                          "benchmark/test_corpus",
+                          "datasets/",
+                      )
+                  )
                   or f["filename"].lower().endswith(
                       (
                           ".wav",
