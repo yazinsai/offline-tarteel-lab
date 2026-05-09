@@ -592,7 +592,7 @@
     },
     {
       "id": "task-dbb28c5cd5ed",
-      "status": "queued",
+      "status": "rejected",
       "kind": "runtime_only",
       "title": "Tune streaming smoothing window variant 21",
       "payload": {
@@ -603,11 +603,13 @@
         "autopilot_key": "runtime.adaptive.smoothing_window.21"
       },
       "created_at": "2026-05-09T11:20:15.839934+00:00",
-      "updated_at": "2026-05-09T11:20:15.839934+00:00",
+      "updated_at": "2026-05-09T13:32:01.413115+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-dbb28c5cd5ed-20260509T133201Z.json",
+      "judge_reasons": [
+        "min_accuracy_not_met"
+      ],
       "notes": ""
     },
     {
