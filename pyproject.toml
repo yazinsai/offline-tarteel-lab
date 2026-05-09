@@ -27,6 +27,7 @@ lab-judge = "lab_tools.judge_policy:main"
 lab-task = "lab_tools.task_queue:main"
 lab-loop = "lab_tools.autonomous_loop:main"
 lab-autopilot = "lab_tools.autopilot:main"
+lab-ledger = "lab_tools.experiment_ledger:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["lab_tools"]

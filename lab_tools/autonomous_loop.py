@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Any
 
 from lab_tools.paths import lab_root
+from lab_tools.experiment_ledger import append_run_record
 from lab_tools.judge_policy import JudgeInput, judge
 from lab_tools.task_queue import Task, load_state, next_queued, set_status
 
@@ -103,6 +104,10 @@ def _metrics_from_reports(
         "onnx_mb": payload.get("onnx_mb"),
         "max_onnx_mb": payload.get("max_onnx_mb", 200),
     }
+    if isinstance(best.get("metrics"), dict):
+        metrics.update(best["metrics"])
+    if isinstance(best.get("slices"), dict):
+        metrics["slices"] = best["slices"]
 
     # judge_policy uses recall-oriented names; for the current local benchmark,
     # first-verse accuracy is the available proxy until richer streaming metrics land.
@@ -163,6 +168,13 @@ def _write_run_record(
     }
     out.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
     return out
+
+
+def _append_ledger(run_record: Path, *, status: str, decision: dict[str, Any] | None = None) -> None:
+    try:
+        append_run_record(run_record, status=status, decision=decision)
+    except (OSError, json.JSONDecodeError, TypeError, ValueError) as exc:
+        print(f"warning: failed to append experiment ledger: {exc}", file=sys.stderr)
 
 
 def _promote_run(run_record: Path, tier1: Path | None, tier3: Path | None) -> tuple[int, Path | None]:
@@ -297,6 +309,7 @@ def run_once(
     else:
         metrics = _metrics_from_reports(task, tier1_path, None, None)
         run_record = _write_run_record(task, metrics, completed, commands)
+        _append_ledger(run_record, status="rejected", decision={"accept": False, "reasons": ["tier1_failed"]})
         set_status(
             task.id,
             "rejected",
@@ -326,6 +339,7 @@ def run_once(
     else:
         metrics = _metrics_from_reports(task, tier1_path, tier2_path, None)
         run_record = _write_run_record(task, metrics, completed, commands)
+        _append_ledger(run_record, status="rejected", decision={"accept": False, "reasons": ["tier2_failed"]})
         set_status(
             task.id,
             "rejected",
@@ -357,11 +371,13 @@ def run_once(
                 return rc
             if promotion_record:
                 print(json.dumps({"promotion_record": str(promotion_record)}, indent=2))
+        _append_ledger(run_record, status="promoted", decision=decision)
         set_status(task.id, "promoted", run_record_path=str(run_record), judge_reasons=[])
         print(json.dumps({"task": task.id, "accepted": True, "run_record": str(run_record)}, indent=2))
         return 0
 
     reasons = list(decision.get("reasons", []))
+    _append_ledger(run_record, status="rejected", decision=decision)
     set_status(task.id, "rejected", run_record_path=str(run_record), judge_reasons=reasons)
     print(
         json.dumps(

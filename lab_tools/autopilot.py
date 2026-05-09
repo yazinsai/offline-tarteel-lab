@@ -9,6 +9,7 @@ from collections import Counter
 from dataclasses import dataclass
 from typing import Any
 
+from lab_tools.experiment_ledger import champion, failed_families, read_entries, worst_slice
 from lab_tools.task_queue import (
     add_task_once,
     count_active,
@@ -25,6 +26,10 @@ class Candidate:
     kind: str
     title: str
     payload: dict[str, Any]
+
+
+def _key_token(value: Any) -> str:
+    return re.sub(r"[^A-Za-z0-9_.-]+", "_", str(value or "unknown"))
 
 
 def candidates() -> list[Candidate]:
@@ -103,7 +108,82 @@ def candidates() -> list[Candidate]:
             },
         ),
     ]
-    return static + adaptive_runtime_candidates()
+    entries = read_entries()
+    return ledger_guided_candidates(entries) + static + adaptive_runtime_candidates()
+
+
+def ledger_guided_candidates(entries: list[dict[str, Any]] | None = None) -> list[Candidate]:
+    entries = entries if entries is not None else read_entries()
+    champ = champion(entries)
+    weak = worst_slice(entries)
+    out: list[Candidate] = []
+
+    if weak and champ:
+        slice_name, slice_data = weak
+        run_token = _key_token(champ.get("run_id"))
+        out.append(
+            Candidate(
+                key=f"runtime.repair_slice.{_key_token(slice_name)}.{run_token}",
+                kind="runtime_only",
+                title=f"Repair weak corpus slice: {slice_name}",
+                payload={
+                    "experiment": (champ.get("parameters") or {}).get("experiment", "smoke"),
+                    "target_slice": slice_name,
+                    "target_slice_score": slice_data.get("score"),
+                    "champion_run_id": champ.get("run_id"),
+                    "baseline_objective": champ.get("objective"),
+                    "min_accuracy": 0.8,
+                    "agent_instructions": (
+                        f"Optimize corpus v3 slice '{slice_name}' without regressing the champion. "
+                        "Inspect manifest tags and per-sample failures for this slice, make a small "
+                        "runtime-only matcher/tracker change, then emit scorer-compatible slice metrics."
+                    ),
+                },
+            ),
+        )
+
+    if champ:
+        params = dict(champ.get("parameters") or {})
+        family = _key_token(champ.get("experiment_family") or "champion")
+        run_token = _key_token(champ.get("run_id"))
+        out.append(
+            Candidate(
+                key=f"runtime.exploit_champion.{family}.{run_token}",
+                kind="runtime_only",
+                title="Exploit current champion with local runtime mutation",
+                payload={
+                    "experiment": params.get("experiment", "smoke"),
+                    "champion_run_id": champ.get("run_id"),
+                    "champion_parameters": params,
+                    "baseline_objective": champ.get("objective"),
+                    "min_accuracy": max(0.8, float(champ.get("objective") or 0.0)),
+                    "agent_instructions": (
+                        "Start from the champion parameter vector and try a narrow deterministic "
+                        "runtime mutation. Only keep the change if the scorer objective improves beyond "
+                        "variance and no critical slice regresses."
+                    ),
+                },
+            ),
+        )
+
+    out.append(
+        Candidate(
+            key="runtime.explore_diverse.v3",
+            kind="runtime_only",
+            title="Explore a diverse corpus-v3 runtime strategy",
+            payload={
+                "experiment": "smoke",
+                "exploration": True,
+                "min_accuracy": 0.8,
+                "agent_instructions": (
+                    "Try one runtime-only strategy that is structurally different from the current "
+                    "champion and recent rejected families. Keep changes small, deterministic, and "
+                    "scored with the canonical objective."
+                ),
+            },
+        ),
+    )
+    return out
 
 
 def adaptive_runtime_candidates() -> list[Candidate]:
@@ -209,8 +289,14 @@ def _retire_repeatedly_blocked_tasks(*, threshold: int = 2) -> list[str]:
 def plan(target_backlog: int) -> dict[str, Any]:
     retired = _retire_repeatedly_blocked_tasks()
     added: list[str] = []
+    entries = read_entries()
+    blocked_families = failed_families(entries)
+    champ = champion(entries)
+    weak = worst_slice(entries)
     active = count_active()
     for candidate in candidates():
+        if candidate.key in blocked_families:
+            continue
         if active >= target_backlog:
             break
         task = add_task_once(
@@ -229,6 +315,15 @@ def plan(target_backlog: int) -> dict[str, Any]:
         "retired": retired,
         "total_tasks": len(state.tasks),
         "queued": sum(1 for t in state.tasks if t.status == "queued"),
+        "champion": {
+            "run_id": champ.get("run_id"),
+            "objective": champ.get("objective"),
+            "family": champ.get("experiment_family"),
+        }
+        if champ
+        else None,
+        "worst_slice": {"name": weak[0], "score": weak[1].get("score")} if weak else None,
+        "blocked_families": sorted(blocked_families),
     }
 
 
