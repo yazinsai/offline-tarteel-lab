@@ -41,8 +41,6 @@ python -m lab_tools.promote --run-id RUN123 --output artifacts/promotions/
 
 | Variable | Meaning |
 |----------|---------|
-| `OFFLINE_TARTEEL_ROOT` | Optional override for benchmark/experiments root (default: this repo root). |
-| `OFFLINE_TARTEEL_REFERENCE_ROOT` | Alias for `OFFLINE_TARTEEL_ROOT`. |
 | `HF_TOKEN` | Hugging Face API token for higher rate limits (optional). |
 | `CURSOR_API_KEY` | For orchestration workers using `@cursor/sdk`. |
 
