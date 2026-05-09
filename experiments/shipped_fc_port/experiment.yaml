@@ -1,0 +1,6 @@
+kind: joint_model_runtime
+hypothesis: >
+  Full-window ONNX (fastconformer_phoneme_q8.q8 via onnxruntime-node) plus the shipped
+  web mel stack (HF transformers spectrogram match) and QuranDB phoneme matcher from
+  offline-tarteel. Tier-2 uses one decode over the decoded clip plus matchVerse
+  for throughput versus RN chunked streaming simulation.

@@ -18,3 +18,4 @@ artifacts/queue/state.lock
 !artifacts/autonomy_failures/*.json
 orchestration/node_modules/
 orchestration/dist/
+reference_repo/
