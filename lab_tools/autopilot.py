@@ -379,8 +379,14 @@ def _retire_repeatedly_blocked_tasks(*, threshold: int = 2) -> list[str]:
         for task in state.tasks:
             if task.status not in {"queued", "running", "needs_eval"}:
                 continue
+            payload = task.payload or {}
             repeated_task_failure = by_task[task.id] >= threshold
-            unsafe_family = task.kind in {"model_only", "joint_model_runtime"} and blocked_non_runtime >= threshold
+            plateau_escape = payload.get("blocked_family") == "smoke_runtime_plateau"
+            unsafe_family = (
+                task.kind in {"model_only", "joint_model_runtime"}
+                and blocked_non_runtime >= threshold
+                and not plateau_escape
+            )
             if not (repeated_task_failure or unsafe_family):
                 continue
             task.status = "rejected"

@@ -231,3 +231,35 @@ def test_plan_retires_stale_generic_plateau_escalations(tmp_path, monkeypatch):
     assert stale.id in result["retired"]
     assert len(active) == 1
     assert active[0].payload["reference_baseline"] == "fastconformer-phoneme v4-tlog browser/RN streaming"
+
+
+def test_failure_memory_does_not_retire_plateau_escape_tasks(tmp_path, monkeypatch):
+    monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
+    monkeypatch.setattr(ap, "read_entries", lambda: [])
+    tq.save_state(tq.QueueState())
+    task = tq.add_task_once(
+        "joint_model_runtime",
+        "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+        {
+            "blocked_family": "smoke_runtime_plateau",
+            "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+            "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.17",
+        },
+        key="baseline.reference_shipped_fastconformer_v4_tlog.17",
+    )
+    assert task is not None
+
+    failures = tmp_path / "artifacts" / "autonomy_failures"
+    failures.mkdir(parents=True)
+    for i in range(2):
+        (failures / f"pr-{i}.json").write_text(
+            '{"changed_files": ["lab_tools/autonomous_loop.py"]}',
+            encoding="utf-8",
+        )
+
+    retired = ap._retire_repeatedly_blocked_tasks()
+
+    state = tq.load_state()
+    kept = next(t for t in state.tasks if t.id == task.id)
+    assert retired == []
+    assert kept.status == "queued"
