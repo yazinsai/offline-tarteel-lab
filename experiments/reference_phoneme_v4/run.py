@@ -42,9 +42,9 @@ _by_surah: dict[int, list[dict]] = {}
 
 _BSM_PHONEMES_JOINED = "bismi allahi arraHmaani arraHiimi"
 
-TOP_K_LEVENSHTEIN = int(os.getenv("PHONEME_LM_TOP_K", "10"))
-TOP_SURAHS = int(os.getenv("PHONEME_LM_TOP_SURAHS", "20"))
-MAX_SPAN = int(os.getenv("PHONEME_LM_MAX_SPAN", "4"))
+TOP_K_LEVENSHTEIN = int(os.getenv("PHONEME_LM_TOP_K", "14"))
+TOP_SURAHS = int(os.getenv("PHONEME_LM_TOP_SURAHS", "28"))
+MAX_SPAN = int(os.getenv("PHONEME_LM_MAX_SPAN", "5"))
 
 _onnx_input_name = attrgetter("name")
 
@@ -136,7 +136,7 @@ def _query_bigrams(s: str) -> set[str]:
     return {s[i : i + 2] for i in range(len(s) - 1)}
 
 
-def _candidate_verses(no_space_text: str, *, max_candidates: int = 550) -> list[dict]:
+def _candidate_verses(no_space_text: str, *, max_candidates: int = 800) -> list[dict]:
     """Bigram-overlap shortlist so full-corpus tier-2 finishes in bounded time."""
     if _verses is None or len(no_space_text) < 4:
         return list(_verses or [])
