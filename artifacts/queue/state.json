@@ -614,7 +614,7 @@
     },
     {
       "id": "task-eea142756bc7",
-      "status": "queued",
+      "status": "rejected",
       "kind": "runtime_only",
       "title": "Tune correction hysteresis variant 22",
       "payload": {
@@ -625,11 +625,13 @@
         "autopilot_key": "runtime.adaptive.correction_hysteresis.22"
       },
       "created_at": "2026-05-09T11:42:08.071503+00:00",
-      "updated_at": "2026-05-09T11:42:08.071503+00:00",
+      "updated_at": "2026-05-09T13:45:46.986650+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-eea142756bc7-20260509T134546Z.json",
+      "judge_reasons": [
+        "min_accuracy_not_met"
+      ],
       "notes": ""
     },
     {
