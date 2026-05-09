@@ -677,6 +677,28 @@
         "min_accuracy_not_met"
       ],
       "notes": ""
+    },
+    {
+      "id": "task-215f0aaa8326",
+      "status": "rejected",
+      "kind": "runtime_only",
+      "title": "Cloud cycle 6231: fusion weight tilt probe",
+      "payload": {
+        "experiment": "smoke",
+        "min_accuracy": 0.8,
+        "autopilot_key": "runtime.cloud_cycle.fusion_weight_6231",
+        "param": "fusion_weights",
+        "agent_instructions": "Runtime-only: in experiments/smoke/run.py _fused_lock_confidence, tilt weighted geometric fusion from 0.515/0.485 to 0.52/0.48 and mirror metadata strings + experiment.yaml. Do not use paths, filenames, manifests, or ordering for verse labels. Revert if promotion gates fail."
+      },
+      "created_at": "2026-05-09T15:09:31.282032+00:00",
+      "updated_at": "2026-05-09T15:09:43.931323+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "/workspace/artifacts/runs/task-215f0aaa8326-20260509T150943Z.json",
+      "judge_reasons": [
+        "min_accuracy_not_met"
+      ],
+      "notes": ""
     }
   ]
 }
