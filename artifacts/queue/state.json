@@ -1119,7 +1119,7 @@
     },
     {
       "id": "task-fd081a4e11bc",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
       "payload": {
@@ -1138,16 +1138,18 @@
         "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.17"
       },
       "created_at": "2026-05-09T18:26:09.595641+00:00",
-      "updated_at": "2026-05-09T18:26:09.595641+00:00",
+      "updated_at": "2026-05-09T18:29:11.605061+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-692cd40c1b3a",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Evaluate non-smoke ASR candidate on full corpus variant 09",
       "payload": {
@@ -1158,16 +1160,18 @@
         "autopilot_key": "escalate.non_smoke.model_only.17.09"
       },
       "created_at": "2026-05-09T18:26:09.599560+00:00",
-      "updated_at": "2026-05-09T18:26:09.599560+00:00",
+      "updated_at": "2026-05-09T18:29:11.605072+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-6c9789e399e7",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Improve real ASR-to-Quran matcher path variant 10",
       "payload": {
@@ -1178,16 +1182,18 @@
         "autopilot_key": "escalate.non_smoke.joint_model_runtime.17.10"
       },
       "created_at": "2026-05-09T18:26:09.600600+00:00",
-      "updated_at": "2026-05-09T18:26:09.600600+00:00",
+      "updated_at": "2026-05-09T18:29:11.605075+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-28612ffb5fd5",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Probe lightweight offline recognition baseline variant 11",
       "payload": {
@@ -1198,16 +1204,18 @@
         "autopilot_key": "escalate.non_smoke.model_only.17.11"
       },
       "created_at": "2026-05-09T18:26:09.601639+00:00",
-      "updated_at": "2026-05-09T18:26:09.601639+00:00",
+      "updated_at": "2026-05-09T18:29:11.605076+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-ef09a6fe1485",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Add non-smoke failure analysis experiment variant 12",
       "payload": {
@@ -1218,11 +1226,34 @@
         "autopilot_key": "escalate.non_smoke.joint_model_runtime.17.12"
       },
       "created_at": "2026-05-09T18:26:09.602642+00:00",
-      "updated_at": "2026-05-09T18:26:09.602642+00:00",
+      "updated_at": "2026-05-09T18:29:11.605078+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-64600e5f849e",
+      "status": "rejected",
+      "kind": "runtime_only",
+      "title": "Bounded cycle 2616: queue unblock baseline probe (no Modal)",
+      "payload": {
+        "experiment": "smoke",
+        "min_accuracy": 0.8,
+        "autopilot_key": "runtime.bounded_cycle.2616.queue_unblock_baseline",
+        "agent_instructions": "No Modal; LAB_AUTONOMY_ALLOW_MODAL not required for smoke. Queue empty because every autopilot_key already exists in history. Evaluate current experiments/smoke as-is: prefer zero code edits. Never modify benchmark/test_corpus_v3/manifest.json or datasets/registry.yaml. Do not infer surah/ayah from filenames, paths, manifests, ordering, or sidecars. Revert any probe edits if the bounded controller rejects."
+      },
+      "created_at": "2026-05-09T18:29:38.842001+00:00",
+      "updated_at": "2026-05-09T18:29:44.856070+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "/workspace/artifacts/runs/task-64600e5f849e-20260509T182944Z.json",
+      "judge_reasons": [
+        "min_accuracy_not_met"
+      ],
       "notes": ""
     }
   ]
