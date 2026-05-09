@@ -1,0 +1,28 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-09T06:27:01.588038+00:00",
+  "workflow_run_id": "25594093370",
+  "pr_number": 19,
+  "title": "Promote offline-tarteel experiment: phoneme Tier-2 stub, ONNX contract shim, Modal soft-fail",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/19",
+  "base_ref": "main",
+  "base_sha": "9fef8b72576942041b920305520c4e978d1c9a28",
+  "head_ref": "cursor/offline-tarteel-lab-cycle-ff71",
+  "head_sha": "5dc17805692ec18b71811f0520d43d1e0a77f954",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/promotions/promotion-task-048442117107-20260509T062555Z-20260509T062555Z.json",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-048442117107-20260509T062555Z.json",
+    "benchmark/manifests/onnx_placeholder_contract.json",
+    "benchmark/manifests/phoneme_candidate_stub.json",
+    "experiments/fastconformer_phoneme_smoke/experiment.yaml",
+    "experiments/fastconformer_phoneme_smoke/run.py",
+    "experiments/streaming_onnx_contract/experiment.yaml",
+    "experiments/streaming_onnx_contract/run.py",
+    "lab_tools/autonomous_loop.py",
+    "lab_tools/autopilot.py",
+    "tests/test_autonomous_loop.py"
+  ],
+  "blocked_file_hints": []
+}
