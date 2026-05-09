@@ -130,7 +130,7 @@ def test_windows_until_lock_increases_with_overlap(monkeypatch, tmp_path):
     assert w_high >= w_low
 
 
-def test_smoke_default_smoothing_window_variant_05(monkeypatch, tmp_path):
+def test_smoke_default_smoothing_window_variant_13(monkeypatch, tmp_path):
     monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
@@ -141,7 +141,7 @@ def test_smoke_default_smoothing_window_variant_05(monkeypatch, tmp_path):
     audio.write_bytes(b"")
     out = mod.predict(str(audio))
     assert out["streaming"]["smoothing_window"] == mod._DEFAULT_STREAM_SMOOTHING_WINDOW
-    assert out["streaming"]["smoothing_lock_delay_multiplier"] == 1.105
+    assert out["streaming"]["smoothing_lock_delay_multiplier"] == 1.14
 
 
 def test_smoke_smoothing_window_env_override(monkeypatch, tmp_path):

@@ -1,5 +1,5 @@
 kind: runtime_only
-hypothesis: "Deterministic streaming-style first-verse lock with tier-2 ABI compatibility; weighted geometric fusion (0.515/0.485 primary/aux); FIRST_MATCH_THRESHOLD variant 11; VERSE_MATCH_THRESHOLD default variant 12 (runtime.adaptive.VERSE_MATCH_THRESHOLD.12)"
+hypothesis: "Deterministic streaming-style first-verse lock with tier-2 ABI compatibility; weighted geometric fusion (0.515/0.485 primary/aux); FIRST_MATCH_THRESHOLD variant 11; VERSE_MATCH_THRESHOLD default variant 12 (runtime.adaptive.VERSE_MATCH_THRESHOLD.12); SMOOTHING_WINDOW default variant 13 (runtime.adaptive.smoothing_window.13)"
 owner: ""
 constraints:
   max_onnx_mb: 200
@@ -23,8 +23,8 @@ notes: >
   require more windows before lock.
   Overlap/hop: default overlap_seconds 0.071s when OVERLAP_SECONDS unset (variant 10 runtime.adaptive.overlap_seconds.10);
   stride = chunk_seconds - overlap_seconds (clamped); windows_until_lock multiplies by chunk/stride vs overlap-free scaling.
-  Smoothing window: integer SMOOTHING_WINDOW frames (variant 05 runtime.adaptive.smoothing_window.05 default 3 when unset):
-  scales windows_until_lock by (1 + 0.035 * frames) for observable delay without changing first-match surah/ayah.
+  Smoothing window: integer SMOOTHING_WINDOW frames (variant 13 runtime.adaptive.smoothing_window.13 default 4 when unset;
+  variant 05 used 3): scales windows_until_lock by (1 + 0.035 * frames) for observable delay without changing first-match surah/ayah.
   Correction hysteresis: CORRECTION_HYSTERESIS (variant 06 runtime.adaptive.correction_hysteresis.06 default 0.012 when unset):
   first-match locks when lock_confidence >= FIRST_MATCH_THRESHOLD + hysteresis; windows_until_lock also scales by (1 + 0.045 * hysteresis).
   Partial-match margin: PARTIAL_MATCH_MARGIN (variant 07 runtime.adaptive.partial_match_margin.07 default 0.008 when unset):
@@ -37,7 +37,7 @@ streaming_params:
   VERSE_MATCH_THRESHOLD: 0.408
   chunk_seconds: 0.268
   overlap_seconds: 0.071
-  smoothing_window: 3
+  smoothing_window: 4
   correction_hysteresis: 0.012
   partial_match_margin: 0.008
   debounce_ms: 52

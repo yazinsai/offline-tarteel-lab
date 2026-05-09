@@ -41,9 +41,9 @@ _DEFAULT_STREAM_CHUNK_SECONDS = 0.268
 # Variant runtime.adaptive.overlap_seconds.10: hop stride = chunk - overlap shrinks as overlap grows,
 # so windows_until_lock scales up deterministically without changing first-verse labels.
 _DEFAULT_STREAM_OVERLAP_SECONDS = 0.071
-# Variant runtime.adaptive.smoothing_window.05: extra integration frames before emitting the lock tally;
-# metadata-only multiplier on windows_until_lock (tier-2 surah/ayah still follow first-match only).
-_DEFAULT_STREAM_SMOOTHING_WINDOW = 3
+# Variant runtime.adaptive.smoothing_window.13: default integration depth when env unset is 4 frames
+# (variant 05 used 3); metadata-only multiplier on windows_until_lock (tier-2 surah/ayah unchanged).
+_DEFAULT_STREAM_SMOOTHING_WINDOW = 4
 # Variant runtime.adaptive.correction_hysteresis.06: extra margin on the first-match
 # ratio gate so provisional (1:1) persists until lock_confidence clears thresh+hysteresis.
 _DEFAULT_CORRECTION_HYSTERESIS = 0.012
