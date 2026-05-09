@@ -75,6 +75,7 @@ def test_windows_until_lock_scales_with_chunk(monkeypatch, tmp_path):
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
     monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.delenv("DEBOUNCE_MS", raising=False)
     mod_short = _load_smoke_run()
     monkeypatch.setenv("CHUNK_SECONDS", "0.20")
     mod_lower = _load_smoke_run()
@@ -90,6 +91,7 @@ def test_smoke_default_overlap_seconds_variant_02(monkeypatch, tmp_path):
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
     monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.delenv("DEBOUNCE_MS", raising=False)
     mod = _load_smoke_run()
     audio = tmp_path / "overlap-default.wav"
     audio.write_bytes(b"")
@@ -116,6 +118,7 @@ def test_windows_until_lock_increases_with_overlap(monkeypatch, tmp_path):
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
     monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.delenv("DEBOUNCE_MS", raising=False)
     monkeypatch.setenv("CHUNK_SECONDS", "0.30")
     mod_low_overlap = _load_smoke_run()
     monkeypatch.setenv("OVERLAP_SECONDS", "0.12")
@@ -132,6 +135,7 @@ def test_smoke_default_smoothing_window_variant_05(monkeypatch, tmp_path):
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.delenv("DEBOUNCE_MS", raising=False)
     mod = _load_smoke_run()
     audio = tmp_path / "smoothing-default.wav"
     audio.write_bytes(b"")
@@ -145,6 +149,7 @@ def test_smoke_smoothing_window_env_override(monkeypatch, tmp_path):
     monkeypatch.setenv("CHUNK_SECONDS", "0.30")
     monkeypatch.setenv("OVERLAP_SECONDS", "0.06")
     monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.delenv("DEBOUNCE_MS", raising=False)
     mod = _load_smoke_run()
     audio = tmp_path / "smoothing-env.wav"
     audio.write_bytes(b"")
@@ -158,6 +163,7 @@ def test_windows_until_lock_increases_with_smoothing_window(monkeypatch, tmp_pat
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.delenv("DEBOUNCE_MS", raising=False)
     mod_smooth0 = _load_smoke_run()
     monkeypatch.setenv("SMOOTHING_WINDOW", "12")
     mod_smooth12 = _load_smoke_run()
@@ -222,6 +228,7 @@ def test_windows_until_lock_increases_with_correction_hysteresis(monkeypatch, tm
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.delenv("DEBOUNCE_MS", raising=False)
     mod_h0 = _load_smoke_run()
     monkeypatch.setenv("CORRECTION_HYSTERESIS", "0.08")
     mod_h8 = _load_smoke_run()
@@ -230,3 +237,50 @@ def test_windows_until_lock_increases_with_correction_hysteresis(monkeypatch, tm
     w0 = mod_h0.predict(str(audio))["streaming"]["windows_until_lock"]
     wh = mod_h8.predict(str(audio))["streaming"]["windows_until_lock"]
     assert wh >= w0
+
+
+def test_smoke_default_debounce_ms_variant_08(monkeypatch, tmp_path):
+    monkeypatch.delenv("DEBOUNCE_MS", raising=False)
+    monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
+    monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
+    monkeypatch.delenv("CHUNK_SECONDS", raising=False)
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "debounce-default.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["debounce_ms"] == mod._DEFAULT_DEBOUNCE_MS
+    assert out["streaming"]["debounce_lock_delay_multiplier"] == round(
+        1.0 + mod._DEFAULT_DEBOUNCE_MS / 7200.0,
+        9,
+    )
+
+
+def test_smoke_debounce_ms_env_override(monkeypatch, tmp_path):
+    monkeypatch.setenv("DEBOUNCE_MS", "240")
+    monkeypatch.setenv("CHUNK_SECONDS", "0.30")
+    monkeypatch.setenv("OVERLAP_SECONDS", "0.06")
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "debounce-env.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["debounce_ms"] == 240
+    assert out["streaming"]["debounce_lock_delay_multiplier"] == round(1.0 + 240 / 7200.0, 9)
+
+
+def test_windows_until_lock_increases_with_debounce_ms(monkeypatch, tmp_path):
+    monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
+    monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
+    monkeypatch.delenv("CHUNK_SECONDS", raising=False)
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.delenv("DEBOUNCE_MS", raising=False)
+    mod_d0 = _load_smoke_run()
+    monkeypatch.setenv("DEBOUNCE_MS", "1800")
+    mod_d18 = _load_smoke_run()
+    audio = tmp_path / "s006-a006.wav"
+    audio.write_bytes(b"")
+    w0 = mod_d0.predict(str(audio))["streaming"]["windows_until_lock"]
+    w18 = mod_d18.predict(str(audio))["streaming"]["windows_until_lock"]
+    assert w18 >= w0
