@@ -16,7 +16,7 @@ def _load_smoke_run():
     return mod
 
 
-def test_smoke_default_first_match_threshold_variant_03(monkeypatch, tmp_path):
+def test_smoke_default_first_match_threshold_variant_11(monkeypatch, tmp_path):
     monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
     mod = _load_smoke_run()
     audio = tmp_path / "first-match-default.wav"
@@ -208,7 +208,14 @@ def test_smoke_default_partial_match_margin_variant_07(monkeypatch, tmp_path):
     eff = out["streaming"]["first_match_effective_threshold"]
     bar = out["streaming"]["first_match_lock_bar"]
     assert out["streaming"]["partial_match_margin"] == mod._DEFAULT_PARTIAL_MATCH_MARGIN
-    assert bar == eff + mod._DEFAULT_PARTIAL_MATCH_MARGIN
+    expected_bar = round(
+        mod._DEFAULT_FIRST_MATCH_THRESHOLD
+        + mod._DEFAULT_CORRECTION_HYSTERESIS
+        + mod._DEFAULT_PARTIAL_MATCH_MARGIN,
+        9,
+    )
+    assert bar == expected_bar
+    assert eff == round(mod._DEFAULT_FIRST_MATCH_THRESHOLD + mod._DEFAULT_CORRECTION_HYSTERESIS, 9)
 
 
 def test_smoke_partial_match_margin_env_override(monkeypatch, tmp_path):

@@ -9,9 +9,9 @@ import re
 from pathlib import Path
 
 
-# Variant runtime.adaptive.FIRST_MATCH_THRESHOLD.03: small positive default so very low
-# lock_confidence stays provisional (1:1) until env FIRST_MATCH_THRESHOLD overrides.
-_DEFAULT_FIRST_MATCH_THRESHOLD = 0.018
+# Variant runtime.adaptive.FIRST_MATCH_THRESHOLD.11: slightly lower default than variant 03
+# (0.018) so the fused ratio crosses first_match_lock_bar marginally sooner when env unset.
+_DEFAULT_FIRST_MATCH_THRESHOLD = 0.0165
 # Variant runtime.adaptive.VERSE_MATCH_THRESHOLD.04: stricter secondary gate on the same
 # lock_confidence ratio; does not change surah/ayah (tier-2 still keys off first-match lock).
 _DEFAULT_VERSE_MATCH_THRESHOLD = 0.412
