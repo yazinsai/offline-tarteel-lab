@@ -17,6 +17,24 @@ def _load_smoke_run():
     return mod
 
 
+def test_smoke_default_first_match_threshold_variant_03(monkeypatch, tmp_path):
+    monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "fmt-default-threshold.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["first_match_threshold"] == mod._DEFAULT_FIRST_MATCH_THRESHOLD
+
+
+def test_smoke_first_match_threshold_env_override(monkeypatch, tmp_path):
+    monkeypatch.setenv("FIRST_MATCH_THRESHOLD", "0.05")
+    mod = _load_smoke_run()
+    audio = tmp_path / "fmt-env-override.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["first_match_threshold"] == 0.05
+
+
 def test_smoke_default_chunk_seconds_variant_01(monkeypatch, tmp_path):
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     mod = _load_smoke_run()
