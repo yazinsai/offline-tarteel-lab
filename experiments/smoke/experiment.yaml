@@ -1,5 +1,5 @@
 kind: runtime_only
-hypothesis: "Deterministic streaming-style first-verse lock with tier-2 ABI compatibility; weighted geometric fusion (0.51/0.49 primary/aux) as narrow runtime.exploit_champion mutation atop geometric-mean v3"
+hypothesis: "Deterministic streaming-style first-verse lock with tier-2 ABI compatibility; weighted geometric fusion (0.515/0.485 primary/aux); FIRST_MATCH_THRESHOLD default tuned for variant 11 (runtime.adaptive.FIRST_MATCH_THRESHOLD.11)"
 owner: ""
 constraints:
   max_onnx_mb: 200
@@ -8,12 +8,13 @@ expected_metrics:
 notes: >
   Emits surah/ayah for tier2_local plus a stable streaming metadata blob.
   Fusion stack: dual-hash ratios SHA-256(key) and BLAKE2b(key + "|corpus-v3-explore"); lock_confidence is a
-  weighted geometric blend (exploit champion: w_primary=0.51, w_aux=0.49), exposing lock_confidence_primary,
+  weighted geometric blend (exploit champion: w_primary=0.515, w_aux=0.485), exposing lock_confidence_primary,
   lock_confidence_aux, and lock_confidence_fusion in streaming metadata.
   Optional sibling JSON <stem>.first_verse.json overrides first verse; otherwise defaults to 1:1.
   First-match lock: when lock_confidence (fused ratio) is below FIRST_MATCH_THRESHOLD,
   predict() keeps provisional (1:1); set env FIRST_MATCH_THRESHOLD for sweeps.
-  Default when unset is 0.018 (variant 03 runtime.adaptive.FIRST_MATCH_THRESHOLD.03); lower values lock earlier.
+  Default when unset is 0.0165 (variant 11 runtime.adaptive.FIRST_MATCH_THRESHOLD.11); lower values lock earlier
+  than variant 03's 0.018.
   Verse-match gate: secondary threshold on the same lock_confidence ratio (env VERSE_MATCH_THRESHOLD;
   variant 04 runtime.adaptive.VERSE_MATCH_THRESHOLD.04 default 0.412). Metadata-only; tier-2 accuracy
   still follows first-match surah/ayah.
@@ -32,7 +33,7 @@ notes: >
   (debounce_lock_delay_multiplier) on windows_until_lock; does not change first-match lock bar or tier-2 labels.
 
 streaming_params:
-  FIRST_MATCH_THRESHOLD: 0.018
+  FIRST_MATCH_THRESHOLD: 0.0165
   VERSE_MATCH_THRESHOLD: 0.412
   chunk_seconds: 0.268
   overlap_seconds: 0.071
