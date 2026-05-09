@@ -1,4 +1,5 @@
 import json
+import sys
 
 import lab_tools.autonomous_loop as al
 import lab_tools.task_queue as tq
@@ -99,3 +100,85 @@ def test_run_once_promotes_accepted_task(tmp_path, monkeypatch):
     assert promotion["run_id"]
     assert promotion["gates"]["corpus_qa"] is True
     assert promotion["gates"]["tier3_browser_required"] is True
+
+
+def test_modal_training_cmd_uses_python_module_invocation():
+    cmd = al._modal_training_cmd("my-job")
+    assert cmd[:3] == [sys.executable, "-m", "modal"]
+    assert "--detach" in cmd
+    assert "training/train_fastconformer_phoneme_modal.py" in cmd
+    assert cmd[-2] == "--job-name"
+    assert cmd[-1] == "my-job"
+
+
+def test_run_once_continues_after_modal_failure_when_allowed(tmp_path, monkeypatch):
+    monkeypatch.setattr(al, "lab_root", lambda: tmp_path)
+    monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
+    tq.save_state(tq.QueueState())
+    task = tq.add_task(
+        "model_only",
+        "modal-backed model task",
+        {"modal_training": True, "min_accuracy": 0.5},
+    )
+
+    tier1_path = tmp_path / "artifacts" / "tier1" / "tier1-test.json"
+    tier2_path = tmp_path / "artifacts" / "tier2" / "tier2-test.json"
+    tier3_path = tmp_path / "artifacts" / "tier3" / "tier3-test.json"
+    tier1_path.parent.mkdir(parents=True)
+    tier2_path.parent.mkdir(parents=True)
+    tier3_path.parent.mkdir(parents=True)
+    tier1_path.write_text(json.dumps({"passed": 1, "total": 1}), encoding="utf-8")
+    tier2_path.write_text(
+        json.dumps(
+            {
+                "results": [
+                    {
+                        "experiment": "smoke",
+                        "samples": 1,
+                        "correct": 1,
+                        "accuracy": 0.92,
+                        "failures": 0,
+                    },
+                ],
+            },
+        ),
+        encoding="utf-8",
+    )
+    tier3_path.write_text(json.dumps({"completed": True}), encoding="utf-8")
+
+    monkeypatch.setattr(
+        al,
+        "_maybe_launch_modal",
+        lambda *_a: al.CommandResult(cmd=["modal", "run"], returncode=1),
+    )
+
+    def fake_run(cmd):
+        return al.CommandResult(cmd=cmd, returncode=0)
+
+    def fake_latest_report(tier):
+        return {1: tier1_path, 2: tier2_path, 3: tier3_path}[tier]
+
+    monkeypatch.setattr(al, "_run", fake_run)
+    monkeypatch.setattr(al, "_latest_report", fake_latest_report)
+    promotion_path = tmp_path / "artifacts" / "promotions" / "promotion-test.json"
+    promotion_path.parent.mkdir(parents=True)
+    promotion_path.write_text(
+        json.dumps(
+            {
+                "schema": "offline-tarteel.promotion.v2",
+                "run_id": task.id,
+                "gates": {
+                    "corpus_qa": True,
+                    "tier3_browser_required": True,
+                },
+            },
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(al, "_promote_run", lambda *_args: (0, promotion_path))
+    monkeypatch.setattr(al, "_git_sha", lambda: "abc123")
+
+    assert al.run_once(limit=1, allow_modal=True) == 0
+    state = tq.load_state()
+    updated = next(t for t in state.tasks if t.id == task.id)
+    assert updated.status == "promoted"
