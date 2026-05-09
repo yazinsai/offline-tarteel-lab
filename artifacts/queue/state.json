@@ -41,26 +41,29 @@
     },
     {
       "id": "task-78d7315b7988",
-      "status": "queued",
+      "status": "promoted",
       "kind": "runtime_only",
       "title": "Tune streaming chunk/window size",
       "payload": {
         "param": "chunk_seconds",
         "min_accuracy": 0.8,
+        "chunk_seconds": 0.32,
+        "window_overlap_fraction": 0.375,
+        "reference_chunk_seconds": 0.25,
         "agent_instructions": "Explore chunk/window parameters for streaming recitation tracking. Prefer small code changes and record the selected parameter vector in the task payload or experiment metadata.",
         "autopilot_key": "runtime.chunk_window_sweep"
       },
       "created_at": "2026-05-08T17:25:18.695736+00:00",
-      "updated_at": "2026-05-08T17:25:18.695736+00:00",
+      "updated_at": "2026-05-09T04:30:23.129819+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-78d7315b7988-20260509T043023Z.json",
+      "judge_reasons": [],
       "notes": ""
     },
     {
       "id": "task-048442117107",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Evaluate phoneme FastConformer training candidate",
       "payload": {
@@ -72,11 +75,13 @@
         "autopilot_key": "model.fastconformer_phoneme_smoke"
       },
       "created_at": "2026-05-09T01:10:37.211291+00:00",
-      "updated_at": "2026-05-09T01:10:37.211291+00:00",
+      "updated_at": "2026-05-09T04:30:23.639163+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
+      "judge_reasons": [
+        "modal_launch_failed"
+      ],
       "notes": ""
     }
   ]

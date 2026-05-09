@@ -10,6 +10,10 @@ notes: >
   Optional sibling JSON <stem>.first_verse.json overrides first verse; otherwise defaults to 1:1.
   First-match lock: when lock_confidence (deterministic hash ratio) is below FIRST_MATCH_THRESHOLD,
   predict() keeps provisional (1:1); set env FIRST_MATCH_THRESHOLD for sweeps. Default 0.0 locks immediately.
+  Chunk/window: CHUNK_SECONDS (default 0.32s) sets the streaming analysis window; STREAM_WINDOW_OVERLAP
+  sets overlap in [0, 0.9] (default 0.375). windows_until_lock scales inversely vs a 0.25s reference chunk.
 
 streaming_params:
   FIRST_MATCH_THRESHOLD: 0.0
+  CHUNK_SECONDS: 0.32
+  STREAM_WINDOW_OVERLAP: 0.375
