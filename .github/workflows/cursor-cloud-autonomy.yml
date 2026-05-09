@@ -46,6 +46,50 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Clean stale autonomy branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          open_refs="$(
+            gh pr list --state open --limit 100 --json headRefName,baseRefName \
+              --jq '.[] | .headRefName, .baseRefName' |
+              awk 'NF' |
+              sort -u
+          )"
+
+          is_open_ref() {
+            printf '%s\n' "$open_refs" | grep -Fxq "$1"
+          }
+
+          delete_branch() {
+            ref="$1"
+            if [ -z "$ref" ] || [ "$ref" = "main" ] || [ "$ref" = "$CURSOR_BASE_REF" ]; then
+              return 0
+            fi
+            if is_open_ref "$ref"; then
+              return 0
+            fi
+            gh api -X DELETE "repos/$GITHUB_REPOSITORY/git/refs/heads/$ref" || true
+          }
+
+          gh pr list --state closed --limit 200 --json headRefName \
+            --jq '.[].headRefName' |
+            awk 'NF && $0 ~ /^cursor\// { print }' |
+            sort -u |
+            while IFS= read -r ref; do
+              delete_branch "$ref"
+            done
+
+          gh api "repos/$GITHUB_REPOSITORY/git/matching-refs/heads/cursor-autonomy-base-" \
+            --jq '.[].ref' |
+            sed 's#^refs/heads/##' |
+            sort -u |
+            while IFS= read -r ref; do
+              delete_branch "$ref"
+            done
+
       - name: Publish exact Cursor base branch
         run: git push --force origin "HEAD:refs/heads/$CURSOR_BASE_REF"
 
