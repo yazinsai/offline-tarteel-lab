@@ -4,10 +4,19 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
+from collections import Counter
 from dataclasses import dataclass
 from typing import Any
 
-from lab_tools.task_queue import add_task_once, count_active, load_state
+from lab_tools.task_queue import (
+    add_task_once,
+    count_active,
+    load_state,
+    queue_lock,
+    save_state,
+    state_path,
+)
 
 
 @dataclass(frozen=True)
@@ -19,7 +28,7 @@ class Candidate:
 
 
 def candidates() -> list[Candidate]:
-    return [
+    static = [
         Candidate(
             key="runtime.smoke_streaming_baseline",
             kind="runtime_only",
@@ -94,9 +103,111 @@ def candidates() -> list[Candidate]:
             },
         ),
     ]
+    return static + adaptive_runtime_candidates()
+
+
+def adaptive_runtime_candidates() -> list[Candidate]:
+    focuses = [
+        ("chunk_seconds", "Tune streaming chunk duration"),
+        ("overlap_seconds", "Tune streaming chunk overlap"),
+        ("FIRST_MATCH_THRESHOLD", "Tune first-match threshold"),
+        ("VERSE_MATCH_THRESHOLD", "Tune verse-match threshold"),
+        ("smoothing_window", "Tune streaming smoothing window"),
+        ("correction_hysteresis", "Tune correction hysteresis"),
+        ("partial_match_margin", "Tune partial-match margin"),
+        ("debounce_ms", "Tune correction debounce"),
+    ]
+    out: list[Candidate] = []
+    for i in range(1, 25):
+        param, title = focuses[(i - 1) % len(focuses)]
+        out.append(
+            Candidate(
+                key=f"runtime.adaptive.{param}.{i:02d}",
+                kind="runtime_only",
+                title=f"{title} variant {i:02d}",
+                payload={
+                    "experiment": "smoke",
+                    "param": param,
+                    "min_accuracy": 0.8,
+                    "agent_instructions": (
+                        "Create a small deterministic runtime experiment variant under "
+                        "experiments/ with any supporting tests or benchmark JSON metadata. "
+                        "Use artifacts/autonomy_failures as negative memory and avoid repeating "
+                        "blocked paths. Do not touch training/, lab_tools/, orchestration/, "
+                        ".github/, pyproject.toml, or generated model/audio artifacts."
+                    ),
+                },
+            ),
+        )
+    return out
+
+
+def _failure_records() -> list[dict[str, Any]]:
+    root = state_path().parent.parent / "autonomy_failures"
+    if not root.is_dir():
+        return []
+    records: list[dict[str, Any]] = []
+    for path in sorted(root.glob("*.json")):
+        try:
+            records.append(json.loads(path.read_text(encoding="utf-8")))
+        except (OSError, json.JSONDecodeError):
+            continue
+    return records
+
+
+def _task_ids_from_failure(record: dict[str, Any]) -> set[str]:
+    task_ids: set[str] = set()
+    for filename in record.get("changed_files", []):
+        task_ids.update(re.findall(r"(task-[0-9a-f]{12})", str(filename)))
+    return task_ids
+
+
+def _retire_repeatedly_blocked_tasks(*, threshold: int = 2) -> list[str]:
+    failures = _failure_records()
+    if not failures:
+        return []
+
+    by_task: Counter[str] = Counter()
+    blocked_non_runtime = 0
+    for record in failures:
+        changed = [str(p) for p in record.get("changed_files", [])]
+        if any(
+            p == "pyproject.toml"
+            or p.startswith((".github/", "lab_tools/", "orchestration/", "training/"))
+            for p in changed
+        ):
+            blocked_non_runtime += 1
+        for task_id in _task_ids_from_failure(record):
+            by_task[task_id] += 1
+
+    retired: list[str] = []
+    with queue_lock():
+        state = load_state()
+        changed = False
+        for task in state.tasks:
+            if task.status not in {"queued", "running", "needs_eval"}:
+                continue
+            repeated_task_failure = by_task[task.id] >= threshold
+            unsafe_family = task.kind in {"model_only", "joint_model_runtime"} and blocked_non_runtime >= threshold
+            if not (repeated_task_failure or unsafe_family):
+                continue
+            task.status = "rejected"
+            task.judge_reasons = ["autopilot_failure_memory_retired"]
+            task.notes = (
+                "Retired by autopilot after repeated autonomous merge-gate failures. "
+                "Future work should be split into runtime-only auto-merge tasks or normal "
+                "human-review PRs for training/plumbing changes."
+            )
+            task.touch()
+            retired.append(task.id)
+            changed = True
+        if changed:
+            save_state(state)
+    return retired
 
 
 def plan(target_backlog: int) -> dict[str, Any]:
+    retired = _retire_repeatedly_blocked_tasks()
     added: list[str] = []
     active = count_active()
     for candidate in candidates():
@@ -115,6 +226,7 @@ def plan(target_backlog: int) -> dict[str, Any]:
     return {
         "active": active,
         "added": added,
+        "retired": retired,
         "total_tasks": len(state.tasks),
         "queued": sum(1 for t in state.tasks if t.status == "queued"),
     }
