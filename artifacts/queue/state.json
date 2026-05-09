@@ -124,7 +124,7 @@
     },
     {
       "id": "task-f34e3fbbf158",
-      "status": "queued",
+      "status": "promoted",
       "kind": "runtime_only",
       "title": "Tune streaming chunk overlap variant 02",
       "payload": {
@@ -135,11 +135,11 @@
         "autopilot_key": "runtime.adaptive.overlap_seconds.02"
       },
       "created_at": "2026-05-09T06:53:09.576961+00:00",
-      "updated_at": "2026-05-09T06:53:09.576961+00:00",
+      "updated_at": "2026-05-09T06:59:01.685493+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-f34e3fbbf158-20260509T065901Z.json",
+      "judge_reasons": [],
       "notes": ""
     },
     {
@@ -256,6 +256,26 @@
       },
       "created_at": "2026-05-09T06:53:09.579486+00:00",
       "updated_at": "2026-05-09T06:53:09.579486+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-bd54656e30cf",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune streaming chunk duration variant 09",
+      "payload": {
+        "experiment": "smoke",
+        "param": "chunk_seconds",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.chunk_seconds.09"
+      },
+      "created_at": "2026-05-09T06:58:16.293668+00:00",
+      "updated_at": "2026-05-09T06:58:16.293668+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,

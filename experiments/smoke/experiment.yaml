@@ -11,10 +11,11 @@ notes: >
   First-match lock: when lock_confidence (deterministic hash ratio) is below FIRST_MATCH_THRESHOLD,
   predict() keeps provisional (1:1); set env FIRST_MATCH_THRESHOLD for sweeps. Default 0.0 locks immediately.
   Chunk/window: default chunk_seconds 0.285s (env CHUNK_SECONDS; variant 01 runtime.adaptive.chunk_seconds.01);
-  windows_until_lock scales inversely against window_lock_reference_chunk_seconds 0.25 so shorter frames
-  require more windows before lock.
+  overlap: default overlap_seconds 0.06s (env OVERLAP_SECONDS; variant 02 runtime.adaptive.overlap_seconds.02);
+  effective_stride_seconds = chunk_seconds - overlap_seconds; windows_until_lock scales inversely with stride.
 
 streaming_params:
   FIRST_MATCH_THRESHOLD: 0.0
   chunk_seconds: 0.285
+  overlap_seconds: 0.06
   window_lock_reference_chunk_seconds: 0.25

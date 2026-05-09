@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import importlib.util
-import os
 from pathlib import Path
 
 
@@ -19,6 +18,7 @@ def _load_smoke_run():
 
 def test_smoke_default_chunk_seconds_variant_01(monkeypatch, tmp_path):
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
+    monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     mod = _load_smoke_run()
     audio = tmp_path / "s001-a001.wav"
     audio.write_bytes(b"")
@@ -27,6 +27,7 @@ def test_smoke_default_chunk_seconds_variant_01(monkeypatch, tmp_path):
 
 
 def test_smoke_chunk_seconds_env_override(monkeypatch, tmp_path):
+    monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.setenv("CHUNK_SECONDS", "0.22")
     mod = _load_smoke_run()
     audio = tmp_path / "clip.wav"
@@ -35,7 +36,36 @@ def test_smoke_chunk_seconds_env_override(monkeypatch, tmp_path):
     assert out["streaming"]["chunk_seconds"] == 0.22
 
 
+def test_smoke_default_overlap_seconds_variant_02(monkeypatch, tmp_path):
+    monkeypatch.delenv("CHUNK_SECONDS", raising=False)
+    monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "overlap-default.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["overlap_seconds"] == mod._DEFAULT_STREAM_OVERLAP_SECONDS
+    assert out["streaming"]["effective_stride_seconds"] == round(
+        mod._DEFAULT_STREAM_CHUNK_SECONDS - mod._DEFAULT_STREAM_OVERLAP_SECONDS,
+        6,
+    )
+
+
+def test_smoke_overlap_seconds_env_override(monkeypatch, tmp_path):
+    monkeypatch.delenv("CHUNK_SECONDS", raising=False)
+    monkeypatch.setenv("OVERLAP_SECONDS", "0.10")
+    mod = _load_smoke_run()
+    audio = tmp_path / "overlap-sweep.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    chunk = mod._DEFAULT_STREAM_CHUNK_SECONDS
+    max_ov = chunk - (mod._REF_CHUNK_SECONDS * 0.05)
+    expected_ov = min(0.10, max_ov)
+    assert out["streaming"]["overlap_seconds"] == expected_ov
+    assert out["streaming"]["effective_stride_seconds"] == round(chunk - expected_ov, 6)
+
+
 def test_windows_until_lock_scales_with_chunk(monkeypatch, tmp_path):
+    monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     mod_short = _load_smoke_run()
     monkeypatch.setenv("CHUNK_SECONDS", "0.20")
