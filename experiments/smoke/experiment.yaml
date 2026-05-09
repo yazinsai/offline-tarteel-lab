@@ -13,8 +13,11 @@ notes: >
   Chunk/window: default chunk_seconds 0.285s (env CHUNK_SECONDS; variant 01 runtime.adaptive.chunk_seconds.01);
   windows_until_lock scales inversely against window_lock_reference_chunk_seconds 0.25 so shorter frames
   require more windows before lock.
+  Overlap/hop: default overlap_seconds 0.062s when OVERLAP_SECONDS unset (variant 02 runtime.adaptive.overlap_seconds.02);
+  stride = chunk_seconds - overlap_seconds (clamped); windows_until_lock multiplies by chunk/stride vs overlap-free scaling.
 
 streaming_params:
   FIRST_MATCH_THRESHOLD: 0.0
   chunk_seconds: 0.285
+  overlap_seconds: 0.062
   window_lock_reference_chunk_seconds: 0.25
