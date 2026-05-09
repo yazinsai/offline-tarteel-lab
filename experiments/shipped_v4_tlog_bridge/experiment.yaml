@@ -1,0 +1,13 @@
+kind: joint_model_runtime
+hypothesis: >
+  Bridge tier-2 scoring to yazinsai/offline-tarteel web frontend: fastconformer_phoneme_q8.onnx,
+  mel + CTC + trie beam + RecitationTracker streaming (lab_predict_one.ts), wired from Python run.py.
+  Reference checkout must include git-lfs ONNX (see OFFLINE_TARTEEL_REFERENCE_ROOT). No labels from paths or manifests in predict().
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Runtime pulls Node deps via npm ci in the reference tree; ONNX stays external (not committed to this lab repo).
+  Target offline accuracy band on test_corpus_v3 is ~223–225 / 256 per autopilot task payload.
