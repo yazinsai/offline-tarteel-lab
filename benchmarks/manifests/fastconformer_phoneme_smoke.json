@@ -1,0 +1,12 @@
+{
+  "schema": "offline-tarteel.training_job_manifest.v1",
+  "autopilot_key": "model.fastconformer_phoneme_smoke",
+  "local_entrypoint": "training/train_fastconformer_phoneme_modal.py",
+  "modal_invocation": "modal run --detach training/train_fastconformer_phoneme_modal.py",
+  "notes": "Local entrypoint is a no-GPU smoke run; enable LAB_AUTONOMY_ALLOW_MODAL for detached Modal jobs.",
+  "eval_contract": {
+    "max_onnx_mb": 200,
+    "min_tier2_accuracy": 0.85,
+    "reference_corpus": "test_corpus_v3"
+  }
+}
