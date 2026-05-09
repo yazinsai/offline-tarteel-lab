@@ -78,15 +78,16 @@ Follow this exact operating procedure:
 6. ${autopilotPlan ? `Replenish the autonomous backlog: python3 -m lab_tools.autopilot plan --target-backlog ${targetBacklog}.` : "Do not replenish the backlog unless explicitly needed by the queue state."}
 7. Inspect the next queued task with python3 -m lab_tools.task_queue list.
 8. Before running evaluation, implement or tune the next queued task according to its payload.agent_instructions. For model_only or joint_model_runtime tasks, launch Modal only when ${allowModal ? "allowed by this run" : "LAB_AUTONOMY_ALLOW_MODAL is enabled"}; otherwise prepare local training/eval improvements without spending external compute.
-9. Run the bounded controller: ${runCommand}
-10. Run verification: pytest. If orchestration TypeScript changed, also run: cd orchestration && npx tsc --noEmit.
-11. Commit only relevant promoted code changes plus JSON metadata under artifacts/queue, artifacts/runs, artifacts/promotions, and artifacts/experiment_ledger.jsonl.
-12. Open the PR against the ${config.startingRef} branch.
-13. If a task is promoted, make the PR title start with "Promote offline-tarteel experiment:".
-14. If the bounded controller rejects the task or no task is promoted, revert all candidate code, test, and benchmark-manifest edits before committing. The PR must be state-only: artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
-15. If no task is promoted but queue/run/ledger state changed, make the PR title start with "Autopilot offline-tarteel state:" and include only artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
-16. Do not open a normal code PR for a rejected autonomous task. Human-review code PRs are only for explicitly useful prototypes that are not rejected controller runs.
-17. The PR description must explain the attempted experiment in concrete terms so reviewers do not need to read the diff to understand it. Include these sections:
+9. If the next task payload has reference_repo_url or reference_baseline, a state-only smoke rerun is invalid. Clone the reference_repo_url if the sibling reference_repo path is missing, create or update a real runnable experiment under experiments/, register/select it by setting the queued task payload.experiment to that experiment name in artifacts/queue/state.json, and only then run the bounded controller. If you cannot clone or cannot create a real audio-driven experiment, stop with a non-zero exit instead of opening another rejected smoke/state-only PR.
+10. Run the bounded controller: ${runCommand}
+11. Run verification: pytest. If orchestration TypeScript changed, also run: cd orchestration && npx tsc --noEmit.
+12. Commit only relevant promoted code changes plus JSON metadata under artifacts/queue, artifacts/runs, artifacts/promotions, and artifacts/experiment_ledger.jsonl.
+13. Open the PR against the ${config.startingRef} branch.
+14. If a task is promoted, make the PR title start with "Promote offline-tarteel experiment:".
+15. If the bounded controller rejects the task or no task is promoted, revert all candidate code, test, and benchmark-manifest edits before committing. The PR must be state-only: artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
+16. If no task is promoted but queue/run/ledger state changed, make the PR title start with "Autopilot offline-tarteel state:" and include only artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
+17. Do not open a normal code PR for a rejected autonomous task. Human-review code PRs are only for explicitly useful prototypes that are not rejected controller runs.
+18. The PR description must explain the attempted experiment in concrete terms so reviewers do not need to read the diff to understand it. Include these sections:
    - "Attempted change": the exact parameter/model/tracker/rule change tried, with before -> after values when applicable.
    - "Files changed during the probe": files you edited while testing, including files later reverted for a rejected task.
    - "Evaluation result": corpus, sample count, command, accuracy/objective, gate outcome, and rejection/promotion reason.
