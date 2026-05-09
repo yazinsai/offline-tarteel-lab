@@ -20,7 +20,7 @@ notes: >
   Chunk/window: default chunk_seconds 0.268s (env CHUNK_SECONDS; variant 09 runtime.adaptive.chunk_seconds.09);
   windows_until_lock scales inversely against window_lock_reference_chunk_seconds 0.25 so shorter frames
   require more windows before lock.
-  Overlap/hop: default overlap_seconds 0.062s when OVERLAP_SECONDS unset (variant 02 runtime.adaptive.overlap_seconds.02);
+  Overlap/hop: default overlap_seconds 0.071s when OVERLAP_SECONDS unset (variant 10 runtime.adaptive.overlap_seconds.10);
   stride = chunk_seconds - overlap_seconds (clamped); windows_until_lock multiplies by chunk/stride vs overlap-free scaling.
   Smoothing window: integer SMOOTHING_WINDOW frames (variant 05 runtime.adaptive.smoothing_window.05 default 3 when unset):
   scales windows_until_lock by (1 + 0.035 * frames) for observable delay without changing first-match surah/ayah.
@@ -35,7 +35,7 @@ streaming_params:
   FIRST_MATCH_THRESHOLD: 0.018
   VERSE_MATCH_THRESHOLD: 0.412
   chunk_seconds: 0.268
-  overlap_seconds: 0.062
+  overlap_seconds: 0.071
   smoothing_window: 3
   correction_hysteresis: 0.012
   partial_match_margin: 0.008

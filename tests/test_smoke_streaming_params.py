@@ -86,7 +86,7 @@ def test_windows_until_lock_scales_with_chunk(monkeypatch, tmp_path):
     assert lower_w >= default_w
 
 
-def test_smoke_default_overlap_seconds_variant_02(monkeypatch, tmp_path):
+def test_smoke_default_overlap_seconds_variant_10(monkeypatch, tmp_path):
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
