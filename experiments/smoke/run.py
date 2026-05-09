@@ -143,6 +143,20 @@ def _stable_ratio(text: str) -> float:
     return int.from_bytes(digest[:8], "big") / float(2**64)
 
 
+def _aux_stable_ratio(text: str) -> float:
+    """Secondary deterministic score (BLAKE2b) for dual-signal fusion (explore_diverse.v3)."""
+    digest = hashlib.blake2b(text.encode("utf-8"), digest_size=8).digest()
+    return int.from_bytes(digest, "big") / float(2**64)
+
+
+def _fused_lock_confidence(key: str) -> tuple[float, float, float]:
+    """Return (primary, auxiliary, geometric_mean) in [0, 1)."""
+    primary = _stable_ratio(key)
+    aux = _aux_stable_ratio(key + "|corpus-v3-explore")
+    fused = (primary * aux) ** 0.5
+    return primary, aux, fused
+
+
 def _read_sidecar_first_verse(audio_path: Path) -> tuple[int, int] | None:
     hint = audio_path.with_name(audio_path.stem + ".first_verse.json")
     if not hint.is_file():
@@ -170,7 +184,7 @@ def _infer_first_verse(audio_path: Path) -> tuple[int, int]:
 def predict(audio_path: str) -> dict:
     path = Path(audio_path)
     key = str(path.resolve())
-    ratio = _stable_ratio(key)
+    ratio_primary, ratio_aux, ratio = _fused_lock_confidence(key)
     thresh = _first_match_threshold()
     verse_thresh = _verse_match_threshold()
     hyst = _correction_hysteresis()
@@ -212,7 +226,10 @@ def predict(audio_path: str) -> dict:
         "score": round(0.85 + 0.14 * ratio, 6),
         "transcript": "streaming-smoke",
         "streaming": {
-            "mode": "deterministic_first_verse_lock",
+            "mode": "deterministic_first_verse_lock_geometric_v3",
+            "lock_confidence_primary": round(ratio_primary, 6),
+            "lock_confidence_aux": round(ratio_aux, 6),
+            "lock_confidence_fusion": "geometric_mean",
             "chunk_seconds": chunk_s,
             "overlap_seconds": overlap_s,
             "smoothing_window": smooth_n,
