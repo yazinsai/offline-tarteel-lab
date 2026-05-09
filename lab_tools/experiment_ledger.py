@@ -100,6 +100,7 @@ def append_run_record(
     *,
     status: str = "judged",
     decision: dict[str, Any] | None = None,
+    path: Path | None = None,
 ) -> dict[str, Any]:
     record = json.loads(run_record_path.read_text(encoding="utf-8"))
     return append_entry(
@@ -109,6 +110,7 @@ def append_run_record(
             status=status,
             decision=decision,
         ),
+        path=path,
     )
 
 

@@ -93,6 +93,10 @@ def test_run_once_promotes_accepted_task(tmp_path, monkeypatch):
     record = json.loads((tmp_path / updated.run_record_path).read_text(encoding="utf-8"))
     assert record["metrics"]["tier2_accuracy"] == 1.0
     assert record["tier_completed"] == [1, 2, 3]
+    ledger_path = tmp_path / "artifacts" / "experiment_ledger.jsonl"
+    ledger_rows = [json.loads(line) for line in ledger_path.read_text(encoding="utf-8").splitlines()]
+    assert ledger_rows[-1]["run_id"] == record["run_id"]
+    assert ledger_rows[-1]["artifacts"]["run_record"] == updated.run_record_path
 
     promotion = json.loads(promotion_path.read_text(encoding="utf-8"))
     assert promotion["schema"] == "offline-tarteel.promotion.v2"

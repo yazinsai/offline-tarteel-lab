@@ -172,7 +172,12 @@ def _write_run_record(
 
 def _append_ledger(run_record: Path, *, status: str, decision: dict[str, Any] | None = None) -> None:
     try:
-        append_run_record(run_record, status=status, decision=decision)
+        append_run_record(
+            run_record,
+            status=status,
+            decision=decision,
+            path=lab_root() / "artifacts" / "experiment_ledger.jsonl",
+        )
     except (OSError, json.JSONDecodeError, TypeError, ValueError) as exc:
         print(f"warning: failed to append experiment ledger: {exc}", file=sys.stderr)
 
