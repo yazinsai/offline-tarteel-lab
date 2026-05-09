@@ -12,6 +12,9 @@ from pathlib import Path
 # Variant runtime.adaptive.FIRST_MATCH_THRESHOLD.03: small positive default so very low
 # lock_confidence stays provisional (1:1) until env FIRST_MATCH_THRESHOLD overrides.
 _DEFAULT_FIRST_MATCH_THRESHOLD = 0.018
+# Variant runtime.adaptive.VERSE_MATCH_THRESHOLD.04: stricter secondary gate on the same
+# lock_confidence ratio; does not change surah/ayah (tier-2 still keys off first-match lock).
+_DEFAULT_VERSE_MATCH_THRESHOLD = 0.412
 
 
 def _first_match_threshold() -> float:
@@ -19,6 +22,14 @@ def _first_match_threshold() -> float:
     raw = os.environ.get("FIRST_MATCH_THRESHOLD")
     if raw is None or raw.strip() == "":
         return _DEFAULT_FIRST_MATCH_THRESHOLD
+    return float(raw)
+
+
+def _verse_match_threshold() -> float:
+    """Higher-confidence verse alignment marker; sweep via VERSE_MATCH_THRESHOLD env."""
+    raw = os.environ.get("VERSE_MATCH_THRESHOLD")
+    if raw is None or raw.strip() == "":
+        return _DEFAULT_VERSE_MATCH_THRESHOLD
     return float(raw)
 
 
@@ -97,7 +108,9 @@ def predict(audio_path: str) -> dict:
     key = str(path.resolve())
     ratio = _stable_ratio(key)
     thresh = _first_match_threshold()
+    verse_thresh = _verse_match_threshold()
     locked = ratio + 1e-15 >= thresh
+    verse_locked = ratio + 1e-15 >= verse_thresh
     inferred_surah, inferred_ayah = _infer_first_verse(path)
     # Before locking, hold a conservative provisional stance (short-stream default).
     surah, ayah = (inferred_surah, inferred_ayah) if locked else (1, 1)
@@ -126,6 +139,8 @@ def predict(audio_path: str) -> dict:
             "lock_confidence": round(ratio, 6),
             "first_match_threshold": thresh,
             "first_match_locked": locked,
+            "verse_match_threshold": verse_thresh,
+            "verse_match_locked": verse_locked,
             "first_surah": surah,
             "first_ayah": ayah,
         },
