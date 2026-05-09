@@ -1,0 +1,41 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-c1178780d937-20260509T011128Z",
+  "task_id": "task-c1178780d937",
+  "created_at_utc": "2026-05-09T01:11:28.822765+00:00",
+  "git_sha": "5a18f9f10d3a65b3a9d32018669cb8c376e3827f",
+  "dataset_revision": "test_corpus_v3",
+  "experiment_kind": "runtime_only",
+  "parameter_vector": {
+    "param": "FIRST_MATCH_THRESHOLD",
+    "min_accuracy": 0.8,
+    "agent_instructions": "Search for runtime threshold logic or create an experiment that models a first-match threshold sweep. Evaluate multiple candidates locally and commit the best deterministic experiment only if it improves Tier-2 accuracy.",
+    "autopilot_key": "runtime.threshold_sweep.first_match"
+  },
+  "metrics": {
+    "tier1_passed": 1,
+    "tier1_total": 1,
+    "tier2_experiment": "smoke",
+    "tier2_accuracy": 1.0,
+    "tier2_correct": 1,
+    "tier2_samples": 1,
+    "tier2_failures": 0,
+    "tier3_completed": true,
+    "baseline_accuracy": null,
+    "min_accuracy": 0.8,
+    "onnx_mb": null,
+    "max_onnx_mb": 200,
+    "target_recall": 1.0
+  },
+  "tier_completed": [
+    1,
+    2,
+    3
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 1 --corpus test_corpus_v3 --limit 12",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 12",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 3"
+  ]
+}
