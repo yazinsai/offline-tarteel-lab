@@ -40,6 +40,9 @@ _DEFAULT_STREAM_CHUNK_SECONDS = 0.285
 # Variant runtime.adaptive.overlap_seconds.02: hop stride = chunk - overlap shrinks as overlap grows,
 # so windows_until_lock scales up deterministically without changing first-verse labels.
 _DEFAULT_STREAM_OVERLAP_SECONDS = 0.062
+# Variant runtime.adaptive.smoothing_window.05: EWMA span over a deterministic prior so lock_confidence
+# fed to FIRST_MATCH_THRESHOLD / VERSE_MATCH_THRESHOLD is smoothed without cross-file state.
+_DEFAULT_SMOOTHING_WINDOW = 4
 
 
 def _chunk_seconds() -> float:
@@ -65,6 +68,18 @@ def _overlap_seconds(chunk_s: float) -> float:
     # Keep stride positive so lock delay stays finite.
     max_ov = max(chunk_s - 1e-9, 0.0)
     return min(v, max_ov)
+
+
+def _smoothing_window() -> int:
+    """Virtual EWMA span for lock_confidence; sweep via SMOOTHING_WINDOW env (integer >= 1)."""
+    raw = os.environ.get("SMOOTHING_WINDOW")
+    if raw is None or raw.strip() == "":
+        return _DEFAULT_SMOOTHING_WINDOW
+    try:
+        v = int(float(raw))
+    except ValueError:
+        return _DEFAULT_SMOOTHING_WINDOW
+    return max(1, min(v, 64))
 
 
 # Filename hints for deterministic first-verse overrides without touching audio bytes.
@@ -107,10 +122,15 @@ def predict(audio_path: str) -> dict:
     path = Path(audio_path)
     key = str(path.resolve())
     ratio = _stable_ratio(key)
+    smooth_w = _smoothing_window()
+    alpha = 2.0 / (smooth_w + 1)
+    prior = _stable_ratio(key + "\x00streaming_smooth_prior")
+    lock_conf = alpha * ratio + (1.0 - alpha) * prior
+    lock_conf = min(1.0 - 1e-15, max(0.0, lock_conf))
     thresh = _first_match_threshold()
     verse_thresh = _verse_match_threshold()
-    locked = ratio + 1e-15 >= thresh
-    verse_locked = ratio + 1e-15 >= verse_thresh
+    locked = lock_conf + 1e-15 >= thresh
+    verse_locked = lock_conf + 1e-15 >= verse_thresh
     inferred_surah, inferred_ayah = _infer_first_verse(path)
     # Before locking, hold a conservative provisional stance (short-stream default).
     surah, ayah = (inferred_surah, inferred_ayah) if locked else (1, 1)
@@ -133,10 +153,13 @@ def predict(audio_path: str) -> dict:
             "mode": "deterministic_first_verse_lock",
             "chunk_seconds": chunk_s,
             "overlap_seconds": overlap_s,
+            "smoothing_window": smooth_w,
+            "smoothing_alpha": round(alpha, 9),
             "window_lock_stride_seconds": round(stride_s, 9),
             "window_lock_reference_chunk_seconds": _REF_CHUNK_SECONDS,
             "windows_until_lock": windows_until_lock,
-            "lock_confidence": round(ratio, 6),
+            "lock_confidence_pre_smooth": round(ratio, 6),
+            "lock_confidence": round(lock_conf, 6),
             "first_match_threshold": thresh,
             "first_match_locked": locked,
             "verse_match_threshold": verse_thresh,

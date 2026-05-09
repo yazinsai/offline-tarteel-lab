@@ -119,3 +119,40 @@ def test_windows_until_lock_increases_with_overlap(monkeypatch, tmp_path):
     w_low = mod_low_overlap.predict(str(audio))["streaming"]["windows_until_lock"]
     w_high = mod_high_overlap.predict(str(audio))["streaming"]["windows_until_lock"]
     assert w_high >= w_low
+
+
+def test_smoke_default_smoothing_window_variant_05(monkeypatch, tmp_path):
+    monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "smoothing-default.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["smoothing_window"] == mod._DEFAULT_SMOOTHING_WINDOW
+    assert out["streaming"]["lock_confidence_pre_smooth"] == round(
+        mod._stable_ratio(str(audio.resolve())),
+        6,
+    )
+
+
+def test_smoke_smoothing_window_env_override(monkeypatch, tmp_path):
+    monkeypatch.setenv("SMOOTHING_WINDOW", "9")
+    mod = _load_smoke_run()
+    audio = tmp_path / "smoothing-env.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["smoothing_window"] == 9
+    assert out["streaming"]["smoothing_alpha"] == round(2.0 / 10.0, 9)
+
+
+def test_smoke_lock_confidence_ema_formula(monkeypatch, tmp_path):
+    monkeypatch.setenv("SMOOTHING_WINDOW", "3")
+    mod = _load_smoke_run()
+    audio = tmp_path / "smoothing-formula.wav"
+    audio.write_bytes(b"")
+    key = str(audio.resolve())
+    ratio = mod._stable_ratio(key)
+    prior = mod._stable_ratio(key + "\x00streaming_smooth_prior")
+    alpha = 2.0 / 4.0
+    expected = min(1.0 - 1e-15, max(0.0, alpha * ratio + (1.0 - alpha) * prior))
+    out = mod.predict(str(audio))
+    assert out["streaming"]["lock_confidence"] == round(expected, 6)
