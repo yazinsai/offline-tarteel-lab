@@ -8,6 +8,11 @@ import os
 import re
 from pathlib import Path
 
+try:
+    import yaml
+except ImportError:  # pragma: no cover
+    yaml = None  # type: ignore[misc, assignment]
+
 
 def _first_match_threshold() -> float:
     """Synthetic streaming gate; lower values lock earlier (more aggressive inference)."""
@@ -20,10 +25,38 @@ def _first_match_threshold() -> float:
 _REF_CHUNK_SECONDS = 0.25  # calibrates windows_until_lock vs chunk duration
 
 
+def _manifest_chunk_seconds_default() -> float | None:
+    """Read streaming_params.chunk_seconds from adjacent experiment.yaml when present."""
+    if yaml is None:
+        return None
+    meta = Path(__file__).resolve().parent / "experiment.yaml"
+    if not meta.is_file():
+        return None
+    try:
+        data = yaml.safe_load(meta.read_text(encoding="utf-8"))
+        if not isinstance(data, dict):
+            return None
+        sp = data.get("streaming_params")
+        if not isinstance(sp, dict):
+            return None
+        v = sp.get("chunk_seconds")
+        if v is None:
+            return None
+        f = float(v)
+        if f <= 0:
+            return None
+        return f
+    except (OSError, TypeError, ValueError, yaml.YAMLError):
+        return None
+
+
 def _chunk_seconds() -> float:
     """Decoder / streaming frame size for metadata; sweep via CHUNK_SECONDS env."""
     raw = os.environ.get("CHUNK_SECONDS")
     if raw is None or raw.strip() == "":
+        mf = _manifest_chunk_seconds_default()
+        if mf is not None:
+            return mf
         return 0.30
     v = float(raw)
     if v <= 0:

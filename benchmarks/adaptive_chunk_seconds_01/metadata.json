@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.adaptive_variant_manifest.v1",
+  "variant": "chunk_seconds_variant_01",
+  "autopilot_key": "runtime.adaptive.chunk_seconds.01",
+  "param": "chunk_seconds",
+  "parent_manifest": "benchmark/test_corpus_v3/manifest.json",
+  "referenced_samples": [
+    {
+      "id": "lab_smoke_v3",
+      "file": "sample_placeholder.wav",
+      "expected_verses": [{ "surah": 1, "ayah": 1 }]
+    }
+  ],
+  "notes": [
+    "Deterministic Tier-2 experiment name remains `smoke`; this manifest records autopilot variant 01 only.",
+    "Default streaming chunk_seconds when CHUNK_SECONDS is unset is read from experiments/smoke/experiment.yaml (0.28s for variant 01).",
+    "Do not repeat blocked autonomy paths named in autonomy_failures for pyproject.toml or training/train_fastconformer_phoneme_modal.py when avoidable."
+  ]
+}
