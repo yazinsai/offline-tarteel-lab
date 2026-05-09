@@ -1,12 +1,17 @@
-"""Standalone Modal training entrypoint placeholder for lab experiments.
+"""Standalone Modal training entrypoint for lab phoneme smoke jobs.
 
-Replace the train() body with your real NeMo training logic.
+Keeps a real Modal local entrypoint so `modal run path/to/this/file.py` works
+(the autopilot uses that form). Local smoke: `python ... --job-name foo`.
 """
 
 from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
+
+import modal
+
+app = modal.App("offline-tarteel-fastconformer-phoneme-lab")
 
 
 def train(job_name: str) -> None:
@@ -16,8 +21,13 @@ def train(job_name: str) -> None:
     print(f"[training] timestamp={datetime.now(timezone.utc).isoformat()}")
 
 
+@app.local_entrypoint()
+def run(job_name: str = "fastconformer-phoneme-smoke") -> None:
+    train(job_name)
+
+
 def main() -> None:
-    p = argparse.ArgumentParser(description="Launch standalone lab training job")
+    p = argparse.ArgumentParser(description="Launch standalone lab training job (local Python)")
     p.add_argument("--job-name", default="fastconformer-phoneme-smoke")
     args = p.parse_args()
     train(args.job_name)

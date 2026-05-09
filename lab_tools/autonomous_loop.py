@@ -200,7 +200,16 @@ def _maybe_launch_modal(task: Task, allow_modal: bool) -> CommandResult | None:
     if task.kind not in {"model_only", "joint_model_runtime"} or not payload.get("modal_training"):
         return None
     job_name = str(payload.get("job_name", task.id))
-    cmd = ["modal", "run", "--detach", "training/train_fastconformer_phoneme_modal.py", "--job-name", job_name]
+    cmd = [
+        sys.executable,
+        "-m",
+        "modal",
+        "run",
+        "--detach",
+        "training/train_fastconformer_phoneme_modal.py",
+        "--job-name",
+        job_name,
+    ]
     if not allow_modal:
         print(
             f"modal training requested for {task.id}; rerun with --allow-modal to launch: {' '.join(cmd)}",
