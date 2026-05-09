@@ -34,6 +34,24 @@ def test_smoke_first_match_threshold_env_override(monkeypatch, tmp_path):
     assert out["streaming"]["first_match_threshold"] == 0.0
 
 
+def test_smoke_default_verse_match_threshold_variant_04(monkeypatch, tmp_path):
+    monkeypatch.delenv("VERSE_MATCH_THRESHOLD", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "verse-match-default.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["verse_match_threshold"] == mod._DEFAULT_VERSE_MATCH_THRESHOLD
+
+
+def test_smoke_verse_match_threshold_env_override(monkeypatch, tmp_path):
+    monkeypatch.setenv("VERSE_MATCH_THRESHOLD", "0.0")
+    mod = _load_smoke_run()
+    audio = tmp_path / "verse-match-env.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["verse_match_threshold"] == 0.0
+
+
 def test_smoke_default_chunk_seconds_variant_01(monkeypatch, tmp_path):
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     mod = _load_smoke_run()

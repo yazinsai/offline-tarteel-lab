@@ -16,9 +16,13 @@ notes: >
   require more windows before lock.
   Overlap/hop: default overlap_seconds 0.062s when OVERLAP_SECONDS unset (variant 02 runtime.adaptive.overlap_seconds.02);
   stride = chunk_seconds - overlap_seconds (clamped); windows_until_lock multiplies by chunk/stride vs overlap-free scaling.
+  Verse gate: independent verse_match_confidence (hash of key plus newline-salted \"verse\"); when first_match_locked but
+  verse_match_confidence is below VERSE_MATCH_THRESHOLD, predict() keeps provisional (1:1). Default 0.015 when unset
+  (variant 04 runtime.adaptive.VERSE_MATCH_THRESHOLD.04).
 
 streaming_params:
   FIRST_MATCH_THRESHOLD: 0.018
+  VERSE_MATCH_THRESHOLD: 0.015
   chunk_seconds: 0.285
   overlap_seconds: 0.062
   window_lock_reference_chunk_seconds: 0.25
