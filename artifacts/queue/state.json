@@ -502,7 +502,7 @@
     },
     {
       "id": "task-a8e773a46869",
-      "status": "queued",
+      "status": "rejected",
       "kind": "runtime_only",
       "title": "Tune streaming chunk duration variant 17",
       "payload": {
@@ -513,11 +513,13 @@
         "autopilot_key": "runtime.adaptive.chunk_seconds.17"
       },
       "created_at": "2026-05-09T08:50:07.697881+00:00",
-      "updated_at": "2026-05-09T08:50:07.697881+00:00",
+      "updated_at": "2026-05-09T12:35:28.190245+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-a8e773a46869-20260509T123528Z.json",
+      "judge_reasons": [
+        "champion_objective_not_improved"
+      ],
       "notes": ""
     },
     {
@@ -634,6 +636,26 @@
       },
       "created_at": "2026-05-09T12:04:55.752110+00:00",
       "updated_at": "2026-05-09T12:04:55.752110+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-cdd96ea65fd8",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune correction debounce variant 24",
+      "payload": {
+        "experiment": "smoke",
+        "param": "debounce_ms",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.debounce_ms.24"
+      },
+      "created_at": "2026-05-09T12:34:34.276120+00:00",
+      "updated_at": "2026-05-09T12:34:34.276120+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
