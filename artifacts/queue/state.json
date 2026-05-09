@@ -658,7 +658,7 @@
     },
     {
       "id": "task-cdd96ea65fd8",
-      "status": "queued",
+      "status": "rejected",
       "kind": "runtime_only",
       "title": "Tune correction debounce variant 24",
       "payload": {
@@ -669,11 +669,13 @@
         "autopilot_key": "runtime.adaptive.debounce_ms.24"
       },
       "created_at": "2026-05-09T12:34:34.276120+00:00",
-      "updated_at": "2026-05-09T12:34:34.276120+00:00",
+      "updated_at": "2026-05-09T14:42:10.959212+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-cdd96ea65fd8-20260509T144210Z.json",
+      "judge_reasons": [
+        "min_accuracy_not_met"
+      ],
       "notes": ""
     }
   ]
