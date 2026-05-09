@@ -17,10 +17,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from lab_tools.experiment_ledger import append_run_record, read_entries
 from lab_tools.paths import lab_root
-from lab_tools.experiment_ledger import append_run_record
 from lab_tools.judge_policy import JudgeInput, judge
+from lab_tools.scorer import score_metrics
 from lab_tools.task_queue import Task, load_state, next_queued, set_status
+
+MIN_OBJECTIVE_DELTA = 0.0001
+MIN_PROMOTION_CORPUS_SAMPLES = 12
 
 
 @dataclass
@@ -90,14 +94,27 @@ def _metrics_from_reports(
     best = _best_tier2_result(tier2, str(experiment) if experiment else None)
 
     accuracy = best.get("accuracy")
+    tier2_samples = best.get("samples")
+    tier2_failures = best.get("failures")
+    tier2_evaluated = best.get("evaluated_samples")
+    if tier2_evaluated is None and tier2_samples is not None:
+        try:
+            tier2_evaluated = int(tier2_samples) + int(tier2_failures or 0)
+        except (TypeError, ValueError):
+            tier2_evaluated = tier2_samples
+    manifest_samples = best.get("manifest_samples", tier2.get("manifest_samples"))
     metrics: dict[str, Any] = {
         "tier1_passed": tier1.get("passed"),
         "tier1_total": tier1.get("total"),
         "tier2_experiment": best.get("experiment"),
         "tier2_accuracy": accuracy,
         "tier2_correct": best.get("correct"),
-        "tier2_samples": best.get("samples"),
-        "tier2_failures": best.get("failures"),
+        "tier2_samples": tier2_samples,
+        "tier2_evaluated_samples": tier2_evaluated,
+        "tier2_manifest_samples": manifest_samples,
+        "tier2_selected_samples": tier2.get("selected_samples"),
+        "tier2_sample_limit": tier2.get("sample_limit"),
+        "tier2_failures": tier2_failures,
         "tier3_completed": bool(tier3.get("completed")),
         "baseline_accuracy": payload.get("baseline_accuracy", payload.get("baseline_recall")),
         "min_accuracy": payload.get("min_accuracy"),
@@ -116,6 +133,45 @@ def _metrics_from_reports(
     if metrics["baseline_accuracy"] is not None:
         metrics["baseline_recall"] = metrics["baseline_accuracy"]
     return metrics
+
+
+def _number(value: Any) -> float | None:
+    if value is None:
+        return None
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _full_corpus_coverage(metrics: dict[str, Any]) -> bool:
+    evaluated = _number(metrics.get("tier2_evaluated_samples"))
+    manifest = _number(metrics.get("tier2_manifest_samples"))
+    return (
+        evaluated is not None
+        and manifest is not None
+        and manifest >= MIN_PROMOTION_CORPUS_SAMPLES
+        and evaluated >= manifest
+    )
+
+
+def _valid_full_corpus_champion(corpus: str) -> dict[str, Any] | None:
+    candidates: list[dict[str, Any]] = []
+    for entry in read_entries(path=lab_root() / "artifacts" / "experiment_ledger.jsonl"):
+        if entry.get("status") not in {"promoted", "accepted", "merged"}:
+            continue
+        if entry.get("corpus_revision") != corpus:
+            continue
+        params = entry.get("parameters") or {}
+        if not params.get("full_corpus_gate"):
+            continue
+        objective = _number(entry.get("objective"))
+        if objective is None:
+            continue
+        candidates.append(entry)
+    if not candidates:
+        return None
+    return max(candidates, key=lambda e: float(e.get("objective") or 0.0))
 
 
 def _judge_from_metrics(metrics: dict[str, Any]) -> dict[str, Any]:
@@ -140,6 +196,19 @@ def _judge_from_metrics(metrics: dict[str, Any]) -> dict[str, Any]:
     if target is None:
         out["accept"] = False
         out.setdefault("reasons", []).append("missing_tier2_accuracy")
+    if metrics.get("requires_full_corpus_gate") and not _full_corpus_coverage(metrics):
+        out["accept"] = False
+        out.setdefault("reasons", []).append("full_corpus_coverage_required")
+
+    if metrics.get("requires_champion_improvement"):
+        candidate_objective = _number(metrics.get("candidate_objective"))
+        champion_objective = _number(metrics.get("champion_objective"))
+        if candidate_objective is None:
+            out["accept"] = False
+            out.setdefault("reasons", []).append("missing_candidate_objective")
+        elif champion_objective is not None and candidate_objective <= champion_objective + MIN_OBJECTIVE_DELTA:
+            out["accept"] = False
+            out.setdefault("reasons", []).append("champion_objective_not_improved")
     return out
 
 
@@ -196,6 +265,8 @@ def _promote_run(run_record: Path, tier1: Path | None, tier3: Path | None) -> tu
         str(record.get("git_sha", "")),
         "--output",
         str(out_dir),
+        "--run-record",
+        str(run_record),
     ]
     if tier1:
         cmd += ["--tier1-report", str(tier1)]
@@ -265,6 +336,9 @@ def run_once(
 
     payload = dict(task.payload or {})
     payload.setdefault("corpus", corpus)
+    if promote:
+        payload["full_corpus_gate"] = True
+    task.payload = payload
     experiment = payload.get("experiment")
 
     if dry_run:
@@ -323,6 +397,9 @@ def run_once(
         )
         return tier1.returncode
 
+    # Promotion decisions must be based on the complete requested corpus. The
+    # caller's limit is still useful for tier-1 smoke, but tier-2 is the scoring gate.
+    tier2_limit = 0 if promote else limit
     tier2_cmd = [
         sys.executable,
         "-m",
@@ -332,7 +409,7 @@ def run_once(
         "--corpus",
         str(payload["corpus"]),
         "--limit",
-        str(limit),
+        str(tier2_limit),
     ]
     if experiment:
         tier2_cmd += ["--experiment", str(experiment)]
@@ -360,6 +437,12 @@ def run_once(
         completed.append(3)
 
     metrics = _metrics_from_reports(task, tier1_path, tier2_path, tier3_path)
+    metrics["requires_full_corpus_gate"] = bool(promote)
+    metrics["requires_champion_improvement"] = bool(promote)
+    metrics["candidate_objective"] = score_metrics(metrics)["objective"]
+    champion = _valid_full_corpus_champion(str(payload["corpus"]))
+    metrics["champion_run_id"] = champion.get("run_id") if champion else None
+    metrics["champion_objective"] = champion.get("objective") if champion else None
     decision = _judge_from_metrics(metrics)
     run_record = _write_run_record(task, metrics, completed, commands)
 

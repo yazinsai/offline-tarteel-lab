@@ -23,6 +23,39 @@ def test_judge_from_metrics_rejects_below_min_accuracy():
     assert "min_accuracy_not_met" in out["reasons"]
 
 
+def test_judge_from_metrics_rejects_incomplete_promotion_corpus():
+    out = al._judge_from_metrics(
+        {
+            "tier2_accuracy": 1.0,
+            "target_recall": 1.0,
+            "tier2_evaluated_samples": 1,
+            "tier2_manifest_samples": 11,
+            "tier3_completed": True,
+            "requires_full_corpus_gate": True,
+        },
+    )
+    assert out["accept"] is False
+    assert "full_corpus_coverage_required" in out["reasons"]
+
+
+def test_judge_from_metrics_rejects_non_improving_challenger():
+    out = al._judge_from_metrics(
+        {
+            "tier2_accuracy": 1.0,
+            "target_recall": 1.0,
+            "tier2_evaluated_samples": 12,
+            "tier2_manifest_samples": 12,
+            "tier3_completed": True,
+            "requires_full_corpus_gate": True,
+            "requires_champion_improvement": True,
+            "candidate_objective": 1.0,
+            "champion_objective": 1.0,
+        },
+    )
+    assert out["accept"] is False
+    assert "champion_objective_not_improved" in out["reasons"]
+
+
 def test_run_once_promotes_accepted_task(tmp_path, monkeypatch):
     monkeypatch.setattr(al, "lab_root", lambda: tmp_path)
     monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
@@ -46,8 +79,10 @@ def test_run_once_promotes_accepted_task(tmp_path, monkeypatch):
                 "results": [
                     {
                         "experiment": "smoke",
-                        "samples": 1,
-                        "correct": 1,
+                        "samples": 12,
+                        "evaluated_samples": 12,
+                        "manifest_samples": 12,
+                        "correct": 12,
                         "accuracy": 1.0,
                         "failures": 0,
                     },
@@ -92,7 +127,13 @@ def test_run_once_promotes_accepted_task(tmp_path, monkeypatch):
 
     record = json.loads((tmp_path / updated.run_record_path).read_text(encoding="utf-8"))
     assert record["metrics"]["tier2_accuracy"] == 1.0
+    assert record["metrics"]["tier2_evaluated_samples"] == 12
+    assert record["metrics"]["tier2_manifest_samples"] == 12
+    assert record["metrics"]["requires_full_corpus_gate"] is True
+    assert record["metrics"]["champion_objective"] is None
+    assert record["parameter_vector"]["full_corpus_gate"] is True
     assert record["tier_completed"] == [1, 2, 3]
+    assert any("--limit 0" in command for command in record["commands"])
     ledger_path = tmp_path / "artifacts" / "experiment_ledger.jsonl"
     ledger_rows = [json.loads(line) for line in ledger_path.read_text(encoding="utf-8").splitlines()]
     assert ledger_rows[-1]["run_id"] == record["run_id"]

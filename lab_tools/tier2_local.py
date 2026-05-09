@@ -52,6 +52,7 @@ def main() -> None:
 
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     samples = manifest.get("samples", [])
+    total_manifest_samples = len(samples)
     if args.limit > 0:
         samples = samples[: args.limit]
 
@@ -104,6 +105,8 @@ def main() -> None:
             {
                 "experiment": name,
                 "samples": total,
+                "evaluated_samples": total + failures,
+                "manifest_samples": total_manifest_samples,
                 "correct": correct,
                 "accuracy": acc,
                 "failures": failures,
@@ -115,6 +118,9 @@ def main() -> None:
         "schema": "offline-tarteel.tier2_report.v1",
         "referenceRoot": str(root),
         "corpus": args.corpus,
+        "manifest_samples": total_manifest_samples,
+        "sample_limit": args.limit,
+        "selected_samples": len(samples),
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "results": results,
     }

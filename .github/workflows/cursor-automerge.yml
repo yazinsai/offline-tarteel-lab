@@ -217,6 +217,10 @@ jobs:
           gates = data.get("gates") or {}
           if gates.get("corpus_qa") is not True:
               raise SystemExit("promotion corpus_qa gate not true")
+          if gates.get("full_corpus_v3") is not True:
+              raise SystemExit("promotion full_corpus_v3 gate not true")
+          if gates.get("champion_objective_improved_or_bootstrap") is not True:
+              raise SystemExit("promotion champion objective gate not true")
           if gates.get("tier3_browser_required") is not True:
               raise SystemExit("promotion tier3 gate not true")
           PY
