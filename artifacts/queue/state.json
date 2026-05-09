@@ -636,7 +636,7 @@
     },
     {
       "id": "task-57e4a224b3ba",
-      "status": "queued",
+      "status": "rejected",
       "kind": "runtime_only",
       "title": "Tune partial-match margin variant 23",
       "payload": {
@@ -647,11 +647,13 @@
         "autopilot_key": "runtime.adaptive.partial_match_margin.23"
       },
       "created_at": "2026-05-09T12:04:55.752110+00:00",
-      "updated_at": "2026-05-09T12:04:55.752110+00:00",
+      "updated_at": "2026-05-09T14:19:30.916756+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-57e4a224b3ba-20260509T141930Z.json",
+      "judge_reasons": [
+        "min_accuracy_not_met"
+      ],
       "notes": ""
     },
     {
