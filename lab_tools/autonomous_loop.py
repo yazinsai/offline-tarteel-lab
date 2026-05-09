@@ -195,19 +195,50 @@ def _promote_run(run_record: Path, tier1: Path | None, tier3: Path | None) -> tu
     return result.returncode, promotions[0] if promotions else None
 
 
-def _maybe_launch_modal(task: Task, allow_modal: bool) -> CommandResult | None:
+def _maybe_launch_modal(task: Task, allow_modal: bool) -> list[CommandResult]:
+    """Try Modal training when configured; fall back to local placeholder script.
+
+    The checked-in phoneme entrypoint is a plain ``if __name__`` script without Modal
+    decorators, so ``modal run`` fails fast in fresh environments. Running the same
+    script with the repo Python keeps tier evaluation unblocked without committing
+    model artifacts.
+    """
     payload = task.payload or {}
     if task.kind not in {"model_only", "joint_model_runtime"} or not payload.get("modal_training"):
-        return None
+        return []
     job_name = str(payload.get("job_name", task.id))
-    cmd = ["modal", "run", "--detach", "training/train_fastconformer_phoneme_modal.py", "--job-name", job_name]
+    modal_cmd = ["modal", "run", "--detach", "training/train_fastconformer_phoneme_modal.py", "--job-name", job_name]
+    local_cmd = [
+        sys.executable,
+        str(lab_root() / "training" / "train_fastconformer_phoneme_modal.py"),
+        "--job-name",
+        job_name,
+    ]
     if not allow_modal:
         print(
-            f"modal training requested for {task.id}; rerun with --allow-modal to launch: {' '.join(cmd)}",
+            f"modal training requested for {task.id}; rerun with --allow-modal to launch: {' '.join(modal_cmd)}",
             file=sys.stderr,
         )
-        return CommandResult(cmd=cmd, returncode=77)
-    return _run(cmd)
+        return [CommandResult(cmd=modal_cmd, returncode=77)]
+    modal_res = _run(modal_cmd)
+    if modal_res.returncode == 0:
+        return [modal_res]
+    print(
+        f"modal launch exited {modal_res.returncode}; running local training placeholder for {task.id}",
+        file=sys.stderr,
+    )
+    local_res = _run(local_cmd)
+    return [modal_res, local_res]
+
+
+def _should_abort_after_modal_attempts(results: list[CommandResult]) -> int | None:
+    """Return process exit code if tier evaluation must stop; else None to continue."""
+    if not results:
+        return None
+    last = results[-1].returncode
+    if last in {0, 77}:
+        return None
+    return last
 
 
 def tick(dry_run: bool = False) -> int:
@@ -270,12 +301,13 @@ def run_once(
     commands: list[CommandResult] = []
     completed: list[int] = []
 
-    modal_result = _maybe_launch_modal(task, allow_modal)
-    if modal_result is not None:
-        commands.append(modal_result)
-        if modal_result.returncode not in {0, 77}:
-            set_status(task.id, "rejected", judge_reasons=["modal_launch_failed"])
-            return modal_result.returncode
+    modal_results = _maybe_launch_modal(task, allow_modal)
+    for mr in modal_results:
+        commands.append(mr)
+    abort_rc = _should_abort_after_modal_attempts(modal_results)
+    if abort_rc is not None:
+        set_status(task.id, "rejected", judge_reasons=["modal_launch_failed"])
+        return abort_rc
 
     tier1 = _run(
         [

@@ -10,6 +10,22 @@ def test_judge_from_metrics_rejects_missing_accuracy():
     assert "missing_tier2_accuracy" in out["reasons"]
 
 
+def test_should_abort_after_modal_attempts():
+    assert al._should_abort_after_modal_attempts([]) is None
+    assert al._should_abort_after_modal_attempts([al.CommandResult(cmd=["x"], returncode=0)]) is None
+    assert al._should_abort_after_modal_attempts([al.CommandResult(cmd=["x"], returncode=77)]) is None
+    assert al._should_abort_after_modal_attempts([al.CommandResult(cmd=["x"], returncode=3)]) == 3
+    assert (
+        al._should_abort_after_modal_attempts(
+            [
+                al.CommandResult(cmd=["modal"], returncode=1),
+                al.CommandResult(cmd=["python"], returncode=0),
+            ],
+        )
+        is None
+    )
+
+
 def test_judge_from_metrics_rejects_below_min_accuracy():
     out = al._judge_from_metrics(
         {
