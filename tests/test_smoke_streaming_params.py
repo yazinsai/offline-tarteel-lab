@@ -18,6 +18,7 @@ def _load_smoke_run():
 
 def test_smoke_default_first_match_threshold_variant_03(monkeypatch, tmp_path):
     monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
     mod = _load_smoke_run()
     audio = tmp_path / "first-match-default.wav"
     audio.write_bytes(b"")
@@ -27,6 +28,7 @@ def test_smoke_default_first_match_threshold_variant_03(monkeypatch, tmp_path):
 
 def test_smoke_first_match_threshold_env_override(monkeypatch, tmp_path):
     monkeypatch.setenv("FIRST_MATCH_THRESHOLD", "0.0")
+    monkeypatch.setenv("CORRECTION_HYSTERESIS", "0.0")
     mod = _load_smoke_run()
     audio = tmp_path / "first-match-env.wav"
     audio.write_bytes(b"")
@@ -74,6 +76,7 @@ def test_windows_until_lock_scales_with_chunk(monkeypatch, tmp_path):
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
     mod_short = _load_smoke_run()
     monkeypatch.setenv("CHUNK_SECONDS", "0.20")
     mod_lower = _load_smoke_run()
@@ -88,6 +91,7 @@ def test_smoke_default_overlap_seconds_variant_02(monkeypatch, tmp_path):
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
     mod = _load_smoke_run()
     audio = tmp_path / "overlap-default.wav"
     audio.write_bytes(b"")
@@ -113,6 +117,7 @@ def test_smoke_overlap_seconds_env_override(monkeypatch, tmp_path):
 def test_windows_until_lock_increases_with_overlap(monkeypatch, tmp_path):
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
     monkeypatch.setenv("CHUNK_SECONDS", "0.30")
     mod_low_overlap = _load_smoke_run()
     monkeypatch.setenv("OVERLAP_SECONDS", "0.12")
@@ -128,6 +133,7 @@ def test_smoke_default_smoothing_window_variant_05(monkeypatch, tmp_path):
     monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
     mod = _load_smoke_run()
     audio = tmp_path / "smoothing-default.wav"
     audio.write_bytes(b"")
@@ -152,6 +158,7 @@ def test_windows_until_lock_increases_with_smoothing_window(monkeypatch, tmp_pat
     monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
     mod_smooth0 = _load_smoke_run()
     monkeypatch.setenv("SMOOTHING_WINDOW", "12")
     mod_smooth12 = _load_smoke_run()
@@ -160,3 +167,31 @@ def test_windows_until_lock_increases_with_smoothing_window(monkeypatch, tmp_pat
     w0 = mod_smooth0.predict(str(audio))["streaming"]["windows_until_lock"]
     w12 = mod_smooth12.predict(str(audio))["streaming"]["windows_until_lock"]
     assert w12 >= w0
+
+
+def test_smoke_default_correction_hysteresis_variant_06(monkeypatch, tmp_path):
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "hyst-default.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["correction_hysteresis"] == mod._DEFAULT_CORRECTION_HYSTERESIS
+    assert out["streaming"]["effective_first_match_lock_threshold"] == round(
+        mod._DEFAULT_FIRST_MATCH_THRESHOLD + mod._DEFAULT_CORRECTION_HYSTERESIS,
+        9,
+    )
+
+
+def test_smoke_correction_hysteresis_env_override(monkeypatch, tmp_path):
+    monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
+    monkeypatch.setenv("CORRECTION_HYSTERESIS", "0.05")
+    mod = _load_smoke_run()
+    audio = tmp_path / "hyst-env.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["correction_hysteresis"] == 0.05
+    assert out["streaming"]["effective_first_match_lock_threshold"] == round(
+        mod._DEFAULT_FIRST_MATCH_THRESHOLD + 0.05,
+        9,
+    )

@@ -21,6 +21,9 @@ notes: >
   stride = chunk_seconds - overlap_seconds (clamped); windows_until_lock multiplies by chunk/stride vs overlap-free scaling.
   Smoothing window: integer SMOOTHING_WINDOW frames (variant 05 runtime.adaptive.smoothing_window.05 default 3 when unset):
   scales windows_until_lock by (1 + 0.035 * frames) for observable delay without changing first-match surah/ayah.
+  Correction hysteresis: env CORRECTION_HYSTERESIS (variant 06 runtime.adaptive.correction_hysteresis.06 default 0.0035 when unset)
+  adds to FIRST_MATCH_THRESHOLD for the lock decision only (effective_first_match_lock_threshold metadata);
+  higher hysteresis delays applying a first-verse correction vs provisional (1,1).
 
 streaming_params:
   FIRST_MATCH_THRESHOLD: 0.018
@@ -28,4 +31,5 @@ streaming_params:
   chunk_seconds: 0.285
   overlap_seconds: 0.062
   smoothing_window: 3
+  correction_hysteresis: 0.0035
   window_lock_reference_chunk_seconds: 0.25

@@ -204,7 +204,7 @@
     },
     {
       "id": "task-c1ac6edd818c",
-      "status": "queued",
+      "status": "promoted",
       "kind": "runtime_only",
       "title": "Tune correction hysteresis variant 06",
       "payload": {
@@ -215,11 +215,11 @@
         "autopilot_key": "runtime.adaptive.correction_hysteresis.06"
       },
       "created_at": "2026-05-09T06:53:09.578617+00:00",
-      "updated_at": "2026-05-09T06:53:09.578617+00:00",
+      "updated_at": "2026-05-09T07:34:17.283240+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-c1ac6edd818c-20260509T073417Z.json",
+      "judge_reasons": [],
       "notes": ""
     },
     {
@@ -341,6 +341,33 @@
       },
       "created_at": "2026-05-09T07:26:53.879007+00:00",
       "updated_at": "2026-05-09T07:26:53.879007+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-d2f76939b51c",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Exploit current champion with local runtime mutation",
+      "payload": {
+        "experiment": "smoke",
+        "champion_run_id": "task-04a1e251d3ba-20260508T172602Z",
+        "champion_parameters": {
+          "agent_instructions": "Inspect the current experiments and benchmark manifests. Create or update a small runnable experiment under experiments/ that improves first-verse streaming accuracy without adding large artifacts. Keep it deterministic and compatible with lab_tools.tier2_local predict(audio_path).",
+          "autopilot_key": "runtime.smoke_streaming_baseline",
+          "experiment": "smoke",
+          "min_accuracy": 0.8
+        },
+        "baseline_objective": 1.0,
+        "min_accuracy": 1.0,
+        "agent_instructions": "Start from the champion parameter vector and try a narrow deterministic runtime mutation. Only keep the change if the scorer objective improves beyond variance and no critical slice regresses.",
+        "autopilot_key": "runtime.exploit_champion.runtime.smoke_streaming_baseline.task-04a1e251d3ba-20260508T172602Z"
+      },
+      "created_at": "2026-05-09T07:33:17.854112+00:00",
+      "updated_at": "2026-05-09T07:33:17.854112+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,

@@ -43,6 +43,17 @@ _DEFAULT_STREAM_OVERLAP_SECONDS = 0.062
 # Variant runtime.adaptive.smoothing_window.05: extra integration frames before emitting the lock tally;
 # metadata-only multiplier on windows_until_lock (tier-2 surah/ayah still follow first-match only).
 _DEFAULT_STREAM_SMOOTHING_WINDOW = 3
+# Variant runtime.adaptive.correction_hysteresis.06: additive margin on first-match threshold
+# before leaving provisional (1,1); higher hysteresis requires stronger lock_confidence to apply correction.
+_DEFAULT_CORRECTION_HYSTERESIS = 0.0035
+
+
+def _correction_hysteresis() -> float:
+    """Extra bar on lock_confidence for switching off provisional stance; sweep via CORRECTION_HYSTERESIS."""
+    raw = os.environ.get("CORRECTION_HYSTERESIS")
+    if raw is None or raw.strip() == "":
+        return _DEFAULT_CORRECTION_HYSTERESIS
+    return float(raw)
 
 
 def _smoothing_window_frames() -> int:
@@ -125,8 +136,10 @@ def predict(audio_path: str) -> dict:
     key = str(path.resolve())
     ratio = _stable_ratio(key)
     thresh = _first_match_threshold()
+    hyst = _correction_hysteresis()
+    lock_thresh = thresh + hyst
     verse_thresh = _verse_match_threshold()
-    locked = ratio + 1e-15 >= thresh
+    locked = ratio + 1e-15 >= lock_thresh
     verse_locked = ratio + 1e-15 >= verse_thresh
     inferred_surah, inferred_ayah = _infer_first_verse(path)
     # Before locking, hold a conservative provisional stance (short-stream default).
@@ -166,6 +179,8 @@ def predict(audio_path: str) -> dict:
             "windows_until_lock": windows_until_lock,
             "lock_confidence": round(ratio, 6),
             "first_match_threshold": thresh,
+            "correction_hysteresis": hyst,
+            "effective_first_match_lock_threshold": round(lock_thresh, 9),
             "first_match_locked": locked,
             "verse_match_threshold": verse_thresh,
             "verse_match_locked": verse_locked,
