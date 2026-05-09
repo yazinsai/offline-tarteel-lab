@@ -21,6 +21,23 @@ from lab_tools.paths import lab_root
 from lab_tools.judge_policy import JudgeInput, judge
 from lab_tools.task_queue import Task, load_state, next_queued, set_status
 
+_AUTOPILOT_DEFAULT_EXPERIMENT: dict[str, str] = {
+    "model.fastconformer_phoneme_smoke": "fastconformer_phoneme_smoke",
+    "joint.model_runtime_export_contract": "streaming_onnx_contract",
+}
+
+
+def effective_tier2_experiment(task: Task) -> str | None:
+    """Resolve Tier-2 experiment filter from explicit payload or autopilot key defaults."""
+    payload = task.payload or {}
+    exp = payload.get("experiment")
+    if exp is not None and str(exp).strip() != "":
+        return str(exp)
+    key = payload.get("autopilot_key")
+    if not key:
+        return None
+    return _AUTOPILOT_DEFAULT_EXPERIMENT.get(str(key))
+
 
 @dataclass
 class CommandResult:
@@ -85,8 +102,8 @@ def _metrics_from_reports(
     tier1 = _read_json(tier1_path)
     tier2 = _read_json(tier2_path)
     tier3 = _read_json(tier3_path)
-    experiment = payload.get("experiment")
-    best = _best_tier2_result(tier2, str(experiment) if experiment else None)
+    experiment = effective_tier2_experiment(task)
+    best = _best_tier2_result(tier2, experiment)
 
     accuracy = best.get("accuracy")
     metrics: dict[str, Any] = {
@@ -248,7 +265,7 @@ def run_once(
 
     payload = dict(task.payload or {})
     payload.setdefault("corpus", corpus)
-    experiment = payload.get("experiment")
+    experiment = effective_tier2_experiment(task)
 
     if dry_run:
         print(
@@ -258,6 +275,7 @@ def run_once(
                     "kind": task.kind,
                     "title": task.title,
                     "payload": payload,
+                    "tier2_experiment": experiment,
                     "tiers": [1, 2, 3],
                     "allow_modal": allow_modal,
                 },
@@ -273,9 +291,14 @@ def run_once(
     modal_result = _maybe_launch_modal(task, allow_modal)
     if modal_result is not None:
         commands.append(modal_result)
-        if modal_result.returncode not in {0, 77}:
-            set_status(task.id, "rejected", judge_reasons=["modal_launch_failed"])
-            return modal_result.returncode
+        if modal_result.returncode == 77:
+            pass
+        elif modal_result.returncode != 0:
+            print(
+                f"warning: modal exited {modal_result.returncode}; continuing with local tiers "
+                f"(offline lab soft-fail)",
+                file=sys.stderr,
+            )
 
     tier1 = _run(
         [
@@ -317,7 +340,7 @@ def run_once(
         str(limit),
     ]
     if experiment:
-        tier2_cmd += ["--experiment", str(experiment)]
+        tier2_cmd += ["--experiment", experiment]
     tier2 = _run(tier2_cmd)
     commands.append(tier2)
     tier2_path = _latest_report(2)

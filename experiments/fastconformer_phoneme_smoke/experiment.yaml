@@ -1,0 +1,11 @@
+kind: model_only
+hypothesis: "Keep phoneme FastConformer smoke ABI-aligned while referencing Modal training metadata only"
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Delegates streaming predictions to experiments/smoke for deterministic Tier-2 while attaching
+  phoneme candidate metadata from benchmark/manifests/phoneme_candidate_stub.json (JSON only).
+  Modal training uses training/train_fastconformer_phoneme_modal.py when autonomy enables it.

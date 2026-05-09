@@ -1,0 +1,7 @@
+{
+  "schema": "offline-tarteel.phoneme_training_candidate_manifest.v1",
+  "modal_job_name_default": "fastconformer-phoneme-autopilot",
+  "training_entrypoint_relative": "training/train_fastconformer_phoneme_modal.py",
+  "tier2_stub_experiment": "fastconformer_phoneme_smoke",
+  "notes": "Metadata-only manifest; no weights or audio committed."
+}

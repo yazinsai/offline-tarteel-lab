@@ -1,0 +1,10 @@
+kind: joint_model_runtime
+hypothesis: "Attach ONNX placeholder contract checks to the Tier-2 streaming wrapper path"
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Extends smoke predict() with onnx_contract metadata validated against
+  benchmark/manifests/onnx_placeholder_contract.json (sizes are estimates only).

@@ -4,6 +4,39 @@ import lab_tools.autonomous_loop as al
 import lab_tools.task_queue as tq
 
 
+def test_effective_tier2_experiment_prefers_payload_over_autopilot():
+    task = tq.Task(
+        id="t1",
+        status="queued",
+        kind="model_only",
+        title="x",
+        payload={"experiment": "smoke", "autopilot_key": "model.fastconformer_phoneme_smoke"},
+    )
+    assert al.effective_tier2_experiment(task) == "smoke"
+
+
+def test_effective_tier2_experiment_maps_autopilot_key():
+    task = tq.Task(
+        id="t2",
+        status="queued",
+        kind="model_only",
+        title="x",
+        payload={"autopilot_key": "model.fastconformer_phoneme_smoke"},
+    )
+    assert al.effective_tier2_experiment(task) == "fastconformer_phoneme_smoke"
+
+
+def test_effective_tier2_experiment_joint_maps():
+    task = tq.Task(
+        id="t3",
+        status="queued",
+        kind="joint_model_runtime",
+        title="x",
+        payload={"autopilot_key": "joint.model_runtime_export_contract"},
+    )
+    assert al.effective_tier2_experiment(task) == "streaming_onnx_contract"
+
+
 def test_judge_from_metrics_rejects_missing_accuracy():
     out = al._judge_from_metrics({"tier3_completed": True})
     assert out["accept"] is False

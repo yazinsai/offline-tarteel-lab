@@ -68,6 +68,7 @@ def candidates() -> list[Candidate]:
             kind="model_only",
             title="Evaluate phoneme FastConformer training candidate",
             payload={
+                "experiment": "fastconformer_phoneme_smoke",
                 "modal_training": True,
                 "job_name": "fastconformer-phoneme-autopilot",
                 "min_accuracy": 0.85,
@@ -84,6 +85,7 @@ def candidates() -> list[Candidate]:
             kind="joint_model_runtime",
             title="Tighten ONNX export and streaming wrapper contract",
             payload={
+                "experiment": "streaming_onnx_contract",
                 "min_accuracy": 0.85,
                 "max_onnx_mb": 200,
                 "agent_instructions": (

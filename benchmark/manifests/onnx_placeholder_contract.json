@@ -1,0 +1,7 @@
+{
+  "schema": "offline-tarteel.onnx_placeholder_contract.v1",
+  "artifact_relative_path_placeholder": "artifacts/models/candidate.onnx.not-committed",
+  "size_mb_estimate": 12.5,
+  "max_onnx_mb": 200,
+  "opset_min": 13
+}
