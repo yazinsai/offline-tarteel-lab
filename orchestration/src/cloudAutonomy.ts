@@ -80,11 +80,12 @@ Follow this exact operating procedure:
 8. Before running evaluation, implement or tune the next queued task according to its payload.agent_instructions. For model_only or joint_model_runtime tasks, launch Modal only when ${allowModal ? "allowed by this run" : "LAB_AUTONOMY_ALLOW_MODAL is enabled"}; otherwise prepare local training/eval improvements without spending external compute.
 9. Run the bounded controller: ${runCommand}
 10. Run verification: pytest. If orchestration TypeScript changed, also run: cd orchestration && npx tsc --noEmit.
-11. Commit only relevant code changes plus JSON metadata under artifacts/queue, artifacts/runs, artifacts/promotions, and artifacts/experiment_ledger.jsonl.
+11. Commit only relevant promoted code changes plus JSON metadata under artifacts/queue, artifacts/runs, artifacts/promotions, and artifacts/experiment_ledger.jsonl.
 12. Open the PR against the ${config.startingRef} branch.
 13. If a task is promoted, make the PR title start with "Promote offline-tarteel experiment:".
-14. If no task is promoted but queue/run/ledger state changed, make the PR title start with "Autopilot offline-tarteel state:" and include only artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
-15. If no task is promoted and code changed, open a normal PR for human review rather than using an autonomous-merge title.
+14. If the bounded controller rejects the task or no task is promoted, revert all candidate code, test, and benchmark-manifest edits before committing. The PR must be state-only: artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
+15. If no task is promoted but queue/run/ledger state changed, make the PR title start with "Autopilot offline-tarteel state:" and include only artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
+16. Do not open a normal code PR for a rejected autonomous task. Human-review code PRs are only for explicitly useful prototypes that are not rejected controller runs.
 
 Do not create, modify, or commit audio files, model binaries, tensor dumps, caches, node_modules, virtualenvs, or secrets.
 Do not add files with extensions .wav, .mp3, .flac, .ogg, .m4a, .onnx, .pt, .pth, .ckpt, .bin, .safetensors, .npy, or .npz.
