@@ -16,6 +16,21 @@ def _first_match_threshold() -> float:
         return 0.0
     return float(raw)
 
+
+_REF_CHUNK_SECONDS = 0.25  # calibrates windows_until_lock vs chunk duration
+
+
+def _chunk_seconds() -> float:
+    """Decoder / streaming frame size for metadata; sweep via CHUNK_SECONDS env."""
+    raw = os.environ.get("CHUNK_SECONDS")
+    if raw is None or raw.strip() == "":
+        return 0.30
+    v = float(raw)
+    if v <= 0:
+        return _REF_CHUNK_SECONDS
+    return v
+
+
 # Filename hints for deterministic first-verse overrides without touching audio bytes.
 _FIRST_VERSE_HINT = re.compile(
     r"(?:^|[._-])s(?:urah)?[_-]?(\d+)[._-]a(?:yah)?[_-]?(\d+)(?:[._-]|$)",
@@ -61,7 +76,9 @@ def predict(audio_path: str) -> dict:
     inferred_surah, inferred_ayah = _infer_first_verse(path)
     # Before locking, hold a conservative provisional stance (short-stream default).
     surah, ayah = (inferred_surah, inferred_ayah) if locked else (1, 1)
-    windows_until_lock = 3 + int(ratio * 5)
+    chunk_s = _chunk_seconds()
+    base_windows = 3 + int(ratio * 5)
+    windows_until_lock = max(1, int(round(base_windows * (_REF_CHUNK_SECONDS / chunk_s))))
 
     return {
         "surah": surah,
@@ -71,7 +88,8 @@ def predict(audio_path: str) -> dict:
         "transcript": "streaming-smoke",
         "streaming": {
             "mode": "deterministic_first_verse_lock",
-            "chunk_seconds": 0.25,
+            "chunk_seconds": chunk_s,
+            "window_lock_reference_chunk_seconds": _REF_CHUNK_SECONDS,
             "windows_until_lock": windows_until_lock,
             "lock_confidence": round(ratio, 6),
             "first_match_threshold": thresh,
