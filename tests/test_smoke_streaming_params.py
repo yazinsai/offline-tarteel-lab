@@ -5,6 +5,8 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 
+import pytest
+
 
 def _load_smoke_run():
     root = Path(__file__).resolve().parent.parent
@@ -23,6 +25,41 @@ def test_smoke_default_first_match_threshold_variant_03(monkeypatch, tmp_path):
     audio.write_bytes(b"")
     out = mod.predict(str(audio))
     assert out["streaming"]["first_match_threshold"] == mod._DEFAULT_FIRST_MATCH_THRESHOLD
+
+
+def test_explore_dual_max_lock_signal_is_default(monkeypatch, tmp_path):
+    monkeypatch.delenv("LOCK_SIGNAL_MODE", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "dual-max-default.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["lock_signal_mode"] == "dual_max"
+    lc = out["streaming"]["lock_confidence"]
+    p = out["streaming"]["lock_confidence_path_sha256"]
+    s = out["streaming"]["lock_confidence_stem_fnv1a"]
+    assert lc == pytest.approx(max(p, s), rel=0, abs=1e-5)
+
+
+def test_lock_signal_mode_path_sha256(monkeypatch, tmp_path):
+    monkeypatch.setenv("LOCK_SIGNAL_MODE", "path_sha256")
+    mod = _load_smoke_run()
+    audio = tmp_path / "single-digest.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["lock_signal_mode"] == "path_sha256"
+    assert out["streaming"]["lock_confidence"] == out["streaming"]["lock_confidence_path_sha256"]
+
+
+def test_dual_max_confidence_weakly_above_path_sha256(monkeypatch, tmp_path):
+    audio = tmp_path / "dual-ge-path.wav"
+    audio.write_bytes(b"")
+    monkeypatch.setenv("LOCK_SIGNAL_MODE", "path_sha256")
+    mod_path = _load_smoke_run()
+    out_path = mod_path.predict(str(audio))["streaming"]["lock_confidence"]
+    monkeypatch.setenv("LOCK_SIGNAL_MODE", "dual_max")
+    mod_dual = _load_smoke_run()
+    out_dual = mod_dual.predict(str(audio))["streaming"]["lock_confidence"]
+    assert out_dual + 1e-9 >= out_path
 
 
 def test_smoke_first_match_threshold_env_override(monkeypatch, tmp_path):

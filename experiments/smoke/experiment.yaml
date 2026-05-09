@@ -6,6 +6,9 @@ constraints:
 expected_metrics:
   recall_delta_pp: null
 notes: >
+  Lock confidence dual-signal exploration (runtime.explore_diverse.v3): by default LOCK_SIGNAL_MODE
+  aggregates max(lock_confidence_path_sha256, lock_confidence_stem_fnv1a). Set LOCK_SIGNAL_MODE=path_sha256
+  to restore the historical single-digest (resolved path only) champion behavior.
   Emits surah/ayah for tier2_local plus a stable streaming metadata blob.
   Optional sibling JSON <stem>.first_verse.json overrides first verse; otherwise defaults to 1:1.
   First-match lock: when lock_confidence (deterministic hash ratio) is below FIRST_MATCH_THRESHOLD,
@@ -29,6 +32,7 @@ notes: >
   (debounce_lock_delay_multiplier) on windows_until_lock; does not change first-match lock bar or tier-2 labels.
 
 streaming_params:
+  LOCK_SIGNAL_MODE: dual_max  # dual_max default; path_sha256 for legacy single-path digest only
   FIRST_MATCH_THRESHOLD: 0.018
   VERSE_MATCH_THRESHOLD: 0.412
   chunk_seconds: 0.268

@@ -284,7 +284,7 @@
     },
     {
       "id": "task-85345ce40c25",
-      "status": "queued",
+      "status": "promoted",
       "kind": "runtime_only",
       "title": "Explore a diverse corpus-v3 runtime strategy",
       "payload": {
@@ -295,11 +295,11 @@
         "autopilot_key": "runtime.explore_diverse.v3"
       },
       "created_at": "2026-05-09T07:10:25.084684+00:00",
-      "updated_at": "2026-05-09T07:10:25.084684+00:00",
+      "updated_at": "2026-05-09T07:54:08.513374+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-85345ce40c25-20260509T075408Z.json",
+      "judge_reasons": [],
       "notes": ""
     },
     {
@@ -428,6 +428,26 @@
       },
       "created_at": "2026-05-09T07:45:14.390902+00:00",
       "updated_at": "2026-05-09T07:45:14.390902+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-f558631ad016",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune correction hysteresis variant 14",
+      "payload": {
+        "experiment": "smoke",
+        "param": "correction_hysteresis",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.correction_hysteresis.14"
+      },
+      "created_at": "2026-05-09T07:52:49.403471+00:00",
+      "updated_at": "2026-05-09T07:52:49.403471+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,

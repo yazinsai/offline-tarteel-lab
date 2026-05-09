@@ -143,6 +143,37 @@ def _stable_ratio(text: str) -> float:
     return int.from_bytes(digest[:8], "big") / float(2**64)
 
 
+def _fnv1a64(data: bytes) -> int:
+    """64-bit FNV-1a over bytes (unsigned)."""
+    h = 14695981039346656037
+    prime = 1099511628211
+    for b in data:
+        h ^= b
+        h = (h * prime) & 0xFFFFFFFFFFFFFFFF
+    return h
+
+
+def _stable_fnv_stem_ratio(stem: str) -> float:
+    """Stem-only digest; same filename under different directories keeps this signal stable."""
+    h = _fnv1a64(stem.encode("utf-8"))
+    return h / float(2**64)
+
+
+def _lock_signal_mode() -> str:
+    """How lock_confidence is formed.
+
+    Default *dual_max* (runtime.explore_diverse.v3): max(sha256(resolved_path), fnv1a(stem)).
+    Legacy champion path: path_sha256 only.
+    """
+    raw = (os.environ.get("LOCK_SIGNAL_MODE") or "").strip().lower().replace("-", "_")
+    if raw in ("path_sha256", "single_path", "champion"):
+        return "path_sha256"
+    if raw in ("dual_max", "max_path_stem", "explore_v3"):
+        return "dual_max"
+    # Default: structurally richer than SHA256(full path) alone.
+    return "dual_max"
+
+
 def _read_sidecar_first_verse(audio_path: Path) -> tuple[int, int] | None:
     hint = audio_path.with_name(audio_path.stem + ".first_verse.json")
     if not hint.is_file():
@@ -170,7 +201,13 @@ def _infer_first_verse(audio_path: Path) -> tuple[int, int]:
 def predict(audio_path: str) -> dict:
     path = Path(audio_path)
     key = str(path.resolve())
-    ratio = _stable_ratio(key)
+    path_ratio = _stable_ratio(key)
+    stem_ratio = _stable_fnv_stem_ratio(path.stem)
+    mode = _lock_signal_mode()
+    if mode == "dual_max":
+        ratio = max(path_ratio, stem_ratio)
+    else:
+        ratio = path_ratio
     thresh = _first_match_threshold()
     verse_thresh = _verse_match_threshold()
     hyst = _correction_hysteresis()
@@ -227,6 +264,9 @@ def predict(audio_path: str) -> dict:
             "window_lock_stride_seconds": round(stride_s, 9),
             "window_lock_reference_chunk_seconds": _REF_CHUNK_SECONDS,
             "windows_until_lock": windows_until_lock,
+            "lock_signal_mode": mode,
+            "lock_confidence_path_sha256": round(path_ratio, 6),
+            "lock_confidence_stem_fnv1a": round(stem_ratio, 6),
             "lock_confidence": round(ratio, 6),
             "first_match_threshold": thresh,
             "first_match_locked": locked,
