@@ -127,12 +127,41 @@ def _short_query_boost(no_space_text: str, verse: dict, use_no_bsm: bool = False
     return max(prefix, first_word_score)
 
 
+def _query_bigrams(s: str) -> set[str]:
+    if len(s) < 2:
+        return set()
+    return {s[i : i + 2] for i in range(len(s) - 1)}
+
+
+def _candidate_verses(no_space_text: str, *, max_candidates: int = 550) -> list[dict]:
+    """Bigram-overlap shortlist so full-corpus tier-2 finishes in bounded time."""
+    if _verses is None or len(no_space_text) < 4:
+        return list(_verses or [])
+    qb = _query_bigrams(no_space_text)
+    if not qb:
+        return list(_verses)
+    scored: list[tuple[int, int]] = []
+    for i, verse in enumerate(_verses):
+        ref_ns = verse.get("_phonemes_joined_ns", "")
+        if len(ref_ns) < 2:
+            continue
+        rb = _query_bigrams(ref_ns)
+        ov = len(qb & rb)
+        if ov > 0:
+            scored.append((ov, i))
+    if len(scored) < 80:
+        return list(_verses)
+    scored.sort(key=lambda x: x[0], reverse=True)
+    pick = [idx for _, idx in scored[:max_candidates]]
+    return [_verses[i] for i in pick]
+
+
 def _match_phoneme_text(phoneme_text: str, top_k: int = 10) -> list[dict]:
     if not phoneme_text.strip() or _verses is None:
         return []
     no_space_text = phoneme_text.replace(" ", "")
     scored: list[list] = []
-    for verse in _verses:
+    for verse in _candidate_verses(no_space_text):
         ref = verse.get("phonemes_joined", "")
         if not ref:
             continue
