@@ -34,7 +34,7 @@ def test_smoke_first_match_threshold_env_override(monkeypatch, tmp_path):
     assert out["streaming"]["first_match_threshold"] == 0.0
 
 
-def test_smoke_default_verse_match_threshold_variant_04(monkeypatch, tmp_path):
+def test_smoke_default_verse_match_threshold_variant_12(monkeypatch, tmp_path):
     monkeypatch.delenv("VERSE_MATCH_THRESHOLD", raising=False)
     mod = _load_smoke_run()
     audio = tmp_path / "verse-match-default.wav"

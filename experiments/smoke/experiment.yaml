@@ -1,5 +1,5 @@
 kind: runtime_only
-hypothesis: "Deterministic streaming-style first-verse lock with tier-2 ABI compatibility; weighted geometric fusion (0.515/0.485 primary/aux); FIRST_MATCH_THRESHOLD default tuned for variant 11 (runtime.adaptive.FIRST_MATCH_THRESHOLD.11)"
+hypothesis: "Deterministic streaming-style first-verse lock with tier-2 ABI compatibility; weighted geometric fusion (0.515/0.485 primary/aux); FIRST_MATCH_THRESHOLD variant 11; VERSE_MATCH_THRESHOLD default variant 12 (runtime.adaptive.VERSE_MATCH_THRESHOLD.12)"
 owner: ""
 constraints:
   max_onnx_mb: 200
@@ -16,8 +16,8 @@ notes: >
   Default when unset is 0.0165 (variant 11 runtime.adaptive.FIRST_MATCH_THRESHOLD.11); lower values lock earlier
   than variant 03's 0.018.
   Verse-match gate: secondary threshold on the same lock_confidence ratio (env VERSE_MATCH_THRESHOLD;
-  variant 04 runtime.adaptive.VERSE_MATCH_THRESHOLD.04 default 0.412). Metadata-only; tier-2 accuracy
-  still follows first-match surah/ayah.
+  variant 12 runtime.adaptive.VERSE_MATCH_THRESHOLD.12 default 0.408, slightly relaxed vs variant 04's 0.412).
+  Metadata-only; tier-2 accuracy still follows first-match surah/ayah.
   Chunk/window: default chunk_seconds 0.268s (env CHUNK_SECONDS; variant 09 runtime.adaptive.chunk_seconds.09);
   windows_until_lock scales inversely against window_lock_reference_chunk_seconds 0.25 so shorter frames
   require more windows before lock.
@@ -34,7 +34,7 @@ notes: >
 
 streaming_params:
   FIRST_MATCH_THRESHOLD: 0.0165
-  VERSE_MATCH_THRESHOLD: 0.412
+  VERSE_MATCH_THRESHOLD: 0.408
   chunk_seconds: 0.268
   overlap_seconds: 0.071
   smoothing_window: 3
