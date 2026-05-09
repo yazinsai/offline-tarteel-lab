@@ -526,7 +526,7 @@
     },
     {
       "id": "task-1272f23f28a5",
-      "status": "queued",
+      "status": "rejected",
       "kind": "runtime_only",
       "title": "Tune streaming chunk overlap variant 18",
       "payload": {
@@ -537,11 +537,13 @@
         "autopilot_key": "runtime.adaptive.overlap_seconds.18"
       },
       "created_at": "2026-05-09T09:24:46.219824+00:00",
-      "updated_at": "2026-05-09T09:24:46.219824+00:00",
+      "updated_at": "2026-05-09T12:50:10.674655+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-1272f23f28a5-20260509T125010Z.json",
+      "judge_reasons": [
+        "min_accuracy_not_met"
+      ],
       "notes": ""
     },
     {
