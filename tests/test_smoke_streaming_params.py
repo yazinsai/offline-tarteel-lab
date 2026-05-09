@@ -191,6 +191,32 @@ def test_smoke_correction_hysteresis_env_override(monkeypatch, tmp_path):
     assert out["streaming"]["first_match_effective_threshold"] == 0.05
 
 
+def test_smoke_default_partial_match_margin_variant_07(monkeypatch, tmp_path):
+    monkeypatch.delenv("PARTIAL_MATCH_MARGIN", raising=False)
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "partial-margin-default.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    eff = out["streaming"]["first_match_effective_threshold"]
+    bar = out["streaming"]["first_match_lock_bar"]
+    assert out["streaming"]["partial_match_margin"] == mod._DEFAULT_PARTIAL_MATCH_MARGIN
+    assert bar == eff + mod._DEFAULT_PARTIAL_MATCH_MARGIN
+
+
+def test_smoke_partial_match_margin_env_override(monkeypatch, tmp_path):
+    monkeypatch.setenv("PARTIAL_MATCH_MARGIN", "0.0")
+    monkeypatch.setenv("FIRST_MATCH_THRESHOLD", "0.05")
+    monkeypatch.setenv("CORRECTION_HYSTERESIS", "0.01")
+    mod = _load_smoke_run()
+    audio = tmp_path / "partial-margin-zero.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["partial_match_margin"] == 0.0
+    assert out["streaming"]["first_match_lock_bar"] == out["streaming"]["first_match_effective_threshold"]
+
+
 def test_windows_until_lock_increases_with_correction_hysteresis(monkeypatch, tmp_path):
     monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
