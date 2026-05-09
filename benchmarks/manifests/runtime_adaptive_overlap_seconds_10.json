@@ -1,0 +1,12 @@
+{
+  "schema": "offline-tarteel.benchmark_manifest_hint.v1",
+  "autopilot_key": "runtime.adaptive.overlap_seconds.10",
+  "corpus_id": "test_corpus_v3",
+  "notes": "Chunk overlap variant 10: smoke default OVERLAP_SECONDS when env unset is 0.071s (variant 02 historical default was 0.062s); stride drives windows_until_lock (see experiments/smoke/run.py).",
+  "references": [
+    {
+      "manifest": "benchmark/test_corpus_v3/manifest.json",
+      "audio_sample": "benchmark/test_corpus_v3/sample_placeholder.wav"
+    }
+  ]
+}

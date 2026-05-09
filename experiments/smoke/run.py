@@ -37,9 +37,9 @@ _REF_CHUNK_SECONDS = 0.25  # calibrates windows_until_lock vs chunk duration
 # Variant runtime.adaptive.chunk_seconds.09: shorter default frame than variant 01 (0.285s)
 # for tier-2 smoke metadata sweeps without requiring CHUNK_SECONDS in the environment.
 _DEFAULT_STREAM_CHUNK_SECONDS = 0.268
-# Variant runtime.adaptive.overlap_seconds.02: hop stride = chunk - overlap shrinks as overlap grows,
-# so windows_until_lock scales up deterministically without changing first-verse labels.
-_DEFAULT_STREAM_OVERLAP_SECONDS = 0.062
+# Variant runtime.adaptive.overlap_seconds.10: hop stride = chunk - overlap; slightly higher default
+# overlap than variant 02 (0.062s) so windows_until_lock scales without changing tier-2 labels.
+_DEFAULT_STREAM_OVERLAP_SECONDS = 0.071
 # Variant runtime.adaptive.smoothing_window.05: extra integration frames before emitting the lock tally;
 # metadata-only multiplier on windows_until_lock (tier-2 surah/ayah still follow first-match only).
 _DEFAULT_STREAM_SMOOTHING_WINDOW = 3
