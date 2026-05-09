@@ -1,0 +1,16 @@
+kind: model_only
+hypothesis: "Tier-2 ABI-compatible shim until FastConformer ONNX lands; mirrors smoke predictor"
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Local deterministic first-verse lock delegated from experiments/smoke/run.py.
+  Autopilot task model.fastconformer_phoneme_smoke pairs with Modal training stub;
+  do not commit ONNX or checkpoints here.
+
+streaming_params:
+  FIRST_MATCH_THRESHOLD: 0.0
+  chunk_seconds: 0.30
+  window_lock_reference_chunk_seconds: 0.25

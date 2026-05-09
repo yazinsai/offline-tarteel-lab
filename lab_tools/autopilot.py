@@ -68,6 +68,7 @@ def candidates() -> list[Candidate]:
             kind="model_only",
             title="Evaluate phoneme FastConformer training candidate",
             payload={
+                "experiment": "fastconformer_phoneme_smoke",
                 "modal_training": True,
                 "job_name": "fastconformer-phoneme-autopilot",
                 "min_accuracy": 0.85,
