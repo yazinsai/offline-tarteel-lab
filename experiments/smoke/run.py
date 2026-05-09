@@ -143,6 +143,15 @@ def _stable_ratio(text: str) -> float:
     return int.from_bytes(digest[:8], "big") / float(2**64)
 
 
+# runtime.explore_diverse.v3: second digest channel — lock requires both primary and
+# secondary ratios to clear the same thresholds (min acts as AND for >= bar gates).
+_EXPLORE_V3_DUAL_SALT = "\noffline-tarteel|explore_diverse_v3|secondary_digest\n"
+
+
+def _stable_ratio_secondary_stream(key: str) -> float:
+    return _stable_ratio(key + _EXPLORE_V3_DUAL_SALT)
+
+
 def _read_sidecar_first_verse(audio_path: Path) -> tuple[int, int] | None:
     hint = audio_path.with_name(audio_path.stem + ".first_verse.json")
     if not hint.is_file():
@@ -171,14 +180,16 @@ def predict(audio_path: str) -> dict:
     path = Path(audio_path)
     key = str(path.resolve())
     ratio = _stable_ratio(key)
+    ratio_alt = _stable_ratio_secondary_stream(key)
+    consensus = min(ratio, ratio_alt)
     thresh = _first_match_threshold()
     verse_thresh = _verse_match_threshold()
     hyst = _correction_hysteresis()
     first_effective = thresh + hyst
     pm = _partial_match_margin()
     lock_bar = first_effective + pm
-    locked = ratio + 1e-15 >= lock_bar
-    verse_locked = ratio + 1e-15 >= verse_thresh
+    locked = consensus + 1e-15 >= lock_bar
+    verse_locked = consensus + 1e-15 >= verse_thresh
     inferred_surah, inferred_ayah = _infer_first_verse(path)
     # Before locking, hold a conservative provisional stance (short-stream default).
     surah, ayah = (inferred_surah, inferred_ayah) if locked else (1, 1)
@@ -190,6 +201,8 @@ def predict(audio_path: str) -> dict:
     smoothing_multiplier = 1.0 + 0.035 * float(smooth_n)
     hysteresis_lock_delay_multiplier = 1.0 + 0.045 * hyst
     debounce_lock_delay_multiplier = 1.0 + debounce_m / 7200.0
+    # windows_until_lock stays keyed off the primary digest only so chunk/overlap/smoothing
+    # sweeps remain monotonic in existing benchmarks.
     base_windows = 3 + int(ratio * 5)
     windows_until_lock = max(
         1,
@@ -212,7 +225,8 @@ def predict(audio_path: str) -> dict:
         "score": round(0.85 + 0.14 * ratio, 6),
         "transcript": "streaming-smoke",
         "streaming": {
-            "mode": "deterministic_first_verse_lock",
+            "mode": "deterministic_dual_digest_consensus_lock",
+            "dual_stream_explore_v3": True,
             "chunk_seconds": chunk_s,
             "overlap_seconds": overlap_s,
             "smoothing_window": smooth_n,
@@ -227,7 +241,9 @@ def predict(audio_path: str) -> dict:
             "window_lock_stride_seconds": round(stride_s, 9),
             "window_lock_reference_chunk_seconds": _REF_CHUNK_SECONDS,
             "windows_until_lock": windows_until_lock,
-            "lock_confidence": round(ratio, 6),
+            "lock_confidence": round(consensus, 6),
+            "lock_confidence_primary": round(ratio, 6),
+            "lock_confidence_secondary": round(ratio_alt, 6),
             "first_match_threshold": thresh,
             "first_match_locked": locked,
             "verse_match_threshold": verse_thresh,

@@ -270,6 +270,24 @@ def test_smoke_debounce_ms_env_override(monkeypatch, tmp_path):
     assert out["streaming"]["debounce_lock_delay_multiplier"] == round(1.0 + 240 / 7200.0, 9)
 
 
+def test_smoke_dual_digest_consensus_explore_v3_metadata(monkeypatch, tmp_path):
+    """runtime.explore_diverse.v3 structural path: AND of two digests for lock gates."""
+    monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "dual-digest-probe.wav"
+    audio.write_bytes(b"")
+    key = str(audio.resolve())
+    ratio = mod._stable_ratio(key)
+    ratio_alt = mod._stable_ratio_secondary_stream(key)
+    out = mod.predict(str(audio))
+    stream = out["streaming"]
+    assert stream["mode"] == "deterministic_dual_digest_consensus_lock"
+    assert stream["dual_stream_explore_v3"] is True
+    assert stream["lock_confidence"] == round(min(ratio, ratio_alt), 6)
+    assert stream["lock_confidence_primary"] == round(ratio, 6)
+    assert stream["lock_confidence_secondary"] == round(ratio_alt, 6)
+
+
 def test_windows_until_lock_increases_with_debounce_ms(monkeypatch, tmp_path):
     monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)

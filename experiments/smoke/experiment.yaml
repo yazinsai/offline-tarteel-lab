@@ -1,5 +1,5 @@
 kind: runtime_only
-hypothesis: "Deterministic streaming-style first-verse lock with tier-2 ABI compatibility"
+hypothesis: "Dual-digest consensus first-verse lock (explore_diverse_v3) with tier-2 ABI compatibility"
 owner: ""
 constraints:
   max_onnx_mb: 200
@@ -7,6 +7,10 @@ expected_metrics:
   recall_delta_pp: null
 notes: >
   Emits surah/ayah for tier2_local plus a stable streaming metadata blob.
+  runtime.explore_diverse.v3: two independent SHA256-derived ratios (primary path key vs salted secondary).
+  first_match_locked requires min(primary, secondary) to clear first_match_lock_bar (AND consensus), not a single stream.
+  windows_until_lock still scales from the primary digest only. Streaming.mode is deterministic_dual_digest_consensus_lock;
+  lock_confidence is the consensus (min); lock_confidence_primary/secondary expose both channels.
   Optional sibling JSON <stem>.first_verse.json overrides first verse; otherwise defaults to 1:1.
   First-match lock: when lock_confidence (deterministic hash ratio) is below FIRST_MATCH_THRESHOLD,
   predict() keeps provisional (1:1); set env FIRST_MATCH_THRESHOLD for sweeps.
