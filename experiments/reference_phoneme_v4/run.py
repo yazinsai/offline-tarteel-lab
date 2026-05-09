@@ -10,6 +10,7 @@ import hashlib
 import json
 import os
 import urllib.request
+from operator import attrgetter
 from pathlib import Path
 
 import librosa
@@ -44,6 +45,8 @@ _BSM_PHONEMES_JOINED = "bismi allahi arraHmaani arraHiimi"
 TOP_K_LEVENSHTEIN = int(os.getenv("PHONEME_LM_TOP_K", "10"))
 TOP_SURAHS = int(os.getenv("PHONEME_LM_TOP_SURAHS", "20"))
 MAX_SPAN = int(os.getenv("PHONEME_LM_MAX_SPAN", "4"))
+
+_onnx_input_name = attrgetter("name")
 
 
 def _cache_onnx_path() -> Path:
@@ -259,7 +262,7 @@ def _compute_logprobs(audio: np.ndarray, session: ort.InferenceSession) -> np.nd
     mel = (mel - mel.mean(axis=1, keepdims=True)) / (mel.std(axis=1, keepdims=True) + 1e-10)
     features = mel.astype(np.float32)[np.newaxis]
     length = np.array([mel.shape[1]], dtype=np.int64)
-    input_names = [inp.name for inp in session.get_inputs()]
+    input_names = [_onnx_input_name(inp) for inp in session.get_inputs()]
     results = session.run(
         None,
         {
