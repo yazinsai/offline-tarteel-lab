@@ -222,6 +222,7 @@ def test_windows_until_lock_increases_with_correction_hysteresis(monkeypatch, tm
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.delenv("DEBOUNCE_MS", raising=False)
     mod_h0 = _load_smoke_run()
     monkeypatch.setenv("CORRECTION_HYSTERESIS", "0.08")
     mod_h8 = _load_smoke_run()
@@ -230,3 +231,43 @@ def test_windows_until_lock_increases_with_correction_hysteresis(monkeypatch, tm
     w0 = mod_h0.predict(str(audio))["streaming"]["windows_until_lock"]
     wh = mod_h8.predict(str(audio))["streaming"]["windows_until_lock"]
     assert wh >= w0
+
+
+def test_smoke_default_debounce_ms_variant_08(monkeypatch, tmp_path):
+    monkeypatch.delenv("DEBOUNCE_MS", raising=False)
+    monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
+    monkeypatch.delenv("CHUNK_SECONDS", raising=False)
+    monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "debounce-default.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["debounce_ms"] == mod._DEFAULT_DEBOUNCE_MS
+    assert out["streaming"]["debounce_lock_delay_multiplier"] == 1.1
+
+
+def test_smoke_debounce_ms_env_override(monkeypatch, tmp_path):
+    monkeypatch.setenv("DEBOUNCE_MS", "0")
+    mod = _load_smoke_run()
+    audio = tmp_path / "debounce-zero.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["debounce_ms"] == 0
+    assert out["streaming"]["debounce_lock_delay_multiplier"] == 1.0
+
+
+def test_windows_until_lock_increases_with_debounce_ms(monkeypatch, tmp_path):
+    monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
+    monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
+    monkeypatch.delenv("CHUNK_SECONDS", raising=False)
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.setenv("DEBOUNCE_MS", "0")
+    mod_d0 = _load_smoke_run()
+    monkeypatch.setenv("DEBOUNCE_MS", "200")
+    mod_d200 = _load_smoke_run()
+    audio = tmp_path / "s006-a006.wav"
+    audio.write_bytes(b"")
+    w0 = mod_d0.predict(str(audio))["streaming"]["windows_until_lock"]
+    w1 = mod_d200.predict(str(audio))["streaming"]["windows_until_lock"]
+    assert w1 >= w0

@@ -244,7 +244,7 @@
     },
     {
       "id": "task-d10106a72e63",
-      "status": "queued",
+      "status": "promoted",
       "kind": "runtime_only",
       "title": "Tune correction debounce variant 08",
       "payload": {
@@ -255,11 +255,11 @@
         "autopilot_key": "runtime.adaptive.debounce_ms.08"
       },
       "created_at": "2026-05-09T06:53:09.579486+00:00",
-      "updated_at": "2026-05-09T06:53:09.579486+00:00",
+      "updated_at": "2026-05-09T07:45:06.276973+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-d10106a72e63-20260509T074506Z.json",
+      "judge_reasons": [],
       "notes": ""
     },
     {
@@ -388,6 +388,26 @@
       },
       "created_at": "2026-05-09T07:37:45.709455+00:00",
       "updated_at": "2026-05-09T07:37:45.709455+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-6940cfe381c2",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune verse-match threshold variant 12",
+      "payload": {
+        "experiment": "smoke",
+        "param": "VERSE_MATCH_THRESHOLD",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.VERSE_MATCH_THRESHOLD.12"
+      },
+      "created_at": "2026-05-09T07:43:58.427381+00:00",
+      "updated_at": "2026-05-09T07:43:58.427381+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,

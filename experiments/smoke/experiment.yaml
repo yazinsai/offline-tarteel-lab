@@ -25,6 +25,8 @@ notes: >
   first-match locks when lock_confidence >= FIRST_MATCH_THRESHOLD + hysteresis; windows_until_lock also scales by (1 + 0.045 * hysteresis).
   Partial-match margin: PARTIAL_MATCH_MARGIN (variant 07 runtime.adaptive.partial_match_margin.07 default 0.008 when unset):
   first-match lock requires lock_confidence >= first_match_effective_threshold + margin (first_match_lock_bar); tier-2 surah/ayah follow the same lock rule.
+  Correction debounce: integer DEBOUNCE_MS milliseconds (variant 08 runtime.adaptive.debounce_ms.08 default 40ms when unset):
+  scales windows_until_lock by (1 + 0.0025 * debounce_ms) for observable streaming delay metadata without changing tier-2 labels.
 
 streaming_params:
   FIRST_MATCH_THRESHOLD: 0.018
@@ -34,4 +36,5 @@ streaming_params:
   smoothing_window: 3
   correction_hysteresis: 0.012
   partial_match_margin: 0.008
+  debounce_ms: 40
   window_lock_reference_chunk_seconds: 0.25

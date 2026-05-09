@@ -49,6 +49,9 @@ _DEFAULT_CORRECTION_HYSTERESIS = 0.012
 # Variant runtime.adaptive.partial_match_margin.07: extra bar beyond thresh+hysteresis before
 # treating lock_confidence as a full first-match lock (metadata/sweeps via PARTIAL_MATCH_MARGIN).
 _DEFAULT_PARTIAL_MATCH_MARGIN = 0.008
+# Variant runtime.adaptive.debounce_ms.08: nominal streaming correction debounce in milliseconds;
+# scales windows_until_lock via debounce_lock_delay_multiplier without changing tier-2 surah/ayah.
+_DEFAULT_DEBOUNCE_MS = 40
 
 
 def _correction_hysteresis() -> float:
@@ -61,6 +64,18 @@ def _correction_hysteresis() -> float:
     except ValueError:
         return _DEFAULT_CORRECTION_HYSTERESIS
     return max(0.0, v)
+
+
+def _debounce_ms() -> int:
+    """Nominal correction debounce; sweep integer milliseconds via DEBOUNCE_MS (non-negative)."""
+    raw = os.environ.get("DEBOUNCE_MS")
+    if raw is None or raw.strip() == "":
+        return _DEFAULT_DEBOUNCE_MS
+    try:
+        v = int(round(float(raw)))
+    except ValueError:
+        return _DEFAULT_DEBOUNCE_MS
+    return max(0, min(v, 10_000))
 
 
 def _partial_match_margin() -> float:
@@ -169,8 +184,10 @@ def predict(audio_path: str) -> dict:
     overlap_s = _overlap_seconds(chunk_s)
     stride_s = max(chunk_s - overlap_s, 1e-9)
     smooth_n = _smoothing_window_frames()
+    debounce_ms = _debounce_ms()
     smoothing_multiplier = 1.0 + 0.035 * float(smooth_n)
     hysteresis_lock_delay_multiplier = 1.0 + 0.045 * hyst
+    debounce_lock_delay_multiplier = 1.0 + 0.0025 * float(debounce_ms)
     base_windows = 3 + int(ratio * 5)
     windows_until_lock = max(
         1,
@@ -181,6 +198,7 @@ def predict(audio_path: str) -> dict:
                 * (chunk_s / stride_s)
                 * smoothing_multiplier
                 * hysteresis_lock_delay_multiplier
+                * debounce_lock_delay_multiplier
             ),
         ),
     )
@@ -197,6 +215,8 @@ def predict(audio_path: str) -> dict:
             "overlap_seconds": overlap_s,
             "smoothing_window": smooth_n,
             "smoothing_lock_delay_multiplier": round(smoothing_multiplier, 9),
+            "debounce_ms": debounce_ms,
+            "debounce_lock_delay_multiplier": round(debounce_lock_delay_multiplier, 9),
             "correction_hysteresis": round(hyst, 9),
             "partial_match_margin": round(pm, 9),
             "first_match_effective_threshold": round(first_effective, 9),

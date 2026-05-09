@@ -1,0 +1,12 @@
+{
+  "schema": "offline-tarteel.benchmark_manifest_hint.v1",
+  "autopilot_key": "runtime.adaptive.debounce_ms.08",
+  "corpus_id": "test_corpus_v3",
+  "notes": "Correction debounce variant 08: smoke default DEBOUNCE_MS when env unset is 40ms; windows_until_lock scales by (1 + 0.0025 * debounce_ms) (see experiments/smoke/run.py).",
+  "references": [
+    {
+      "manifest": "benchmark/test_corpus_v3/manifest.json",
+      "audio_sample": "benchmark/test_corpus_v3/sample_placeholder.wav"
+    }
+  ]
+}
