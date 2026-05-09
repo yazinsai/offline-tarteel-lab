@@ -13,5 +13,7 @@ artifacts/queue/state.lock
 !artifacts/runs/*.json
 !artifacts/promotions/
 !artifacts/promotions/*.json
+!artifacts/autonomy_failures/
+!artifacts/autonomy_failures/*.json
 orchestration/node_modules/
 orchestration/dist/

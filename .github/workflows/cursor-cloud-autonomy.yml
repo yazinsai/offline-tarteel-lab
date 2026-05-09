@@ -23,8 +23,12 @@ on:
         default: "false"
         type: choice
         options: ["false", "true"]
+      target_backlog:
+        description: "Desired queued/running task backlog"
+        required: false
+        default: "8"
   schedule:
-    - cron: "17 */6 * * *"
+    - cron: "*/5 * * * *"
 
 concurrency:
   group: cursor-cloud-autonomy
@@ -78,7 +82,7 @@ jobs:
           OFFLINE_TARTEEL_REF: ${{ env.CURSOR_BASE_REF }}
           CURSOR_SKIP_REVIEWER: "1"
           LAB_AUTONOMY_MAX_CYCLES: ${{ github.event.inputs.max_cycles || '1' }}
-          LAB_AUTONOMY_TARGET_BACKLOG: "3"
+          LAB_AUTONOMY_TARGET_BACKLOG: ${{ github.event.inputs.target_backlog || '8' }}
           LAB_AUTONOMY_LIMIT: ${{ github.event.inputs.limit || '12' }}
           LAB_AUTONOMY_PLAN: ${{ github.event.inputs.seed_sweeps || '1' }}
           LAB_AUTONOMY_ALLOW_MODAL: ${{ github.event.inputs.allow_modal || 'false' }}

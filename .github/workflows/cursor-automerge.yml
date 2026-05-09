@@ -29,8 +29,13 @@ jobs:
       contents: write
       pull-requests: write
     steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
       - name: Evaluate promotion merge policy
         id: gate
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -209,7 +214,7 @@ jobs:
           echo "original_base_ref=$original_base_ref" >> "$GITHUB_OUTPUT"
 
       - name: Merge promotion PR
-        if: steps.gate.outputs.pr != ''
+        if: steps.gate.outcome == 'success' && steps.gate.outputs.pr != ''
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -223,3 +228,108 @@ jobs:
               gh api -X DELETE "repos/$REPO/git/refs/heads/$ORIGINAL_BASE_REF" || true
               ;;
           esac
+
+      - name: Record blocked autonomous PR
+        if: steps.gate.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.inputs.pr || github.event.workflow_run.pull_requests[0].number }}
+        run: |
+          set -euo pipefail
+
+          pr_json="$(gh api "repos/$REPO/pulls/$PR_NUMBER")"
+          files_json="$(gh api "repos/$REPO/pulls/$PR_NUMBER/files?per_page=100")"
+
+          git fetch origin main
+          git checkout -B main origin/main
+          mkdir -p artifacts/autonomy_failures
+
+          export PR_JSON="$pr_json"
+          export FILES_JSON="$files_json"
+          export FAILURE_PATH="artifacts/autonomy_failures/pr-${PR_NUMBER}-${GITHUB_RUN_ID}.json"
+          python - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timezone
+
+          pr = json.loads(os.environ["PR_JSON"])
+          files = json.loads(os.environ["FILES_JSON"])
+          record = {
+              "schema": "offline-tarteel.autonomy_failure.v1",
+              "created_at_utc": datetime.now(timezone.utc).isoformat(),
+              "workflow_run_id": os.environ["GITHUB_RUN_ID"],
+              "pr_number": pr["number"],
+              "title": pr["title"],
+              "url": pr["html_url"],
+              "base_ref": pr["base"]["ref"],
+              "base_sha": pr["base"]["sha"],
+              "head_ref": pr["head"]["ref"],
+              "head_sha": pr["head"]["sha"],
+              "reason": "merge_gate_rejected",
+              "changed_files": [f["filename"] for f in files],
+              "blocked_file_hints": [
+                  f["filename"]
+                  for f in files
+                  if f["filename"] in {"pyproject.toml"}
+                  or f["filename"].startswith((".github/", "orchestration/", "training/"))
+                  or f["filename"].lower().endswith(
+                      (
+                          ".wav",
+                          ".mp3",
+                          ".flac",
+                          ".ogg",
+                          ".m4a",
+                          ".onnx",
+                          ".pt",
+                          ".pth",
+                          ".ckpt",
+                          ".bin",
+                          ".safetensors",
+                          ".npy",
+                          ".npz",
+                      )
+                  )
+              ],
+          }
+          with open(os.environ["FAILURE_PATH"], "w", encoding="utf-8") as f:
+              json.dump(record, f, indent=2)
+              f.write("\n")
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$FAILURE_PATH"
+          git commit -m "Record blocked autonomous PR #$PR_NUMBER" || exit 0
+          git push origin HEAD:main
+
+      - name: Close blocked autonomous PR
+        if: steps.gate.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.inputs.pr || github.event.workflow_run.pull_requests[0].number }}
+        run: |
+          set -euo pipefail
+          pr_json="$(gh api "repos/$REPO/pulls/$PR_NUMBER")"
+          base_ref="$(printf '%s' "$pr_json" | python -c 'import json,sys; print(json.load(sys.stdin)["base"]["ref"])')"
+          gh pr close "$PR_NUMBER" --repo "$REPO" --delete-branch \
+            --comment "Closing because the autonomous merge gate rejected this PR. The failure has been recorded under artifacts/autonomy_failures/ so future planner runs can avoid repeating it."
+          case "$base_ref" in
+            cursor-autonomy-base-*)
+              gh api -X DELETE "repos/$REPO/git/refs/heads/$base_ref" || true
+              ;;
+          esac
+
+      - name: Dispatch next autonomy run
+        if: always() && github.event_name == 'workflow_run'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh workflow run cursor-cloud-autonomy.yml \
+            -f max_cycles=1 \
+            -f limit=12 \
+            -f seed_sweeps=true \
+            -f allow_modal=true \
+            -f target_backlog=8
