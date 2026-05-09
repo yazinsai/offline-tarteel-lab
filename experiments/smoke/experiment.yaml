@@ -1,5 +1,5 @@
 kind: runtime_only
-hypothesis: "Deterministic streaming-style first-verse lock with tier-2 ABI compatibility"
+hypothesis: "Deterministic streaming-style first-verse lock with tier-2 ABI compatibility; v3 explores dual-hash geometric-mean lock confidence (runtime.explore_diverse.v3)"
 owner: ""
 constraints:
   max_onnx_mb: 200
@@ -7,8 +7,11 @@ expected_metrics:
   recall_delta_pp: null
 notes: >
   Emits surah/ayah for tier2_local plus a stable streaming metadata blob.
+  Exploration (runtime.explore_diverse.v3): lock_confidence is the geometric mean of SHA-256(key)
+  and BLAKE2b(key + "|corpus-v3-explore") ratios so gating differs structurally from single-hash champion runs;
+  streaming exposes lock_confidence_primary, lock_confidence_aux, and lock_confidence_fusion.
   Optional sibling JSON <stem>.first_verse.json overrides first verse; otherwise defaults to 1:1.
-  First-match lock: when lock_confidence (deterministic hash ratio) is below FIRST_MATCH_THRESHOLD,
+  First-match lock: when lock_confidence (fused ratio) is below FIRST_MATCH_THRESHOLD,
   predict() keeps provisional (1:1); set env FIRST_MATCH_THRESHOLD for sweeps.
   Default when unset is 0.018 (variant 03 runtime.adaptive.FIRST_MATCH_THRESHOLD.03); lower values lock earlier.
   Verse-match gate: secondary threshold on the same lock_confidence ratio (env VERSE_MATCH_THRESHOLD;
