@@ -721,6 +721,27 @@
         "min_accuracy_not_met"
       ],
       "notes": ""
+    },
+    {
+      "id": "task-ede6850b1d37",
+      "status": "rejected",
+      "kind": "runtime_only",
+      "title": "Bounded cycle 25605343735: narrow fusion tilt (0.516/0.484)",
+      "payload": {
+        "experiment": "smoke",
+        "min_accuracy": 0.8,
+        "autopilot_key": "runtime.bounded_cycle.fusion_weights_25605343735",
+        "agent_instructions": "Runtime-only: in experiments/smoke/run.py _fused_lock_confidence, tilt weighted geometric fusion from 0.515/0.485 to 0.516/0.484 (smaller step than rejected 0.52/0.48 probe). Update lock_confidence_fusion metadata string and experiments/smoke/experiment.yaml hypothesis lines to match. Do not infer surah/ayah from paths, manifests, filenames, ordering, or sidecars. Revert if promotion gates fail."
+      },
+      "created_at": "2026-05-09T16:00:40.620875+00:00",
+      "updated_at": "2026-05-09T16:00:53.233084+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "/workspace/artifacts/runs/task-ede6850b1d37-20260509T160053Z.json",
+      "judge_reasons": [
+        "min_accuracy_not_met"
+      ],
+      "notes": ""
     }
   ]
 }
