@@ -60,7 +60,7 @@
     },
     {
       "id": "task-048442117107",
-      "status": "queued",
+      "status": "promoted",
       "kind": "model_only",
       "title": "Evaluate phoneme FastConformer training candidate",
       "payload": {
@@ -72,11 +72,11 @@
         "autopilot_key": "model.fastconformer_phoneme_smoke"
       },
       "created_at": "2026-05-09T01:10:37.211291+00:00",
-      "updated_at": "2026-05-09T01:10:37.211291+00:00",
+      "updated_at": "2026-05-09T05:59:57.640826+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-048442117107-20260509T055957Z.json",
+      "judge_reasons": [],
       "notes": ""
     },
     {

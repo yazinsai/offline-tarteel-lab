@@ -200,14 +200,26 @@ def _maybe_launch_modal(task: Task, allow_modal: bool) -> CommandResult | None:
     if task.kind not in {"model_only", "joint_model_runtime"} or not payload.get("modal_training"):
         return None
     job_name = str(payload.get("job_name", task.id))
-    cmd = ["modal", "run", "--detach", "training/train_fastconformer_phoneme_modal.py", "--job-name", job_name]
+    rel_modal = "training/train_fastconformer_phoneme_modal.py"
+    train_script = lab_root() / rel_modal
+    modal_cmd = [sys.executable, "-m", "modal", "run", "--detach", rel_modal, "--job-name", job_name]
+    local_cmd = [sys.executable, str(train_script), "--job-name", job_name]
     if not allow_modal:
         print(
-            f"modal training requested for {task.id}; rerun with --allow-modal to launch: {' '.join(cmd)}",
+            f"modal training requested for {task.id}; rerun with --allow-modal to launch: "
+            f"`{' '.join(modal_cmd)}`",
             file=sys.stderr,
         )
-        return CommandResult(cmd=cmd, returncode=77)
-    return _run(cmd)
+        return CommandResult(cmd=modal_cmd, returncode=77)
+    mr = _run(modal_cmd)
+    if mr.returncode == 0:
+        return mr
+    print(
+        f"modal CLI failed for {task.id} (exit {mr.returncode}); "
+        f"running local training placeholder: {' '.join(local_cmd)}",
+        file=sys.stderr,
+    )
+    return _run(local_cmd)
 
 
 def tick(dry_run: bool = False) -> int:

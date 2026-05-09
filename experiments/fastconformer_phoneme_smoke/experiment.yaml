@@ -1,0 +1,10 @@
+kind: model_only
+hypothesis: "Phoneme-oriented FastConformer lab path reuses deterministic tier-2 ABI until NeMo training is wired"
+owner: ""
+constraints:
+  max_onnx_mb: 200
+notes: >
+  Mirrors experiments/smoke streaming first-verse harness for tier2_local. Training is a separate
+  Modal/local placeholder under training/train_fastconformer_phoneme_modal.py — no weights here.
+expected_metrics:
+  tier2_first_verse_accuracy_min: 0.85
