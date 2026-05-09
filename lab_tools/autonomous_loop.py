@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time
@@ -195,19 +196,43 @@ def _promote_run(run_record: Path, tier1: Path | None, tier3: Path | None) -> tu
     return result.returncode, promotions[0] if promotions else None
 
 
+def _modal_launch_allowed(cli_allow_modal: bool) -> bool:
+    if cli_allow_modal:
+        return True
+    v = os.environ.get("LAB_AUTONOMY_ALLOW_MODAL", "")
+    return v.strip().lower() in {"1", "true", "yes", "on"}
+
+
 def _maybe_launch_modal(task: Task, allow_modal: bool) -> CommandResult | None:
     payload = task.payload or {}
     if task.kind not in {"model_only", "joint_model_runtime"} or not payload.get("modal_training"):
         return None
     job_name = str(payload.get("job_name", task.id))
-    cmd = ["modal", "run", "--detach", "training/train_fastconformer_phoneme_modal.py", "--job-name", job_name]
-    if not allow_modal:
+    cmd = [
+        sys.executable,
+        "-m",
+        "modal",
+        "run",
+        "--detach",
+        str(lab_root() / "training" / "train_fastconformer_phoneme_modal.py"),
+        "--job-name",
+        job_name,
+    ]
+    if not _modal_launch_allowed(allow_modal):
         print(
-            f"modal training requested for {task.id}; rerun with --allow-modal to launch: {' '.join(cmd)}",
+            f"modal training requested for {task.id}; "
+            f"set LAB_AUTONOMY_ALLOW_MODAL=1 or pass --allow-modal to launch: {' '.join(cmd)}",
             file=sys.stderr,
         )
         return CommandResult(cmd=cmd, returncode=77)
-    return _run(cmd)
+    result = _run(cmd)
+    if result.returncode != 0:
+        print(
+            f"modal training exited {result.returncode} for {task.id}; "
+            "continuing with local tier evaluation (bounded soft-fail).",
+            file=sys.stderr,
+        )
+    return result
 
 
 def tick(dry_run: bool = False) -> int:
@@ -273,9 +298,6 @@ def run_once(
     modal_result = _maybe_launch_modal(task, allow_modal)
     if modal_result is not None:
         commands.append(modal_result)
-        if modal_result.returncode not in {0, 77}:
-            set_status(task.id, "rejected", judge_reasons=["modal_launch_failed"])
-            return modal_result.returncode
 
     tier1 = _run(
         [

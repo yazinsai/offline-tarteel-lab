@@ -1,7 +1,18 @@
 import json
+import os
 
 import lab_tools.autonomous_loop as al
 import lab_tools.task_queue as tq
+
+
+def test_modal_launch_allowed_cli_or_env():
+    assert al._modal_launch_allowed(True) is True
+    assert al._modal_launch_allowed(False) is False
+    os.environ["LAB_AUTONOMY_ALLOW_MODAL"] = "1"
+    try:
+        assert al._modal_launch_allowed(False) is True
+    finally:
+        os.environ.pop("LAB_AUTONOMY_ALLOW_MODAL", None)
 
 
 def test_judge_from_metrics_rejects_missing_accuracy():
