@@ -60,7 +60,7 @@
     },
     {
       "id": "task-048442117107",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Evaluate phoneme FastConformer training candidate",
       "payload": {
@@ -72,16 +72,18 @@
         "autopilot_key": "model.fastconformer_phoneme_smoke"
       },
       "created_at": "2026-05-09T01:10:37.211291+00:00",
-      "updated_at": "2026-05-09T01:10:37.211291+00:00",
+      "updated_at": "2026-05-09T06:53:09.575307+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-1997bcbb0329",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Tighten ONNX export and streaming wrapper contract",
       "payload": {
@@ -91,7 +93,169 @@
         "autopilot_key": "joint.model_runtime_export_contract"
       },
       "created_at": "2026-05-09T05:13:48.754485+00:00",
-      "updated_at": "2026-05-09T05:13:48.754485+00:00",
+      "updated_at": "2026-05-09T06:53:09.575319+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-2630ea293eaa",
+      "status": "promoted",
+      "kind": "runtime_only",
+      "title": "Tune streaming chunk duration variant 01",
+      "payload": {
+        "experiment": "smoke",
+        "param": "chunk_seconds",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.chunk_seconds.01"
+      },
+      "created_at": "2026-05-09T06:53:09.576520+00:00",
+      "updated_at": "2026-05-09T06:54:14.495381+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "/workspace/artifacts/runs/task-2630ea293eaa-20260509T065414Z.json",
+      "judge_reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "task-f34e3fbbf158",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune streaming chunk overlap variant 02",
+      "payload": {
+        "experiment": "smoke",
+        "param": "overlap_seconds",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.overlap_seconds.02"
+      },
+      "created_at": "2026-05-09T06:53:09.576961+00:00",
+      "updated_at": "2026-05-09T06:53:09.576961+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-4be18a3eb4c3",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune first-match threshold variant 03",
+      "payload": {
+        "experiment": "smoke",
+        "param": "FIRST_MATCH_THRESHOLD",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.FIRST_MATCH_THRESHOLD.03"
+      },
+      "created_at": "2026-05-09T06:53:09.577382+00:00",
+      "updated_at": "2026-05-09T06:53:09.577382+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-bcb291a02d45",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune verse-match threshold variant 04",
+      "payload": {
+        "experiment": "smoke",
+        "param": "VERSE_MATCH_THRESHOLD",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.VERSE_MATCH_THRESHOLD.04"
+      },
+      "created_at": "2026-05-09T06:53:09.577774+00:00",
+      "updated_at": "2026-05-09T06:53:09.577774+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-345f65f813ab",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune streaming smoothing window variant 05",
+      "payload": {
+        "experiment": "smoke",
+        "param": "smoothing_window",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.smoothing_window.05"
+      },
+      "created_at": "2026-05-09T06:53:09.578191+00:00",
+      "updated_at": "2026-05-09T06:53:09.578191+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-c1ac6edd818c",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune correction hysteresis variant 06",
+      "payload": {
+        "experiment": "smoke",
+        "param": "correction_hysteresis",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.correction_hysteresis.06"
+      },
+      "created_at": "2026-05-09T06:53:09.578617+00:00",
+      "updated_at": "2026-05-09T06:53:09.578617+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-20593aabea01",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune partial-match margin variant 07",
+      "payload": {
+        "experiment": "smoke",
+        "param": "partial_match_margin",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.partial_match_margin.07"
+      },
+      "created_at": "2026-05-09T06:53:09.579053+00:00",
+      "updated_at": "2026-05-09T06:53:09.579053+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-d10106a72e63",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune correction debounce variant 08",
+      "payload": {
+        "experiment": "smoke",
+        "param": "debounce_ms",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.debounce_ms.08"
+      },
+      "created_at": "2026-05-09T06:53:09.579486+00:00",
+      "updated_at": "2026-05-09T06:53:09.579486+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,

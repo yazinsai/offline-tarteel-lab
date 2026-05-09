@@ -18,13 +18,16 @@ def _first_match_threshold() -> float:
 
 
 _REF_CHUNK_SECONDS = 0.25  # calibrates windows_until_lock vs chunk duration
+# Variant runtime.adaptive.chunk_seconds.01: slightly shorter default frame than 0.30s
+# for tier-2 smoke metadata sweeps without requiring CHUNK_SECONDS in the environment.
+_DEFAULT_STREAM_CHUNK_SECONDS = 0.285
 
 
 def _chunk_seconds() -> float:
     """Decoder / streaming frame size for metadata; sweep via CHUNK_SECONDS env."""
     raw = os.environ.get("CHUNK_SECONDS")
     if raw is None or raw.strip() == "":
-        return 0.30
+        return _DEFAULT_STREAM_CHUNK_SECONDS
     v = float(raw)
     if v <= 0:
         return _REF_CHUNK_SECONDS
