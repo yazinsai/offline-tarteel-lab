@@ -156,9 +156,18 @@ def _full_corpus_coverage(metrics: dict[str, Any]) -> bool:
 
 
 def _valid_full_corpus_champion(corpus: str) -> dict[str, Any] | None:
+    entries = read_entries(path=lab_root() / "artifacts" / "experiment_ledger.jsonl")
+    invalidated = {
+        str(entry.get("invalidates_run_id"))
+        for entry in entries
+        if entry.get("invalidates_run_id")
+        and entry.get("status") in {"invalidated", "superseded", "reverted"}
+    }
     candidates: list[dict[str, Any]] = []
-    for entry in read_entries(path=lab_root() / "artifacts" / "experiment_ledger.jsonl"):
+    for entry in entries:
         if entry.get("status") not in {"promoted", "accepted", "merged"}:
+            continue
+        if str(entry.get("run_id")) in invalidated:
             continue
         if entry.get("corpus_revision") != corpus:
             continue

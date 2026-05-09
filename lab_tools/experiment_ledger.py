@@ -115,10 +115,21 @@ def append_run_record(
 
 
 def champion(entries: list[dict[str, Any]] | None = None) -> dict[str, Any] | None:
+    all_entries = entries if entries is not None else read_entries()
+    invalidated = {
+        str(e.get("invalidates_run_id"))
+        for e in all_entries
+        if e.get("invalidates_run_id") and e.get("status") in {"invalidated", "superseded", "reverted"}
+    }
     rows = [
         e
-        for e in (entries if entries is not None else read_entries())
+        for e in all_entries
         if e.get("status") in {"promoted", "accepted", "merged"} and e.get("objective") is not None
+        and str(e.get("run_id")) not in invalidated
+        and (
+            e.get("corpus_revision") != "test_corpus_v3"
+            or (e.get("parameters") or {}).get("full_corpus_gate") is True
+        )
     ]
     if not rows:
         return None

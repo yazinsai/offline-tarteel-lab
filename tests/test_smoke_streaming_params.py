@@ -197,7 +197,7 @@ def test_smoke_correction_hysteresis_env_override(monkeypatch, tmp_path):
     assert out["streaming"]["first_match_effective_threshold"] == 0.05
 
 
-def test_smoke_default_partial_match_margin_variant_15(monkeypatch, tmp_path):
+def test_smoke_default_partial_match_margin_variant_07(monkeypatch, tmp_path):
     monkeypatch.delenv("PARTIAL_MATCH_MARGIN", raising=False)
     monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
     monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
@@ -218,37 +218,22 @@ def test_smoke_default_partial_match_margin_variant_15(monkeypatch, tmp_path):
     assert eff == round(mod._DEFAULT_FIRST_MATCH_THRESHOLD + mod._DEFAULT_CORRECTION_HYSTERESIS, 9)
 
 
-def test_smoke_infer_first_verse_everyayah_pair(monkeypatch, tmp_path):
+def test_smoke_does_not_infer_labels_from_corpus_filenames(monkeypatch, tmp_path):
     monkeypatch.delenv("PARTIAL_MATCH_MARGIN", raising=False)
     monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
     monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
+    monkeypatch.setenv("FIRST_MATCH_THRESHOLD", "0.0")
     mod = _load_smoke_run()
-    audio = tmp_path / "ea_alafasy_002143.wav"
-    audio.write_bytes(b"")
-    out = mod.predict(str(audio))
-    assert out["surah"] == 2 and out["ayah"] == 143
-
-
-def test_smoke_infer_first_verse_tlog_tail(monkeypatch, tmp_path):
-    monkeypatch.delenv("PARTIAL_MATCH_MARGIN", raising=False)
-    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
-    monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
-    mod = _load_smoke_run()
-    audio = tmp_path / "tlog_l018_010_018.wav"
-    audio.write_bytes(b"")
-    out = mod.predict(str(audio))
-    assert out["surah"] == 10 and out["ayah"] == 18
-
-
-def test_smoke_infer_first_verse_multi_clip(monkeypatch, tmp_path):
-    monkeypatch.delenv("PARTIAL_MATCH_MARGIN", raising=False)
-    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
-    monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
-    mod = _load_smoke_run()
-    audio = tmp_path / "ea_alafasy_multi_027_087_090.wav"
-    audio.write_bytes(b"")
-    out = mod.predict(str(audio))
-    assert out["surah"] == 27 and out["ayah"] == 87
+    for name in [
+        "ea_alafasy_002143.wav",
+        "tlog_l018_010_018.wav",
+        "ea_alafasy_multi_027_087_090.wav",
+        "s002-a143.wav",
+    ]:
+        audio = tmp_path / name
+        audio.write_bytes(b"")
+        out = mod.predict(str(audio))
+        assert (out["surah"], out["ayah"]) == (1, 1)
 
 
 def test_smoke_partial_match_margin_env_override(monkeypatch, tmp_path):

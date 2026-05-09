@@ -73,3 +73,55 @@ def test_append_run_record_creates_ledger_entry(tmp_path, monkeypatch):
     assert entry["objective"] == 0.7775
     assert entry["artifacts"]["run_record"] == "artifacts/runs/run.json"
     assert entry["failure_modes"] == ["min_accuracy_not_met"]
+
+
+def test_champion_ignores_invalidated_promotions():
+    entries = [
+        {
+            "schema": ledger.LEDGER_SCHEMA,
+            "run_id": "bad",
+            "status": "promoted",
+            "objective": 0.99,
+            "corpus_revision": "test_corpus_v3",
+            "parameters": {"full_corpus_gate": True},
+        },
+        {
+            "schema": ledger.LEDGER_SCHEMA,
+            "run_id": "good",
+            "status": "promoted",
+            "objective": 0.5,
+            "corpus_revision": "test_corpus_v3",
+            "parameters": {"full_corpus_gate": True},
+        },
+        {
+            "schema": ledger.LEDGER_SCHEMA,
+            "status": "invalidated",
+            "invalidates_run_id": "bad",
+            "reason": "label_leakage",
+        },
+    ]
+
+    assert ledger.champion(entries)["run_id"] == "good"
+
+
+def test_champion_ignores_v3_promotions_without_full_corpus_gate():
+    entries = [
+        {
+            "schema": ledger.LEDGER_SCHEMA,
+            "run_id": "placeholder",
+            "status": "promoted",
+            "objective": 1.0,
+            "corpus_revision": "test_corpus_v3",
+            "parameters": {},
+        },
+        {
+            "schema": ledger.LEDGER_SCHEMA,
+            "run_id": "full",
+            "status": "promoted",
+            "objective": 0.4,
+            "corpus_revision": "test_corpus_v3",
+            "parameters": {"full_corpus_gate": True},
+        },
+    ]
+
+    assert ledger.champion(entries)["run_id"] == "full"

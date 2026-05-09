@@ -3,7 +3,7 @@
   "tasks": [
     {
       "id": "task-04a1e251d3ba",
-      "status": "promoted",
+      "status": "rejected",
       "kind": "runtime_only",
       "title": "Improve streaming first-verse baseline",
       "payload": {
@@ -471,12 +471,14 @@
         "autopilot_key": "runtime.adaptive.partial_match_margin.15"
       },
       "created_at": "2026-05-09T08:01:40.906157+00:00",
-      "updated_at": "2026-05-09T11:44:35.502326+00:00",
+      "updated_at": "2026-05-09T12:41:00.000000+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": "/workspace/artifacts/runs/task-98cdd97bd11a-20260509T114435Z.json",
-      "judge_reasons": [],
-      "notes": ""
+      "judge_reasons": [
+        "label_leakage"
+      ],
+      "notes": "Invalidated after review: variant parsed surah/ayah labels from corpus filename stems instead of generalizing from audio/model/tracker behavior."
     },
     {
       "id": "task-d1f3604dfca7",

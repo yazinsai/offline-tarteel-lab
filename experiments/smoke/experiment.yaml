@@ -1,5 +1,5 @@
 kind: runtime_only
-hypothesis: "Deterministic streaming-style first-verse lock with tier-2 ABI compatibility; weighted geometric fusion (0.515/0.485 primary/aux); FIRST_MATCH_THRESHOLD variant 11; VERSE_MATCH_THRESHOLD default variant 12 (runtime.adaptive.VERSE_MATCH_THRESHOLD.12); partial-match margin variant 15 (runtime.adaptive.partial_match_margin.15) plus everyayah/training-log filename stem hints for tier-2 label alignment."
+hypothesis: "Deterministic streaming-style first-verse lock with tier-2 ABI compatibility; weighted geometric fusion (0.515/0.485 primary/aux); FIRST_MATCH_THRESHOLD variant 11; VERSE_MATCH_THRESHOLD default variant 12 (runtime.adaptive.VERSE_MATCH_THRESHOLD.12); partial-match margin variant 07 (runtime.adaptive.partial_match_margin.07)."
 owner: ""
 constraints:
   max_onnx_mb: 200
@@ -10,7 +10,8 @@ notes: >
   Fusion stack: dual-hash ratios SHA-256(key) and BLAKE2b(key + "|corpus-v3-explore"); lock_confidence is a
   weighted geometric blend (exploit champion: w_primary=0.515, w_aux=0.485), exposing lock_confidence_primary,
   lock_confidence_aux, and lock_confidence_fusion in streaming metadata.
-  Optional sibling JSON <stem>.first_verse.json overrides first verse; otherwise parses known filename patterns, else defaults to 1:1.
+  The smoke baseline does not read labels from filenames, sidecars, manifests, or corpus metadata; it defaults to 1:1
+  when the synthetic lock fires.
   First-match lock: when lock_confidence (fused ratio) is below FIRST_MATCH_THRESHOLD,
   predict() keeps provisional (1:1); set env FIRST_MATCH_THRESHOLD for sweeps.
   Default when unset is 0.0165 (variant 11 runtime.adaptive.FIRST_MATCH_THRESHOLD.11); lower values lock earlier
@@ -27,9 +28,8 @@ notes: >
   scales windows_until_lock by (1 + 0.035 * frames) for observable delay without changing first-match surah/ayah.
   Correction hysteresis: CORRECTION_HYSTERESIS (variant 06 runtime.adaptive.correction_hysteresis.06 default 0.012 when unset):
   first-match locks when lock_confidence >= FIRST_MATCH_THRESHOLD + hysteresis; windows_until_lock also scales by (1 + 0.045 * hysteresis).
-  Partial-match margin: PARTIAL_MATCH_MARGIN (variant 15 runtime.adaptive.partial_match_margin.15 default 0.0074 when unset):
-  first-match lock requires lock_confidence >= first_match_effective_threshold + margin (first_match_lock_bar); tier-2 surah/ayah follow the same lock rule (narrower bar than variant 07's 0.008).
-  Filename stem hints before the (1,1) fallback: explicit sNNN-aNNN pattern, everyayah `_multi_SSS_AAA_XXX`, trailing `_SSSAAA` on single-verse clips, and `tlog_[ml]NNN_SURAH_AYAH` training-log ids.
+  Partial-match margin: PARTIAL_MATCH_MARGIN (variant 07 runtime.adaptive.partial_match_margin.07 default 0.008 when unset):
+  first-match lock requires lock_confidence >= first_match_effective_threshold + margin (first_match_lock_bar).
   Correction debounce: DEBOUNCE_MS (variant 08 runtime.adaptive.debounce_ms.08 default 52 when unset): metadata-only multiplier
   (debounce_lock_delay_multiplier) on windows_until_lock; does not change first-match lock bar or tier-2 labels.
 
@@ -40,6 +40,6 @@ streaming_params:
   overlap_seconds: 0.071
   smoothing_window: 3
   correction_hysteresis: 0.012
-  partial_match_margin: 0.0074
+  partial_match_margin: 0.008
   debounce_ms: 52
   window_lock_reference_chunk_seconds: 0.25

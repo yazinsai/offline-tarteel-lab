@@ -90,6 +90,7 @@ Follow this exact operating procedure:
 Do not create, modify, or commit audio files, model binaries, tensor dumps, caches, node_modules, virtualenvs, or secrets.
 Do not add files with extensions .wav, .mp3, .flac, .ogg, .m4a, .onnx, .pt, .pth, .ckpt, .bin, .safetensors, .npy, or .npz.
 Do not create, modify, duplicate, pad, or otherwise game benchmark/test_corpus* manifests or datasets/registry.yaml. If ${corpus} is too small to satisfy promotion gates, reject/record the task; do not edit the corpus.
+Do not infer surah/ayah labels from audio file names, paths, manifests, sidecar metadata, corpus IDs, or benchmark row ordering. Improvements must generalize from audio/model/tracker behavior, not corpus-label leakage.
 Benchmark changes must be JSON metadata or manifests only, and should reference existing committed sample files.
 Do not run unbounded loops.`;
 
