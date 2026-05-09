@@ -460,7 +460,7 @@
     },
     {
       "id": "task-98cdd97bd11a",
-      "status": "queued",
+      "status": "promoted",
       "kind": "runtime_only",
       "title": "Tune partial-match margin variant 15",
       "payload": {
@@ -471,11 +471,11 @@
         "autopilot_key": "runtime.adaptive.partial_match_margin.15"
       },
       "created_at": "2026-05-09T08:01:40.906157+00:00",
-      "updated_at": "2026-05-09T08:01:40.906157+00:00",
+      "updated_at": "2026-05-09T11:44:35.502326+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-98cdd97bd11a-20260509T114435Z.json",
+      "judge_reasons": [],
       "notes": ""
     },
     {
@@ -592,6 +592,26 @@
       },
       "created_at": "2026-05-09T11:20:15.839934+00:00",
       "updated_at": "2026-05-09T11:20:15.839934+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-eea142756bc7",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune correction hysteresis variant 22",
+      "payload": {
+        "experiment": "smoke",
+        "param": "correction_hysteresis",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.correction_hysteresis.22"
+      },
+      "created_at": "2026-05-09T11:42:08.071503+00:00",
+      "updated_at": "2026-05-09T11:42:08.071503+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,

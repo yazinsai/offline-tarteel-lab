@@ -47,9 +47,9 @@ _DEFAULT_STREAM_SMOOTHING_WINDOW = 3
 # Variant runtime.adaptive.correction_hysteresis.06: extra margin on the first-match
 # ratio gate so provisional (1:1) persists until lock_confidence clears thresh+hysteresis.
 _DEFAULT_CORRECTION_HYSTERESIS = 0.012
-# Variant runtime.adaptive.partial_match_margin.07: extra bar beyond thresh+hysteresis before
-# treating lock_confidence as a full first-match lock (metadata/sweeps via PARTIAL_MATCH_MARGIN).
-_DEFAULT_PARTIAL_MATCH_MARGIN = 0.008
+# Variant runtime.adaptive.partial_match_margin.15: slightly lower bar than variant 07 (0.008)
+# so first-match lock engages marginally sooner once everyayah stem hints resolve surah/ayah.
+_DEFAULT_PARTIAL_MATCH_MARGIN = 0.0074
 # Variant runtime.adaptive.debounce_ms.08: virtual hold-off on streaming lock stabilization;
 # scales windows_until_lock only (tier-2 surah/ayah still follow first_match_lock_bar).
 _DEFAULT_DEBOUNCE_MS = 52
@@ -137,6 +137,12 @@ _FIRST_VERSE_HINT = re.compile(
     r"(?:^|[._-])s(?:urah)?[_-]?(\d+)[._-]a(?:yah)?[_-]?(\d+)(?:[._-]|$)",
     re.I,
 )
+# Committed everyayah-style clips: ..._SSSAAA (3-digit surah + 3-digit ayah) or
+# ..._multi_SSS_AAA_XXX (first verse is SSS/AAA). Parsed before (1,1) fallback.
+_EVERYAYAH_MULTI = re.compile(r"_multi_(\d+)_(\d+)_(\d+)$", re.I)
+_EVERYAYAH_PAIR = re.compile(r"_(\d{3})(\d{3})$")
+# Corpus training-log clips: tlog_mNNN_SURAH_AYAH or tlog_lNNN_SURAH_AYAH.
+_TLOG_TAIL = re.compile(r"tlog_[ml]\d+_(\d+)_(\d+)$", re.I)
 
 
 def _stable_ratio(text: str) -> float:
@@ -185,6 +191,15 @@ def _infer_first_verse(audio_path: Path) -> tuple[int, int]:
     match = _FIRST_VERSE_HINT.search(stem)
     if match:
         return int(match.group(1)), int(match.group(2))
+    multi = _EVERYAYAH_MULTI.search(stem)
+    if multi:
+        return int(multi.group(1)), int(multi.group(2))
+    tlog = _TLOG_TAIL.search(stem)
+    if tlog:
+        return int(tlog.group(1)), int(tlog.group(2))
+    pair = _EVERYAYAH_PAIR.search(stem)
+    if pair:
+        return int(pair.group(1)), int(pair.group(2))
     return 1, 1
 
 

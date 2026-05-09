@@ -1,0 +1,12 @@
+{
+  "schema": "offline-tarteel.benchmark_manifest_hint.v1",
+  "autopilot_key": "runtime.adaptive.partial_match_margin.15",
+  "corpus_id": "test_corpus_v3",
+  "notes": "Partial-match margin variant 15: default PARTIAL_MATCH_MARGIN when env unset is 0.0074 (narrower vs variant 07's 0.008); first_match_lock_bar = FIRST_MATCH_THRESHOLD + CORRECTION_HYSTERESIS + margin. Stem hints resolve everyayah SSSAAA/multiclipe and tlog_[ml] tails for tier-2 labels (experiments/smoke/run.py).",
+  "references": [
+    {
+      "manifest": "benchmark/test_corpus_v3/manifest.json",
+      "audio_sample": "benchmark/test_corpus_v3/sample_placeholder.wav"
+    }
+  ]
+}
