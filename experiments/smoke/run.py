@@ -40,6 +40,9 @@ _DEFAULT_STREAM_CHUNK_SECONDS = 0.285
 # Variant runtime.adaptive.overlap_seconds.02: hop stride = chunk - overlap shrinks as overlap grows,
 # so windows_until_lock scales up deterministically without changing first-verse labels.
 _DEFAULT_STREAM_OVERLAP_SECONDS = 0.062
+# Variant runtime.adaptive.smoothing_window.05: extra decoder windows before reporting a stable lock;
+# integer count; env SMOOTHING_WINDOW overrides. Larger values delay lock reporting (metadata-only for tier-2 ABI).
+_DEFAULT_SMOOTHING_WINDOW = 4
 
 
 def _chunk_seconds() -> float:
@@ -65,6 +68,18 @@ def _overlap_seconds(chunk_s: float) -> float:
     # Keep stride positive so lock delay stays finite.
     max_ov = max(chunk_s - 1e-9, 0.0)
     return min(v, max_ov)
+
+
+def _smoothing_window() -> int:
+    """Rolling stability frames before lock metadata stabilizes; sweep via SMOOTHING_WINDOW env."""
+    raw = os.environ.get("SMOOTHING_WINDOW")
+    if raw is None or raw.strip() == "":
+        return _DEFAULT_SMOOTHING_WINDOW
+    try:
+        v = int(float(raw))
+    except (TypeError, ValueError):
+        return _DEFAULT_SMOOTHING_WINDOW
+    return max(1, v)
 
 
 # Filename hints for deterministic first-verse overrides without touching audio bytes.
@@ -117,11 +132,13 @@ def predict(audio_path: str) -> dict:
     chunk_s = _chunk_seconds()
     overlap_s = _overlap_seconds(chunk_s)
     stride_s = max(chunk_s - overlap_s, 1e-9)
+    smoothing_w = _smoothing_window()
     base_windows = 3 + int(ratio * 5)
-    windows_until_lock = max(
+    base_until_lock = max(
         1,
         int(round(base_windows * (_REF_CHUNK_SECONDS / chunk_s) * (chunk_s / stride_s))),
     )
+    windows_until_lock = base_until_lock + max(0, smoothing_w - 1)
 
     return {
         "surah": surah,
@@ -136,6 +153,8 @@ def predict(audio_path: str) -> dict:
             "window_lock_stride_seconds": round(stride_s, 9),
             "window_lock_reference_chunk_seconds": _REF_CHUNK_SECONDS,
             "windows_until_lock": windows_until_lock,
+            "windows_until_lock_base": base_until_lock,
+            "smoothing_window": smoothing_w,
             "lock_confidence": round(ratio, 6),
             "first_match_threshold": thresh,
             "first_match_locked": locked,

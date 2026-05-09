@@ -119,3 +119,33 @@ def test_windows_until_lock_increases_with_overlap(monkeypatch, tmp_path):
     w_low = mod_low_overlap.predict(str(audio))["streaming"]["windows_until_lock"]
     w_high = mod_high_overlap.predict(str(audio))["streaming"]["windows_until_lock"]
     assert w_high >= w_low
+
+
+def test_smoke_default_smoothing_window_variant_05(monkeypatch, tmp_path):
+    monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "smooth-default.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["smoothing_window"] == mod._DEFAULT_SMOOTHING_WINDOW
+
+
+def test_smoke_smoothing_window_env_override(monkeypatch, tmp_path):
+    monkeypatch.setenv("SMOOTHING_WINDOW", "1")
+    mod = _load_smoke_run()
+    audio = tmp_path / "smooth-min.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["smoothing_window"] == 1
+
+
+def test_windows_until_lock_increases_with_smoothing_window(monkeypatch, tmp_path):
+    monkeypatch.delenv("SMOOTHING_WINDOW", raising=False)
+    mod_default = _load_smoke_run()
+    audio = tmp_path / "s004-a004.wav"
+    audio.write_bytes(b"")
+    w_default = mod_default.predict(str(audio))["streaming"]["windows_until_lock"]
+    monkeypatch.setenv("SMOOTHING_WINDOW", "8")
+    mod_smooth = _load_smoke_run()
+    w_smooth = mod_smooth.predict(str(audio))["streaming"]["windows_until_lock"]
+    assert w_smooth > w_default
