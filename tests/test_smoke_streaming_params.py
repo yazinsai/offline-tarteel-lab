@@ -73,6 +73,26 @@ def test_smoke_overlap_seconds_env_override(monkeypatch, tmp_path):
     assert out["streaming"]["window_lock_stride_seconds"] == 0.20
 
 
+def test_smoke_default_first_match_threshold_variant_03(monkeypatch, tmp_path):
+    monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
+    monkeypatch.delenv("CHUNK_SECONDS", raising=False)
+    monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "fm-default.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["first_match_threshold"] == mod._DEFAULT_FIRST_MATCH_THRESHOLD
+
+
+def test_smoke_first_match_threshold_env_override(monkeypatch, tmp_path):
+    monkeypatch.setenv("FIRST_MATCH_THRESHOLD", "0.05")
+    mod = _load_smoke_run()
+    audio = tmp_path / "fm-env.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["first_match_threshold"] == 0.05
+
+
 def test_windows_until_lock_increases_with_overlap(monkeypatch, tmp_path):
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.setenv("CHUNK_SECONDS", "0.30")

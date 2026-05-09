@@ -144,7 +144,7 @@
     },
     {
       "id": "task-4be18a3eb4c3",
-      "status": "queued",
+      "status": "promoted",
       "kind": "runtime_only",
       "title": "Tune first-match threshold variant 03",
       "payload": {
@@ -155,11 +155,11 @@
         "autopilot_key": "runtime.adaptive.FIRST_MATCH_THRESHOLD.03"
       },
       "created_at": "2026-05-09T06:53:09.577382+00:00",
-      "updated_at": "2026-05-09T06:53:09.577382+00:00",
+      "updated_at": "2026-05-09T07:06:36.715985+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-4be18a3eb4c3-20260509T070636Z.json",
+      "judge_reasons": [],
       "notes": ""
     },
     {
@@ -276,6 +276,26 @@
       },
       "created_at": "2026-05-09T07:00:27.949952+00:00",
       "updated_at": "2026-05-09T07:00:27.949952+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-94a6b1dae926",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune streaming chunk overlap variant 10",
+      "payload": {
+        "experiment": "smoke",
+        "param": "overlap_seconds",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.overlap_seconds.10"
+      },
+      "created_at": "2026-05-09T07:05:59.046009+00:00",
+      "updated_at": "2026-05-09T07:05:59.046009+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,

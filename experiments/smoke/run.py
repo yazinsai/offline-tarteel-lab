@@ -9,14 +9,6 @@ import re
 from pathlib import Path
 
 
-def _first_match_threshold() -> float:
-    """Synthetic streaming gate; lower values lock earlier (more aggressive inference)."""
-    raw = os.environ.get("FIRST_MATCH_THRESHOLD")
-    if raw is None or raw.strip() == "":
-        return 0.0
-    return float(raw)
-
-
 _REF_CHUNK_SECONDS = 0.25  # calibrates windows_until_lock vs chunk duration
 # Variant runtime.adaptive.chunk_seconds.01: slightly shorter default frame than 0.30s
 # for tier-2 smoke metadata sweeps without requiring CHUNK_SECONDS in the environment.
@@ -24,6 +16,17 @@ _DEFAULT_STREAM_CHUNK_SECONDS = 0.285
 # Variant runtime.adaptive.overlap_seconds.02: hop stride = chunk - overlap shrinks as overlap grows,
 # so windows_until_lock scales up deterministically without changing first-verse labels.
 _DEFAULT_STREAM_OVERLAP_SECONDS = 0.062
+# Variant runtime.adaptive.FIRST_MATCH_THRESHOLD.03: stricter default gate when env is unset
+# (raise to lock later); FIRST_MATCH_THRESHOLD env still overrides.
+_DEFAULT_FIRST_MATCH_THRESHOLD = 0.38
+
+
+def _first_match_threshold() -> float:
+    """Synthetic streaming gate; lower values lock earlier (more aggressive inference)."""
+    raw = os.environ.get("FIRST_MATCH_THRESHOLD")
+    if raw is None or raw.strip() == "":
+        return _DEFAULT_FIRST_MATCH_THRESHOLD
+    return float(raw)
 
 
 def _chunk_seconds() -> float:
