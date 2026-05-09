@@ -1,0 +1,63 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-84a16ca2c37c-20260509T225504Z",
+  "task_id": "task-84a16ca2c37c",
+  "created_at_utc": "2026-05-09T22:55:04.807265+00:00",
+  "git_sha": "92c0b48f46c32bfdfc67f5ea0faadcc4f96c67b7",
+  "dataset_revision": "test_corpus_v3",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "reference_repo": "../offline-tarteel",
+    "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+    "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+    "target_corpus": "test_corpus_v3",
+    "target_correct_range": [
+      223,
+      225
+    ],
+    "target_recall": 0.893,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.23",
+    "experiment": "reference_phoneme_v4",
+    "corpus": "test_corpus_v3",
+    "full_corpus_gate": true
+  },
+  "metrics": {
+    "tier1_passed": 12,
+    "tier1_total": 12,
+    "tier2_experiment": "reference_phoneme_v4",
+    "tier2_accuracy": 0.828125,
+    "tier2_correct": 212,
+    "tier2_samples": 256,
+    "tier2_evaluated_samples": 256,
+    "tier2_manifest_samples": 256,
+    "tier2_selected_samples": 256,
+    "tier2_sample_limit": 0,
+    "tier2_failures": 0,
+    "tier3_completed": true,
+    "baseline_accuracy": null,
+    "min_accuracy": 0.8,
+    "onnx_mb": null,
+    "max_onnx_mb": 200,
+    "target_recall": 0.828125,
+    "requires_full_corpus_gate": true,
+    "requires_champion_improvement": true,
+    "candidate_objective": 0.845313,
+    "champion_run_id": "task-c6195dd44c77-20260509T212251Z",
+    "champion_objective": 0.862891
+  },
+  "tier_completed": [
+    1,
+    2,
+    3
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 1 --corpus test_corpus_v3 --limit 12",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 0 --experiment reference_phoneme_v4",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 3"
+  ]
+}
