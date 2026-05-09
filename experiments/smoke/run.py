@@ -43,6 +43,21 @@ _DEFAULT_STREAM_OVERLAP_SECONDS = 0.062
 # Variant runtime.adaptive.smoothing_window.05: extra integration frames before emitting the lock tally;
 # metadata-only multiplier on windows_until_lock (tier-2 surah/ayah still follow first-match only).
 _DEFAULT_STREAM_SMOOTHING_WINDOW = 3
+# Variant runtime.adaptive.correction_hysteresis.06: extra margin on the first-match
+# ratio gate so provisional (1:1) persists until lock_confidence clears thresh+hysteresis.
+_DEFAULT_CORRECTION_HYSTERESIS = 0.012
+
+
+def _correction_hysteresis() -> float:
+    """Additive slack on first-match lock; sweep via CORRECTION_HYSTERESIS (non-negative)."""
+    raw = os.environ.get("CORRECTION_HYSTERESIS")
+    if raw is None or raw.strip() == "":
+        return _DEFAULT_CORRECTION_HYSTERESIS
+    try:
+        v = float(raw)
+    except ValueError:
+        return _DEFAULT_CORRECTION_HYSTERESIS
+    return max(0.0, v)
 
 
 def _smoothing_window_frames() -> int:
@@ -126,7 +141,9 @@ def predict(audio_path: str) -> dict:
     ratio = _stable_ratio(key)
     thresh = _first_match_threshold()
     verse_thresh = _verse_match_threshold()
-    locked = ratio + 1e-15 >= thresh
+    hyst = _correction_hysteresis()
+    first_effective = thresh + hyst
+    locked = ratio + 1e-15 >= first_effective
     verse_locked = ratio + 1e-15 >= verse_thresh
     inferred_surah, inferred_ayah = _infer_first_verse(path)
     # Before locking, hold a conservative provisional stance (short-stream default).
@@ -136,6 +153,7 @@ def predict(audio_path: str) -> dict:
     stride_s = max(chunk_s - overlap_s, 1e-9)
     smooth_n = _smoothing_window_frames()
     smoothing_multiplier = 1.0 + 0.035 * float(smooth_n)
+    hysteresis_lock_delay_multiplier = 1.0 + 0.045 * hyst
     base_windows = 3 + int(ratio * 5)
     windows_until_lock = max(
         1,
@@ -145,6 +163,7 @@ def predict(audio_path: str) -> dict:
                 * (_REF_CHUNK_SECONDS / chunk_s)
                 * (chunk_s / stride_s)
                 * smoothing_multiplier
+                * hysteresis_lock_delay_multiplier
             ),
         ),
     )
@@ -161,6 +180,9 @@ def predict(audio_path: str) -> dict:
             "overlap_seconds": overlap_s,
             "smoothing_window": smooth_n,
             "smoothing_lock_delay_multiplier": round(smoothing_multiplier, 9),
+            "correction_hysteresis": round(hyst, 9),
+            "first_match_effective_threshold": round(first_effective, 9),
+            "hysteresis_lock_delay_multiplier": round(hysteresis_lock_delay_multiplier, 9),
             "window_lock_stride_seconds": round(stride_s, 9),
             "window_lock_reference_chunk_seconds": _REF_CHUNK_SECONDS,
             "windows_until_lock": windows_until_lock,
