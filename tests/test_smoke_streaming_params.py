@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import importlib.util
-import os
 from pathlib import Path
 
 
@@ -15,6 +14,24 @@ def _load_smoke_run():
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
+
+
+def test_smoke_default_first_match_threshold_variant_03(monkeypatch, tmp_path):
+    monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "first-match-default.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["first_match_threshold"] == mod._DEFAULT_FIRST_MATCH_THRESHOLD
+
+
+def test_smoke_first_match_threshold_env_override(monkeypatch, tmp_path):
+    monkeypatch.setenv("FIRST_MATCH_THRESHOLD", "0.0")
+    mod = _load_smoke_run()
+    audio = tmp_path / "first-match-env.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["first_match_threshold"] == 0.0
 
 
 def test_smoke_default_chunk_seconds_variant_01(monkeypatch, tmp_path):

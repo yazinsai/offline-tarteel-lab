@@ -9,11 +9,16 @@ import re
 from pathlib import Path
 
 
+# Variant runtime.adaptive.FIRST_MATCH_THRESHOLD.03: small positive default so very low
+# lock_confidence stays provisional (1:1) until env FIRST_MATCH_THRESHOLD overrides.
+_DEFAULT_FIRST_MATCH_THRESHOLD = 0.018
+
+
 def _first_match_threshold() -> float:
     """Synthetic streaming gate; lower values lock earlier (more aggressive inference)."""
     raw = os.environ.get("FIRST_MATCH_THRESHOLD")
     if raw is None or raw.strip() == "":
-        return 0.0
+        return _DEFAULT_FIRST_MATCH_THRESHOLD
     return float(raw)
 
 
