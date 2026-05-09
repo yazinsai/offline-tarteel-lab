@@ -6,6 +6,8 @@ import importlib.util
 import os
 from pathlib import Path
 
+import pytest
+
 
 def _load_smoke_run():
     root = Path(__file__).resolve().parent.parent
@@ -33,6 +35,27 @@ def test_smoke_chunk_seconds_env_override(monkeypatch, tmp_path):
     audio.write_bytes(b"")
     out = mod.predict(str(audio))
     assert out["streaming"]["chunk_seconds"] == 0.22
+
+
+def test_smoke_default_overlap_seconds_variant_02(monkeypatch, tmp_path):
+    monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
+    monkeypatch.delenv("CHUNK_SECONDS", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "s003-a003.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["overlap_seconds"] == mod._DEFAULT_OVERLAP_SECONDS
+
+
+def test_smoke_overlap_env_override(monkeypatch, tmp_path):
+    monkeypatch.setenv("OVERLAP_SECONDS", "0.06")
+    monkeypatch.delenv("CHUNK_SECONDS", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "clip_overlap.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["overlap_seconds"] == 0.06
+    assert out["streaming"]["stream_stride_seconds"] == pytest.approx(0.285 - 0.06)
 
 
 def test_windows_until_lock_scales_with_chunk(monkeypatch, tmp_path):

@@ -21,6 +21,9 @@ _REF_CHUNK_SECONDS = 0.25  # calibrates windows_until_lock vs chunk duration
 # Variant runtime.adaptive.chunk_seconds.01: slightly shorter default frame than 0.30s
 # for tier-2 smoke metadata sweeps without requiring CHUNK_SECONDS in the environment.
 _DEFAULT_STREAM_CHUNK_SECONDS = 0.285
+# Variant runtime.adaptive.overlap_seconds.02: hop stride is chunk_seconds minus overlap;
+# default overlap keeps tier-2 ABI stable while exposing overlap in streaming metadata.
+_DEFAULT_OVERLAP_SECONDS = 0.048
 
 
 def _chunk_seconds() -> float:
@@ -31,6 +34,17 @@ def _chunk_seconds() -> float:
     v = float(raw)
     if v <= 0:
         return _REF_CHUNK_SECONDS
+    return v
+
+
+def _overlap_seconds() -> float:
+    """Overlap between consecutive streaming frames; sweep via OVERLAP_SECONDS env."""
+    raw = os.environ.get("OVERLAP_SECONDS")
+    if raw is None or raw.strip() == "":
+        return _DEFAULT_OVERLAP_SECONDS
+    v = float(raw)
+    if v < 0:
+        return 0.0
     return v
 
 
@@ -80,8 +94,11 @@ def predict(audio_path: str) -> dict:
     # Before locking, hold a conservative provisional stance (short-stream default).
     surah, ayah = (inferred_surah, inferred_ayah) if locked else (1, 1)
     chunk_s = _chunk_seconds()
+    overlap_raw = _overlap_seconds()
+    overlap_applied = min(max(0.0, overlap_raw), chunk_s * 0.95)
+    stride_s = max(chunk_s * 1e-6, chunk_s - overlap_applied)
     base_windows = 3 + int(ratio * 5)
-    windows_until_lock = max(1, int(round(base_windows * (_REF_CHUNK_SECONDS / chunk_s))))
+    windows_until_lock = max(1, int(round(base_windows * (_REF_CHUNK_SECONDS / stride_s))))
 
     return {
         "surah": surah,
@@ -92,6 +109,8 @@ def predict(audio_path: str) -> dict:
         "streaming": {
             "mode": "deterministic_first_verse_lock",
             "chunk_seconds": chunk_s,
+            "overlap_seconds": overlap_applied,
+            "stream_stride_seconds": round(stride_s, 9),
             "window_lock_reference_chunk_seconds": _REF_CHUNK_SECONDS,
             "windows_until_lock": windows_until_lock,
             "lock_confidence": round(ratio, 6),
