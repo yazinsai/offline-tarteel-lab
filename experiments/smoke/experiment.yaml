@@ -11,6 +11,9 @@ notes: >
   First-match lock: when lock_confidence (deterministic hash ratio) is below FIRST_MATCH_THRESHOLD,
   predict() keeps provisional (1:1); set env FIRST_MATCH_THRESHOLD for sweeps.
   Default when unset is 0.018 (variant 03 runtime.adaptive.FIRST_MATCH_THRESHOLD.03); lower values lock earlier.
+  Verse-match gate: secondary threshold on the same lock_confidence ratio (env VERSE_MATCH_THRESHOLD;
+  variant 04 runtime.adaptive.VERSE_MATCH_THRESHOLD.04 default 0.412). Metadata-only; tier-2 accuracy
+  still follows first-match surah/ayah.
   Chunk/window: default chunk_seconds 0.285s (env CHUNK_SECONDS; variant 01 runtime.adaptive.chunk_seconds.01);
   windows_until_lock scales inversely against window_lock_reference_chunk_seconds 0.25 so shorter frames
   require more windows before lock.
@@ -19,6 +22,7 @@ notes: >
 
 streaming_params:
   FIRST_MATCH_THRESHOLD: 0.018
+  VERSE_MATCH_THRESHOLD: 0.412
   chunk_seconds: 0.285
   overlap_seconds: 0.062
   window_lock_reference_chunk_seconds: 0.25
