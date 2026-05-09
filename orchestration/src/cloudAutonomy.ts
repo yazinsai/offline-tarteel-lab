@@ -86,6 +86,12 @@ Follow this exact operating procedure:
 14. If the bounded controller rejects the task or no task is promoted, revert all candidate code, test, and benchmark-manifest edits before committing. The PR must be state-only: artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
 15. If no task is promoted but queue/run/ledger state changed, make the PR title start with "Autopilot offline-tarteel state:" and include only artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
 16. Do not open a normal code PR for a rejected autonomous task. Human-review code PRs are only for explicitly useful prototypes that are not rejected controller runs.
+17. The PR description must explain the attempted experiment in concrete terms so reviewers do not need to read the diff to understand it. Include these sections:
+   - "Attempted change": the exact parameter/model/tracker/rule change tried, with before -> after values when applicable.
+   - "Files changed during the probe": files you edited while testing, including files later reverted for a rejected task.
+   - "Evaluation result": corpus, sample count, command, accuracy/objective, gate outcome, and rejection/promotion reason.
+   - "Final PR contents": what remains committed after promotion or after reverting a rejected probe.
+   - "What to avoid next": any negative-memory lesson if the attempt failed.
 
 Do not create, modify, or commit audio files, model binaries, tensor dumps, caches, node_modules, virtualenvs, or secrets.
 Do not add files with extensions .wav, .mp3, .flac, .ogg, .m4a, .onnx, .pt, .pth, .ckpt, .bin, .safetensors, .npy, or .npz.
