@@ -37,6 +37,10 @@ const corpus = process.env.LAB_AUTONOMY_CORPUS ?? "test_corpus_v3";
 const allowModal = readBool("LAB_AUTONOMY_ALLOW_MODAL");
 const autopilotPlan = readBoolDefault("LAB_AUTONOMY_PLAN", true);
 
+if (allowModal && (!process.env.MODAL_TOKEN_ID || !process.env.MODAL_TOKEN_SECRET)) {
+  throw new Error("Modal launches require MODAL_TOKEN_ID and MODAL_TOKEN_SECRET");
+}
+
 const modalEnv =
   allowModal && process.env.MODAL_TOKEN_ID && process.env.MODAL_TOKEN_SECRET
     ? {
