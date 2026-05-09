@@ -10,6 +10,35 @@ def test_judge_from_metrics_rejects_missing_accuracy():
     assert "missing_tier2_accuracy" in out["reasons"]
 
 
+def test_maybe_launch_modal_skips_without_lab_env(monkeypatch):
+    monkeypatch.delenv("LAB_AUTONOMY_ALLOW_MODAL", raising=False)
+
+    class _T:
+        id = "task-modal"
+        kind = "model_only"
+
+        payload = {"modal_training": True, "job_name": "j"}
+
+    task = _T()
+    out = al._maybe_launch_modal(task, allow_modal=True)
+    assert out is not None
+    assert out.returncode == 77
+    assert "modal" in out.cmd[0]
+
+
+def test_maybe_launch_modal_skips_when_allow_modal_false():
+    class _T:
+        id = "task-modal"
+        kind = "model_only"
+
+        payload = {"modal_training": True, "job_name": "j"}
+
+    task = _T()
+    out = al._maybe_launch_modal(task, allow_modal=False)
+    assert out is not None
+    assert out.returncode == 77
+
+
 def test_judge_from_metrics_rejects_below_min_accuracy():
     out = al._judge_from_metrics(
         {

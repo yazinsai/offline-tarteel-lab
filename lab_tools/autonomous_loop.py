@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time
@@ -195,6 +196,11 @@ def _promote_run(run_record: Path, tier1: Path | None, tier3: Path | None) -> tu
     return result.returncode, promotions[0] if promotions else None
 
 
+def _env_truthy(name: str) -> bool:
+    v = os.environ.get(name, "").strip().lower()
+    return v in {"1", "true", "yes", "on"}
+
+
 def _maybe_launch_modal(task: Task, allow_modal: bool) -> CommandResult | None:
     payload = task.payload or {}
     if task.kind not in {"model_only", "joint_model_runtime"} or not payload.get("modal_training"):
@@ -204,6 +210,13 @@ def _maybe_launch_modal(task: Task, allow_modal: bool) -> CommandResult | None:
     if not allow_modal:
         print(
             f"modal training requested for {task.id}; rerun with --allow-modal to launch: {' '.join(cmd)}",
+            file=sys.stderr,
+        )
+        return CommandResult(cmd=cmd, returncode=77)
+    if not _env_truthy("LAB_AUTONOMY_ALLOW_MODAL"):
+        print(
+            f"modal training skipped for {task.id}: set LAB_AUTONOMY_ALLOW_MODAL=1 "
+            f"(CLI --allow-modal alone does not spend external compute): {' '.join(cmd)}",
             file=sys.stderr,
         )
         return CommandResult(cmd=cmd, returncode=77)
