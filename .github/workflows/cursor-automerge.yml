@@ -64,8 +64,18 @@ jobs:
               cursor-autonomy-base-*)
                 main_sha="$(gh api "repos/$REPO/git/ref/heads/main" --jq '.object.sha')"
                 if [ "$base_sha" != "$main_sha" ]; then
-                  echo "Cursor base $base_ref is not current main; base=$base_sha main=$main_sha"
-                  exit 0
+                  changed_since_base="$(gh api "repos/$REPO/compare/$base_sha...$main_sha" --jq '.files[].filename')"
+                  non_failure_changes="$(
+                    printf '%s\n' "$changed_since_base" |
+                    awk 'NF && $0 !~ /^artifacts\/autonomy_failures\// { print }'
+                  )"
+                  if [ -n "$non_failure_changes" ]; then
+                    echo "Cursor base $base_ref is not current main; base=$base_sha main=$main_sha"
+                    echo "Main changed outside the autonomous failure ledger:"
+                    printf '%s\n' "$non_failure_changes"
+                    exit 0
+                  fi
+                  echo "Cursor base $base_ref is behind main only by autonomy failure records; retargeting is allowed."
                 fi
                 echo "Retargeting PR from exact Cursor base $base_ref to main"
                 gh pr edit "$PR_NUMBER" --repo "$REPO" --base main
@@ -273,7 +283,7 @@ jobs:
                   f["filename"]
                   for f in files
                   if f["filename"] in {"pyproject.toml"}
-                  or f["filename"].startswith((".github/", "orchestration/", "training/"))
+                  or f["filename"].startswith((".github/", "orchestration/", "training/", "lab_tools/"))
                   or f["filename"].lower().endswith(
                       (
                           ".wav",
