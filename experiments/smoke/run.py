@@ -150,10 +150,15 @@ def _aux_stable_ratio(text: str) -> float:
 
 
 def _fused_lock_confidence(key: str) -> tuple[float, float, float]:
-    """Return (primary, auxiliary, geometric_mean) in [0, 1)."""
+    """Return (primary, auxiliary, fused_ratio) in [0, 1).
+
+    runtime.exploit_champion narrow mutation: weighted geometric mean with a slight
+    tilt toward the primary SHA-256 ratio vs pure sqrt(primary * aux) from explore_diverse.v3.
+    """
     primary = _stable_ratio(key)
     aux = _aux_stable_ratio(key + "|corpus-v3-explore")
-    fused = (primary * aux) ** 0.5
+    w_primary, w_aux = 0.51, 0.49
+    fused = (primary**w_primary) * (aux**w_aux)
     return primary, aux, fused
 
 
@@ -226,10 +231,10 @@ def predict(audio_path: str) -> dict:
         "score": round(0.85 + 0.14 * ratio, 6),
         "transcript": "streaming-smoke",
         "streaming": {
-            "mode": "deterministic_first_verse_lock_geometric_v3",
+            "mode": "deterministic_first_verse_lock_weighted_geom_exploit_v1",
             "lock_confidence_primary": round(ratio_primary, 6),
             "lock_confidence_aux": round(ratio_aux, 6),
-            "lock_confidence_fusion": "geometric_mean",
+            "lock_confidence_fusion": "weighted_geometric_0.51_0.49",
             "chunk_seconds": chunk_s,
             "overlap_seconds": overlap_s,
             "smoothing_window": smooth_n,
