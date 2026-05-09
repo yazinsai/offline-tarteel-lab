@@ -2,7 +2,7 @@
   "schema": "offline-tarteel.benchmark_manifest_hint.v1",
   "autopilot_key": "runtime.adaptive.chunk_seconds.01",
   "corpus_id": "test_corpus_v3",
-  "notes": "Chunk duration variant 01: smoke default CHUNK_SECONDS when env unset is 0.285s (see experiments/smoke/run.py).",
+  "notes": "Chunk duration variant 01 (historical ledger baseline): smoke default was 0.285s before variant 09; current default CHUNK_SECONDS when unset is 0.272s (runtime.adaptive.chunk_seconds.09, experiments/smoke/run.py).",
   "references": [
     {
       "manifest": "benchmark/test_corpus_v3/manifest.json",

@@ -264,7 +264,7 @@
     },
     {
       "id": "task-050352a55821",
-      "status": "queued",
+      "status": "promoted",
       "kind": "runtime_only",
       "title": "Tune streaming chunk duration variant 09",
       "payload": {
@@ -275,11 +275,11 @@
         "autopilot_key": "runtime.adaptive.chunk_seconds.09"
       },
       "created_at": "2026-05-09T07:00:27.949952+00:00",
-      "updated_at": "2026-05-09T07:00:27.949952+00:00",
+      "updated_at": "2026-05-09T07:48:59.634156+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-050352a55821-20260509T074859Z.json",
+      "judge_reasons": [],
       "notes": ""
     },
     {
@@ -408,6 +408,26 @@
       },
       "created_at": "2026-05-09T07:41:51.303021+00:00",
       "updated_at": "2026-05-09T07:41:51.303021+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-28d8cd7e1b4f",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune streaming smoothing window variant 13",
+      "payload": {
+        "experiment": "smoke",
+        "param": "smoothing_window",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.smoothing_window.13"
+      },
+      "created_at": "2026-05-09T07:48:10.539365+00:00",
+      "updated_at": "2026-05-09T07:48:10.539365+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,

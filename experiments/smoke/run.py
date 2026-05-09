@@ -34,9 +34,9 @@ def _verse_match_threshold() -> float:
 
 
 _REF_CHUNK_SECONDS = 0.25  # calibrates windows_until_lock vs chunk duration
-# Variant runtime.adaptive.chunk_seconds.01: slightly shorter default frame than 0.30s
-# for tier-2 smoke metadata sweeps without requiring CHUNK_SECONDS in the environment.
-_DEFAULT_STREAM_CHUNK_SECONDS = 0.285
+# Variant runtime.adaptive.chunk_seconds.09: shorter default frame (0.272s) than variant 01
+# (0.285s) for tier-2 smoke metadata sweeps without requiring CHUNK_SECONDS in the environment.
+_DEFAULT_STREAM_CHUNK_SECONDS = 0.272
 # Variant runtime.adaptive.overlap_seconds.02: hop stride = chunk - overlap shrinks as overlap grows,
 # so windows_until_lock scales up deterministically without changing first-verse labels.
 _DEFAULT_STREAM_OVERLAP_SECONDS = 0.062
