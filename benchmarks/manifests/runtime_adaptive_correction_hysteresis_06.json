@@ -1,0 +1,12 @@
+{
+  "schema": "offline-tarteel.benchmark_manifest_hint.v1",
+  "autopilot_key": "runtime.adaptive.correction_hysteresis.06",
+  "corpus_id": "test_corpus_v3",
+  "notes": "Correction hysteresis variant 06: smoke default CORRECTION_HYSTERESIS when env unset is 0.012; effective first-match gate uses FIRST_MATCH_THRESHOLD + hysteresis; windows_until_lock multiplies by (1 + 0.045 * hysteresis) (see experiments/smoke/run.py).",
+  "references": [
+    {
+      "manifest": "benchmark/test_corpus_v3/manifest.json",
+      "audio_sample": "benchmark/test_corpus_v3/sample_placeholder.wav"
+    }
+  ]
+}
