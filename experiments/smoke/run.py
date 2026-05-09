@@ -4,8 +4,17 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 from pathlib import Path
+
+
+def _first_match_threshold() -> float:
+    """Synthetic streaming gate; lower values lock earlier (more aggressive inference)."""
+    raw = os.environ.get("FIRST_MATCH_THRESHOLD")
+    if raw is None or raw.strip() == "":
+        return 0.0
+    return float(raw)
 
 # Filename hints for deterministic first-verse overrides without touching audio bytes.
 _FIRST_VERSE_HINT = re.compile(
@@ -45,9 +54,13 @@ def _infer_first_verse(audio_path: Path) -> tuple[int, int]:
 
 def predict(audio_path: str) -> dict:
     path = Path(audio_path)
-    surah, ayah = _infer_first_verse(path)
     key = str(path.resolve())
     ratio = _stable_ratio(key)
+    thresh = _first_match_threshold()
+    locked = ratio + 1e-15 >= thresh
+    inferred_surah, inferred_ayah = _infer_first_verse(path)
+    # Before locking, hold a conservative provisional stance (short-stream default).
+    surah, ayah = (inferred_surah, inferred_ayah) if locked else (1, 1)
     windows_until_lock = 3 + int(ratio * 5)
 
     return {
@@ -61,6 +74,8 @@ def predict(audio_path: str) -> dict:
             "chunk_seconds": 0.25,
             "windows_until_lock": windows_until_lock,
             "lock_confidence": round(ratio, 6),
+            "first_match_threshold": thresh,
+            "first_match_locked": locked,
             "first_surah": surah,
             "first_ayah": ayah,
         },
