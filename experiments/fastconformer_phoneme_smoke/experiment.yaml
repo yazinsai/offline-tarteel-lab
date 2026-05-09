@@ -1,0 +1,15 @@
+kind: model_only
+hypothesis: "Tier-2 smoke ABI + metadata profile for phoneme FastConformer path before real ONNX weights"
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Delegates tier-2 predict() to experiments/smoke for deterministic corpus QA.
+  Training lives in training/train_fastconformer_phoneme_modal.py (Modal); do not commit
+  weights/checkpoints—only manifests and this runner.
+
+streaming_params:
+  delegates_to: smoke
+  onnx_export_required: false
