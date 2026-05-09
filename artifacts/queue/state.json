@@ -742,6 +742,28 @@
         "min_accuracy_not_met"
       ],
       "notes": ""
+    },
+    {
+      "id": "task-c68111de10cd",
+      "status": "rejected",
+      "kind": "runtime_only",
+      "title": "Bounded cycle 982f: baseline full-corpus gate probe (queue unblock)",
+      "payload": {
+        "experiment": "smoke",
+        "min_accuracy": 0.8,
+        "autopilot_key": "runtime.bounded_cycle.982f.full_corpus_probe",
+        "param": "baseline_probe",
+        "agent_instructions": "No Modal. Queue was empty because autopilot keys are saturated. Run evaluation on current smoke experiment as-is (no training/). Do not modify benchmark/test_corpus_v3/manifest.json or datasets/registry.yaml. Prefer zero code edits; if you tune, keep runtime-only under experiments/smoke/ and revert on rejection."
+      },
+      "created_at": "2026-05-09T16:29:23.086991+00:00",
+      "updated_at": "2026-05-09T16:29:29.661438+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "/workspace/artifacts/runs/task-c68111de10cd-20260509T162929Z.json",
+      "judge_reasons": [
+        "min_accuracy_not_met"
+      ],
+      "notes": ""
     }
   ]
 }
