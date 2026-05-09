@@ -43,6 +43,9 @@ _DEFAULT_STREAM_OVERLAP_SECONDS = 0.062
 # Variant runtime.adaptive.smoothing_window.05: extra integration frames before emitting the lock tally;
 # metadata-only multiplier on windows_until_lock (tier-2 surah/ayah still follow first-match only).
 _DEFAULT_STREAM_SMOOTHING_WINDOW = 3
+# Variant runtime.adaptive.correction_hysteresis.06: dampening strength before acknowledging a streaming
+# correction in lock-delay metadata; tier-2 labels still use instantaneous first-match only.
+_DEFAULT_CORRECTION_HYSTERESIS = 0.2
 
 
 def _smoothing_window_frames() -> int:
@@ -57,6 +60,20 @@ def _smoothing_window_frames() -> int:
     if v < 0:
         return 0
     return min(v, 32)
+
+
+def _correction_hysteresis() -> float:
+    """Virtual hysteresis on correction deferral; sweep via CORRECTION_HYSTERESIS (non-negative float)."""
+    raw = os.environ.get("CORRECTION_HYSTERESIS")
+    if raw is None or raw.strip() == "":
+        return _DEFAULT_CORRECTION_HYSTERESIS
+    try:
+        v = float(raw)
+    except ValueError:
+        return _DEFAULT_CORRECTION_HYSTERESIS
+    if v < 0:
+        return 0.0
+    return min(v, 8.0)
 
 
 def _chunk_seconds() -> float:
@@ -136,6 +153,8 @@ def predict(audio_path: str) -> dict:
     stride_s = max(chunk_s - overlap_s, 1e-9)
     smooth_n = _smoothing_window_frames()
     smoothing_multiplier = 1.0 + 0.035 * float(smooth_n)
+    hyst = _correction_hysteresis()
+    hysteresis_multiplier = 1.0 + 0.05 * hyst
     base_windows = 3 + int(ratio * 5)
     windows_until_lock = max(
         1,
@@ -145,6 +164,7 @@ def predict(audio_path: str) -> dict:
                 * (_REF_CHUNK_SECONDS / chunk_s)
                 * (chunk_s / stride_s)
                 * smoothing_multiplier
+                * hysteresis_multiplier
             ),
         ),
     )
@@ -161,6 +181,8 @@ def predict(audio_path: str) -> dict:
             "overlap_seconds": overlap_s,
             "smoothing_window": smooth_n,
             "smoothing_lock_delay_multiplier": round(smoothing_multiplier, 9),
+            "correction_hysteresis": hyst,
+            "correction_hysteresis_lock_delay_multiplier": round(hysteresis_multiplier, 9),
             "window_lock_stride_seconds": round(stride_s, 9),
             "window_lock_reference_chunk_seconds": _REF_CHUNK_SECONDS,
             "windows_until_lock": windows_until_lock,
