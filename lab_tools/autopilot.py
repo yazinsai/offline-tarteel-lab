@@ -70,6 +70,7 @@ def candidates() -> list[Candidate]:
             payload={
                 "modal_training": True,
                 "job_name": "fastconformer-phoneme-autopilot",
+                "experiment": "fastconformer_phoneme_smoke",
                 "min_accuracy": 0.85,
                 "max_onnx_mb": 200,
                 "agent_instructions": (

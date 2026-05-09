@@ -66,6 +66,7 @@
       "payload": {
         "modal_training": true,
         "job_name": "fastconformer-phoneme-autopilot",
+        "experiment": "fastconformer_phoneme_smoke",
         "min_accuracy": 0.85,
         "max_onnx_mb": 200,
         "agent_instructions": "Only launch Modal when LAB_AUTONOMY_ALLOW_MODAL is enabled. Otherwise inspect the training entrypoint and prepare a small, reviewable training/eval improvement that keeps local tests passing. Never commit model binaries.",

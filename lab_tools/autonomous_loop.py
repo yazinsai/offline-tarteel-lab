@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time
@@ -113,6 +114,31 @@ def _metrics_from_reports(
     return metrics
 
 
+def _merge_modal_metrics(
+    metrics: dict[str, Any],
+    modal_result: CommandResult | None,
+) -> dict[str, Any]:
+    if modal_result is None:
+        return metrics
+    out = dict(metrics)
+    out["modal_launch_returncode"] = modal_result.returncode
+    out["modal_training_soft_failed"] = modal_result.returncode not in {0, 77}
+    return out
+
+
+def _metrics_with_modal(
+    task: Task,
+    tier1_path: Path | None,
+    tier2_path: Path | None,
+    tier3_path: Path | None,
+    modal_result: CommandResult | None,
+) -> dict[str, Any]:
+    return _merge_modal_metrics(
+        _metrics_from_reports(task, tier1_path, tier2_path, tier3_path),
+        modal_result,
+    )
+
+
 def _judge_from_metrics(metrics: dict[str, Any]) -> dict[str, Any]:
     out = judge(
         JudgeInput(
@@ -195,19 +221,35 @@ def _promote_run(run_record: Path, tier1: Path | None, tier3: Path | None) -> tu
     return result.returncode, promotions[0] if promotions else None
 
 
+def _truthy_env(name: str) -> bool:
+    return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _modal_launch_allowed(cli_allow_modal: bool) -> bool:
+    return cli_allow_modal or _truthy_env("LAB_AUTONOMY_ALLOW_MODAL")
+
+
 def _maybe_launch_modal(task: Task, allow_modal: bool) -> CommandResult | None:
     payload = task.payload or {}
     if task.kind not in {"model_only", "joint_model_runtime"} or not payload.get("modal_training"):
         return None
     job_name = str(payload.get("job_name", task.id))
     cmd = ["modal", "run", "--detach", "training/train_fastconformer_phoneme_modal.py", "--job-name", job_name]
-    if not allow_modal:
+    if not _modal_launch_allowed(allow_modal):
         print(
-            f"modal training requested for {task.id}; rerun with --allow-modal to launch: {' '.join(cmd)}",
+            f"modal training requested for {task.id}; enable LAB_AUTONOMY_ALLOW_MODAL or pass "
+            f"--allow-modal to launch: {' '.join(cmd)}",
             file=sys.stderr,
         )
         return CommandResult(cmd=cmd, returncode=77)
-    return _run(cmd)
+    result = _run(cmd)
+    if result.returncode not in {0, 77}:
+        print(
+            f"warning: modal training exited {result.returncode} for {task.id}; "
+            "continuing with local tier evaluation (bounded offline run).",
+            file=sys.stderr,
+        )
+    return result
 
 
 def tick(dry_run: bool = False) -> int:
@@ -260,6 +302,7 @@ def run_once(
                     "payload": payload,
                     "tiers": [1, 2, 3],
                     "allow_modal": allow_modal,
+                    "modal_launch_allowed": _modal_launch_allowed(allow_modal),
                 },
                 indent=2,
             ),
@@ -273,9 +316,6 @@ def run_once(
     modal_result = _maybe_launch_modal(task, allow_modal)
     if modal_result is not None:
         commands.append(modal_result)
-        if modal_result.returncode not in {0, 77}:
-            set_status(task.id, "rejected", judge_reasons=["modal_launch_failed"])
-            return modal_result.returncode
 
     tier1 = _run(
         [
@@ -295,7 +335,7 @@ def run_once(
     if tier1.returncode == 0:
         completed.append(1)
     else:
-        metrics = _metrics_from_reports(task, tier1_path, None, None)
+        metrics = _metrics_with_modal(task, tier1_path, None, None, modal_result)
         run_record = _write_run_record(task, metrics, completed, commands)
         set_status(
             task.id,
@@ -324,7 +364,7 @@ def run_once(
     if tier2.returncode == 0:
         completed.append(2)
     else:
-        metrics = _metrics_from_reports(task, tier1_path, tier2_path, None)
+        metrics = _metrics_with_modal(task, tier1_path, tier2_path, None, modal_result)
         run_record = _write_run_record(task, metrics, completed, commands)
         set_status(
             task.id,
@@ -340,7 +380,7 @@ def run_once(
     if tier3.returncode == 0:
         completed.append(3)
 
-    metrics = _metrics_from_reports(task, tier1_path, tier2_path, tier3_path)
+    metrics = _metrics_with_modal(task, tier1_path, tier2_path, tier3_path, modal_result)
     decision = _judge_from_metrics(metrics)
     run_record = _write_run_record(task, metrics, completed, commands)
 
