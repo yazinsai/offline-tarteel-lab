@@ -4,6 +4,27 @@ import lab_tools.autonomous_loop as al
 import lab_tools.task_queue as tq
 
 
+def test_modal_allowed_respects_env(monkeypatch):
+    monkeypatch.delenv("LAB_AUTONOMY_ALLOW_MODAL", raising=False)
+    assert al._modal_allowed(False) is False
+    monkeypatch.setenv("LAB_AUTONOMY_ALLOW_MODAL", "1")
+    assert al._modal_allowed(False) is True
+
+
+def test_maybe_launch_modal_skips_when_not_allowed(monkeypatch):
+    monkeypatch.delenv("LAB_AUTONOMY_ALLOW_MODAL", raising=False)
+    task = tq.Task(
+        id="task-modal-test",
+        status="queued",
+        kind="model_only",
+        title="modal smoke",
+        payload={"modal_training": True, "job_name": "jn"},
+    )
+    out = al._maybe_launch_modal(task, allow_modal=False)
+    assert len(out) == 1
+    assert out[0].returncode == 77
+
+
 def test_judge_from_metrics_rejects_missing_accuracy():
     out = al._judge_from_metrics({"tier3_completed": True})
     assert out["accept"] is False

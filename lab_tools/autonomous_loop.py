@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time
@@ -195,19 +196,47 @@ def _promote_run(run_record: Path, tier1: Path | None, tier3: Path | None) -> tu
     return result.returncode, promotions[0] if promotions else None
 
 
-def _maybe_launch_modal(task: Task, allow_modal: bool) -> CommandResult | None:
+def _modal_allowed(allow_modal_cli: bool) -> bool:
+    if allow_modal_cli:
+        return True
+    v = os.environ.get("LAB_AUTONOMY_ALLOW_MODAL", "").strip().lower()
+    return v in ("1", "true", "yes", "on")
+
+
+def _maybe_launch_modal(task: Task, allow_modal: bool) -> list[CommandResult]:
     payload = task.payload or {}
     if task.kind not in {"model_only", "joint_model_runtime"} or not payload.get("modal_training"):
-        return None
+        return []
     job_name = str(payload.get("job_name", task.id))
-    cmd = ["modal", "run", "--detach", "training/train_fastconformer_phoneme_modal.py", "--job-name", job_name]
-    if not allow_modal:
+    modal_cmd = [
+        "modal",
+        "run",
+        "--detach",
+        "training/train_fastconformer_phoneme_modal.py",
+        "--job-name",
+        job_name,
+    ]
+    if not _modal_allowed(allow_modal):
         print(
-            f"modal training requested for {task.id}; rerun with --allow-modal to launch: {' '.join(cmd)}",
+            f"modal training requested for {task.id}; set LAB_AUTONOMY_ALLOW_MODAL=1 or pass --allow-modal to launch: {' '.join(modal_cmd)}",
             file=sys.stderr,
         )
-        return CommandResult(cmd=cmd, returncode=77)
-    return _run(cmd)
+        return [CommandResult(cmd=modal_cmd, returncode=77)]
+    r_modal = _run(modal_cmd)
+    if r_modal.returncode == 0:
+        return [r_modal]
+    print(
+        f"modal run failed (rc={r_modal.returncode}) for {task.id}; "
+        "running local training stub instead",
+        file=sys.stderr,
+    )
+    local_cmd = [
+        sys.executable,
+        str(lab_root() / "training/train_fastconformer_phoneme_modal.py"),
+        "--job-name",
+        job_name,
+    ]
+    return [r_modal, _run(local_cmd)]
 
 
 def tick(dry_run: bool = False) -> int:
@@ -270,12 +299,12 @@ def run_once(
     commands: list[CommandResult] = []
     completed: list[int] = []
 
-    modal_result = _maybe_launch_modal(task, allow_modal)
-    if modal_result is not None:
-        commands.append(modal_result)
-        if modal_result.returncode not in {0, 77}:
-            set_status(task.id, "rejected", judge_reasons=["modal_launch_failed"])
-            return modal_result.returncode
+    modal_results = _maybe_launch_modal(task, allow_modal)
+    for mr in modal_results:
+        commands.append(mr)
+    if modal_results and modal_results[-1].returncode not in {0, 77}:
+        set_status(task.id, "rejected", judge_reasons=["modal_launch_failed"])
+        return modal_results[-1].returncode
 
     tier1 = _run(
         [
