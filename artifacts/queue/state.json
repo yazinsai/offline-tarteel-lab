@@ -184,7 +184,7 @@
     },
     {
       "id": "task-345f65f813ab",
-      "status": "queued",
+      "status": "promoted",
       "kind": "runtime_only",
       "title": "Tune streaming smoothing window variant 05",
       "payload": {
@@ -195,11 +195,11 @@
         "autopilot_key": "runtime.adaptive.smoothing_window.05"
       },
       "created_at": "2026-05-09T06:53:09.578191+00:00",
-      "updated_at": "2026-05-09T06:53:09.578191+00:00",
+      "updated_at": "2026-05-09T07:26:57.001874+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-345f65f813ab-20260509T072656Z.json",
+      "judge_reasons": [],
       "notes": ""
     },
     {
@@ -316,6 +316,31 @@
       },
       "created_at": "2026-05-09T07:17:50.265682+00:00",
       "updated_at": "2026-05-09T07:17:50.265682+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-cd125a0bf1d0",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Exploit current champion with local runtime mutation",
+      "payload": {
+        "experiment": "smoke",
+        "champion_run_id": "task-228dd87d49e6-20260509T072651Z",
+        "champion_parameters": {
+          "experiment": "smoke",
+          "min_accuracy": 0.5
+        },
+        "baseline_objective": 1.0,
+        "min_accuracy": 1.0,
+        "agent_instructions": "Start from the champion parameter vector and try a narrow deterministic runtime mutation. Only keep the change if the scorer objective improves beyond variance and no critical slice regresses.",
+        "autopilot_key": "runtime.exploit_champion.runtime_only.task-228dd87d49e6-20260509T072651Z"
+      },
+      "created_at": "2026-05-09T07:26:53.879007+00:00",
+      "updated_at": "2026-05-09T07:26:53.879007+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,

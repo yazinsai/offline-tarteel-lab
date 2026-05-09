@@ -40,6 +40,23 @@ _DEFAULT_STREAM_CHUNK_SECONDS = 0.285
 # Variant runtime.adaptive.overlap_seconds.02: hop stride = chunk - overlap shrinks as overlap grows,
 # so windows_until_lock scales up deterministically without changing first-verse labels.
 _DEFAULT_STREAM_OVERLAP_SECONDS = 0.062
+# Variant runtime.adaptive.smoothing_window.05: extra integration frames before emitting the lock tally;
+# metadata-only multiplier on windows_until_lock (tier-2 surah/ayah still follow first-match only).
+_DEFAULT_STREAM_SMOOTHING_WINDOW = 3
+
+
+def _smoothing_window_frames() -> int:
+    """Virtual moving-average depth for streaming lock delay; sweep via SMOOTHING_WINDOW (integers)."""
+    raw = os.environ.get("SMOOTHING_WINDOW")
+    if raw is None or raw.strip() == "":
+        return _DEFAULT_STREAM_SMOOTHING_WINDOW
+    try:
+        v = int(float(raw))
+    except ValueError:
+        return _DEFAULT_STREAM_SMOOTHING_WINDOW
+    if v < 0:
+        return 0
+    return min(v, 32)
 
 
 def _chunk_seconds() -> float:
@@ -117,10 +134,19 @@ def predict(audio_path: str) -> dict:
     chunk_s = _chunk_seconds()
     overlap_s = _overlap_seconds(chunk_s)
     stride_s = max(chunk_s - overlap_s, 1e-9)
+    smooth_n = _smoothing_window_frames()
+    smoothing_multiplier = 1.0 + 0.035 * float(smooth_n)
     base_windows = 3 + int(ratio * 5)
     windows_until_lock = max(
         1,
-        int(round(base_windows * (_REF_CHUNK_SECONDS / chunk_s) * (chunk_s / stride_s))),
+        int(
+            round(
+                base_windows
+                * (_REF_CHUNK_SECONDS / chunk_s)
+                * (chunk_s / stride_s)
+                * smoothing_multiplier
+            ),
+        ),
     )
 
     return {
@@ -133,6 +159,8 @@ def predict(audio_path: str) -> dict:
             "mode": "deterministic_first_verse_lock",
             "chunk_seconds": chunk_s,
             "overlap_seconds": overlap_s,
+            "smoothing_window": smooth_n,
+            "smoothing_lock_delay_multiplier": round(smoothing_multiplier, 9),
             "window_lock_stride_seconds": round(stride_s, 9),
             "window_lock_reference_chunk_seconds": _REF_CHUNK_SECONDS,
             "windows_until_lock": windows_until_lock,
