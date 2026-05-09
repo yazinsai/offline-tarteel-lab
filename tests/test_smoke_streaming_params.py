@@ -196,6 +196,7 @@ def test_windows_until_lock_increases_with_correction_hysteresis(monkeypatch, tm
     monkeypatch.delenv("OVERLAP_SECONDS", raising=False)
     monkeypatch.delenv("CHUNK_SECONDS", raising=False)
     monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    monkeypatch.delenv("PARTIAL_MATCH_MARGIN", raising=False)
     mod_h0 = _load_smoke_run()
     monkeypatch.setenv("CORRECTION_HYSTERESIS", "0.08")
     mod_h8 = _load_smoke_run()
@@ -204,3 +205,59 @@ def test_windows_until_lock_increases_with_correction_hysteresis(monkeypatch, tm
     w0 = mod_h0.predict(str(audio))["streaming"]["windows_until_lock"]
     wh = mod_h8.predict(str(audio))["streaming"]["windows_until_lock"]
     assert wh >= w0
+
+
+def test_smoke_default_partial_match_margin_variant_07(monkeypatch, tmp_path):
+    monkeypatch.delenv("PARTIAL_MATCH_MARGIN", raising=False)
+    monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    mod = _load_smoke_run()
+    audio = tmp_path / "partial-margin-default.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["partial_match_margin"] == mod._DEFAULT_PARTIAL_MATCH_MARGIN
+
+
+def test_partial_match_margin_env_override(monkeypatch, tmp_path):
+    monkeypatch.setenv("PARTIAL_MATCH_MARGIN", "0")
+    monkeypatch.setenv("FIRST_MATCH_THRESHOLD", "0.05")
+    monkeypatch.setenv("CORRECTION_HYSTERESIS", "0")
+    mod = _load_smoke_run()
+    audio = tmp_path / "partial-margin-zero.wav"
+    audio.write_bytes(b"")
+    out = mod.predict(str(audio))
+    assert out["streaming"]["partial_match_margin"] == 0.0
+    assert out["streaming"]["partial_match_active"] is False
+
+
+def test_partial_match_band_emits_inferred_verse(monkeypatch, tmp_path):
+    monkeypatch.delenv("PARTIAL_MATCH_MARGIN", raising=False)
+    monkeypatch.delenv("FIRST_MATCH_THRESHOLD", raising=False)
+    monkeypatch.delenv("CORRECTION_HYSTERESIS", raising=False)
+    mod = _load_smoke_run()
+    thresh = mod._DEFAULT_FIRST_MATCH_THRESHOLD
+    hyst = mod._DEFAULT_CORRECTION_HYSTERESIS
+    marg = mod._DEFAULT_PARTIAL_MATCH_MARGIN
+    first_eff = thresh + hyst
+    partial_floor = max(0.0, first_eff - marg)
+    chosen_name = None
+    for i in range(12000):
+        candidate = tmp_path / f"s042-a107_band_{i}.wav"
+        ratio = mod._stable_ratio(str(candidate.resolve()))
+        if partial_floor <= ratio < first_eff:
+            chosen_name = candidate
+            break
+    assert chosen_name is not None
+    chosen_name.write_bytes(b"")
+    out = mod.predict(str(chosen_name))
+    assert out["streaming"]["partial_match_active"] is True
+    assert out["streaming"]["first_match_locked"] is False
+    assert out["surah"] == 42
+    assert out["ayah"] == 107
+
+    monkeypatch.setenv("PARTIAL_MATCH_MARGIN", "0")
+    mod_strict = _load_smoke_run()
+    out_strict = mod_strict.predict(str(chosen_name))
+    assert out_strict["streaming"]["partial_match_active"] is False
+    assert out_strict["surah"] == 1
+    assert out_strict["ayah"] == 1

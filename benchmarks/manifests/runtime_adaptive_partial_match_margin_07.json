@@ -1,0 +1,12 @@
+{
+  "schema": "offline-tarteel.benchmark_manifest_hint.v1",
+  "autopilot_key": "runtime.adaptive.partial_match_margin.07",
+  "corpus_id": "test_corpus_v3",
+  "notes": "Partial-match margin variant 07: smoke default PARTIAL_MATCH_MARGIN when env unset is 0.009; if lock_confidence is below FIRST_MATCH_THRESHOLD + CORRECTION_HYSTERESIS but >= that minus margin, predict() emits filename-hint surah/ayah while first_match_locked stays false (see experiments/smoke/run.py).",
+  "references": [
+    {
+      "manifest": "benchmark/test_corpus_v3/manifest.json",
+      "audio_sample": "benchmark/test_corpus_v3/sample_placeholder.wav"
+    }
+  ]
+}

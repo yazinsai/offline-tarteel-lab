@@ -224,7 +224,7 @@
     },
     {
       "id": "task-20593aabea01",
-      "status": "queued",
+      "status": "promoted",
       "kind": "runtime_only",
       "title": "Tune partial-match margin variant 07",
       "payload": {
@@ -235,11 +235,11 @@
         "autopilot_key": "runtime.adaptive.partial_match_margin.07"
       },
       "created_at": "2026-05-09T06:53:09.579053+00:00",
-      "updated_at": "2026-05-09T06:53:09.579053+00:00",
+      "updated_at": "2026-05-09T07:41:02.698056+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-20593aabea01-20260509T074102Z.json",
+      "judge_reasons": [],
       "notes": ""
     },
     {
@@ -368,6 +368,26 @@
       },
       "created_at": "2026-05-09T07:34:11.042225+00:00",
       "updated_at": "2026-05-09T07:34:11.042225+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-7e55fbf82a7a",
+      "status": "queued",
+      "kind": "runtime_only",
+      "title": "Tune first-match threshold variant 11",
+      "payload": {
+        "experiment": "smoke",
+        "param": "FIRST_MATCH_THRESHOLD",
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small deterministic runtime experiment variant under experiments/ with any supporting tests or benchmark JSON metadata. Use artifacts/autonomy_failures as negative memory and avoid repeating blocked paths. Do not touch training/, lab_tools/, orchestration/, .github/, pyproject.toml, or generated model/audio artifacts.",
+        "autopilot_key": "runtime.adaptive.FIRST_MATCH_THRESHOLD.11"
+      },
+      "created_at": "2026-05-09T07:39:54.490394+00:00",
+      "updated_at": "2026-05-09T07:39:54.490394+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,

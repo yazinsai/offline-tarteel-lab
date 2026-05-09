@@ -46,6 +46,21 @@ _DEFAULT_STREAM_SMOOTHING_WINDOW = 3
 # Variant runtime.adaptive.correction_hysteresis.06: extra margin on the first-match
 # ratio gate so provisional (1:1) persists until lock_confidence clears thresh+hysteresis.
 _DEFAULT_CORRECTION_HYSTERESIS = 0.012
+# Variant runtime.adaptive.partial_match_margin.07: band below the effective first-match
+# gate where we still emit inferred surah/ayah (partial alignment) instead of provisional (1:1).
+_DEFAULT_PARTIAL_MATCH_MARGIN = 0.009
+
+
+def _partial_match_margin() -> float:
+    """Band width below first_match_effective for partial inferred verse emit; env PARTIAL_MATCH_MARGIN."""
+    raw = os.environ.get("PARTIAL_MATCH_MARGIN")
+    if raw is None or raw.strip() == "":
+        return _DEFAULT_PARTIAL_MATCH_MARGIN
+    try:
+        v = float(raw)
+    except ValueError:
+        return _DEFAULT_PARTIAL_MATCH_MARGIN
+    return max(0.0, v)
 
 
 def _correction_hysteresis() -> float:
@@ -142,12 +157,18 @@ def predict(audio_path: str) -> dict:
     thresh = _first_match_threshold()
     verse_thresh = _verse_match_threshold()
     hyst = _correction_hysteresis()
+    marg = _partial_match_margin()
     first_effective = thresh + hyst
+    partial_floor = max(0.0, first_effective - marg)
     locked = ratio + 1e-15 >= first_effective
+    partial_match = (not locked) and marg > 0 and (ratio + 1e-15 >= partial_floor)
     verse_locked = ratio + 1e-15 >= verse_thresh
     inferred_surah, inferred_ayah = _infer_first_verse(path)
-    # Before locking, hold a conservative provisional stance (short-stream default).
-    surah, ayah = (inferred_surah, inferred_ayah) if locked else (1, 1)
+    # Before full lock, provisional (1:1) unless partial_match_margin admits inferred verse.
+    if locked or partial_match:
+        surah, ayah = inferred_surah, inferred_ayah
+    else:
+        surah, ayah = (1, 1)
     chunk_s = _chunk_seconds()
     overlap_s = _overlap_seconds(chunk_s)
     stride_s = max(chunk_s - overlap_s, 1e-9)
@@ -181,6 +202,9 @@ def predict(audio_path: str) -> dict:
             "smoothing_window": smooth_n,
             "smoothing_lock_delay_multiplier": round(smoothing_multiplier, 9),
             "correction_hysteresis": round(hyst, 9),
+            "partial_match_margin": round(marg, 9),
+            "partial_match_floor": round(partial_floor, 9),
+            "partial_match_active": partial_match,
             "first_match_effective_threshold": round(first_effective, 9),
             "hysteresis_lock_delay_multiplier": round(hysteresis_lock_delay_multiplier, 9),
             "window_lock_stride_seconds": round(stride_s, 9),
