@@ -24,6 +24,7 @@ TaskStatus = Literal[
     "promoted",
     "rejected",
 ]
+ACTIVE_STATUSES = {"queued", "running", "needs_eval"}
 
 
 @dataclass
@@ -105,6 +106,13 @@ def _build_task(kind: str, title: str, payload: dict[str, Any] | None = None) ->
     )
 
 
+def _task_equivalence_key(kind: str, title: str, payload: dict[str, Any], key: str) -> str:
+    """Collapse versioned task keys that represent one active unit of work."""
+    if key.startswith("baseline.reference_shipped_fastconformer_v4_tlog."):
+        return "baseline.reference_shipped_fastconformer_v4_tlog"
+    return key
+
+
 def add_task(
     kind: str,
     title: str,
@@ -125,13 +133,22 @@ def add_task_once(
     *,
     key: str,
 ) -> Task | None:
-    """Add a task unless a task with the same autopilot key already exists."""
+    """Add a task unless the same key, or an active equivalent task, exists."""
     with queue_lock():
         state = load_state()
+        incoming_payload = dict(payload or {})
+        incoming_equivalence_key = _task_equivalence_key(kind, title, incoming_payload, key)
         for existing in state.tasks:
-            if (existing.payload or {}).get("autopilot_key") == key:
+            existing_payload = existing.payload or {}
+            existing_key = str(existing_payload.get("autopilot_key") or "")
+            if existing_key == key:
                 return None
-        body = dict(payload or {})
+            if existing.status in ACTIVE_STATUSES and (
+                _task_equivalence_key(existing.kind, existing.title, existing_payload, existing_key)
+                == incoming_equivalence_key
+            ):
+                return None
+        body = incoming_payload
         body["autopilot_key"] = key
         task = _build_task(kind, title, body)
         state.tasks.append(task)

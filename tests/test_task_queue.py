@@ -49,6 +49,30 @@ def test_add_task_once_dedupes_by_key(tmp_path, monkeypatch):
     assert state.tasks[0].payload["autopilot_key"] == "same"
 
 
+def test_add_task_once_dedupes_active_reference_port_family(tmp_path, monkeypatch):
+    monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
+    tq.save_state(tq.QueueState())
+
+    first = tq.add_task_once(
+        "joint_model_runtime",
+        "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+        {"blocked_family": "smoke_runtime_plateau"},
+        key="baseline.reference_shipped_fastconformer_v4_tlog.28",
+    )
+    duplicate = tq.add_task_once(
+        "joint_model_runtime",
+        "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+        {"blocked_family": "smoke_runtime_plateau"},
+        key="baseline.reference_shipped_fastconformer_v4_tlog.31",
+    )
+
+    assert first is not None
+    assert duplicate is None
+    state = tq.load_state()
+    assert len(state.tasks) == 1
+    assert state.tasks[0].payload["autopilot_key"] == "baseline.reference_shipped_fastconformer_v4_tlog.28"
+
+
 def test_next_queued_can_select_shard(tmp_path, monkeypatch):
     monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
     tq.save_state(tq.QueueState())
