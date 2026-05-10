@@ -1,0 +1,60 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-45a97c95c1c7-20260510T192154Z",
+  "task_id": "task-45a97c95c1c7",
+  "created_at_utc": "2026-05-10T19:21:54.000000+00:00",
+  "git_sha": "3d613816f33b546853f92f90af3f6c049fe3f9d5",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "model_only",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+    "autopilot_key": "escalate.non_smoke.model_only.32.01",
+    "corpus": "test_corpus_v3",
+    "probe_summary": "Tier-2 preflight only (strict gate). Candidate experiment phoneme_asr_lprobs_smooth3 (reverted): temporal logprob smoothing (win=3/2) regressed vs phoneme_matcher_joint02; default-off smoothing with deeper N-best (4→6), N-best 8, and BEAM_TOP_SYMBOLS 10/12 matched champion 19/32 on prefix-32 slice — tie fails strict improvement (need > on both accuracy and objective). Champion slice reference: phoneme_matcher_joint02 19/32 correct, surrogate objective 0.634375.",
+    "full_corpus_gate": false
+  },
+  "metrics": {
+    "tier1_passed": null,
+    "tier1_total": null,
+    "tier2_experiment": "phoneme_matcher_joint02",
+    "tier2_accuracy": 0.59375,
+    "tier2_correct": 19,
+    "tier2_samples": 32,
+    "tier2_evaluated_samples": 32,
+    "tier2_manifest_samples": 256,
+    "tier2_sample_limit": 32,
+    "tier2_failures": 0,
+    "tier3_completed": false,
+    "candidate_preflight_best_correct": 19,
+    "candidate_preflight_variants": [
+      "PHONEME_LOGPROB_SMOOTH_WIN=3 -> 16/32",
+      "PHONEME_LOGPROB_SMOOTH_WIN=2 -> 18/32",
+      "SMOOTH off, PHONEME_MAX_HYPOTHESES=6 -> 19/32 tie",
+      "PHONEME_MAX_HYPOTHESES=8 -> 19/32 tie",
+      "PHONEME_CTC_TOP_SYMBOLS=10/12 -> 19/32 tie"
+    ],
+    "min_accuracy": 0.8,
+    "target_recall": 0.59375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "latency_budget_score": 1.0,
+    "requires_full_corpus_gate": true,
+    "requires_champion_improvement": true,
+    "candidate_objective": 0.634375,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "preflight_champion_slice_correct": 19,
+    "preflight_champion_slice_accuracy": 0.59375,
+    "preflight_champion_slice_objective": 0.634375
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_asr_lprobs_smooth3 (multiple env variants; code reverted)"
+  ]
+}

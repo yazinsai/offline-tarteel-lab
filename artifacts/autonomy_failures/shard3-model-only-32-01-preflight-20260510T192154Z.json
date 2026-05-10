@@ -1,0 +1,18 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T19:21:54.000000+00:00",
+  "reason": "preflight_strict_gate_tie_champion_slice",
+  "shard": "3/3",
+  "task_id": "task-45a97c95c1c7",
+  "autopilot_key": "escalate.non_smoke.model_only.32.01",
+  "experiment_family": "escalate.non_smoke.model_only.32.01",
+  "change_class": "asr_decode_nbest_temporal_smooth",
+  "tier2_delta_correct": 0,
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "candidate_experiment": "phoneme_asr_lprobs_smooth3",
+  "slice_samples": 32,
+  "slice_correct_candidate_best": 19,
+  "slice_correct_champion": 19,
+  "negative_memory": "On test_corpus_v3 prefix-32 Tier-2 slice, ASR-side tweaks (logprob boxcar smooth win=2/3, deeper N-best 6 or 8, BEAM_TOP_SYMBOLS 10/12) do not strictly beat phoneme_matcher_joint02 (19/32); smoothing regresses. Tie = fail (champion_objective_not_improved on slice). Do not re-queue shallow repeats without a decode/search change that clears headroom on this slice or new trained acoustic model.",
+  "run_id": "task-45a97c95c1c7-20260510T192154Z"
+}
