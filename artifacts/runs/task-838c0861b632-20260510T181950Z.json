@@ -1,0 +1,59 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-838c0861b632-20260510T181950Z",
+  "task_id": "task-838c0861b632",
+  "created_at_utc": "2026-05-10T18:19:50.802281+00:00",
+  "git_sha": "1f9a023a3f477dde4fe45bf2716e23a8803f7d29",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "reference_repo": "../offline-tarteel",
+    "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+    "reference_clone_verified": "/tmp/offline-tarteel-reference",
+    "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+    "target_corpus": "test_corpus_v3",
+    "target_correct_range": [
+      223,
+      225
+    ],
+    "target_recall": 0.893,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior.",
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.28",
+    "experiment": "reference_phoneme_v4",
+    "corpus": "test_corpus_v3",
+    "full_corpus_gate": true,
+    "preflight_note": "Evaluated a beam+widen matcher prototype (not committed): Tier-2 32-prefix slice tied phoneme_matcher_joint02 at 19/32; strict preflight gate failed. Tier-2 JSON: tier2-20260510T174413Z vs tier2-20260510T174922Z under artifacts/tier2/."
+  },
+  "metrics": {
+    "tier2_experiment": "reference_phoneme_v4",
+    "tier2_correct": 19,
+    "tier2_samples": 32,
+    "tier2_sample_limit": 32,
+    "tier2_accuracy": 0.59375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "latency_budget_score": 1.0,
+    "candidate_preflight_objective_surrogate": 0.634375,
+    "preflight_champion_experiment": "phoneme_matcher_joint02",
+    "preflight_champion_correct": 19,
+    "preflight_champion_accuracy_slice": 0.59375,
+    "preflight_champion_objective_surrogate_slice": 0.634375,
+    "preflight_outcome": "tie_on_standard_slice",
+    "requires_champion_improvement": true,
+    "tier2_failures": 0,
+    "champion_run_id_for_gate": "task-0aa3b7531952-20260510T033442Z",
+    "champion_full_corpus_objective": 0.905078
+  },
+  "tier_completed": [
+    2
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment reference_phoneme_v4",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}
