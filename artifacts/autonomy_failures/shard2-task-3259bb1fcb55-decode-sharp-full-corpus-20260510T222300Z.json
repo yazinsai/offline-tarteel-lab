@@ -1,0 +1,26 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T22:23:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-3259bb1fcb55",
+  "autopilot_key": "escalate.non_smoke.model_only.34.01",
+  "experiment_family": "phoneme_asr_decode_sharp",
+  "change_class": "champion_objective_not_improved",
+  "tier2_delta_correct": -3,
+  "preflight_slice_n32": {
+    "candidate_correct": 20,
+    "champion_correct": 19,
+    "note": "first-32 manifest prefix gate passed; full-corpus regression vs champion"
+  },
+  "full_corpus": {
+    "candidate_correct": 226,
+    "champion_correct": 229,
+    "candidate_accuracy": 0.8828125,
+    "champion_accuracy": 0.89453125,
+    "candidate_objective": 0.894531,
+    "champion_objective": 0.905078
+  },
+  "reason": "phoneme_asr_decode_sharp (wider CTC beam + logprob sharpen 1.07, same joint02 matcher/decoding scaffolding) regressed on full test_corpus_v3 vs phoneme_matcher_joint02 champion despite winning the repo-standard first-32 slice preflight by one correct.",
+  "negative_memory": "Do not promote decode-only tweaks (beam10/sharpen~1.07) cloned from joint02 matcher stack: full 256 lost −3 correct vs champion. Treat small-slice Tier-2 gains as insufficient; require full-corpus margin or a different ASR model/training path (Modal) before retrying this family.",
+  "run_id": "task-3259bb1fcb55-20260510T222239Z"
+}
