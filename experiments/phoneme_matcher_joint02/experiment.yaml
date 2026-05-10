@@ -1,0 +1,13 @@
+kind: joint_model_runtime
+hypothesis: >
+  Same shipped phoneme ONNX as reference_phoneme_v4, with bounded CTC beam decode (multi-hypothesis
+  transcripts from logprobs) and slightly wider Quran matcher search (fragment blend, spans, surahs).
+  No smoke streaming metadata; labels come only from decoded phonemes vs quran_phonemes.json.
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Joint02 task (shard 3): beam width 12, top-14 labels/frame in beam expansion; fragment-vs-Levenshtein
+  blend 0.82; TOP_K 18, TOP_SURAHS 32, MAX_SPAN 6; trigram-augmented verse shortlist scoring.
