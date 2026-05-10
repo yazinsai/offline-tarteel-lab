@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T23:45:59.000000+00:00",
+  "reason": "wrong_task_ordering_smoke_runtime_plateau",
+  "shard": "3/3",
+  "task_id": "task-9a03a4440189",
+  "autopilot_key": "escalate.non_smoke.joint_model_runtime.36.02",
+  "change_class": "policy_block_before_preflight",
+  "tier2_delta_correct": null,
+  "dependency_gate": {
+    "queued_before": ["task-d6354795e152", "task-5088185ce5ba"],
+    "keys": [
+      "baseline.reference_shipped_fastconformer_v4_tlog.32",
+      "escalate.non_smoke.model_only.36.01"
+    ]
+  },
+  "negative_memory": "smoke_runtime_plateau=true and FIFO still has baseline.reference_shipped_fastconformer_v4_tlog.32 plus escalate.non_smoke.model_only.36.01 queued ahead; do not implement escalate.non_smoke.joint_model_runtime.36.02 on shard 3 until reference port completes and queued model_only clears (same structural block as shard3 joint34.02/35.02).",
+  "run_id": "task-9a03a4440189-20260510T234559Z"
+}
