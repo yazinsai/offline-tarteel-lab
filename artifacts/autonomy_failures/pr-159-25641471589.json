@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T22:27:02.156512+00:00",
+  "workflow_run_id": "25641471589",
+  "pr_number": 159,
+  "title": "Autopilot offline-tarteel state: 89.06% on full corpus, -0.39pp vs champion \u2014 shard1 beam10 slice pass / full reject",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/159",
+  "base_ref": "cursor-autonomy-base-25639858080-0",
+  "base_sha": "a2f3e50101d3c189f7d174a1f96ce0b584bb79d3",
+  "head_ref": "cursor/asr-beam10-preflight-843b",
+  "head_sha": "0e5c58534720211b3fab334f195bbe50abc2c8a0",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-ea497c93b9b0-beam10-slice-trap-20260510T222200Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-ea497c93b9b0-20260510T222120Z.json"
+  ],
+  "blocked_file_hints": []
+}
