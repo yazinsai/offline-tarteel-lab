@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T17:30:19.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-647972b228a9",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.31",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.31",
+  "change_class": "policy_block_before_preflight",
+  "tier2_delta_correct": null,
+  "dependency_gate": {
+    "fifo_ahead_same_reference_port": ["task-838c0861b632"],
+    "fifo_ahead_keys": ["baseline.reference_shipped_fastconformer_v4_tlog.28"],
+    "model_only_still_queued": ["task-c030840150e4"],
+    "model_only_keys": ["escalate.non_smoke.model_only.31.01"]
+  },
+  "reason": "Shard 2/3 selected duplicate reference-port task baseline.reference_shipped_fastconformer_v4_tlog.31 while task-838c0861b632 (same v4-tlog port family, key .28) remains FIFO-ahead at queue index 0; model_only task-c030840150e4 is still queued; autopilot reports smoke_runtime_plateau. Executing .31 repeats queue-order dependence failures.",
+  "negative_memory": "Do not execute baseline.reference_shipped_fastconformer_v4_tlog.* duplicate ports via sharded next_queued when task-838c0861b632 (.28 same class) is still queued ahead, or escalate.non_smoke.model_only.* for this plateau wave remains unretired downstream while plateau is smoke/runtime.",
+  "run_id": "task-647972b228a9-20260510T173019Z"
+}
