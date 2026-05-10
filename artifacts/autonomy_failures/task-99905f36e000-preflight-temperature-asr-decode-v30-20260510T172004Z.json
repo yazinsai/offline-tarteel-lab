@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T17:20:04.000000+00:00",
+  "shard": "3/3",
+  "task_id": "task-99905f36e000",
+  "autopilot_key": "escalate.non_smoke.model_only.30.01",
+  "experiment_family": "phoneme_asr_temperature_decode_v30",
+  "change_class": "preflight_strict_slice_gate_tie_failed",
+  "tier2_delta_correct": 0,
+  "candidate_experiment_slice": "phoneme_asr_temperature_decode_v30",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "ASR-side decode sharpening (per-frame softmax temperature renorm default 0.88 before bounded CTC beam) yields 19/32 correct vs champion phoneme_matcher_joint02 19/32 on canonical test_corpus_v3 manifest-prefix slice — composite objective ties at 0.634375 each. Strict Tier-2 preflight gate requires strictly greater accuracy AND objective versus champion on the fixed slice.",
+  "negative_memory": "Do not rerun minor log-softmax temperature tweaks on the same ONNX+joint02 matcher skeleton on the canonical 32-prefix slice expecting to beat phoneme_matcher_joint02 — ties at baseline slice accuracy; pursue materially different hypotheses (beam topology, lattice merge, Modal-trained emissions, distinct matcher feature path) verified to increase correct count on the slice first."
+}
