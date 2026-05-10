@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T20:05:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-cf8b6078276f",
+  "autopilot_key": "escalate.non_smoke.model_only.32.01",
+  "experiment_family": "asr_decode_wide_m32_01",
+  "change_class": "decode_beam_widen_am_fuse_logprob_sharpen",
+  "tier2_delta_correct": 0,
+  "reason": "Mandatory Tier-2 preflight on test_corpus_v3[:32]: experimental model_only decode stack (beam 12/top-14/hyp 8 + acoustic-matcher fusion 0.062*lp/T + logprob sharpen 1.14) tied promoted champion phoneme_matcher_joint02 at 19/32 correct and surrogate objective 0.634375; strict promotion gate requires strictly greater accuracy and objective (tie counts as champion_objective_not_improved). Candidate experiment code reverted before commit.",
+  "negative_memory": "Do not repeat widen-only CTC beam and lp/T fusion overlays on the shipped phoneme_q8 ONNX without a new checkpoint or reference-port decode change; zero slice delta versus phoneme_matcher_joint02 on 2026-05-10 shard2 cycle.",
+  "run_id": "task-cf8b6078276f-20260510T200500Z"
+}
