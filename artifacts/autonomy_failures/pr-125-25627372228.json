@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T11:20:26.974024+00:00",
+  "workflow_run_id": "25627372228",
+  "pr_number": 125,
+  "title": "Autopilot offline-tarteel state: 84.8%, -4.2pp vs champion objective \u2014 shard 2/3 ASR full-corpus v01",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/125",
+  "base_ref": "main",
+  "base_sha": "7526b7539420c524d93ef71dd96a8ae8c60cae7b",
+  "head_ref": "cursor/offline-tarteel-shard2-asr-v01-f6de",
+  "head_sha": "2d66846d1f085a057cf6acd3d3dae2456108927d",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-3db735b25865-20260510T111855Z.json"
+  ],
+  "blocked_file_hints": []
+}
