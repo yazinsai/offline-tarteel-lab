@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T17:15:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-f3ee3a573468",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.30",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.30",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": 0,
+  "candidate_experiment_probed": "phoneme_shipped_v4_stack",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "preflight_candidate_correct": 19,
+  "preflight_candidate_accuracy_slice": 0.59375,
+  "preflight_candidate_objective_surrogate_slice": 0.634375,
+  "reason": "Mandatory Tier-2@32 preflight: ported RecitationTracker discovery fusion (ctc-rescore.ts DP + types.ts DISCOVERY_FUSION_* rerank over prefix-beam hypotheses before Lev/span matcher). Candidate matches champion phoneme_matcher_joint02 exactly at 19/32 correct and surrogate composite 0.634375; strict promotion gate requires strictly greater accuracy and objective — tie fails with champion_objective_not_improved.",
+  "negative_memory": "Do not re-queue another RN acoustic-fusion-only rerank wrapper on the same joint02 ONNX+prefix-beam+matcher stack — slice tie at 19/32 vs phoneme_matcher_joint02. Prefer trie/QuranDB token-id constrained decode, wider CPU-capped search, two-pass procedures, or ASR model change; duplicate baseline.reference port task task-838c0861b632 remains ahead in global queue order.",
+  "run_id": "task-f3ee3a573468-20260510T171500Z"
+}
