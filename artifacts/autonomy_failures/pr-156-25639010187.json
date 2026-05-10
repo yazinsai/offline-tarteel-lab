@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T20:30:13.947686+00:00",
+  "workflow_run_id": "25639010187",
+  "pr_number": 156,
+  "title": "Autopilot offline-tarteel state: 59.4%, +0.0pp slice tie vs phoneme_matcher_joint02 \u2014 shard 2/3 model_only decode probe rejected",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/156",
+  "base_ref": "cursor-autonomy-base-25637809632-1",
+  "base_sha": "ff3ea8ae565b7c140adae370d88fd2f9d9352b18",
+  "head_ref": "cursor/offline-tarteel-asr-decode-temp33-defd",
+  "head_sha": "3badca747e015ee33fc398a73c1dbe13ccf07eb8",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task77-model-only-decode-temp33-20260510T203800Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-77b0729a9a39-20260510T203800Z.json"
+  ],
+  "blocked_file_hints": []
+}
