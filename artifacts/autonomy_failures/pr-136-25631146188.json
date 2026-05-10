@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T14:23:48.327451+00:00",
+  "workflow_run_id": "25631146188",
+  "pr_number": 136,
+  "title": "Autopilot offline-tarteel state: 59.4%, +0.0pp on slice vs champion \u2014",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/136",
+  "base_ref": "cursor-autonomy-base-25629420687-1",
+  "base_sha": "7a80811a88eee1146422cc7117c7f0f4c4d2c673",
+  "head_ref": "cursor/offline-tarteel-decode-esc28-v01-a93e",
+  "head_sha": "f9c7e7f0792f3a93cf0c3646b9c30e0831bf9bed",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-25629420687-preflight-esc28-01.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-ea95aeafaaf6-20260510T142142Z.json"
+  ],
+  "blocked_file_hints": []
+}
