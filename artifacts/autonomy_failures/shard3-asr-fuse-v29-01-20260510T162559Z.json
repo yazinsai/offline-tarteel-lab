@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T16:28:00.000000+00:00",
+  "reason": "champion_objective_not_improved_full_corpus_after_preflight_pass",
+  "shard": "3/3",
+  "task_id": "task-a11d19dc6db9",
+  "autopilot_key": "escalate.non_smoke.model_only.29.01",
+  "change_class": "asr_preemphasis_fuse_decode_temperature_wider_beam",
+  "experiment": "asr_non_smoke_v29_01",
+  "tier2_delta_correct_full": -2,
+  "tier2_candidate_correct": 227,
+  "tier2_champion_correct": 229,
+  "tier2_candidate_accuracy_pp": 88.671875,
+  "tier2_champion_accuracy_pp": 89.453125,
+  "tier2_candidate_objective": 0.898047,
+  "tier2_champion_objective": 0.905078,
+  "preflight_note": "Tier-2 limit 32: candidate 20/32 vs phoneme_matcher_joint02 19/32 (strict slice gate passed). Full corpus reverted optimism; do not reuse this exact fuse (0.97/0.92/0.87 + PHONEME_DECODE_TEMP=0.94 + beam 8/11/8) expecting promotion without new ASR weights or reference port.",
+  "negative_memory": "Phoneme preemphasis-ensemble + decode sharpening helped the fixed first-32 slice but lost 2 correct vs joint02 champion on full test_corpus_v256; matcher stack unchanged. Next ASR-side tries need different feature path, real model change, or completed reference FastConformer port — not another minor beam/temp tweak on the same ONNX."
+}
