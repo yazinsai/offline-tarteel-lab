@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T14:21:42.358547+00:00",
+  "workflow_run_id": "25629420687",
+  "shard": "2/3",
+  "task_id": "task-ea95aeafaaf6",
+  "autopilot_key": "escalate.non_smoke.model_only.28.01",
+  "experiment_family": "escalate.non_smoke.model_only.28.01",
+  "change_class": "asr_decode_hypothesis_rescore_temperature_beam_grid",
+  "candidate_experiment": "phoneme_decode_esc28_v01",
+  "tier2_delta_correct": 0,
+  "slice_limit": 32,
+  "reason": "preflight_tie_vs_champion_on_fixed_slice_accuracy_19_32_no_strict_objective_gain",
+  "negative_memory": "Several decode-only tweaks (proper logprob tempering, beam 6-12, CTC beam+matcher fusion weights 0.11-0.35) could not strictly beat phoneme_matcher_joint02 on the same limit=32 Tier-2 slice (both 19/32 = 59.375% acc). Raw logprob/T without frame renorm tanks accuracy \u2014 avoid. Do not re-enqueue marginal fusion-on-ties without a new signal (e.g. new ONNX or two-pass renorm)."
+}
