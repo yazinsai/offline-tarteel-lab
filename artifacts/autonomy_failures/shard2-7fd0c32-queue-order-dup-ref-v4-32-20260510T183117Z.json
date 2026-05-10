@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T18:31:17.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-7fd0c32fb75f",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.32",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.32",
+  "change_class": "policy_block_before_preflight",
+  "tier2_delta_correct": null,
+  "dependency_gate": {
+    "fifo_ahead_same_reference_port": ["task-838c0861b632"],
+    "fifo_ahead_keys": ["baseline.reference_shipped_fastconformer_v4_tlog.28"],
+    "model_only_still_queued": ["task-0409481812b4", "task-8c497b192882", "task-4d3a8b87767c"],
+    "model_only_keys": ["escalate.non_smoke.model_only.32.01", "escalate.non_smoke.model_only.32.03", "escalate.non_smoke.model_only.32.05"]
+  },
+  "reason": "Shard 2/3 selected duplicate reference-port task baseline.reference_shipped_fastconformer_v4_tlog.32 while task-838c0861b632 (same v4-tlog port class, key .28) remains FIFO-ahead at queue index 0; model_only ASR tasks remain queued; autopilot reports smoke_runtime_plateau. Executing .32 before clearing .28 repeats queue-order dependence failures.",
+  "negative_memory": "Do not run sharded next_queued reference_port baseline.reference_shipped_fastconformer_v4_tlog.* when task-838c0861b632 (.28) is still ahead in FIFO or downstream model_only non-smoke tasks are pending during smoke_runtime_plateau.",
+  "run_id": "task-7fd0c32fb75f-20260510T183117Z"
+}

@@ -1,0 +1,55 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-7fd0c32fb75f-20260510T183117Z",
+  "task_id": "task-7fd0c32fb75f",
+  "created_at_utc": "2026-05-10T18:31:17.000000+00:00",
+  "git_sha": "3d613816f33b546853f92f90af3f6c049fe3f9d5",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "reference_repo": "../offline-tarteel",
+    "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+    "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+    "target_corpus": "test_corpus_v3",
+    "target_correct_range": [223, 225],
+    "target_recall": 0.893,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.32"
+  },
+  "metrics": {
+    "blocked_before_eval": true,
+    "wrong_task_ordering": true,
+    "policy": "duplicate_reference_port_while_task_838c0861b632_still_queued_shard2_of_3_smoke_runtime_plateau",
+    "autopilot_smoke_runtime_plateau": true,
+    "fifo_ahead_reference_port_task": "task-838c0861b632",
+    "fifo_ahead_reference_port_key": "baseline.reference_shipped_fastconformer_v4_tlog.28",
+    "model_only_still_queued": [
+      "task-0409481812b4",
+      "task-8c497b192882",
+      "task-4d3a8b87767c"
+    ],
+    "model_only_keys": [
+      "escalate.non_smoke.model_only.32.01",
+      "escalate.non_smoke.model_only.32.03",
+      "escalate.non_smoke.model_only.32.05"
+    ],
+    "shard": "2/3",
+    "shard_index": 1,
+    "shard_total": 3,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "champion_experiment": "phoneme_matcher_joint02",
+    "streaming_alignment_accuracy": 0.0,
+    "correction_precision": 0.0,
+    "verse_boundary_f1": 0.0,
+    "latency_budget_score": 1.0
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "[blocked] shard 2/3 (index 1): duplicate v4-tlog reference-port key .32 while task-838c0861b632 (.28) remains FIFO index 0; model_only ASR tasks still queued; smoke_runtime_plateau — no preflight/controller"
+  ]
+}
