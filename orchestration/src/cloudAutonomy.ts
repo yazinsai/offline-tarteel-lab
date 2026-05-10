@@ -83,11 +83,12 @@ Follow this exact operating procedure:
 11. Run verification: pytest. If orchestration TypeScript changed, also run: cd orchestration && npx tsc --noEmit.
 12. Commit only relevant promoted code changes plus JSON metadata under artifacts/queue, artifacts/runs, artifacts/promotions, and artifacts/experiment_ledger.jsonl.
 13. Open the PR against the ${config.startingRef} branch.
-14. If a task is promoted, make the PR title start with "Promote offline-tarteel experiment:".
-15. If the bounded controller rejects the task or no task is promoted, revert all candidate code, test, and benchmark-manifest edits before committing. The PR must be state-only: artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
-16. If no task is promoted but queue/run/ledger state changed, make the PR title start with "Autopilot offline-tarteel state:" and include only artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
-17. Do not open a normal code PR for a rejected autonomous task. Human-review code PRs are only for explicitly useful prototypes that are not rejected controller runs.
-18. The PR description must explain the attempted experiment in concrete terms so reviewers do not need to read the diff to understand it. Include these sections:
+14. PR titles must include the measured corpus result and the delta versus the current best whenever evaluation produced both values. Use percentage points for accuracy/objective deltas, e.g. "86.3%, +1.5pp", "84.8%, tie", or "84.4%, -0.4pp". Put this near the front of the title so it is visible in GitHub lists.
+15. If a task is promoted, make the PR title start with "Promote offline-tarteel experiment: <result>, <delta> —".
+16. If the bounded controller rejects the task or no task is promoted, revert all candidate code, test, and benchmark-manifest edits before committing. The PR must be state-only: artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
+17. If no task is promoted but queue/run/ledger state changed, make the PR title start with "Autopilot offline-tarteel state: <result>, <delta-or-reason> —" and include only artifacts/queue, artifacts/runs, and artifacts/experiment_ledger.jsonl.
+18. Do not open a normal code PR for a rejected autonomous task. Human-review code PRs are only for explicitly useful prototypes that are not rejected controller runs.
+19. The PR description must explain the attempted experiment in concrete terms so reviewers do not need to read the diff to understand it. Include these sections:
    - "Attempted change": the exact parameter/model/tracker/rule change tried, with before -> after values when applicable.
    - "Files changed during the probe": files you edited while testing, including files later reverted for a rejected task.
    - "Evaluation result": corpus, sample count, command, accuracy/objective, gate outcome, and rejection/promotion reason.
