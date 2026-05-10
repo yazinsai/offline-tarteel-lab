@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T23:52:45.709533+00:00",
+  "workflow_run_id": "25643230971",
+  "pr_number": 166,
+  "title": "Autopilot offline-tarteel state: Tier-2 slice 59.4%, tie (+0.0pp) \u2014 shard1 model_only ASR beam probe rejected",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/166",
+  "base_ref": "cursor-autonomy-base-25642387183-0",
+  "base_sha": "bf60df13db7c1fadcbd774c7dc0a68400a804ad7",
+  "head_ref": "cursor/offline-tarteel-asr-beam-probe-edf4",
+  "head_sha": "11dc229f3a0f377808eb0906eff92d519a4d53e6",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-asr-beam-wide-preflight-20260510T235900Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-0b7b0a20d952-preflight-20260510T235800Z.json"
+  ],
+  "blocked_file_hints": []
+}
