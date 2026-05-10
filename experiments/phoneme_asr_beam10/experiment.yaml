@@ -1,0 +1,12 @@
+kind: model_only
+hypothesis: >
+  Widen CTC prefix beam (width 10, top-10 frame symbols, up to 6 transcript hypotheses) on the
+  shipped FastConformer phoneme ONNX; matcher unchanged from phoneme_matcher_joint02. Targets
+  better first-pass phoneme transcripts without matcher-only reranking.
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Offline CPU decode cost ~1.5-2x vs joint02 beam defaults; env PHONEME_CTC_BEAM_WIDTH overrides.
