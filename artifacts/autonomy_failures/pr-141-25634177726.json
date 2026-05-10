@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T16:43:59.018318+00:00",
+  "workflow_run_id": "25634177726",
+  "pr_number": 141,
+  "title": "Autopilot offline-tarteel state: 59.4% Tier-2 slice, tie 0pp \u2014 shard1 reference v4 port30 beam widen (preflight blocked)",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/141",
+  "base_ref": "cursor-autonomy-base-25633243646-0",
+  "base_sha": "a3fd957395afecb40ec582b5bd0e918e658f504c",
+  "head_ref": "cursor/reference-shipped-v4-port30-decode-6036",
+  "head_sha": "301b9771c68d661d46563f8d76960908560fb345",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-preflight-port30-tie-joint02-20260510T164147Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-027793394dfe-20260510T164147Z.json"
+  ],
+  "blocked_file_hints": []
+}
