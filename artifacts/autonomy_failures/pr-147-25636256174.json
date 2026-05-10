@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T18:21:56.446706+00:00",
+  "workflow_run_id": "25636256174",
+  "pr_number": 147,
+  "title": "Autopilot offline-tarteel state: 59.4% slice acc, tie vs champion \u2014 shard 1/3 reference-port preflight",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/147",
+  "base_ref": "cursor-autonomy-base-25634917210-0",
+  "base_sha": "1f9a023a3f477dde4fe45bf2716e23a8803f7d29",
+  "head_ref": "cursor/shard1-838-preflight-tie-0491",
+  "head_sha": "1f22f6c9cfccac97095d7a7ea15cbf9cc30bc196",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-838c0861b632-20260510T181950Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-838c0861b632-20260510T181950Z.json"
+  ],
+  "blocked_file_hints": []
+}
