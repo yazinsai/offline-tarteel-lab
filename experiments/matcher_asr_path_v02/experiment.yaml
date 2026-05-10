@@ -1,0 +1,12 @@
+kind: joint_model_runtime
+hypothesis: >
+  Same ONNX+greedy CTC decode as reference_phoneme_v4; matcher reranks the Levenshtein shortlist
+  head with a semi-global fragment blend in prefix-fragment regimes so partial audio aligns to the
+  right verse without using corpus metadata.
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Reuses reference quran_phonemes.json. TOP_K default 15 (v4: 14); TOP_SURAHS/MAX_SPAN match v4 (28/5).
