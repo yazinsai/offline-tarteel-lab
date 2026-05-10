@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T08:22:59.909859+00:00",
+  "workflow_run_id": "25623941310",
+  "pr_number": 119,
+  "title": "Autopilot offline-tarteel state: 88.7%, -0.8pp acc & -0.70pp obj vs champ \u2014 shard 2 reference port",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/119",
+  "base_ref": "main",
+  "base_sha": "a6d8512d976d69111e174a84d89751304a9a296a",
+  "head_ref": "cursor/offline-tarteel-bounded-shard2-a8a3",
+  "head_sha": "06267d19857b77e9c64d52ca9743dab276eaaa8d",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-021e3058c67d-20260510T082054Z.json"
+  ],
+  "blocked_file_hints": []
+}
