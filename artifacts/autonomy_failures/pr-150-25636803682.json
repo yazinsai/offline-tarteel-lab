@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T18:47:05.667268+00:00",
+  "workflow_run_id": "25636803682",
+  "pr_number": 150,
+  "title": "Autopilot offline-tarteel state: 59.4% @32 tie, +0.0pp objective \u2014 shard1 baseline.reference v4-tlog.28 preflight",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/150",
+  "base_ref": "cursor-autonomy-base-25635924437-0",
+  "base_sha": "3d613816f33b546853f92f90af3f6c049fe3f9d5",
+  "head_ref": "cursor/shard1-reference-preflight-tie-636c",
+  "head_sha": "2c323d6ceb85e3a37effa31e82c4f821bcb46f80",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-838c-beam-fuse-tie-joint02-20260510T185200Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-838c0861b632-20260510T185200Z.json"
+  ],
+  "blocked_file_hints": []
+}
