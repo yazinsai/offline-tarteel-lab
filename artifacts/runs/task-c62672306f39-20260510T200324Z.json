@@ -1,0 +1,41 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-c62672306f39-20260510T200324Z",
+  "task_id": "task-c62672306f39",
+  "created_at_utc": "2026-05-10T20:03:24.000000+00:00",
+  "git_sha": "ff3ea8ae565b7c140adae370d88fd2f9d9352b18",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Work on a non-smoke matcher/ASR integration that uses transcript or model evidence from audio. Avoid filename/path/manifest labels and avoid smoke runtime knobs. Keep committed changes inside experiments/, tests/, benchmark/results/, or small JSON metadata.",
+    "autopilot_key": "escalate.non_smoke.joint_model_runtime.33.02"
+  },
+  "metrics": {
+    "blocked_before_eval": true,
+    "wrong_task_ordering": true,
+    "policy": "step10_joint_matcher_after_ref_and_asr_while_smoke_runtime_plateau",
+    "autopilot_smoke_runtime_plateau": true,
+    "queued_dependency_tasks": [
+      "task-d6354795e152",
+      "task-22cd612c8d19"
+    ],
+    "dependency_autopilot_keys": [
+      "baseline.reference_shipped_fastconformer_v4_tlog.32",
+      "escalate.non_smoke.model_only.33.01"
+    ],
+    "shard": "3/3",
+    "shard_index": 2,
+    "shard_total": 3,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "champion_experiment": "phoneme_matcher_joint02"
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "[blocked] shard 3/3 (index 2): reference_port task-d6354795e152 and model_only task-22cd612c8d19 still queued ahead; smoke_runtime_plateau — no preflight, no joint matcher probe"
+  ]
+}
