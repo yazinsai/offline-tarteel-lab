@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T23:38:34.719180+00:00",
+  "workflow_run_id": "25642940371",
+  "pr_number": 165,
+  "title": "Autopilot offline-tarteel state: 89.45% champ, wrong_task_ordering \u2014 shard3 joint36.02 FIFO",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/165",
+  "base_ref": "cursor-autonomy-base-25642387183-2",
+  "base_sha": "bf60df13db7c1fadcbd774c7dc0a68400a804ad7",
+  "head_ref": "cursor/shard3-step10-queue-block-9ffb",
+  "head_sha": "9690d9163e05f704528347c9c70513e7edb15da4",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-task-9a03a4440189-queue-order-20260510T234559Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-9a03a4440189-20260510T234559Z.json"
+  ],
+  "blocked_file_hints": []
+}
