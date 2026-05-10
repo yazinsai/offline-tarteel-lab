@@ -79,6 +79,19 @@ def test_judge_from_metrics_rejects_non_improving_challenger():
     assert "champion_objective_not_improved" in out["reasons"]
 
 
+def test_dataset_revision_includes_registry_revision(tmp_path, monkeypatch):
+    monkeypatch.setattr(al, "lab_root", lambda: tmp_path)
+    registry = tmp_path / "datasets" / "registry.yaml"
+    registry.parent.mkdir(parents=True)
+    registry.write_text(
+        'corpora:\n  - id: test_corpus_v3\n    revision: "2026-05-10"\n',
+        encoding="utf-8",
+    )
+
+    assert al._dataset_revision("test_corpus_v3") == "test_corpus_v3@2026-05-10"
+    assert al._dataset_revision("unknown") == "unknown"
+
+
 def test_run_once_promotes_accepted_task(tmp_path, monkeypatch):
     monkeypatch.setattr(al, "lab_root", lambda: tmp_path)
     monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
@@ -159,6 +172,7 @@ def test_run_once_promotes_accepted_task(tmp_path, monkeypatch):
     assert record["metrics"]["requires_full_corpus_gate"] is True
     assert record["metrics"]["champion_objective"] is None
     assert record["parameter_vector"]["full_corpus_gate"] is True
+    assert record["dataset_revision"] == "test_corpus_v3"
     assert record["tier_completed"] == [1, 2, 3]
     assert any("--limit 0" in command for command in record["commands"])
     ledger_path = tmp_path / "artifacts" / "experiment_ledger.jsonl"

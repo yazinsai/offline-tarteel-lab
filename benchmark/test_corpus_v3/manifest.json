@@ -3305,14 +3305,18 @@
     {
       "id": "tlog_m008_107_001",
       "file": "tlog_m008_107_001.wav",
-      "surah": 107,
-      "ayah": 1,
+      "surah": 106,
+      "ayah": 4,
       "ayah_end": null,
       "category": "medium",
       "source": "tlog",
       "ratio": 0.782,
       "duration_s": 11.86,
       "expected_verses": [
+        {
+          "surah": 106,
+          "ayah": 4
+        },
         {
           "surah": 107,
           "ayah": 1
@@ -3901,7 +3905,7 @@
       "id": "tlog_m043_010_043",
       "file": "tlog_m043_010_043.wav",
       "surah": 10,
-      "ayah": 43,
+      "ayah": 42,
       "ayah_end": null,
       "category": "medium",
       "source": "tlog",
@@ -3910,7 +3914,7 @@
       "expected_verses": [
         {
           "surah": 10,
-          "ayah": 43
+          "ayah": 42
         }
       ]
     },
@@ -3918,7 +3922,7 @@
       "id": "tlog_m044_010_043",
       "file": "tlog_m044_010_043.wav",
       "surah": 10,
-      "ayah": 43,
+      "ayah": 42,
       "ayah_end": null,
       "category": "medium",
       "source": "tlog",
@@ -3927,7 +3931,7 @@
       "expected_verses": [
         {
           "surah": 10,
-          "ayah": 43
+          "ayah": 42
         }
       ]
     },
@@ -4172,8 +4176,8 @@
     {
       "id": "tlog_m059_010_053",
       "file": "tlog_m059_010_053.wav",
-      "surah": 10,
-      "ayah": 53,
+      "surah": 6,
+      "ayah": 134,
       "ayah_end": null,
       "category": "medium",
       "source": "tlog",
@@ -4181,8 +4185,8 @@
       "duration_s": 10.09,
       "expected_verses": [
         {
-          "surah": 10,
-          "ayah": 53
+          "surah": 6,
+          "ayah": 134
         }
       ]
     },

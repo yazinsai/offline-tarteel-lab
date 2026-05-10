@@ -17,6 +17,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 from lab_tools.experiment_ledger import append_run_record, read_entries
 from lab_tools.paths import lab_root
 from lab_tools.judge_policy import JudgeInput, judge
@@ -79,6 +81,21 @@ def _best_tier2_result(tier2: dict[str, Any], experiment: str | None) -> dict[st
     if not rows:
         return {}
     return max(rows, key=lambda r: float(r.get("accuracy", 0.0)))
+
+
+def _dataset_revision(corpus: str) -> str:
+    registry_path = lab_root() / "datasets" / "registry.yaml"
+    if not registry_path.is_file():
+        return corpus
+    try:
+        registry = yaml.safe_load(registry_path.read_text(encoding="utf-8")) or {}
+    except (OSError, yaml.YAMLError):
+        return corpus
+    for entry in registry.get("corpora") or []:
+        if isinstance(entry, dict) and entry.get("id") == corpus:
+            revision = entry.get("revision")
+            return f"{corpus}@{revision}" if revision else corpus
+    return corpus
 
 
 def _metrics_from_reports(
@@ -161,6 +178,7 @@ def _full_corpus_coverage(metrics: dict[str, Any]) -> bool:
 
 
 def _valid_full_corpus_champion(corpus: str) -> dict[str, Any] | None:
+    corpus_revision = _dataset_revision(corpus)
     entries = read_entries(path=lab_root() / "artifacts" / "experiment_ledger.jsonl")
     invalidated = {
         str(entry.get("invalidates_run_id"))
@@ -174,7 +192,7 @@ def _valid_full_corpus_champion(corpus: str) -> dict[str, Any] | None:
             continue
         if str(entry.get("run_id")) in invalidated:
             continue
-        if entry.get("corpus_revision") != corpus:
+        if entry.get("corpus_revision") != corpus_revision:
             continue
         params = entry.get("parameters") or {}
         if not params.get("full_corpus_gate"):
@@ -247,7 +265,7 @@ def _write_run_record(
         "task_id": task.id,
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "git_sha": _git_sha(),
-        "dataset_revision": str((task.payload or {}).get("corpus", "test_corpus_v3")),
+        "dataset_revision": _dataset_revision(str((task.payload or {}).get("corpus", "test_corpus_v3"))),
         "experiment_kind": task.kind,
         "parameter_vector": task.payload or {},
         "metrics": metrics,
