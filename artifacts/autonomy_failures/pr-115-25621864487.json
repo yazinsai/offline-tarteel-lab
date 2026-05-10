@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T06:30:22.607295+00:00",
+  "workflow_run_id": "25621864487",
+  "pr_number": 115,
+  "title": "Autopilot offline-tarteel state: 87.5%, -2.0pp vs 89.5% champ \u2014 shard 3 model_only ASR gate",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/115",
+  "base_ref": "cursor-autonomy-base-25620029506-2",
+  "base_sha": "083729220571a2c1b54d3a9401d70a1744f308e4",
+  "head_ref": "cursor/offline-tarteel-shard3-model-asr-8e76",
+  "head_sha": "f07b46e80ddf5e1a99c56d58880a8bed7ca3dd59",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-cd13aa370a71-20260510T061642Z.json"
+  ],
+  "blocked_file_hints": []
+}
