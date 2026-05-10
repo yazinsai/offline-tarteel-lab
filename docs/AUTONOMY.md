@@ -79,6 +79,71 @@ for streaming recall. A task can also provide:
 
 Tier 3 is required for promotion.
 
+### Mandatory Champion Preflight
+
+Do not spend a full `test_corpus_v3` Tier-2 run (`--limit 0`) until the candidate
+has beaten the current champion on the cheap fixed preflight slice.
+
+Before editing, read the champion record:
+
+```bash
+python -m lab_tools.experiment_ledger champion
+```
+
+Open the champion's run record from `artifacts/runs` and state which subsystem
+moved the needle versus the runner-up: ASR/decode, matcher, tracker/runtime, or
+packaging/resource budget. The next mutation should target that subsystem. If
+the champion is a joint stack such as ASR + matcher, matcher-only follow-ups
+(reranks, blends, shortlist tweaks on the same decode, fragment-head reranks)
+are not promotion candidates unless the preflight below shows a strict win.
+Prefer changes that alter decoding/search (beam width/caps, hypothesis
+merge/rescore, two-pass procedures with documented CPU/time caps) or true
+ASR-side improvements when Modal is allowed.
+
+After implementing a candidate, run candidate and champion on the same Tier-2
+slice before the bounded controller's full-corpus gate:
+
+```bash
+python -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment <candidate>
+python -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment <champion>
+```
+
+`--limit 32` is the repo-standard preflight slice unless a task explicitly names
+another fixed slice. Promotion requires the candidate accuracy and composite
+objective to be strictly greater than the champion on that same slice. A tie is
+a failed run for promotion, even if it has "no regression"; record
+`champion_objective_not_improved` and stop. With the current objective weights,
+alignment metrics collapse mostly to Tier-2 accuracy: roughly +1 correct / 256
+is about +0.35pp accuracy, so promotion needs a visible bump toward at least
+230/256 rather than repeated 229/256 ties.
+
+If preflight does not strictly beat the champion, do not run full Tier-2
+promotion. Revert candidate code/test/manifest edits unless the user explicitly
+wants the prototype kept, write an honest rejection run/state artifact, and keep
+the PR state-only. If nothing durable needs recording, open no PR.
+
+On failed probes, append compact negative memory under
+`artifacts/autonomy_failures/` or in ledger metadata so later runs do not repeat
+the same dead pattern:
+
+```json
+{
+  "schema": "offline-tarteel.autonomy_probe_failure.v1",
+  "autopilot_key": "<key>",
+  "experiment_family": "<family>",
+  "change_class": "matcher_only_fragment_head_rerank",
+  "tier2_delta_correct": 0,
+  "reason": "champion_objective_not_improved"
+}
+```
+
+For shard ordering, inspect the queued tasks before implementing. If a shard
+pulls a `joint_model_runtime` task while other queued tasks are reference-port or
+`model_only` ASR work and the notes say the plateau is smoke/runtime, do not ship
+another matcher-only probe. Either wait for the dependency task, or record
+`blocked: wrong task ordering` in queue notes/autonomy failures and leave a
+state-only update.
+
 ## Cloud Experiment Workers
 
 The existing Cursor SDK dispatcher can still implement or tune experiments in
@@ -124,14 +189,15 @@ Auto-Merge` workflow. It only merges after the `CI` workflow succeeds and the PR
   `Autopilot offline-tarteel state:`
 - for promotion PRs, changes at least one `artifacts/promotions/*.json` manifest
 - for state PRs, changes only `artifacts/queue/`, `artifacts/runs/`, and
-  `artifacts/experiment_ledger.jsonl`
+  `artifacts/autonomy_failures/`, and `artifacts/experiment_ledger.jsonl`
 - keeps changed files inside the matching allowlist
 - for promotion PRs, has promotion manifests with schema
   `offline-tarteel.promotion.v2`
 
 Only `artifacts/queue/`, `artifacts/runs/`, `artifacts/promotions/`,
-`artifacts/experiment_ledger.jsonl`, `experiments/`, `tests/`, `benchmark/`,
-and `benchmarks/` are auto-merge eligible. Changes to workflows,
+`artifacts/autonomy_failures/`, `artifacts/experiment_ledger.jsonl`,
+`experiments/`, `tests/`, `benchmark/`, and `benchmarks/` are auto-merge
+eligible. Changes to workflows,
 orchestration, package manifests, repo policy, training code, docs, or controller
 code require human review.
 
@@ -152,8 +218,22 @@ The controller only launches Modal when explicitly allowed:
 python -m lab_tools.autonomous_loop run-once --allow-modal
 ```
 
-Without `--allow-modal`, it records the intended Modal command and continues with
-local gates when possible. This avoids accidental external compute spend.
+Cursor Cloud autonomy exposes the same choice through `LAB_AUTONOMY_ALLOW_MODAL`:
+
+- `auto` (default): launch Modal training when `MODAL_TOKEN_ID` and
+  `MODAL_TOKEN_SECRET` are present; otherwise treat Modal as unavailable.
+- `true`: require Modal credentials and fail fast if they are missing.
+- `false`: never launch Modal.
+
+When Modal is available, `model_only` and ASR-side `joint_model_runtime` tasks may
+launch detached training jobs with `modal run --detach`. Record the Modal app/run
+ID, volume/checkpoint path, and intended follow-up evaluation in the queue/run
+metadata. Do not commit model binaries or checkpoint dumps; trained artifacts
+stay on Modal volumes until a promotion manifest references hashes and size
+metadata.
+
+Without Modal, do not replace a blocked ASR/model task with another matcher-only
+probe. Record it as blocked or wait for a Modal-enabled shard.
 
 ## Production Target
 

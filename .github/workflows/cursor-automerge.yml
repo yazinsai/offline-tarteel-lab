@@ -141,6 +141,7 @@ jobs:
               "artifacts/experiment_ledger.jsonl",
               "artifacts/runs/",
               "artifacts/promotions/",
+              "artifacts/autonomy_failures/",
               "experiments/",
               "tests/",
               "benchmark/results/",
@@ -150,6 +151,7 @@ jobs:
               "artifacts/queue/",
               "artifacts/experiment_ledger.jsonl",
               "artifacts/runs/",
+              "artifacts/autonomy_failures/",
           )
           allowed_prefixes = promotion_prefixes if mode == "promotion" else state_prefixes
           blocked = [

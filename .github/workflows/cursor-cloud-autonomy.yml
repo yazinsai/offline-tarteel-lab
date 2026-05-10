@@ -18,11 +18,11 @@ on:
         type: choice
         options: ["false", "true"]
       allow_modal:
-        description: "Allow Modal training launches"
+        description: "Allow Modal training launches: auto uses Modal when credentials exist"
         required: false
-        default: "false"
+        default: "auto"
         type: choice
-        options: ["false", "true"]
+        options: ["auto", "false", "true"]
       target_backlog:
         description: "Desired queued/running task backlog"
         required: false
@@ -102,13 +102,26 @@ jobs:
         run: git push --force origin "HEAD:refs/heads/$CURSOR_BASE_REF"
 
       - name: Validate Modal credentials
-        if: ${{ github.event.inputs.allow_modal == 'true' }}
         env:
+          ALLOW_MODAL: ${{ github.event.inputs.allow_modal || 'auto' }}
           MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
           MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
           MODAL_PROFILE: ${{ secrets.MODAL_PROFILE }}
           MODAL_ENVIRONMENT: ${{ secrets.MODAL_ENVIRONMENT }}
         run: |
+          set -euo pipefail
+          if [ "$ALLOW_MODAL" = "false" ]; then
+            echo "Modal disabled by workflow input."
+            exit 0
+          fi
+          if [ -z "${MODAL_TOKEN_ID:-}" ] || [ -z "${MODAL_TOKEN_SECRET:-}" ]; then
+            if [ "$ALLOW_MODAL" = "true" ]; then
+              echo "allow_modal=true requires MODAL_TOKEN_ID and MODAL_TOKEN_SECRET"
+              exit 1
+            fi
+            echo "Modal credentials missing; continuing with Modal disabled for auto mode."
+            exit 0
+          fi
           python3 -m pip install modal
           modal token info
 
@@ -137,7 +150,7 @@ jobs:
           LAB_AUTONOMY_TARGET_BACKLOG: ${{ github.event.inputs.target_backlog || '8' }}
           LAB_AUTONOMY_LIMIT: ${{ github.event.inputs.limit || '12' }}
           LAB_AUTONOMY_PLAN: ${{ github.event.inputs.seed_sweeps || '1' }}
-          LAB_AUTONOMY_ALLOW_MODAL: ${{ github.event.inputs.allow_modal || 'false' }}
+          LAB_AUTONOMY_ALLOW_MODAL: ${{ github.event.inputs.allow_modal || 'auto' }}
           LAB_AUTONOMY_SHARD_INDEX: ${{ matrix.shard_index }}
           LAB_AUTONOMY_SHARD_TOTAL: "3"
         run: npm run cloud:autonomy
