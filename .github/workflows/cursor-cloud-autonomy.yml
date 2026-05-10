@@ -44,6 +44,7 @@ jobs:
       matrix:
         shard_index: [0, 1, 2]
     env:
+      CURSOR_BASE_PREFIX: cursor-autonomy-base-${{ github.run_id }}-
       CURSOR_BASE_REF: cursor-autonomy-base-${{ github.run_id }}-${{ matrix.shard_index }}
     permissions:
       contents: write
@@ -70,6 +71,9 @@ jobs:
           delete_branch() {
             ref="$1"
             if [ -z "$ref" ] || [ "$ref" = "main" ] || [ "$ref" = "$CURSOR_BASE_REF" ]; then
+              return 0
+            fi
+            if [[ "$ref" == "$CURSOR_BASE_PREFIX"* ]]; then
               return 0
             fi
             if is_open_ref "$ref"; then
