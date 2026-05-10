@@ -189,6 +189,49 @@ jobs:
           print("promotion_files=" + ",".join(promotions))
           PY
 
+          run_record_files="$(python - <<'PY'
+          import json
+          files = json.load(open("files.json", encoding="utf-8"))
+          print(" ".join(
+              f["filename"] for f in files
+              if f["filename"].startswith("artifacts/runs/") and f["filename"].endswith(".json")
+          ))
+          PY
+          )"
+
+          for path in $run_record_files; do
+            gh api "repos/$REPO/contents/$path?ref=$head_sha" \
+              --jq '.content' | base64 -d > run_record.json
+            RUN_RECORD_PATH="$path" python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          def current_revisions() -> dict[str, str]:
+              out: dict[str, str] = {}
+              current_id: str | None = None
+              for raw in Path("datasets/registry.yaml").read_text(encoding="utf-8").splitlines():
+                  line = raw.strip()
+                  if line.startswith("- id:"):
+                      current_id = line.split(":", 1)[1].strip().strip('"')
+                  elif current_id and line.startswith("revision:"):
+                      rev = line.split(":", 1)[1].strip().strip('"')
+                      out[current_id] = f"{current_id}@{rev}" if rev else current_id
+                      current_id = None
+              return out
+
+          data = json.loads(Path("run_record.json").read_text(encoding="utf-8"))
+          dataset_revision = str(data.get("dataset_revision") or "")
+          corpus = dataset_revision.split("@", 1)[0]
+          expected = current_revisions().get(corpus)
+          if expected and dataset_revision != expected:
+              path = os.environ["RUN_RECORD_PATH"]
+              raise SystemExit(
+                  f"{path} has stale dataset_revision {dataset_revision!r}; expected {expected!r}"
+              )
+          PY
+          done
+
           promotion_files="$(python - <<'PY'
           import json
           files = json.load(open("files.json", encoding="utf-8"))
