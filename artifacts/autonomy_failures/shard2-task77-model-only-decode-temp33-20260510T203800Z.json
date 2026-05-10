@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T20:38:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-77b0729a9a39",
+  "autopilot_key": "escalate.non_smoke.model_only.33.01",
+  "experiment_family": "phoneme_decode_temp33",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "reason": "Mandatory Tier-2 preflight on test_corpus_v3 manifest prefix (limit 32): candidate phoneme_decode_temp33 tied champion phoneme_matcher_joint02 at 19/32 correct (accuracy 0.59375). Objective ties under scorer proxies at ~0.634375 (latency_budget_score 1.0). Strict promotion gate requires strictly greater accuracy and objective versus champion on the same slice — tie fails. A secondary probe with PHONEME_DECODE_TEMP=0.82 and beam_width=14 regressed to 18/32. Experiment directory removed before commit (state-only PR).",
+  "negative_memory": "Decode-side softmax temperature rescaling + modest beam widen vs phoneme_matcher_joint02 defaults did not improve fixed-prefix Tier-2 slice; aggressive beam hurt. Do not repeat phoneme_decode_temp33-style posterior sharpening without evidence on limit-32 slice before full corpus when champion is phoneme_matcher_joint02.",
+  "run_id": "task-77b0729a9a39-20260510T203800Z"
+}
