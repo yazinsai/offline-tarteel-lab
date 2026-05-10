@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T18:32:50.561297+00:00",
+  "workflow_run_id": "25636494858",
+  "pr_number": 149,
+  "title": "Autopilot offline-tarteel state: 89.5% champion unchanged, wrong_task_ordering \u2014 shard 2/3 dup v4-tlog ref-port",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/149",
+  "base_ref": "cursor-autonomy-base-25635924437-1",
+  "base_sha": "3d613816f33b546853f92f90af3f6c049fe3f9d5",
+  "head_ref": "cursor/offline-tarteel-shard2-ref-dup-block-d150",
+  "head_sha": "fc33ce31c3d9a901eaf79431a8f4cd7d7e214a67",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-7fd0c32-queue-order-dup-ref-v4-32-20260510T183117Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-7fd0c32fb75f-20260510T183117Z.json"
+  ],
+  "blocked_file_hints": []
+}
