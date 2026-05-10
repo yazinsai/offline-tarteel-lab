@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T17:02:22.517368+00:00",
+  "workflow_run_id": "25634566198",
+  "pr_number": 144,
+  "title": "Autopilot offline-tarteel state: 59.4% Tier-2@32, tie (0pp) \u2014 shard1 RN fusion preflight rejects task-f3ee3a573468",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/144",
+  "base_ref": "cursor-autonomy-base-25633830794-0",
+  "base_sha": "3b46280b1a7e414afd086c0753c8d53088173397",
+  "head_ref": "cursor/offline-tarteel-shard1-v4baseline-e002",
+  "head_sha": "f307c884a81f701c90cd7aa60e6113327b4a02f9",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-preflight-fusion-stack-tie-20260510T171500Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-f3ee3a573468-20260510T171500Z.json"
+  ],
+  "blocked_file_hints": []
+}
