@@ -1,0 +1,13 @@
+kind: joint_model_runtime
+hypothesis: >
+  Same ONNX+phoneme pipeline as reference_phoneme_v4, but final verse choice re-ranks the
+  string-matcher shortlist by full CTC forward log-likelihood under frame log-probabilities
+  (acoustic evidence), not by editing streaming metadata or corpus manifests.
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Reuses reference quran_phonemes.json and ONNX cache; no new weights. Span hypotheses use
+  concatenated verse phonemes_joined sequences for the CTC reference path.
