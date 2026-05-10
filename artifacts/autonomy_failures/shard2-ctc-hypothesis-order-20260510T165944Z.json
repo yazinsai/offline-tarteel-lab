@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T16:59:44.000000+00:00",
+  "reason": "preflight_slice_tie_strict_gate_failed",
+  "shard": "2/3",
+  "task_id": "task-9cc70e3710f4",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.30",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.30",
+  "change_class": "decode_hypothesis_order_ctc_rescore",
+  "tier2_delta_correct": 0,
+  "candidate_experiment_ephemeral": "reference_tlog_ctc_pick",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "negative_memory": "reference_tlog_ctc_pick (joint02 ONNX+matcher unchanged; hypotheses reordered by ported ctc-rescore chooseLongestStablePrefix tie-break) ties champion phoneme_matcher_joint02 on the canonical 32-prefix slice at 19/32 — no accuracy or surrogate objective gain versus greedy beam visit order. Repeating hypothesis-order-only CTC rescoring on the same stack will not satisfy strict preflight; need a different decode budget, two-pass alignment, or matcher/ASR stack change that moves slice counts."
+}
