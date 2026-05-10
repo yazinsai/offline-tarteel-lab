@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T16:42:37.989397+00:00",
+  "workflow_run_id": "25634151364",
+  "pr_number": 140,
+  "title": "Autopilot offline-tarteel state: 56.3%, -3.1pp acc & -2.8pp obj \u2014 shard3 ASR beam-widen preflight fail",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/140",
+  "base_ref": "cursor-autonomy-base-25633243646-2",
+  "base_sha": "a3fd957395afecb40ec582b5bd0e918e658f504c",
+  "head_ref": "cursor/offline-tarteel-asr-model30-preflight-90f6",
+  "head_sha": "7cba8a3add2fc7e460124d2f0a1e10d434ccbe41",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-model30-preflight-20260510T164045Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-abee1c78947e-20260510T164045Z.json"
+  ],
+  "blocked_file_hints": []
+}
