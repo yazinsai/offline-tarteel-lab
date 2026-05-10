@@ -1,7 +1,8 @@
-"""Phoneme CTC (ported greedy path) + Quran phoneme DB matching from offline-tarteel reference.
+"""Shipped fastconformer-phoneme v4-tlog port (audio-driven ONNX + Quran phoneme matching).
 
-Downloads the public quantized ONNX release artifact at first use (cache under ~/.cache).
-Does not read benchmark manifests, paths, or filenames for labels — only decoded phonemes vs quran_phonemes.json.
+Aligned with experiments/phoneme_matcher_joint02: CTC prefix beam + Levenshtein / span matcher.
+Default beam width 7 (joint champion used 6) to recover occasional near-tie branches. ONNX in user cache.
+Reference sources: yazinsai/offline-tarteel (clone at /tmp/offline-tarteel-reference for this task).
 """
 
 from __future__ import annotations
@@ -42,9 +43,13 @@ _by_surah: dict[int, list[dict]] = {}
 
 _BSM_PHONEMES_JOINED = "bismi allahi arraHmaani arraHiimi"
 
-TOP_K_LEVENSHTEIN = int(os.getenv("PHONEME_LM_TOP_K", "14"))
-TOP_SURAHS = int(os.getenv("PHONEME_LM_TOP_SURAHS", "28"))
-MAX_SPAN = int(os.getenv("PHONEME_LM_MAX_SPAN", "5"))
+TOP_K_LEVENSHTEIN = int(os.getenv("PHONEME_LM_TOP_K", "18"))
+TOP_SURAHS = int(os.getenv("PHONEME_LM_TOP_SURAHS", "32"))
+MAX_SPAN = int(os.getenv("PHONEME_LM_MAX_SPAN", "6"))
+FRAGMENT_BLEND = float(os.getenv("PHONEME_FRAGMENT_BLEND", "0.82"))
+BEAM_WIDTH = int(os.getenv("PHONEME_CTC_BEAM_WIDTH", "7"))
+BEAM_TOP_SYMBOLS = int(os.getenv("PHONEME_CTC_TOP_SYMBOLS", "8"))
+MAX_HYPOTHESES = int(os.getenv("PHONEME_MAX_HYPOTHESES", "4"))
 
 _onnx_input_name = attrgetter("name")
 
@@ -136,20 +141,27 @@ def _query_bigrams(s: str) -> set[str]:
     return {s[i : i + 2] for i in range(len(s) - 1)}
 
 
-def _candidate_verses(no_space_text: str, *, max_candidates: int = 800) -> list[dict]:
-    """Bigram-overlap shortlist so full-corpus tier-2 finishes in bounded time."""
+def _query_trigrams(s: str) -> set[str]:
+    if len(s) < 3:
+        return set()
+    return {s[i : i + 3] for i in range(len(s) - 2)}
+
+
+def _candidate_verses(no_space_text: str, *, max_candidates: int = 950) -> list[dict]:
     if _verses is None or len(no_space_text) < 4:
         return list(_verses or [])
     qb = _query_bigrams(no_space_text)
-    if not qb:
+    qt = _query_trigrams(no_space_text)
+    if not qb and not qt:
         return list(_verses)
-    scored: list[tuple[int, int]] = []
+    scored: list[tuple[float, int]] = []
     for i, verse in enumerate(_verses):
         ref_ns = verse.get("_phonemes_joined_ns", "")
         if len(ref_ns) < 2:
             continue
         rb = _query_bigrams(ref_ns)
-        ov = len(qb & rb)
+        rt = _query_trigrams(ref_ns)
+        ov = float(len(qb & rb)) + 0.48 * float(len(qt & rt))
         if ov > 0:
             scored.append((ov, i))
     if len(scored) < 80:
@@ -198,7 +210,7 @@ def _match_phoneme_text(phoneme_text: str, top_k: int = 10) -> list[dict]:
             if no_bsm_ns:
                 frag = max(frag, fragment_score(no_space_text, no_bsm_ns))
             if frag > raw:
-                boosted = raw + (frag - raw) * 0.7
+                boosted = raw + (frag - raw) * FRAGMENT_BLEND
                 scored[i] = [verse, boosted, boosted]
                 resorted = True
         if resorted:
@@ -273,15 +285,8 @@ def _compute_logprobs(audio: np.ndarray, session: ort.InferenceSession) -> np.nd
     return results[0][0]
 
 
-def _greedy_decode_phonemes(logprobs: np.ndarray) -> str:
-    ids = logprobs.argmax(axis=1)
-    prev = -1
-    tokens = []
-    for idx in ids:
-        if idx != prev and idx != BLANK_ID:
-            if idx < len(PHONEME_VOCAB):
-                tokens.append(PHONEME_VOCAB[idx])
-        prev = idx
+def _labels_to_phoneme_string(labeling: tuple[int, ...]) -> str:
+    tokens = [PHONEME_VOCAB[i] for i in labeling if 0 <= i < len(PHONEME_VOCAB)]
     words = []
     cur: list[str] = []
     for t in tokens:
@@ -294,6 +299,76 @@ def _greedy_decode_phonemes(logprobs: np.ndarray) -> str:
     if cur:
         words.append("".join(cur))
     return " ".join(words)
+
+
+def _greedy_decode_ids(logprobs: np.ndarray) -> tuple[int, ...]:
+    ids = logprobs.argmax(axis=1)
+    prev = -1
+    out: list[int] = []
+    for idx in ids:
+        i = int(idx)
+        if i != prev and i != BLANK_ID:
+            out.append(i)
+        prev = i
+    return tuple(out)
+
+
+def _ctc_prefix_beam_decode(
+    logprobs: np.ndarray,
+    *,
+    beam_width: int,
+    top_symbols: int,
+) -> list[tuple[tuple[int, ...], float]]:
+    """CTC prefix beam; log-probs assumed to be natural log of softmax probabilities."""
+    t_len, v_dim = int(logprobs.shape[0]), int(logprobs.shape[1])
+    beam: dict[tuple[int, ...], float] = {(): 0.0}
+    blank = BLANK_ID
+    for t in range(t_len):
+        pr = logprobs[t]
+        idx = np.argpartition(-pr, min(top_symbols, v_dim - 1))[:top_symbols]
+        next_beam: dict[tuple[int, ...], float] = {}
+        items = sorted(beam.items(), key=lambda x: -x[1])[: max(beam_width * 3, beam_width)]
+        for labeling, lp in items:
+            for c in idx:
+                c = int(c)
+                logp = lp + float(pr[c])
+                if c == blank:
+                    nl = labeling
+                elif len(labeling) > 0 and labeling[-1] == c:
+                    nl = labeling
+                else:
+                    nl = labeling + (c,)
+                prev_lp = next_beam.get(nl)
+                if prev_lp is None:
+                    next_beam[nl] = logp
+                else:
+                    next_beam[nl] = float(np.logaddexp(prev_lp, logp))
+        beam = dict(sorted(next_beam.items(), key=lambda x: -x[1])[:beam_width])
+    return sorted(beam.items(), key=lambda x: -x[1])[:beam_width]
+
+
+def _hypotheses_from_logprobs(logprobs: np.ndarray) -> list[str]:
+    greedy = _greedy_decode_ids(logprobs)
+    g_str = _labels_to_phoneme_string(greedy)
+    out: list[str] = []
+    if g_str.strip():
+        out.append(g_str)
+    if BEAM_WIDTH <= 1:
+        return out
+    seen = set(out)
+    for labeling, _ in _ctc_prefix_beam_decode(
+        logprobs,
+        beam_width=BEAM_WIDTH,
+        top_symbols=BEAM_TOP_SYMBOLS,
+    ):
+        s = _labels_to_phoneme_string(labeling)
+        if not s.strip() or s in seen:
+            continue
+        seen.add(s)
+        out.append(s)
+        if len(out) >= MAX_HYPOTHESES:
+            break
+    return out[:MAX_HYPOTHESES]
 
 
 def _ensure_loaded() -> None:
@@ -342,17 +417,27 @@ def predict(audio_path: str) -> dict:
     assert _onnx_session is not None
     audio = _load_audio(audio_path)
     logprobs = _compute_logprobs(audio, _onnx_session)
-    phoneme_text = _greedy_decode_phonemes(logprobs)
-    top = _match_phoneme_text(phoneme_text, top_k=TOP_K_LEVENSHTEIN)
-    if not top:
-        return {"surah": 0, "ayah": 0, "ayah_end": None, "score": 0.0, "transcript": phoneme_text}
-    best = top[0]
+    hyps = _hypotheses_from_logprobs(logprobs)
+    best_hit: dict | None = None
+    best_transcript = ""
+    best_rank = -1.0
+    for hyp in hyps:
+        top = _match_phoneme_text(hyp, top_k=TOP_K_LEVENSHTEIN)
+        if not top:
+            continue
+        if float(top[0]["score"]) > best_rank:
+            best_rank = float(top[0]["score"])
+            best_hit = top[0]
+            best_transcript = hyp
+    if not best_hit:
+        fallback = _labels_to_phoneme_string(_greedy_decode_ids(logprobs))
+        return {"surah": 0, "ayah": 0, "ayah_end": None, "score": 0.0, "transcript": fallback}
     return {
-        "surah": best["surah"],
-        "ayah": best["ayah"],
-        "ayah_end": best.get("ayah_end"),
-        "score": best["score"],
-        "transcript": phoneme_text,
+        "surah": best_hit["surah"],
+        "ayah": best_hit["ayah"],
+        "ayah_end": best_hit.get("ayah_end"),
+        "score": best_hit["score"],
+        "transcript": best_transcript,
     }
 
 

@@ -1,14 +1,13 @@
 kind: joint_model_runtime
 hypothesis: >
-  Ported greedy phoneme-CTC pipeline from reference offline-tarteel (fastconformer_phoneme_q8 ONNX
-  + quran_phonemes + Levenshtein / span matching). ONNX fetched to user cache; no committed weights.
+  Ported phoneme-CTC path from offline-tarteel v4-tlog (fastconformer_phoneme_q8 ONNX + quran_phonemes
+  + Levenshtein/span matcher). Matches phoneme_matcher_joint02 with default CTC beam width 7 (champion
+  used 6). ONNX fetched to user cache; no committed weights.
 owner: ""
 constraints:
   max_onnx_mb: 200
 expected_metrics:
   recall_delta_pp: null
 notes: >
-  Uses release ONNX sha256 78279e112f2762312b1412880d35f21f423bd117ee9222b82b8b9782c81bfaf9.
-  Greedy CTC only (no pyctcdecode). Matching logic mirrors reference Python experiment.
-  Default LM search widened (TOP_K/TOP_SURAHS/MAX_SPAN and bigram shortlist depth) versus the v4-port
-  initial defaults to reduce verse-ranking truncation without changing decode or ONNX.
+  ONNX sha256 78279e112f2762312b1412880d35f21f423bd117ee9222b82b8b9782c81bfaf9.
+  Reference clone for development: /tmp/offline-tarteel-reference.
