@@ -307,8 +307,8 @@ def _maybe_launch_modal(task: Task, allow_modal: bool) -> CommandResult | None:
     return _run(cmd)
 
 
-def tick(dry_run: bool = False) -> int:
-    t = next_queued()
+def tick(dry_run: bool = False, *, shard_index: int = 0, shard_total: int = 1) -> int:
+    t = next_queued(shard_index=shard_index, shard_total=shard_total)
     if not t:
         print("no queued tasks")
         return 0
@@ -337,8 +337,10 @@ def run_once(
     corpus: str = "test_corpus_v3",
     limit: int = 12,
     promote: bool = True,
+    shard_index: int = 0,
+    shard_total: int = 1,
 ) -> int:
-    task = next_queued()
+    task = next_queued(shard_index=shard_index, shard_total=shard_total)
     if not task:
         print("no queued tasks")
         return 0
@@ -493,11 +495,13 @@ def run_loop(
     corpus: str,
     limit: int,
     promote: bool,
+    shard_index: int = 0,
+    shard_total: int = 1,
 ) -> int:
     cycles = 0
     failures = 0
     while max_cycles <= 0 or cycles < max_cycles:
-        if next_queued() is None:
+        if next_queued(shard_index=shard_index, shard_total=shard_total) is None:
             print("no queued tasks")
             return 0 if failures == 0 else 1
         rc = run_once(
@@ -505,6 +509,8 @@ def run_loop(
             corpus=corpus,
             limit=limit,
             promote=promote,
+            shard_index=shard_index,
+            shard_total=shard_total,
         )
         cycles += 1
         if rc != 0:
@@ -520,6 +526,8 @@ def main() -> None:
 
     sp_tick = sub.add_parser("tick", help="Claim one queued task and print dispatch prompt")
     sp_tick.add_argument("--dry-run", action="store_true")
+    sp_tick.add_argument("--shard-index", type=int, default=0)
+    sp_tick.add_argument("--shard-total", type=int, default=1)
 
     sub.add_parser("status", help="Print queue counts by status")
 
@@ -529,6 +537,8 @@ def main() -> None:
     sp_run.add_argument("--corpus", default="test_corpus_v3")
     sp_run.add_argument("--limit", type=int, default=12)
     sp_run.add_argument("--no-promote", action="store_true")
+    sp_run.add_argument("--shard-index", type=int, default=0)
+    sp_run.add_argument("--shard-total", type=int, default=1)
 
     sp_loop = sub.add_parser("run", help="Continuously evaluate queued tasks")
     sp_loop.add_argument("--max-cycles", type=int, default=0, help="0 means until queue is empty")
@@ -537,6 +547,8 @@ def main() -> None:
     sp_loop.add_argument("--corpus", default="test_corpus_v3")
     sp_loop.add_argument("--limit", type=int, default=12)
     sp_loop.add_argument("--no-promote", action="store_true")
+    sp_loop.add_argument("--shard-index", type=int, default=0)
+    sp_loop.add_argument("--shard-total", type=int, default=1)
 
     args = p.parse_args()
     if args.command == "status":
@@ -554,6 +566,8 @@ def main() -> None:
                 corpus=args.corpus,
                 limit=args.limit,
                 promote=not args.no_promote,
+                shard_index=args.shard_index,
+                shard_total=args.shard_total,
             ),
         )
     if args.command == "run":
@@ -565,9 +579,11 @@ def main() -> None:
                 corpus=args.corpus,
                 limit=args.limit,
                 promote=not args.no_promote,
+                shard_index=args.shard_index,
+                shard_total=args.shard_total,
             ),
         )
-    sys.exit(tick(dry_run=args.dry_run))
+    sys.exit(tick(dry_run=args.dry_run, shard_index=args.shard_index, shard_total=args.shard_total))
 
 
 if __name__ == "__main__":

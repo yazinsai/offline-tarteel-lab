@@ -36,6 +36,16 @@ const limit = readInt("LAB_AUTONOMY_LIMIT", 12);
 const corpus = process.env.LAB_AUTONOMY_CORPUS ?? "test_corpus_v3";
 const allowModal = readBool("LAB_AUTONOMY_ALLOW_MODAL");
 const autopilotPlan = readBoolDefault("LAB_AUTONOMY_PLAN", true);
+const shardIndex = readInt("LAB_AUTONOMY_SHARD_INDEX", 0);
+const shardTotal = readInt("LAB_AUTONOMY_SHARD_TOTAL", 1);
+
+if (shardTotal < 1) {
+  throw new Error("LAB_AUTONOMY_SHARD_TOTAL must be at least 1");
+}
+
+if (shardIndex >= shardTotal) {
+  throw new Error("LAB_AUTONOMY_SHARD_INDEX must be less than LAB_AUTONOMY_SHARD_TOTAL");
+}
 
 if (allowModal && (!process.env.MODAL_TOKEN_ID || !process.env.MODAL_TOKEN_SECRET)) {
   throw new Error("Modal launches require MODAL_TOKEN_ID and MODAL_TOKEN_SECRET");
@@ -64,10 +74,15 @@ const runCommand = [
   String(limit),
   "--corpus",
   corpus,
+  "--shard-index",
+  String(shardIndex),
+  "--shard-total",
+  String(shardTotal),
   ...(allowModal ? ["--allow-modal"] : []),
 ].join(" ");
 
 const prompt = `Run a bounded autonomous offline-tarteel lab cycle in Cursor Cloud.
+This is queue shard ${shardIndex + 1}/${shardTotal}; only evaluate the queued task selected by that shard.
 
 Follow this exact operating procedure:
 1. Inspect the repository state and avoid unrelated refactors.

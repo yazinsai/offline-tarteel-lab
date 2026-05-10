@@ -34,13 +34,17 @@ concurrency:
   group: cursor-cloud-autonomy
   cancel-in-progress: false
 
-env:
-  CURSOR_BASE_REF: cursor-autonomy-base-${{ github.run_id }}
-
 jobs:
   dispatch:
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        shard_index: [0, 1, 2]
+    env:
+      CURSOR_BASE_REF: cursor-autonomy-base-${{ github.run_id }}-${{ matrix.shard_index }}
     permissions:
       contents: write
     steps:
@@ -130,4 +134,6 @@ jobs:
           LAB_AUTONOMY_LIMIT: ${{ github.event.inputs.limit || '12' }}
           LAB_AUTONOMY_PLAN: ${{ github.event.inputs.seed_sweeps || '1' }}
           LAB_AUTONOMY_ALLOW_MODAL: ${{ github.event.inputs.allow_modal || 'false' }}
+          LAB_AUTONOMY_SHARD_INDEX: ${{ matrix.shard_index }}
+          LAB_AUTONOMY_SHARD_TOTAL: "3"
         run: npm run cloud:autonomy

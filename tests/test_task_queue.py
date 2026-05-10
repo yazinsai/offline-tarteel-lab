@@ -47,3 +47,21 @@ def test_add_task_once_dedupes_by_key(tmp_path, monkeypatch):
     state = tq.load_state()
     assert len(state.tasks) == 1
     assert state.tasks[0].payload["autopilot_key"] == "same"
+
+
+def test_next_queued_can_select_shard(tmp_path, monkeypatch):
+    monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
+    tq.save_state(tq.QueueState())
+
+    first = tq.add_task("runtime_only", "first", {})
+    second = tq.add_task("runtime_only", "second", {})
+    third = tq.add_task("runtime_only", "third", {})
+
+    assert tq.next_queued(shard_index=0, shard_total=3).id == first.id
+    assert tq.next_queued(shard_index=1, shard_total=3).id == second.id
+    assert tq.next_queued(shard_index=2, shard_total=3).id == third.id
+
+    tq.set_status(first.id, "running")
+
+    assert tq.next_queued(shard_index=0, shard_total=2).id == second.id
+    assert tq.next_queued(shard_index=1, shard_total=2).id == third.id

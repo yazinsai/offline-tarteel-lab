@@ -144,11 +144,19 @@ def count_active() -> int:
     return sum(1 for t in state.tasks if t.status in {"queued", "running", "needs_eval"})
 
 
-def next_queued() -> Task | None:
+def next_queued(*, shard_index: int = 0, shard_total: int = 1) -> Task | None:
+    if shard_total < 1:
+        raise ValueError("shard_total must be >= 1")
+    if shard_index < 0 or shard_index >= shard_total:
+        raise ValueError("shard_index must be in [0, shard_total)")
+
     state = load_state()
+    queued_index = 0
     for t in state.tasks:
         if t.status == "queued":
-            return t
+            if queued_index % shard_total == shard_index:
+                return t
+            queued_index += 1
     return None
 
 
@@ -203,7 +211,9 @@ def main() -> None:
     sp.add_argument("--payload", default="{}", help="JSON object")
 
     sub.add_parser("list", help="List all tasks")
-    sub.add_parser("next", help="Print next queued task id")
+    sp_next = sub.add_parser("next", help="Print next queued task id")
+    sp_next.add_argument("--shard-index", type=int, default=0)
+    sp_next.add_argument("--shard-total", type=int, default=1)
 
     sp = sub.add_parser("set-status")
     sp.add_argument("--id", required=True)
@@ -237,7 +247,7 @@ def main() -> None:
         return
 
     if args.cmd == "next":
-        t = next_queued()
+        t = next_queued(shard_index=args.shard_index, shard_total=args.shard_total)
         print(t.id if t else "")
         return
 
