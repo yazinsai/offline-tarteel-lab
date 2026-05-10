@@ -1,0 +1,21 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T16:15:00.000000+00:00",
+  "reason": "champion_objective_not_improved",
+  "shard": "2/3",
+  "task_id": "task-bee5f538304c",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.29",
+  "experiment_family": "reference_phoneme_v4",
+  "change_class": "joint_decode_matcher_ctc_rescore_wide_beam",
+  "tier2_preflight_limit32": {
+    "candidate_correct": 20,
+    "champion_correct": 19,
+    "delta_correct": 1
+  },
+  "tier2_full_corpus": {
+    "candidate_correct": 228,
+    "champion_correct": 229,
+    "delta_correct": -1
+  },
+  "negative_memory": "reference_phoneme_v4 with TS ctc-rescore.ts forward scoring + prefix beam (default width 10) + trigram shortlist / fragment blend aligned to joint02: Tier-2 manifest-prefix n=32 strictly beat phoneme_matcher_joint02 (+1 correct) but full test_corpus_v3 was 228/256 vs champion 229/256 (objective 0.901563 vs 0.905078). Do not treat slice-only promotion as sufficient; full corpus regressed one correct vs joint02."
+}

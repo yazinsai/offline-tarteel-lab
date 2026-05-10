@@ -3327,7 +3327,7 @@
     },
     {
       "id": "task-bee5f538304c",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
       "payload": {
@@ -3349,11 +3349,13 @@
         "corpus": "test_corpus_v3"
       },
       "created_at": "2026-05-10T14:24:36.495564+00:00",
-      "updated_at": "2026-05-10T14:24:36.495564+00:00",
+      "updated_at": "2026-05-10T16:11:08.546398+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-bee5f538304c-20260510T161108Z.json",
+      "judge_reasons": [
+        "champion_objective_not_improved"
+      ],
       "notes": ""
     },
     {
