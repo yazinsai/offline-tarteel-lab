@@ -1,0 +1,12 @@
+kind: model_only
+hypothesis: >
+  Same shipped phoneme ONNX and joint02 Quran matcher, with wider bounded CTC beam
+  (10×12 symbols, 6 hyps) and mild log-prob sharpening (1.07) before decoding.
+  Targets ASR posterior shape without matcher-only reranking changes.
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Autopilot model_only.34.01 (shard 2/3): decode path only vs phoneme_matcher_joint02 champion.
