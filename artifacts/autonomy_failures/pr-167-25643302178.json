@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T23:56:12.702842+00:00",
+  "workflow_run_id": "25643302178",
+  "pr_number": 167,
+  "title": "Autopilot offline-tarteel state: champion 89.5% unchanged, wrong_task_ordering step10 \u2014",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/167",
+  "base_ref": "cursor-autonomy-base-25642871411-2",
+  "base_sha": "bf60df13db7c1fadcbd774c7dc0a68400a804ad7",
+  "head_ref": "cursor/shard3-step10-queue-order-3ca3",
+  "head_sha": "63e480d2cff9f4dfb408ddfb4b64d2e99605c967",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-task-cd9cd3aa4592-queue-order-20260510T235424Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-cd9cd3aa4592-20260510T235424Z.json"
+  ],
+  "blocked_file_hints": []
+}
