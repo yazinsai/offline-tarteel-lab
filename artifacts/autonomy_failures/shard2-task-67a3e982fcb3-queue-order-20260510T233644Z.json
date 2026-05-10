@@ -1,0 +1,28 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T23:36:44.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-67a3e982fcb3",
+  "autopilot_key": "escalate.non_smoke.joint_model_runtime.36.02",
+  "experiment_family": "escalate.non_smoke.joint_model_runtime.36.02",
+  "change_class": "policy_block_step10_wrong_task_ordering",
+  "tier2_delta_correct": null,
+  "dependency_gate": {
+    "fifo_ahead_reference_port": [
+      "task-d6354795e152"
+    ],
+    "reference_keys": [
+      "baseline.reference_shipped_fastconformer_v4_tlog.32"
+    ],
+    "fifo_ahead_model_only": [
+      "task-8b4ffbf64c3a"
+    ],
+    "model_only_keys": [
+      "escalate.non_smoke.model_only.36.01"
+    ],
+    "autopilot_smoke_runtime_plateau": true
+  },
+  "reason": "Shard 2/3 selected escalate.non_smoke.joint_model_runtime.36.02 while reference_port task-d6354795e152 (.32) and model_only task-8b4ffbf64c3a (.36.01) remain FIFO-ahead; payloads carry smoke_runtime_plateau. Per autonomy step 10, do not run another joint matcher-path probe before those ASR/reference dependencies clear.",
+  "negative_memory": "With smoke_runtime_plateau, do not execute sharded joint_model_runtime matcher/ASR integration tasks (escalate.non_smoke.joint_model_runtime.*.02) when baseline.reference_shipped_fastconformer_v4_tlog.* or escalate.non_smoke.model_only.* for the same wave remain queued earlier; finish FIFO reference port + model_only first.",
+  "run_id": "task-67a3e982fcb3-20260510T233644Z"
+}
