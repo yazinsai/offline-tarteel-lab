@@ -1,0 +1,58 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-f4e89623052f-20260510T100924Z",
+  "task_id": "task-f4e89623052f",
+  "created_at_utc": "2026-05-10T10:09:24.752194+00:00",
+  "git_sha": "82ce94ca5b938cd814b88c7e6af29ea04188e3a0",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Work on a non-smoke matcher/ASR integration that uses transcript or model evidence from audio. Avoid filename/path/manifest labels and avoid smoke runtime knobs. Keep committed changes inside experiments/, tests/, benchmark/results/, or small JSON metadata.",
+    "autopilot_key": "escalate.non_smoke.joint_model_runtime.28.02",
+    "experiment": "phoneme_matcher_joint03",
+    "corpus": "test_corpus_v3",
+    "full_corpus_gate": true
+  },
+  "metrics": {
+    "tier1_passed": 12,
+    "tier1_total": 12,
+    "tier2_experiment": "phoneme_matcher_joint03",
+    "tier2_accuracy": 0.89453125,
+    "tier2_correct": 229,
+    "tier2_samples": 256,
+    "tier2_evaluated_samples": 256,
+    "tier2_manifest_samples": 256,
+    "tier2_selected_samples": 256,
+    "tier2_sample_limit": 0,
+    "tier2_failures": 0,
+    "tier3_completed": true,
+    "baseline_accuracy": null,
+    "min_accuracy": 0.8,
+    "onnx_mb": null,
+    "max_onnx_mb": 200,
+    "target_recall": 0.89453125,
+    "streaming_alignment_accuracy": 0.89453125,
+    "correction_precision": 0.89453125,
+    "verse_boundary_f1": 0.89453125,
+    "latency_budget_score": 1.0,
+    "requires_full_corpus_gate": true,
+    "requires_champion_improvement": true,
+    "candidate_objective": 0.905078,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078
+  },
+  "tier_completed": [
+    1,
+    2,
+    3
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 1 --corpus test_corpus_v3 --limit 12",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 0 --experiment phoneme_matcher_joint03",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 3"
+  ]
+}
