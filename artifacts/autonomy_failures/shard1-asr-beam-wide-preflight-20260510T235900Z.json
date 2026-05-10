@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T23:58:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-0b7b0a20d952",
+  "autopilot_key": "escalate.non_smoke.model_only.36.01",
+  "experiment_family": "escalate.non_smoke.model_only.36.01",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": 0,
+  "candidate_experiment": "phoneme_asr_beam_wide",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Mandatory Tier-2 slice preflight (limit 32, test_corpus_v3): phoneme_asr_beam_wide tied phoneme_matcher_joint02 at 19/32 correct (accuracy 0.59375) with identical composite objective 0.634375 (DEFAULT_WEIGHTS). Strict promotion gate requires strictly greater accuracy and objective versus champion on the fixed slice; tie fails.",
+  "negative_memory": "ASR-side decode-only widening on shipped ONNX (default CTC beam 6 to 12, top_symbols 8 to 12, max hypotheses 4 to 6) produced no Tier-2 slice gain vs phoneme_matcher_joint02 on canonical 32-sample prefix; wide-beam eval wall clock much higher. Do not repeat beam-only expansions without model change or matcher/decode stack redesign."
+}
