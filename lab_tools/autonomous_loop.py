@@ -20,11 +20,12 @@ from typing import Any
 from lab_tools.experiment_ledger import append_run_record, read_entries
 from lab_tools.paths import lab_root
 from lab_tools.judge_policy import JudgeInput, judge
-from lab_tools.scorer import score_metrics
+from lab_tools.scorer import DEFAULT_WEIGHTS, latency_budget_score, score_metrics
 from lab_tools.task_queue import Task, load_state, next_queued, set_status
 
 MIN_OBJECTIVE_DELTA = 0.0001
 MIN_PROMOTION_CORPUS_SAMPLES = 12
+OBJECTIVE_COMPONENTS = tuple(DEFAULT_WEIGHTS.keys())
 
 
 @dataclass
@@ -130,8 +131,12 @@ def _metrics_from_reports(
     # first-verse accuracy is the available proxy until richer streaming metrics land.
     if accuracy is not None:
         metrics["target_recall"] = accuracy
+        metrics.setdefault("streaming_alignment_accuracy", accuracy)
+        metrics.setdefault("correction_precision", accuracy)
+        metrics.setdefault("verse_boundary_f1", accuracy)
     if metrics["baseline_accuracy"] is not None:
         metrics["baseline_recall"] = metrics["baseline_accuracy"]
+    metrics["latency_budget_score"] = latency_budget_score(metrics)
     return metrics
 
 
@@ -210,6 +215,12 @@ def _judge_from_metrics(metrics: dict[str, Any]) -> dict[str, Any]:
         out.setdefault("reasons", []).append("full_corpus_coverage_required")
 
     if metrics.get("requires_champion_improvement"):
+        missing_components = [name for name in OBJECTIVE_COMPONENTS if metrics.get(name) is None]
+        if missing_components:
+            out["accept"] = False
+            out.setdefault("reasons", []).extend(
+                f"missing_objective_component:{name}" for name in missing_components
+            )
         candidate_objective = _number(metrics.get("candidate_objective"))
         champion_objective = _number(metrics.get("champion_objective"))
         if candidate_objective is None:

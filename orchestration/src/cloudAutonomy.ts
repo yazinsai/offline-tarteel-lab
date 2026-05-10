@@ -106,7 +106,7 @@ Follow this exact operating procedure:
 19. The PR description must explain the attempted experiment in concrete terms so reviewers do not need to read the diff to understand it. Include these sections:
    - "Attempted change": the exact parameter/model/tracker/rule change tried, with before -> after values when applicable.
    - "Files changed during the probe": files you edited while testing, including files later reverted for a rejected task.
-   - "Evaluation result": corpus, sample count, command, accuracy/objective, gate outcome, and rejection/promotion reason.
+   - "Evaluation result": corpus, sample count, command, accuracy/objective, the four objective components (streaming_alignment_accuracy, correction_precision, verse_boundary_f1, latency_budget_score), gate outcome, and rejection/promotion reason.
    - "Final PR contents": what remains committed after promotion or after reverting a rejected probe.
    - "What to avoid next": any negative-memory lesson if the attempt failed.
 

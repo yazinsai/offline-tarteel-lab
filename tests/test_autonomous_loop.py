@@ -38,11 +38,34 @@ def test_judge_from_metrics_rejects_incomplete_promotion_corpus():
     assert "full_corpus_coverage_required" in out["reasons"]
 
 
+def test_judge_from_metrics_rejects_missing_objective_components():
+    out = al._judge_from_metrics(
+        {
+            "tier2_accuracy": 1.0,
+            "target_recall": 1.0,
+            "tier2_evaluated_samples": 12,
+            "tier2_manifest_samples": 12,
+            "tier3_completed": True,
+            "requires_full_corpus_gate": True,
+            "requires_champion_improvement": True,
+            "candidate_objective": 1.0,
+            "champion_objective": 0.9,
+        },
+    )
+    assert out["accept"] is False
+    assert "missing_objective_component:streaming_alignment_accuracy" in out["reasons"]
+    assert "missing_objective_component:latency_budget_score" in out["reasons"]
+
+
 def test_judge_from_metrics_rejects_non_improving_challenger():
     out = al._judge_from_metrics(
         {
             "tier2_accuracy": 1.0,
             "target_recall": 1.0,
+            "streaming_alignment_accuracy": 1.0,
+            "correction_precision": 1.0,
+            "verse_boundary_f1": 1.0,
+            "latency_budget_score": 1.0,
             "tier2_evaluated_samples": 12,
             "tier2_manifest_samples": 12,
             "tier3_completed": True,
@@ -127,6 +150,10 @@ def test_run_once_promotes_accepted_task(tmp_path, monkeypatch):
 
     record = json.loads((tmp_path / updated.run_record_path).read_text(encoding="utf-8"))
     assert record["metrics"]["tier2_accuracy"] == 1.0
+    assert record["metrics"]["streaming_alignment_accuracy"] == 1.0
+    assert record["metrics"]["correction_precision"] == 1.0
+    assert record["metrics"]["verse_boundary_f1"] == 1.0
+    assert record["metrics"]["latency_budget_score"] == 1.0
     assert record["metrics"]["tier2_evaluated_samples"] == 12
     assert record["metrics"]["tier2_manifest_samples"] == 12
     assert record["metrics"]["requires_full_corpus_gate"] is True
