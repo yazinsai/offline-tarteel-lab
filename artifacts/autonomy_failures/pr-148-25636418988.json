@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T18:29:26.416248+00:00",
+  "workflow_run_id": "25636418988",
+  "pr_number": 148,
+  "title": "Autopilot offline-tarteel state: 88.3%, \u22121.2pp acc & \u22121.1pp objective vs champion \u2014 shard3 model_only ASR decode probe",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/148",
+  "base_ref": "cursor-autonomy-base-25634917210-2",
+  "base_sha": "1f9a023a3f477dde4fe45bf2716e23a8803f7d29",
+  "head_ref": "cursor/offline-tarteel-shard3-lab-c5a2",
+  "head_sha": "db147b22d0b90705efa28ccfa0e9fb2e15397df8",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-model-only-asr-decode-probe31-20260510T182655Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-e64e1e8a7229-20260510T182655Z.json"
+  ],
+  "blocked_file_hints": []
+}
