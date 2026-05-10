@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T17:01:25.919707+00:00",
+  "workflow_run_id": "25634546880",
+  "pr_number": 143,
+  "title": "Autopilot offline-tarteel state: 59.4% Tier-2@32, tie +0.0pp \u2014 shard 2/3 CTC hypothesis-order preflight",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/143",
+  "base_ref": "cursor-autonomy-base-25633830794-1",
+  "base_sha": "3b46280b1a7e414afd086c0753c8d53088173397",
+  "head_ref": "cursor/autopilot-shard2-preflight-tie-7a90",
+  "head_sha": "c18f3b4dcea0459c08e5beadb47ad9bce9b3f518",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-ctc-hypothesis-order-20260510T165944Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-9cc70e3710f4-20260510T165944Z.json"
+  ],
+  "blocked_file_hints": []
+}
