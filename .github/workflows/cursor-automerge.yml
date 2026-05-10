@@ -73,7 +73,7 @@ jobs:
                     echo "Cursor base $base_ref is not current main; base=$base_sha main=$main_sha"
                     echo "Main changed outside the autonomous failure ledger:"
                     printf '%s\n' "$non_failure_changes"
-                    exit 0
+                    exit 1
                   fi
                   echo "Cursor base $base_ref is behind main only by autonomy failure records; retargeting is allowed."
                 fi
@@ -106,6 +106,13 @@ jobs:
             *)
               echo "PR title does not opt into autonomous merge: $title"
               exit 0
+              ;;
+          esac
+
+          case "$title" in
+            *", tie"*|*" tie "*|*"+0.0pp"*|*"+0pp"*|*", -"*)
+              echo "Autonomous PR does not improve the current champion: $title"
+              exit 1
               ;;
           esac
           export MODE="$mode"
