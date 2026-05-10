@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T16:41:47.242158+00:00",
+  "shard": "1/3",
+  "task_id": "task-027793394dfe",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.30",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.30",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": 0,
+  "candidate_experiment": "reference_shipped_v4_tlog_port30",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Tier-2 canonical manifest-prefix slice (limit 32): candidate reference_shipped_v4_tlog_port30 tied phoneme_matcher_joint02 at 19/32 correct (59.375% accuracy, composite objective ~0.634375). Strict improvement gate requires strictly greater accuracy and objective \u2014 tie rejected.",
+  "negative_memory": "joint02 + widened beam (11x12, 8 hyps) + TOP_K/SURAHS/SPAN bump + small LOGP_BLEND did not beat joint02 on the 32-prefix slice (19=19). Repeating decode-width-only bumps on this stack is low yield until a different ASR/search primitive (e.g. two-pass rescore, reference trie search port) changes slice margin."
+}
