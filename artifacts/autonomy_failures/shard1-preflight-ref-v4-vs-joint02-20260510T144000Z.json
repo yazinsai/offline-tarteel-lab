@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T14:40:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-cf57d5b68708",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.29",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.29",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": -3,
+  "candidate_experiment": "reference_phoneme_v4",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "On the standard manifest-prefix Tier-2 slice (limit 32), greedy reference_phoneme_v4 is 16/32 correct versus champion phoneme_matcher_joint02 19/32; surrogate objectives 0.55 vs 0.634375. Strict improvement gate requires beating both accuracy and composite on the fixed slice — do not rerun full corpus for this lineage until matcher/decode/stack changes materially beat joint02 on the slice or the gate policy changes.",
+  "negative_memory": "reference_phoneme_v4 (ported greedy FastConformer q8 ONNX) cannot pass strict preflight against phoneme_matcher_joint02 beam+matcher stack on the canonical 32-prefix slice — port-only or minor matcher tweaks repeat this failure; prioritize decode/search/stack changes documented to beat joint02 on the same slice or retire duplicate baseline.reference queue copies."
+}
