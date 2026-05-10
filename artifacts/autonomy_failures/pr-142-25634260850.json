@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-10T16:47:44.806110+00:00",
+  "workflow_run_id": "25634260850",
+  "pr_number": 142,
+  "title": "Autopilot offline-tarteel state: 88.7%, -0.78pp acc (\u22120.70pp obj) \u2014 shard3 model_only ASR fuse rejected",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/142",
+  "base_ref": "cursor-autonomy-base-25630990700-2",
+  "base_sha": "d27e8aac3cbaee731131d167f6f77d26a1597f40",
+  "head_ref": "cursor/offline-tarteel-asr-non-smoke-v29-01-6e80",
+  "head_sha": "af76d36fbdd46f4c3a479f4d7ba9981d08f04332",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-asr-fuse-v29-01-20260510T162559Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-a11d19dc6db9-20260510T162559Z.json"
+  ],
+  "blocked_file_hints": []
+}
