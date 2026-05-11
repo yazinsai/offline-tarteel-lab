@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T22:05:00.000000+00:00",
+  "shard": "3/3",
+  "task_id": "task-a019264c7eb5",
+  "autopilot_key": "escalate.non_smoke.model_only.46.03",
+  "experiment_family": "escalate.non_smoke.model_only.46.03",
+  "change_class": "preflight_tie_strict_gate",
+  "tier2_delta_correct": 0,
+  "reason": "Tier-2 preflight (test_corpus_v3, limit 32, fixed manifest prefix): ASR-only featurization probes branching from phoneme_matcher_joint02 (lightweight_audio_baseline_46_03 — peak normalization before preemph, preemphasis 0.985/0.90, raw waveform mel, hop_length 128) never strictly beat champion phoneme_matcher_joint02; best case tied at 19/32 correct (59.375%). Composite surrogate objective 0.9*acc+0.1 — tie at ~0.634375. Strict promotion gate requires strictly greater accuracy and objective.",
+  "negative_memory": "Do not repeat marginal mel/preemphasis-only tweaks cloned from phoneme_matcher_joint02 for model_only 46.03 lightweight_audio_baseline — first-32 slice tied joint02 at 19/32; peak norm and hop128 were worse.",
+  "run_id": "task-a019264c7eb5-20260511T220500Z"
+}
