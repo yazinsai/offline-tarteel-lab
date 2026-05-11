@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T02:09:00+00:00",
+  "shard": "2/3",
+  "task_id": "task-8df3f7d8d9c4",
+  "autopilot_key": "escalate.non_smoke.model_only.37.01",
+  "experiment_family": "escalate.non_smoke.model_only.37",
+  "change_class": "preflight_stalemate_or_regression",
+  "tier2_delta_correct": 0,
+  "reason": "Tier-2 preflight on fixed corpus slice limit=32 required strict improvement versus champion phoneme_matcher_joint02 on both accuracy and composite objective (scorer defaults). Champion and parity clone both scored 19/32 (~59.4% slice accuracy, tied objective ~0.634). ASR-only probes (wider CTC beam 10–14, temp-scaled frame log-probs, normalized beam–matcher blend) landed at 18/32 — regression. No path strictly beat champion; full corpus and autonomous promotion correctly skipped.",
+  "negative_memory": "On early test_corpus_v3 slice (limit 32, manifest order), joint phoneme matcher champion isalready strong; widening CTC beam or acoustic–matcher tie-break without new acoustic evidence tends to regress. Do not re-queue shallow beam scalings on phoneme_joint02 ONNX for this plateau without reference/model_only dependency clearance or new weights.",
+  "run_id": "task-8df3f7d8d9c4-20260511T020800Z"
+}
