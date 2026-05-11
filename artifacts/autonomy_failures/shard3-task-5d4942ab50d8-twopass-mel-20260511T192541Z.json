@@ -1,0 +1,17 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T19:30:00.000000+00:00",
+  "reason": "champion_objective_not_improved_full_corpus",
+  "shard": "3/3",
+  "task_id": "task-5d4942ab50d8",
+  "autopilot_key": "escalate.non_smoke.model_only.46.03",
+  "change_class": "lightweight_audio_baseline",
+  "tier2_delta_correct": -2,
+  "experiment_family": "escalate.non_smoke.model_only.46.03",
+  "negative_memory": "lightweight_audio_twopass_46_03: multi-pass Mel (preemph 0.97/0.88/0.0 + f_max 8000/7600) merged CTC hypotheses on same shipped ONNX + joint02 matcher. Preflight n=32 beat phoneme_matcher_joint02 (20 vs 19 correct) but full test_corpus_v3 regressed (227 vs 229 correct, objective 0.898047 vs 0.905078). Do not repeat mel-only multi-pass hypothesis merge expecting full-corpus promotion without stronger acoustic or model change.",
+  "run_id": "task-5d4942ab50d8-20260511T192541Z",
+  "preflight_slice_correct": 20,
+  "preflight_champion_slice_correct": 19,
+  "full_corpus_correct": 227,
+  "champion_full_corpus_correct": 229
+}

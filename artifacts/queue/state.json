@@ -6136,7 +6136,7 @@
     },
     {
       "id": "task-5d4942ab50d8",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Probe lightweight offline recognition baseline variant 03",
       "payload": {
@@ -6145,16 +6145,16 @@
         "plateau_failures": 18,
         "min_accuracy": 0.8,
         "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
-        "autopilot_key": "escalate.non_smoke.model_only.46.03",
-        "corpus": "test_corpus_v3",
-        "experiment": "lightweight_audio_twopass_46_03"
+        "autopilot_key": "escalate.non_smoke.model_only.46.03"
       },
       "created_at": "2026-05-11T16:44:43.866462+00:00",
-      "updated_at": "2026-05-11T17:00:00.000000+00:00",
+      "updated_at": "2026-05-11T19:35:00.000000+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-5d4942ab50d8-20260511T192541Z.json",
+      "judge_reasons": [
+        "champion_objective_not_improved"
+      ],
       "notes": ""
     },
     {
