@@ -1,0 +1,49 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-3cf1b02ecad6-20260511T045212Z",
+  "task_id": "task-3cf1b02ecad6",
+  "created_at_utc": "2026-05-11T04:52:12.000000+00:00",
+  "git_sha": "302f75c312ed0faa9cecb5b9878d79a50cff9936",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Work on a non-smoke matcher/ASR integration that uses transcript or model evidence from audio. Avoid filename/path/manifest labels and avoid smoke runtime knobs. Keep committed changes inside experiments/, tests/, benchmark/results/, or small JSON metadata.",
+    "autopilot_key": "escalate.non_smoke.joint_model_runtime.40.02",
+    "queued_dependency_tasks": [
+      "task-b8e660506f8a",
+      "task-e3439f3f16aa"
+    ],
+    "dependency_autopilot_keys": [
+      "baseline.reference_shipped_fastconformer_v4_tlog.39",
+      "escalate.non_smoke.model_only.40.01"
+    ]
+  },
+  "metrics": {
+    "blocked_before_eval": true,
+    "wrong_task_ordering": true,
+    "policy": "step10_joint_matcher_after_ref_and_asr_while_smoke_runtime_plateau",
+    "autopilot_smoke_runtime_plateau": true,
+    "queued_dependency_tasks": [
+      "task-b8e660506f8a",
+      "task-e3439f3f16aa"
+    ],
+    "dependency_autopilot_keys": [
+      "baseline.reference_shipped_fastconformer_v4_tlog.39",
+      "escalate.non_smoke.model_only.40.01"
+    ],
+    "shard": "3/3",
+    "shard_index": 2,
+    "shard_total": 3,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "champion_experiment": "phoneme_matcher_joint02"
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "[blocked] shard 3/3 (index 2): reference_port task-b8e660506f8a and model_only task-e3439f3f16aa still queued ahead; smoke_runtime_plateau — no preflight, no joint matcher probe"
+  ]
+}
