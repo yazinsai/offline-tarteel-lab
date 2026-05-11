@@ -4465,7 +4465,7 @@
     },
     {
       "id": "task-edca9b4fbf5c",
-      "status": "queued",
+      "status": "promoted",
       "kind": "model_only",
       "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
       "payload": {
@@ -4477,11 +4477,11 @@
         "experiment": "phoneme_asr_lmsearch_wide36"
       },
       "created_at": "2026-05-10T23:53:31.288102+00:00",
-      "updated_at": "2026-05-10T23:53:31.288102+00:00",
+      "updated_at": "2026-05-11T02:16:01.669801+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-edca9b4fbf5c-20260511T021601Z.json",
+      "judge_reasons": [],
       "notes": "Shard 2/3: wide Quran phoneme retrieval-head probe (TOP_K/TOP_SURAHS/MAX_SPAN) on shipped ONNX decode."
     },
     {
