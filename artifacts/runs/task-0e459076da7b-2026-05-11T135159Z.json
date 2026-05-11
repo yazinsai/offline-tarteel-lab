@@ -1,0 +1,64 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-0e459076da7b-2026-05-11T135159Z",
+  "task_id": "task-0e459076da7b",
+  "created_at_utc": "2026-05-11T13:51:59.954661+00:00",
+  "git_sha": "e8943524ef791c075fe9f9a315bae86c00ae8642",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "reference_repo": "../offline-tarteel",
+    "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+    "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+    "target_corpus": "test_corpus_v3",
+    "target_correct_range": [
+      223,
+      225
+    ],
+    "target_recall": 0.893,
+    "min_accuracy": 0.8,
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.45",
+    "change_class": "reference_port",
+    "experiment": "phoneme_joint03_temp_decode",
+    "corpus": "test_corpus_v3",
+    "full_corpus_gate": true,
+    "reference_clone_verified": "/offline-tarteel",
+    "probe_description": "Posterior temperature 0.835 + beam8/top9/max5 hyps before matcher; no ctc-rescore fusion.",
+    "preflight_note": "Candidate code reverted after Tier-2 slice gate failure.",
+    "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels."
+  },
+  "metrics": {
+    "tier2_experiment": "phoneme_joint03_temp_decode",
+    "tier2_correct": 18,
+    "tier2_samples": 32,
+    "tier2_sample_limit": 32,
+    "tier2_accuracy": 0.5625,
+    "streaming_alignment_accuracy": 0.5625,
+    "correction_precision": 0.5625,
+    "verse_boundary_f1": 0.5625,
+    "latency_budget_score": 1.0,
+    "candidate_preflight_objective_surrogate": 0.60625,
+    "preflight_champion_experiment": "phoneme_matcher_joint02",
+    "preflight_champion_correct": 19,
+    "preflight_champion_accuracy_slice": 0.59375,
+    "preflight_champion_objective_surrogate_slice": 0.634375,
+    "requires_champion_improvement": true,
+    "tier2_failures": 0,
+    "tier2_evaluation_only_preflight_stop": true,
+    "champion_run_id_for_gate": "task-0aa3b7531952-20260510T033442Z",
+    "champion_full_corpus_objective": 0.905078,
+    "shard": "1/3",
+    "shard_index": 0,
+    "shard_total": 3
+  },
+  "tier_completed": [
+    2
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_joint03_temp_decode",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}

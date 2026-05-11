@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T13:51:59.955021+00:00",
+  "shard": "1/3",
+  "task_id": "task-0e459076da7b",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.45",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.45",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": -1,
+  "candidate_experiment": "phoneme_joint03_temp_decode",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Tier-2 manifest-prefix slice (--limit 32): phoneme_joint03_temp_decode scored 18/32 (56.25%) vs champion phoneme_matcher_joint02 19/32 (59.375%). Surrogate objectives ~0.60625 vs ~0.634375 (DEFAULT_WEIGHTS, alignment=precision=boundary=slice accuracy, latency=1). Strict simultaneous accuracy+objective improvement gate failed; no bounded controller / full corpus run.",
+  "negative_memory": "Log-softmax temperature sharpening (T=0.835) + modestly widened CTC prefix beam (8 wide, top-9/frame, max-5 transcript hyps) atop the same shipped phoneme ONNX **does not** beat joint02 on the canonical 32-prefix slice; repeats need different decode (e.g., RN trie-guided search with CPU caps), genuine two-pass constrained search, real reference tracker port, or ASR training \u2014 not marginal temperature/beam nudges or another matcher-only rerank on parallel hyps."
+}
