@@ -3822,7 +3822,7 @@
     },
     {
       "id": "task-d6354795e152",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
       "payload": {
@@ -3842,12 +3842,14 @@
         "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.32"
       },
       "created_at": "2026-05-10T19:24:26.809053+00:00",
-      "updated_at": "2026-05-10T19:24:26.809053+00:00",
+      "updated_at": "2026-05-11T03:24:57.468174+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-ae008038554c",
@@ -4773,7 +4775,7 @@
     },
     {
       "id": "task-9153742c4d9b",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
       "payload": {
@@ -4784,16 +4786,18 @@
         "autopilot_key": "escalate.non_smoke.model_only.38.01"
       },
       "created_at": "2026-05-11T02:35:23.297185+00:00",
-      "updated_at": "2026-05-11T02:35:23.297185+00:00",
+      "updated_at": "2026-05-11T03:24:57.477215+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "smoke_runtime_plateau_retired"
+      ],
+      "notes": "Retired by autopilot after repeated honest full-corpus v3 smoke runtime failures at 1/256. Future tasks must start by porting the shipped fastconformer-phoneme v4-tlog baseline or use non-smoke ASR/model/matcher signals."
     },
     {
       "id": "task-fef13c0b698a",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Improve real ASR-to-Quran matcher path variant 02",
       "payload": {
@@ -4804,16 +4808,18 @@
         "autopilot_key": "escalate.non_smoke.joint_model_runtime.38.02"
       },
       "created_at": "2026-05-11T02:35:23.303645+00:00",
-      "updated_at": "2026-05-11T02:36:16.042670+00:00",
+      "updated_at": "2026-05-11T03:24:57.477228+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": "blocked 20260511T023616Z: wrong_task_ordering_smoke_runtime_plateau (step10) \u2014 dependencies still queued: ['task-d6354795e152', 'task-9153742c4d9b'] keys ['baseline.reference_shipped_fastconformer_v4_tlog.32', 'escalate.non_smoke.model_only.38.01']; run task-fef13c0b698a-20260511T023616Z"
+      "judge_reasons": [
+        "smoke_runtime_plateau_retired"
+      ],
+      "notes": "Retired by autopilot after repeated honest full-corpus v3 smoke runtime failures at 1/256. Future tasks must start by porting the shipped fastconformer-phoneme v4-tlog baseline or use non-smoke ASR/model/matcher signals."
     },
     {
       "id": "task-8436c1a9b122",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Probe lightweight offline recognition baseline variant 03",
       "payload": {
@@ -4824,16 +4830,18 @@
         "autopilot_key": "escalate.non_smoke.model_only.38.03"
       },
       "created_at": "2026-05-11T02:35:23.310185+00:00",
-      "updated_at": "2026-05-11T02:35:23.310185+00:00",
+      "updated_at": "2026-05-11T03:24:57.477232+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "smoke_runtime_plateau_retired"
+      ],
+      "notes": "Retired by autopilot after repeated honest full-corpus v3 smoke runtime failures at 1/256. Future tasks must start by porting the shipped fastconformer-phoneme v4-tlog baseline or use non-smoke ASR/model/matcher signals."
     },
     {
       "id": "task-1b0b83002568",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Add non-smoke failure analysis experiment variant 04",
       "payload": {
@@ -4844,16 +4852,18 @@
         "autopilot_key": "escalate.non_smoke.joint_model_runtime.38.04"
       },
       "created_at": "2026-05-11T02:35:23.316285+00:00",
-      "updated_at": "2026-05-11T02:35:23.316285+00:00",
+      "updated_at": "2026-05-11T03:24:57.477235+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "smoke_runtime_plateau_retired"
+      ],
+      "notes": "Retired by autopilot after repeated honest full-corpus v3 smoke runtime failures at 1/256. Future tasks must start by porting the shipped fastconformer-phoneme v4-tlog baseline or use non-smoke ASR/model/matcher signals."
     },
     {
       "id": "task-d33cab055686",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Evaluate non-smoke ASR candidate on full corpus variant 05",
       "payload": {
@@ -4864,16 +4874,18 @@
         "autopilot_key": "escalate.non_smoke.model_only.38.05"
       },
       "created_at": "2026-05-11T02:35:23.321817+00:00",
-      "updated_at": "2026-05-11T02:35:23.321817+00:00",
+      "updated_at": "2026-05-11T03:24:57.477237+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "smoke_runtime_plateau_retired"
+      ],
+      "notes": "Retired by autopilot after repeated honest full-corpus v3 smoke runtime failures at 1/256. Future tasks must start by porting the shipped fastconformer-phoneme v4-tlog baseline or use non-smoke ASR/model/matcher signals."
     },
     {
       "id": "task-42483cdc532a",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Improve real ASR-to-Quran matcher path variant 06",
       "payload": {
@@ -4884,16 +4896,18 @@
         "autopilot_key": "escalate.non_smoke.joint_model_runtime.38.06"
       },
       "created_at": "2026-05-11T02:35:23.328127+00:00",
-      "updated_at": "2026-05-11T02:35:23.328127+00:00",
+      "updated_at": "2026-05-11T03:24:57.477240+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "smoke_runtime_plateau_retired"
+      ],
+      "notes": "Retired by autopilot after repeated honest full-corpus v3 smoke runtime failures at 1/256. Future tasks must start by porting the shipped fastconformer-phoneme v4-tlog baseline or use non-smoke ASR/model/matcher signals."
     },
     {
       "id": "task-5aa7bb0806f9",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Probe lightweight offline recognition baseline variant 07",
       "payload": {
@@ -4904,7 +4918,180 @@
         "autopilot_key": "escalate.non_smoke.model_only.38.07"
       },
       "created_at": "2026-05-11T02:35:23.335235+00:00",
-      "updated_at": "2026-05-11T02:35:23.335235+00:00",
+      "updated_at": "2026-05-11T03:24:57.477242+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "smoke_runtime_plateau_retired"
+      ],
+      "notes": "Retired by autopilot after repeated honest full-corpus v3 smoke runtime failures at 1/256. Future tasks must start by porting the shipped fastconformer-phoneme v4-tlog baseline or use non-smoke ASR/model/matcher signals."
+    },
+    {
+      "id": "task-b8e660506f8a",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "plateau_failures": 18,
+        "reference_repo": "../offline-tarteel",
+        "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+        "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+        "target_corpus": "test_corpus_v3",
+        "target_correct_range": [
+          223,
+          225
+        ],
+        "target_recall": 0.893,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.39"
+      },
+      "created_at": "2026-05-11T03:24:57.487153+00:00",
+      "updated_at": "2026-05-11T03:24:57.487153+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-acb6824a57ab",
+      "status": "queued",
+      "kind": "model_only",
+      "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+        "autopilot_key": "escalate.non_smoke.model_only.39.01"
+      },
+      "created_at": "2026-05-11T03:24:57.494541+00:00",
+      "updated_at": "2026-05-11T03:24:57.494541+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-b63c3340108e",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Improve real ASR-to-Quran matcher path variant 02",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Work on a non-smoke matcher/ASR integration that uses transcript or model evidence from audio. Avoid filename/path/manifest labels and avoid smoke runtime knobs. Keep committed changes inside experiments/, tests/, benchmark/results/, or small JSON metadata.",
+        "autopilot_key": "escalate.non_smoke.joint_model_runtime.39.02"
+      },
+      "created_at": "2026-05-11T03:24:57.502253+00:00",
+      "updated_at": "2026-05-11T03:25:39.921466+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": "task-b63c3340108e-20260511T032522Z",
+      "run_record_path": "artifacts/runs/task-b63c3340108e-20260511T032522Z.json",
+      "judge_reasons": [
+        "wrong_task_ordering_smoke_runtime_plateau"
+      ],
+      "notes": "Rejected 2026-05-11 (step-10): smoke_runtime_plateau and FIFO still has task-b8e660506f8a (reference v4-tlog port) and task-acb6824a57ab (model_only.39.01) before this joint_model_runtime.39.02 shard pick \u2014 no matcher probe; see artifacts/runs/task-b63c3340108e-20260511T032522Z.json"
+    },
+    {
+      "id": "task-18233530d29c",
+      "status": "queued",
+      "kind": "model_only",
+      "title": "Probe lightweight offline recognition baseline variant 03",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+        "autopilot_key": "escalate.non_smoke.model_only.39.03"
+      },
+      "created_at": "2026-05-11T03:24:57.510594+00:00",
+      "updated_at": "2026-05-11T03:24:57.510594+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-8d1136536c02",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Add non-smoke failure analysis experiment variant 04",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Use the full v3 failure pattern to create a targeted non-smoke experiment or matcher harness. The goal is to escape the 1/256 smoke plateau, not to adjust streaming metadata.",
+        "autopilot_key": "escalate.non_smoke.joint_model_runtime.39.04"
+      },
+      "created_at": "2026-05-11T03:24:57.517000+00:00",
+      "updated_at": "2026-05-11T03:24:57.517000+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-cf3f966ee1fb",
+      "status": "queued",
+      "kind": "model_only",
+      "title": "Evaluate non-smoke ASR candidate on full corpus variant 05",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+        "autopilot_key": "escalate.non_smoke.model_only.39.05"
+      },
+      "created_at": "2026-05-11T03:24:57.523449+00:00",
+      "updated_at": "2026-05-11T03:24:57.523449+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-5f3be8070255",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Improve real ASR-to-Quran matcher path variant 06",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Work on a non-smoke matcher/ASR integration that uses transcript or model evidence from audio. Avoid filename/path/manifest labels and avoid smoke runtime knobs. Keep committed changes inside experiments/, tests/, benchmark/results/, or small JSON metadata.",
+        "autopilot_key": "escalate.non_smoke.joint_model_runtime.39.06"
+      },
+      "created_at": "2026-05-11T03:24:57.529840+00:00",
+      "updated_at": "2026-05-11T03:24:57.529840+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-b4b90b6ec507",
+      "status": "queued",
+      "kind": "model_only",
+      "title": "Probe lightweight offline recognition baseline variant 07",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+        "autopilot_key": "escalate.non_smoke.model_only.39.07"
+      },
+      "created_at": "2026-05-11T03:24:57.536157+00:00",
+      "updated_at": "2026-05-11T03:24:57.536157+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
