@@ -1,0 +1,44 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-d25728fac32d-20260511T103822Z",
+  "task_id": "task-d25728fac32d",
+  "created_at_utc": "2026-05-11T10:38:22.215904+00:00",
+  "git_sha": "072f19b055c4b9624002fe2efa09b9d97f083e8f",
+  "dataset_revision": "test_corpus_v3@2026-05-11",
+  "experiment_kind": "model_only",
+  "parameter_vector": {
+    "autopilot_key": "escalate.non_smoke.model_only.44.01",
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "attempted_experiment": "phoneme_asr_acoustic_fuse",
+    "champion_experiment_slice": "phoneme_matcher_joint02",
+    "corpus": "test_corpus_v3",
+    "preflight_sample_limit": 32,
+    "probe_summary": "ASR decode shortlist ranked by prefix-beam acoustic score; matcher identical to joint02; optional max_hypotheses=6 retest same accuracy"
+  },
+  "metrics": {
+    "tier2_accuracy": 0.59375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "tier2_correct": 19,
+    "tier2_samples": 32,
+    "tier2_manifest_samples": 256,
+    "tier2_sample_limit": 32,
+    "tier2_selected_samples": 32,
+    "latency_budget_score": 1.0,
+    "tier2_experiment": "phoneme_asr_acoustic_fuse",
+    "candidate_objective": 0.634375,
+    "champion_objective_same_slice": 0.634375,
+    "preflight_strict_gate": false
+  },
+  "tier_completed": [
+    2
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_asr_acoustic_fuse",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}

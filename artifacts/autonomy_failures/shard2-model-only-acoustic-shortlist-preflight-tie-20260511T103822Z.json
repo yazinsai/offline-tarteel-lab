@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T10:38:22.215904.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-d25728fac32d",
+  "autopilot_key": "escalate.non_smoke.model_only.44.01",
+  "experiment_family": "phoneme_asr_acoustic_shortlist_reorder",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "reason": "Tier-2 preflight first-32 (test_corpus_v3): candidate phoneme_asr_acoustic_fuse (prefix-beam acoustic hypothesis ordering + matcher stack cloned from phoneme_matcher_joint02; max_hypotheses 6 retest unchanged) tied champion phoneme_matcher_joint02 at 19/32 correct (59.375%). Strict promotion gate requires strictly greater accuracy AND composite objective on the same slice; tie fails champion_objective_not_improved.",
+  "negative_memory": "Do not retry acoustic-only reordering of joint02 CTC hypothesis shortlist (+/- max_hypotheses) without a materially different decode (e.g. hypothesis merge/rescore schema, temporal second pass). Prefix-32 slice remained 19/32 vs phoneme_matcher_joint02 baseline.",
+  "run_id": "task-d25728fac32d-20260511T103822Z"
+}
