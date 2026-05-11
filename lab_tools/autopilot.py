@@ -71,8 +71,13 @@ def change_class_for_payload(payload: dict[str, Any] | None, *, fallback_key: st
 
 
 def _entry_change_class(entry: dict[str, Any]) -> str | None:
+    """Infer failure bucket from structured payload only (not experiment_family strings).
+
+    Using experiment_family as text falsely lumps unrelated autopilot keys into broad
+    patterns like smoke_runtime (e.g. runtime.threshold_sweep.* contains \"threshold\").
+    """
     params = entry.get("parameters") or {}
-    return change_class_for_payload(params, fallback_key=str(entry.get("experiment_family") or ""))
+    return change_class_for_payload(params, fallback_key="")
 
 
 def failed_change_classes(

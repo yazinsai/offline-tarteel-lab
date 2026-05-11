@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T16:20:30.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-3958d3b8cf22",
+  "autopilot_key": "escalate.non_smoke.model_only.45.03",
+  "experiment_family": "lightweight_audio_baseline",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "reason": "Preflight on test_corpus_v3 --limit 32: best candidate (phoneme_dual_preemph_v03 dual preemph 0.97/0.84, hypothesis union re joint02 beam+matcher) tied phoneme_matcher_joint02 at 19/32 correct (59.375%). Triple preemph union (0.97,0.90,0.81) and log-add posterior fusion variants regressed to 18/32. Strict promotion requires strictly greater accuracy and composite objective on the fixed slice.",
+  "negative_memory": "Do not retry multi-preemph hypothesis-union or logprob-fusion probes on the same FastConformer q8 ONNX against phoneme_matcher_joint02 without a materially different decode or model path; dual 0.97/0.84 already exhausts tie at 19/32 on manifest prefix.",
+  "run_id": "task-3958d3b8cf22-20260511T162030Z"
+}
