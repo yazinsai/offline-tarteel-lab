@@ -1,0 +1,22 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T21:47:27.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-00058b49ff3a",
+  "autopilot_key": "escalate.non_smoke.model_only.46.01",
+  "experiment_family": "escalate.non_smoke.model_only.46.01",
+  "change_class": "policy_block_wrong_queue_order_fifo",
+  "tier2_delta_correct": null,
+  "dependency_gate": {
+    "fifo_ahead_reference_port": ["task-0e459076da7b"],
+    "reference_autopilot_keys": ["baseline.reference_shipped_fastconformer_v4_tlog.45"],
+    "autopilot_smoke_runtime_plateau": true,
+    "skipped_joint_wave_note": [
+      "baseline.reference_shipped_fastconformer_v4_tlog.46",
+      "escalate.non_smoke.model_only.46.01"
+    ]
+  },
+  "reason": "Shard 2/3 selected escalate.non_smoke.model_only.46.01 via next_queued sharding while task-0e459076da7b (reference_repo_url baseline port, autopilot_key baseline.reference_shipped_fastconformer_v4_tlog.45) remains queued earlier in FIFO. Autopilot plan reports smoke_runtime_plateau and withholds escalate.non_smoke.joint_model_runtime.46.* until reference + model_only dependencies exist; advancing this model_only task before clearing the queued reference-port task repeats shard2 fifo queue-order autonomy failures.",
+  "negative_memory": "With smoke_runtime_plateau, do not execute sharded escalate.non_smoke.model_only.* when a baseline.reference_shipped_fastconformer_v4_tlog.* reference-port joint task remains FIFO-ahead; complete task-0e459076da7b (or reorder queue) before model_only wave dependencies.",
+  "run_id": "task-00058b49ff3a-20260511T214727Z"
+}

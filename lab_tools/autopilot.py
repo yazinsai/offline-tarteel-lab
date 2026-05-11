@@ -43,6 +43,9 @@ def _infer_change_class(text: str) -> str | None:
         ("reference_ctc_fusion", r"\b(reference|v4|tlog).*(ctc|fusion|discovery)|\bctc[-_ ]?fusion\b"),
         ("matcher_shortlist_widen", r"\b(shortlist|retrieval head|top_k|top surah|max_span|span search|rerank)\b"),
         ("queue_order_block", r"\bwrong[_ -]?task[_ -]?ordering|fifo|queue[-_ ]?order\b"),
+        # Must precede smoke_runtime so runtime.threshold_sweep.* families are not
+        # misclassified via the substring "threshold" (see tests/test_autopilot.py).
+        ("runtime_threshold_sweep", r"threshold_sweep|threshold\.sweep|\.first_match\b"),
         ("smoke_runtime", r"\bsmoke|runtime\.adaptive|threshold|chunk|overlap|hysteresis|debounce\b"),
     ]
     for change_class, pattern in patterns:
