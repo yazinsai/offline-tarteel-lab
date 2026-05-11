@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T10:09:39.562623+00:00",
+  "workflow_run_id": "25663823843",
+  "pr_number": 191,
+  "title": "Autopilot offline-tarteel state: 89.5%, tie (no candidate eval) \u2014 shard 3/3 queue-order block joint_model_runtime.44.02",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/191",
+  "base_ref": "main",
+  "base_sha": "072f19b055c4b9624002fe2efa09b9d97f083e8f",
+  "head_ref": "cursor/shard3-queue-order-fb703-849c",
+  "head_sha": "e9b91cf6a7025f71eb7992027265d5ce86f24a3e",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-task-fb703ac5962d-queue-order-20260511T100756Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-fb703ac5962d-20260511T100756Z.json"
+  ],
+  "blocked_file_hints": []
+}
