@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T12:15:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-ac0ed1562867",
+  "autopilot_key": "escalate.non_smoke.model_only.45.01",
+  "experiment_family": "phoneme_asr_decode_fuse45",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "reason": "Tier-2 manifest-prefix slice (--limit 32, test_corpus_v3): candidate phoneme_asr_decode_fuse45 applied ASR-frontend-only deltas (peak normalization, PHONEME_PREEMPH_COEFF default 0.905 vs joint02 fixed 0.97, identical beam/matcher env defaults) and tied phoneme_matcher_joint02 at 19/32 correct (59.375% accuracy). Surrogate composite objective ~0.634375 matches champion under DEFAULT_WEIGHTS when alignment=precision=boundary=accuracy on slice. Strict promotion gate requires strictly greater accuracy and objective; tie fails champion_objective_not_improved. Discarded acoustic×matcher blend variant (uniform-segment logprob proxy) scored 16/32 — do not reuse without calibrated acoustic scores.",
+  "negative_memory": "On canonical 32-prefix slice, marginal phoneme frontend-only tweaks (peak norm + preemph 0.905, hop 160) do not beat phoneme_matcher_joint02; tying at 19/32 mirrors beam-width-only widen failure mode. Avoid crude acoustic×matcher linear blends using uniform-segment max logprob proxies — regresses vs matcher-only selection.",
+  "run_id": "task-ac0ed1562867-20260511T121500Z"
+}
