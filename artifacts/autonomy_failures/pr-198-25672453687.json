@@ -1,0 +1,25 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T13:15:20.219739+00:00",
+  "workflow_run_id": "25672453687",
+  "pr_number": 198,
+  "title": "Autopilot offline-tarteel state: 59.375% Tier-2 slice, +0.0pp \u2014 shard1 model_only ASR preflight tie",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/198",
+  "base_ref": "cursor-autonomy-base-25670040637-0",
+  "base_sha": "c53730bd2a47ac1ecf4f0ee6a0ae3c24ee1a67cf",
+  "head_ref": "cursor/phoneme-asr-smooth-preflight-5b47",
+  "head_sha": "4ec329af78517523b4eb868961302dc30cbdea87",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-917c233756e1-asr-logprob-smooth-20260511T131500Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-917c233756e1-20260511T131500Z.json",
+    "lab_tools/autonomous_loop.py",
+    "lab_tools/autopilot.py"
+  ],
+  "blocked_file_hints": [
+    "lab_tools/autonomous_loop.py",
+    "lab_tools/autopilot.py"
+  ]
+}
