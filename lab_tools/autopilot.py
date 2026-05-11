@@ -21,6 +21,7 @@ from lab_tools.task_queue import (
 
 SMOKE_RUNTIME_PLATEAU_THRESHOLD = 4
 SMOKE_RUNTIME_PLATEAU_MAX_ALIGNMENT = 0.01
+CHANGE_CLASS_FAILURE_THRESHOLD = 2
 
 
 @dataclass(frozen=True)
@@ -33,6 +34,77 @@ class Candidate:
 
 def _key_token(value: Any) -> str:
     return re.sub(r"[^A-Za-z0-9_.-]+", "_", str(value or "unknown"))
+
+
+def _infer_change_class(text: str) -> str | None:
+    text = text.lower()
+    patterns = [
+        ("ctc_beam_or_decode_knob", r"\b(beam|temp|temperature|length[ -]?norm|lennorm|sharpen|hyp[-_ ]?order|hypothesis ordering)\b"),
+        ("reference_ctc_fusion", r"\b(reference|v4|tlog).*(ctc|fusion|discovery)|\bctc[-_ ]?fusion\b"),
+        ("matcher_shortlist_widen", r"\b(shortlist|retrieval head|top_k|top surah|max_span|span search|rerank)\b"),
+        ("queue_order_block", r"\bwrong[_ -]?task[_ -]?ordering|fifo|queue[-_ ]?order\b"),
+        ("smoke_runtime", r"\bsmoke|runtime\.adaptive|threshold|chunk|overlap|hysteresis|debounce\b"),
+    ]
+    for change_class, pattern in patterns:
+        if re.search(pattern, text):
+            return change_class
+    return None
+
+
+def change_class_for_payload(payload: dict[str, Any] | None, *, fallback_key: str = "") -> str | None:
+    payload = payload or {}
+    explicit = payload.get("change_class")
+    if explicit:
+        return _key_token(explicit)
+    fields = [
+        fallback_key,
+        payload.get("autopilot_key"),
+        payload.get("preflight_note"),
+        payload.get("task_note"),
+        payload.get("candidate_experiment"),
+        payload.get("experiment_probe"),
+        payload.get("experiment"),
+        payload.get("param"),
+        payload.get("agent_instructions"),
+    ]
+    return _infer_change_class(" ".join(str(v or "") for v in fields))
+
+
+def _entry_change_class(entry: dict[str, Any]) -> str | None:
+    params = entry.get("parameters") or {}
+    return change_class_for_payload(params, fallback_key=str(entry.get("experiment_family") or ""))
+
+
+def failed_change_classes(
+    entries: list[dict[str, Any]] | None = None,
+    *,
+    threshold: int = CHANGE_CLASS_FAILURE_THRESHOLD,
+) -> set[str]:
+    counts: Counter[str] = Counter()
+    for entry in entries if entries is not None else read_entries():
+        if entry.get("status") not in {"rejected", "failed", "superseded"}:
+            continue
+        change_class = _entry_change_class(entry)
+        if change_class:
+            counts[change_class] += 1
+    return {change_class for change_class, count in counts.items() if count >= threshold}
+
+
+def _promoted_keys(entries: list[dict[str, Any]]) -> set[str]:
+    keys: set[str] = set()
+    for entry in entries:
+        if entry.get("status") not in {"promoted", "accepted", "merged"}:
+            continue
+        params = entry.get("parameters") or {}
+        key = params.get("autopilot_key") or entry.get("experiment_family")
+        if key:
+            keys.add(str(key))
+    return keys
+
+
+def _missing_dependencies(candidate: Candidate, promoted_keys: set[str]) -> list[str]:
+    deps = candidate.payload.get("dependency_autopilot_keys") or []
+    return [str(dep) for dep in deps if str(dep) not in promoted_keys]
 
 
 def candidates(entries: list[dict[str, Any]] | None = None) -> list[Candidate]:
@@ -173,12 +245,15 @@ def non_smoke_escalation_candidates(entries: list[dict[str, Any]] | None = None)
     entries = entries if entries is not None else read_entries()
     failed_count = sum(1 for entry in entries if _is_smoke_runtime_plateau_entry(entry))
     generation = _plateau_attempt_generation(entries)
+    baseline_key = f"baseline.reference_shipped_fastconformer_v4_tlog.{generation:02d}"
+    first_model_key = f"escalate.non_smoke.model_only.{generation:02d}.01"
     baseline = Candidate(
-        key=f"baseline.reference_shipped_fastconformer_v4_tlog.{generation:02d}",
+        key=baseline_key,
         kind="joint_model_runtime",
         title="Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
         payload={
             "blocked_family": "smoke_runtime_plateau",
+            "change_class": "reference_port",
             "plateau_failures": failed_count,
             "reference_repo": "../offline-tarteel",
             "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
@@ -205,38 +280,46 @@ def non_smoke_escalation_candidates(entries: list[dict[str, Any]] | None = None)
         (
             "model_only",
             "Evaluate non-smoke ASR candidate on full corpus",
-            "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+            "asr_model_evidence",
+            "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
         ),
         (
             "joint_model_runtime",
             "Improve real ASR-to-Quran matcher path",
-            "Work on a non-smoke matcher/ASR integration that uses transcript or model evidence from audio. Avoid filename/path/manifest labels and avoid smoke runtime knobs. Keep committed changes inside experiments/, tests/, benchmark/results/, or small JSON metadata.",
+            "joint_asr_matcher_new_evidence",
+            "Work on a non-smoke matcher/ASR integration that uses transcript or model evidence from audio. Avoid filename/path/manifest labels and avoid smoke runtime knobs. Do not submit shortlist/rerank/beam-only probes unless a promoted ASR/reference dependency changed the input evidence. Keep committed changes inside experiments/, tests/, benchmark/results/, or small JSON metadata.",
         ),
         (
             "model_only",
             "Probe lightweight offline recognition baseline",
+            "lightweight_audio_baseline",
             "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
         ),
         (
             "joint_model_runtime",
             "Add non-smoke failure analysis experiment",
+            "failure_analysis_new_signal",
             "Use the full v3 failure pattern to create a targeted non-smoke experiment or matcher harness. The goal is to escape the 1/256 smoke plateau, not to adjust streaming metadata.",
         ),
     ]
     out: list[Candidate] = [baseline]
     for i in range(1, 13):
-        kind, title, instructions = focus[(i - 1) % len(focus)]
+        kind, title, change_class, instructions = focus[(i - 1) % len(focus)]
+        payload: dict[str, Any] = {
+            "blocked_family": "smoke_runtime_plateau",
+            "change_class": change_class,
+            "plateau_failures": failed_count,
+            "min_accuracy": 0.8,
+            "agent_instructions": instructions,
+        }
+        if kind == "joint_model_runtime":
+            payload["dependency_autopilot_keys"] = [baseline_key, first_model_key]
         out.append(
             Candidate(
                 key=f"escalate.non_smoke.{kind}.{generation:02d}.{i:02d}",
                 kind=kind,
                 title=f"{title} variant {i:02d}",
-                payload={
-                    "blocked_family": "smoke_runtime_plateau",
-                    "plateau_failures": failed_count,
-                    "min_accuracy": 0.8,
-                    "agent_instructions": instructions,
-                },
+                payload=payload,
             ),
         )
     return out
@@ -338,6 +421,7 @@ def adaptive_runtime_candidates() -> list[Candidate]:
                 payload={
                     "experiment": "smoke",
                     "param": param,
+                    "change_class": "smoke_runtime",
                     "min_accuracy": 0.8,
                     "agent_instructions": (
                         "Create a small deterministic runtime experiment variant under "
@@ -442,6 +526,7 @@ def _retire_smoke_runtime_plateau_tasks(entries: list[dict[str, Any]]) -> list[s
             payload = task.payload or {}
             stale_generic_escalation = (
                 payload.get("blocked_family") == "smoke_runtime_plateau"
+                and not payload.get("change_class")
                 and not payload.get("reference_baseline")
                 and str(payload.get("autopilot_key") or "").startswith("escalate.non_smoke.")
             )
@@ -470,13 +555,37 @@ def plan(target_backlog: int) -> dict[str, Any]:
     retired = _retire_repeatedly_blocked_tasks()
     retired += _retire_smoke_runtime_plateau_tasks(entries)
     added: list[str] = []
+    skipped: list[dict[str, Any]] = []
     blocked_families = failed_families(entries)
+    blocked_change_classes = failed_change_classes(entries)
+    promoted_keys = _promoted_keys(entries)
     champ = champion(entries)
     weak = worst_slice(entries)
     active = count_active()
     plateau = smoke_runtime_plateau(entries)
     for candidate in candidates(entries):
         if candidate.key in blocked_families:
+            skipped.append({"key": candidate.key, "reason": "blocked_family"})
+            continue
+        change_class = change_class_for_payload(candidate.payload, fallback_key=candidate.key)
+        if change_class in blocked_change_classes:
+            skipped.append(
+                {
+                    "key": candidate.key,
+                    "reason": "blocked_change_class",
+                    "change_class": change_class,
+                },
+            )
+            continue
+        missing = _missing_dependencies(candidate, promoted_keys)
+        if missing:
+            skipped.append(
+                {
+                    "key": candidate.key,
+                    "reason": "missing_dependency",
+                    "dependencies": missing,
+                },
+            )
             continue
         if active >= target_backlog:
             break
@@ -496,6 +605,7 @@ def plan(target_backlog: int) -> dict[str, Any]:
         "retired": retired,
         "total_tasks": len(state.tasks),
         "queued": sum(1 for t in state.tasks if t.status == "queued"),
+        "skipped": skipped,
         "champion": {
             "run_id": champ.get("run_id"),
             "objective": champ.get("objective"),
@@ -505,6 +615,7 @@ def plan(target_backlog: int) -> dict[str, Any]:
         else None,
         "worst_slice": {"name": weak[0], "score": weak[1].get("score")} if weak else None,
         "blocked_families": sorted(blocked_families),
+        "blocked_change_classes": sorted(blocked_change_classes),
         "smoke_runtime_plateau": plateau,
     }
 

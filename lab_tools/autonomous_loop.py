@@ -27,6 +27,7 @@ from lab_tools.task_queue import Task, load_state, next_queued, set_status
 
 MIN_OBJECTIVE_DELTA = 0.0001
 MIN_PROMOTION_CORPUS_SAMPLES = 12
+PREFLIGHT_SAMPLE_LIMIT = 32
 OBJECTIVE_COMPONENTS = tuple(DEFAULT_WEIGHTS.keys())
 
 
@@ -206,6 +207,25 @@ def _valid_full_corpus_champion(corpus: str) -> dict[str, Any] | None:
     return max(candidates, key=lambda e: float(e.get("objective") or 0.0))
 
 
+def _promoted_autopilot_keys() -> set[str]:
+    entries = read_entries(path=lab_root() / "artifacts" / "experiment_ledger.jsonl")
+    keys: set[str] = set()
+    for entry in entries:
+        if entry.get("status") not in {"promoted", "accepted", "merged"}:
+            continue
+        params = entry.get("parameters") or {}
+        key = params.get("autopilot_key") or entry.get("experiment_family")
+        if key:
+            keys.add(str(key))
+    return keys
+
+
+def _missing_dependency_keys(payload: dict[str, Any]) -> list[str]:
+    deps = payload.get("dependency_autopilot_keys") or []
+    promoted = _promoted_autopilot_keys()
+    return [str(dep) for dep in deps if str(dep) not in promoted]
+
+
 def _judge_from_metrics(metrics: dict[str, Any]) -> dict[str, Any]:
     out = judge(
         JudgeInput(
@@ -289,6 +309,114 @@ def _append_ledger(run_record: Path, *, status: str, decision: dict[str, Any] | 
         print(f"warning: failed to append experiment ledger: {exc}", file=sys.stderr)
 
 
+def _reject_without_eval(task: Task, metrics: dict[str, Any], reasons: list[str]) -> Path:
+    run_record = _write_run_record(task, metrics, [], [])
+    decision = {"accept": False, "reasons": reasons}
+    _append_ledger(run_record, status="rejected", decision=decision)
+    set_status(
+        task.id,
+        "rejected",
+        run_record_path=str(run_record),
+        judge_reasons=reasons,
+    )
+    return run_record
+
+
+def _tier2_report_path(task: Task, label: str) -> Path:
+    safe_label = "".join(ch if ch.isalnum() or ch in "._-" else "_" for ch in label)
+    return lab_root() / "artifacts" / "tier2" / f"tier2-{task.id}-{safe_label}.json"
+
+
+def _run_tier2_report(
+    task: Task,
+    *,
+    corpus: str,
+    experiment: str,
+    limit: int,
+    label: str,
+) -> tuple[CommandResult, Path]:
+    out = _tier2_report_path(task, label)
+    cmd = [
+        sys.executable,
+        "-m",
+        "lab_tools.eval_tier",
+        "--tier",
+        "2",
+        "--corpus",
+        corpus,
+        "--limit",
+        str(limit),
+        "--experiment",
+        experiment,
+        "--tier-json",
+        str(out),
+    ]
+    return _run(cmd), out
+
+
+def _preflight_strict_gate(
+    task: Task,
+    *,
+    corpus: str,
+    experiment: str,
+    tier1_path: Path | None,
+    commands: list[CommandResult],
+) -> tuple[bool, Path | None, dict[str, Any] | None]:
+    champion = _valid_full_corpus_champion(corpus)
+    champ_exp = str(((champ or {}).get("parameters") or {}).get("experiment") or "")
+    if not champion or not champ_exp or champ_exp == experiment:
+        return True, None, None
+
+    cand_cmd, cand_path = _run_tier2_report(
+        task,
+        corpus=corpus,
+        experiment=experiment,
+        limit=PREFLIGHT_SAMPLE_LIMIT,
+        label="preflight-candidate",
+    )
+    commands.append(cand_cmd)
+    if cand_cmd.returncode != 0:
+        metrics = _metrics_from_reports(task, tier1_path, cand_path, None)
+        metrics["preflight_limit"] = PREFLIGHT_SAMPLE_LIMIT
+        return False, cand_path, {"metrics": metrics, "reasons": ["preflight_candidate_failed"]}
+
+    champ_cmd, champ_path = _run_tier2_report(
+        task,
+        corpus=corpus,
+        experiment=champ_exp,
+        limit=PREFLIGHT_SAMPLE_LIMIT,
+        label="preflight-champion",
+    )
+    commands.append(champ_cmd)
+    if champ_cmd.returncode != 0:
+        metrics = _metrics_from_reports(task, tier1_path, cand_path, None)
+        metrics["preflight_limit"] = PREFLIGHT_SAMPLE_LIMIT
+        return False, cand_path, {"metrics": metrics, "reasons": ["preflight_champion_failed"]}
+
+    cand = _best_tier2_result(_read_json(cand_path), experiment)
+    champ_row = _best_tier2_result(_read_json(champ_path), champ_exp)
+    cand_correct = _number(cand.get("correct"))
+    champ_correct = _number(champ_row.get("correct"))
+    metrics = _metrics_from_reports(task, tier1_path, cand_path, None)
+    metrics.update(
+        {
+            "preflight_limit": PREFLIGHT_SAMPLE_LIMIT,
+            "preflight_candidate_experiment": experiment,
+            "preflight_champion_experiment": champ_exp,
+            "preflight_candidate_correct": cand.get("correct"),
+            "preflight_champion_correct": champ_row.get("correct"),
+            "preflight_candidate_accuracy": cand.get("accuracy"),
+            "preflight_champion_accuracy": champ_row.get("accuracy"),
+        },
+    )
+    if cand_correct is None or champ_correct is None or cand_correct <= champ_correct:
+        return False, cand_path, {
+            "metrics": metrics,
+            "reasons": ["preflight_strict_gate_failed", "champion_slice_not_strictly_improved"],
+        }
+    return True, cand_path, None
+
+
 def _promote_run(run_record: Path, tier1: Path | None, tier3: Path | None) -> tuple[int, Path | None]:
     record = _read_json(run_record)
     out_dir = lab_root() / "artifacts" / "promotions"
@@ -341,6 +469,16 @@ def tick(dry_run: bool = False, *, shard_index: int = 0, shard_total: int = 1) -
     if not t:
         print("no queued tasks")
         return 0
+    missing_deps = _missing_dependency_keys(t.payload or {})
+    if missing_deps:
+        set_status(
+            t.id,
+            "rejected",
+            judge_reasons=["blocked_waiting_dependency"],
+            notes=f"Waiting for promoted dependencies: {', '.join(missing_deps)}",
+        )
+        print(f"rejected {t.id}: waiting for promoted dependencies {', '.join(missing_deps)}")
+        return 0
     if dry_run:
         print(json.dumps({"would_claim": t.id, "title": t.title, "kind": t.kind}, indent=2))
         return 0
@@ -380,6 +518,19 @@ def run_once(
         payload["full_corpus_gate"] = True
     task.payload = payload
     experiment = payload.get("experiment")
+    missing_deps = _missing_dependency_keys(payload)
+    if missing_deps:
+        metrics = {
+            "blocked_dependencies": missing_deps,
+            "requires_full_corpus_gate": bool(promote),
+            "requires_champion_improvement": bool(promote),
+        }
+        _reject_without_eval(task, metrics, ["blocked_waiting_dependency"])
+        print(
+            f"rejected {task.id}: waiting for promoted dependencies {', '.join(missing_deps)}",
+            file=sys.stderr,
+        )
+        return 0
 
     if dry_run:
         print(
@@ -436,6 +587,34 @@ def run_once(
             judge_reasons=["tier1_failed"],
         )
         return tier1.returncode
+
+    if promote and experiment:
+        passed, preflight_path, rejection = _preflight_strict_gate(
+            task,
+            corpus=str(payload["corpus"]),
+            experiment=str(experiment),
+            tier1_path=tier1_path,
+            commands=commands,
+        )
+        if not passed:
+            metrics = dict((rejection or {}).get("metrics") or {})
+            metrics["requires_full_corpus_gate"] = bool(promote)
+            metrics["requires_champion_improvement"] = bool(promote)
+            champion = _valid_full_corpus_champion(str(payload["corpus"]))
+            metrics["champion_run_id"] = champion.get("run_id") if champion else None
+            metrics["champion_objective"] = champion.get("objective") if champion else None
+            run_record = _write_run_record(task, metrics, completed, commands)
+            reasons = list((rejection or {}).get("reasons") or ["preflight_strict_gate_failed"])
+            _append_ledger(run_record, status="rejected", decision={"accept": False, "reasons": reasons})
+            set_status(
+                task.id,
+                "rejected",
+                run_record_path=str(run_record),
+                judge_reasons=reasons,
+            )
+            if preflight_path:
+                print(f"preflight rejected {task.id}; report: {preflight_path}", file=sys.stderr)
+            return 0
 
     # Promotion decisions must be based on the complete requested corpus. The
     # caller's limit is still useful for tier-1 smoke, but tier-2 is the scoring gate.
