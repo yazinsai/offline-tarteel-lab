@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T07:56:28.146774+00:00",
+  "workflow_run_id": "25657631081",
+  "pr_number": 184,
+  "title": "Autopilot offline-tarteel state: 89.06%, -0.39pp acc vs 89.45% champion \u2014 shard 1/3 wider-beam probe",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/184",
+  "base_ref": "cursor-autonomy-base-25653508469-0",
+  "base_sha": "619dac86fcccc8415e7a9932f8b38c4816d4a954",
+  "head_ref": "cursor/reference-port-v41-wider-beam-9797",
+  "head_sha": "d931c2742f3a3de715cbdb527656cf0196025e18",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-9188cd53966e-wider-beam-slice-optimism-20260511T074921Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-9188cd53966e-20260511T074921Z.json"
+  ],
+  "blocked_file_hints": []
+}
