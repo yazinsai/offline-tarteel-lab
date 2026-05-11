@@ -1,0 +1,17 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T02:01:19.694195+00:00",
+  "shard": "1/3",
+  "task_id": "task-d6354795e152",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.32",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.32",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": -2,
+  "candidate_experiment": "reference_phoneme_v4",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Mandatory Tier-2 preflight (manifest-prefix slice, limit 32): reference_phoneme_v4 greedy ONNX port 16/32 correct, surrogate objective 0.550000 vs champion phoneme_matcher_joint02 18/31 correct (one eval failure), surrogate 0.622581. Strict gate requires strictly greater accuracy and composite on the same slice.",
+  "negative_memory": "baseline.reference_shipped_fastconformer_v4_tlog.32 / reference_phoneme_v4 (greedy shipped q8 ONNX + legacy matcher) remains below phoneme_matcher_joint02 on the canonical 32-prefix slice; do not burn full Tier-2 or bounded controller cycles unless decode/search materially changes (e.g. beam/second-pass parity with joint02) and preflight wins on the fixed slice.",
+  "run_id": "task-d6354795e152-20260511T020119Z",
+  "reference_clone_verified": "/tmp/offline-tarteel-reference"
+}
