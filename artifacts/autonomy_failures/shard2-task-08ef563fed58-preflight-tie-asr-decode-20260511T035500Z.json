@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T03:55:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-08ef563fed58",
+  "autopilot_key": "escalate.non_smoke.model_only.37.01",
+  "experiment_family": "escalate.non_smoke.model_only.37.01",
+  "change_class": "model_only_preflight_slice_tie",
+  "tier2_delta_correct": 0,
+  "reason": "Two ASR-sided decode knobs (beam 12/top14/hyp6 vs joint02 narrow code defaults; and PHONEME_ACOUSTIC_LOG_SCALE=1.15 pre-beam) both matched champion slice 19/32 correct and composite ~0.634375 on first 32 rows \u2014 strict preflight requires strictly greater accuracy and objective versus phoneme_matcher_joint02 on the same slice.",
+  "negative_memory": "On test_corpus_v3 head-32 slice, shallow ASR-only decode rescaling (wide CTC beam defaults or log-posterior sharpen+renorm) tied phoneme_matcher_joint02 instead of beating it \u2014 expect low ROI without acoustic model change / fusion scoring / full-corpus coupling; avoid repeating mute beam-width-only bumps for model_only shard2 without new hypothesis merge.",
+  "run_id": "task-08ef563fed58-20260511T035500Z"
+}

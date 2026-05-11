@@ -4619,7 +4619,7 @@
     },
     {
       "id": "task-08ef563fed58",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
       "payload": {
@@ -4630,12 +4630,15 @@
         "autopilot_key": "escalate.non_smoke.model_only.37.01"
       },
       "created_at": "2026-05-11T01:54:16.353069+00:00",
-      "updated_at": "2026-05-11T01:54:16.353069+00:00",
+      "updated_at": "2026-05-11T02:55:43.569327+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "run_record_path": "artifacts/runs/task-08ef563fed58-20260511T035500Z.json",
+      "judge_reasons": [
+        "preflight_strict_improvement_not_met",
+        "champion_objective_not_improved_slice"
+      ],
+      "notes": "Shard 2/3 model_only preflight rejected: phoneme_asr_decode14x38 and phoneme_asr_sharp38 tier2 limit=32 ties champion phoneme_matcher_joint02 (19/32 correct, objective 0.634375). Candidate dirs reverted \u2014 see run record."
     },
     {
       "id": "task-429071b8bbce",
