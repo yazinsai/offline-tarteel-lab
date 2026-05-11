@@ -1,0 +1,17 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T21:45:00.000000+00:00",
+  "reason": "champion_objective_not_improved",
+  "shard": "3/3",
+  "task_id": "task-0c76657fae9a",
+  "autopilot_key": "escalate.non_smoke.model_only.46.03",
+  "change_class": "lightweight_audio_baseline",
+  "tier2_delta_correct": -1,
+  "experiment_family": "escalate.non_smoke.model_only.46.03",
+  "preflight_correct": 20,
+  "preflight_champion_correct": 19,
+  "full_corpus_correct": 228,
+  "full_corpus_champion_correct": 229,
+  "negative_memory": "lightweight_dual_preemph_46: dual ONNX forward (preemph 0.97/0.92) with log-prob averaging plus wider CTC beam (11/12, hyps 6) beats phoneme_matcher_joint02 on tier-2 slice (20 vs 19 /32) but regresses full test_corpus_v3 (228 vs 229 correct) and objective 0.901563 vs champion 0.905078. Do not re-queue the same acoustic-fusion + beam widen without a new hypothesis; marginal preflight gains on the first 32 rows mislead.",
+  "run_id": "task-0c76657fae9a-20260511T214127Z"
+}
