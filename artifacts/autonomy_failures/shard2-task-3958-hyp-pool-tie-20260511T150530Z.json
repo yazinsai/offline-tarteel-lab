@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T15:05:30.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-3958d3b8cf22",
+  "autopilot_key": "escalate.non_smoke.model_only.45.03",
+  "experiment_family": "lightweight_audio_baseline/acoustic_hyp_pool45",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "reason": "Tier-2 preflight (limit 32, test_corpus_v3 prefix): softmax-weighted multi-hypothesis matcher pooling (experiments/lightweight_audio_baseline45, revert-deleted) tied champion phoneme_matcher_joint02 at 19/32 correct (59.375%); composite surrogate on slice ties at ~0.634375. Strict autonomy gate requires strictly greater correct count/accuracy/objective vs champion on identical slice.",
+  "negative_memory": "Do not repeat acoustic-softmax Pools over phoneme_matcher_joint02 beam+matcher TOP_K hits with POOL_TOP_PER_HYP~=7 expecting >19/32 slice gain on first-32 manifest order over joint02; tie indicates fusion noise cancels marginal wins. Prefer distinct acoustic evidence (Modal ASR/train), temporal two-pass narrowing, or reference decode changes vs same ONNX.",
+  "run_id": "task-3958d3b8cf22-20260511T150530Z"
+}
