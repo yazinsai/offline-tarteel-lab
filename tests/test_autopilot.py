@@ -124,7 +124,9 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
     assert "runtime.threshold_sweep.first_match" in result["blocked_families"]
     keys = [t.payload["autopilot_key"] for t in tq.load_state().tasks]
     assert "runtime.threshold_sweep.first_match" not in keys
-    assert "runtime.chunk_window_sweep" in keys
+    # chunk_window_sweep is classified as smoke_runtime via the "chunk" token and is skipped when
+    # that change_class is blocked; the planner proceeds to the next eligible candidates.
+    assert "model.fastconformer_phoneme_smoke" in keys
 
 
 def _smoke_runtime_failure(i: int, param: str = "chunk_seconds") -> dict:

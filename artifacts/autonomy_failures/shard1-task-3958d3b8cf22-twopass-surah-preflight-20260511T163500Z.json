@@ -1,0 +1,16 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T16:35:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-3958d3b8cf22",
+  "autopilot_key": "escalate.non_smoke.model_only.45.03",
+  "experiment_family": "escalate.non_smoke.model_only.45.03",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": -3,
+  "candidate_experiment": "phoneme_twopass_surah03",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Tier-2 manifest-prefix slice (test_corpus_v3, --limit 32): tentative phoneme_twopass_surah03 (greedy surah anchor + joint02 beam with optional ±surah shortlist band) scored 16/32 (50%) with default band hyperparameters (window 8, min conf 0.52) versus champion phoneme_matcher_joint02 19/32 (59.375%). Surrogate composite ~0.55 vs ~0.634375 (DEFAULT_WEIGHTS, latency 1.0). Per gate, candidate must be strictly greater on both accuracy and objective; failure. Sanity: PHONEME_TWOPASS=0 and PHONEME_TWOPASS_MIN_CONF=0.72 on the same experiment tied the champion at 19/32 — banded shortlist was the regression vector. Marginal joint02-only env probes (beam 7/9/5; fragment blend 0.88; top_k 22) also tied at 19/32. No bounded controller / full corpus run.",
+  "negative_memory": "Do not retry greedy-surah ±window Quran shortlist pruning on top of joint02 beam on the canonical 32-prefix slice without a provable retrieval/recall fix (e.g., dynamic window from acoustic confidence bands or explicit two-pass full-corpus re-search). Narrow/low-confidence bands removed gold verses from the shortlist (-3 correct vs joint02). Duplicates prior hyp-rescore/ beam-widen tie pattern: need a genuinely different decode/search hypothesis (RN stages, two-pass with documented CPU caps, or ASR/model change), not another matcher/rerank shim on the same ONNX decode.",
+  "run_id": "task-3958d3b8cf22-20260511T163500Z"
+}
