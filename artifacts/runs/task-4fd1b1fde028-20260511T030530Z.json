@@ -1,0 +1,55 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-4fd1b1fde028-20260511T030530Z",
+  "task_id": "task-4fd1b1fde028",
+  "created_at_utc": "2026-05-11T03:05:30.000000+00:00",
+  "git_sha": "272bc54f6a6cd7a74bcd86785bfbe2b5a380f1a5",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "model_only",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+    "autopilot_key": "escalate.non_smoke.model_only.38.01",
+    "experiment": "asr_phoneme_beam12_v38",
+    "candidate_description": "phoneme_matcher_joint02 fork tuning decode-only: wider beam defaults then matcher-tie epsilon acoustic pick among hypotheses; experiment removed after rejection",
+    "shard": "1/3",
+    "shard_index": 1,
+    "shard_total": 3
+  },
+  "metrics": {
+    "preflight_only": true,
+    "preflight_limit": 32,
+    "corpus": "test_corpus_v3",
+    "champion_experiment": "phoneme_matcher_joint02",
+    "champion_correct": 19,
+    "champion_accuracy": 0.59375,
+    "champion_objective_proxy": 0.634375,
+    "candidate_probe_a_correct": 19,
+    "candidate_probe_a_accuracy": 0.59375,
+    "candidate_probe_a_note": "widen beam 12/14/6 vs joint02 defaults — tied champion on slice; strict gate requires strictly greater",
+    "candidate_probe_b_correct": 18,
+    "candidate_probe_b_accuracy": 0.5625,
+    "candidate_probe_b_note": "beam 14/15/10 + matcher-tie_eps acoustic pick among hypotheses — regression vs champion slice",
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_full_objective": 0.905078,
+    "tier2_reports": [
+      "artifacts/tier2/tier2-20260511T024158Z.json",
+      "artifacts/tier2/tier2-20260511T024958Z.json",
+      "artifacts/tier2/tier2-20260511T030212Z.json"
+    ],
+    "rejection_reason": "champion_objective_not_improved",
+    "streaming_alignment_accuracy": 0.5625,
+    "correction_precision": 0.5625,
+    "verse_boundary_f1": 0.5625,
+    "latency_budget_score": 1.0,
+    "candidate_objective_proxy": 0.60625
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment asr_phoneme_beam12_v38"
+  ]
+}

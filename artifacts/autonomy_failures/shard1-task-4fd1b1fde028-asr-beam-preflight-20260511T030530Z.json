@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T03:05:30.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-4fd1b1fde028",
+  "autopilot_key": "escalate.non_smoke.model_only.38.01",
+  "experiment_family": "escalate.non_smoke.model_only.38.01",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": -1,
+  "candidate_experiment": "asr_phoneme_beam12_v38",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Strict Tier-2 slice gate (limit 32): phoneme_matcher_joint02 champion holds 19/32 correct (objective proxy 0.634375). Decode-only fork matched 19/32 on wider beam (tie ⇒ fail) then regressed to 18/32 after epsilon acoustic tie-break among hypotheses. Do not re-queue marginal beam-width tilts on the same ONNX+j matcher stack without new acoustic evidence or training.",
+  "negative_memory": "asr_phoneme_beam12_v38 lineage: joint02 clone with beam 12–14 and matcher-tie_eps acoustic pick failed strict preflight vs phoneme_matcher_joint02 on canonical 32-prefix (tie then −1 correct); repeats shard1 ASR decode plateau pattern — next attempts need reference_port/model dependency completion or Modal ASR training, not another matcher-identical decode knob sweep."
+}
