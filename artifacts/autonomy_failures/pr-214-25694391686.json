@@ -1,0 +1,23 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T20:08:29.400270+00:00",
+  "workflow_run_id": "25694391686",
+  "pr_number": 214,
+  "title": "Autopilot offline-tarteel state: 53.1% @32, -6.25pp vs champion \u2014 dual-preemph ASR preflight fail",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/214",
+  "base_ref": "main",
+  "base_sha": "711d9492fb2a948da264cd3166c89c7627f64f05",
+  "head_ref": "cursor/offline-tarteel-shard1-preflight-reject-dual-ba5f",
+  "head_sha": "15d97b0baee904b24155360350ed9148a03a878a",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-dual-preemph46-preflight-20260511T200600Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-c36fea5e2fba-20260511T200600Z.json",
+    "lab_tools/autopilot.py"
+  ],
+  "blocked_file_hints": [
+    "lab_tools/autopilot.py"
+  ]
+}
