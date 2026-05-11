@@ -1,0 +1,23 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T03:25:22.000000+00:00",
+  "reason": "wrong_task_ordering_smoke_runtime_plateau",
+  "shard": "3/3",
+  "task_id": "task-b63c3340108e",
+  "autopilot_key": "escalate.non_smoke.joint_model_runtime.39.02",
+  "change_class": "policy_block_before_preflight",
+  "tier2_delta_correct": null,
+  "experiment_family": "escalate.non_smoke.joint_model_runtime.39.02",
+  "dependency_gate": {
+    "queued_before": [
+      "task-b8e660506f8a",
+      "task-acb6824a57ab"
+    ],
+    "keys": [
+      "baseline.reference_shipped_fastconformer_v4_tlog.39",
+      "escalate.non_smoke.model_only.39.01"
+    ]
+  },
+  "negative_memory": "With smoke_runtime_plateau=true, shard 3/3 must not execute escalate.non_smoke.joint_model_runtime.39.02 while baseline.reference_shipped_fastconformer_v4_tlog.39 (task-b8e660506f8a, reference_repo_url port) and escalate.non_smoke.model_only.39.01 (task-acb6824a57ab) remain ahead in FIFO; finish reference port + queued ASR model_only before joint matcher escalation.",
+  "run_id": "task-b63c3340108e-20260511T032522Z"
+}
