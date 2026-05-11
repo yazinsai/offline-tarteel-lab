@@ -1,0 +1,13 @@
+kind: model_only
+hypothesis: >
+  Lightweight acoustic fusion: two canonical pre-emphasis frontends each get their own ONNX
+  forward; frame log-probabilities are averaged in probability space (log-sum-exp − log 2).
+  Same CTC beam + matcher stack as phoneme_matcher_joint02 afterward.
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Queue task escalate.non_smoke.model_only.46.03 (lightweight_audio_baseline). Env overrides:
+  LIGHTWEIGHT_DUAL_PREEMPH_A, LIGHTWEIGHT_DUAL_PREEMPH_B.

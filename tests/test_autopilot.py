@@ -113,6 +113,9 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
                 "status": "rejected",
                 "experiment_family": "runtime.threshold_sweep.first_match",
                 "objective": 0.1,
+                # Explicit change_class so heuristic inference does not tag every family string
+                # containing "threshold" as smoke_runtime and block unrelated runtime seeds.
+                "parameters": {"change_class": "threshold_calibration"},
             }
             for i in range(2)
         ],
