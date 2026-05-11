@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T03:51:30.885446+00:00",
+  "workflow_run_id": "25649333645",
+  "pr_number": 177,
+  "title": "Autopilot offline-tarteel state: 56.3% slice, \u22123.1pp acc & \u22122.8pp surrogate \u2014 shard1 ASR acoustic-fuse preflight rejected",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/177",
+  "base_ref": "cursor-autonomy-base-25648595520-0",
+  "base_sha": "2c3c626de3e744b6a617a809dc47fb79524079fe",
+  "head_ref": "cursor/offline-tarteel-shard1-asr-acousticfuse-v01-3501",
+  "head_sha": "18f8f97a21e7c3007e010e2355761878ad86bf87",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-2e0dfb4ba213-asr-fuse-preflight-20260511T034939Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-2e0dfb4ba213-20260511T034939Z.json"
+  ],
+  "blocked_file_hints": []
+}
