@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T13:38:00.000000+00:00",
+  "reason": "preflight_tie_strict_gate",
+  "shard": "3/3",
+  "task_id": "task-3958d3b8cf22",
+  "autopilot_key": "escalate.non_smoke.model_only.45.03",
+  "change_class": "lightweight_audio_baseline",
+  "tier2_delta_correct": 0,
+  "experiment_family": "escalate.non_smoke.model_only.45.03",
+  "negative_memory": "On test_corpus_v3 first 32 clips, lexical matcher ordering + intra-clip CTC beam LP tie-break (lightweight_phoneme_hypfuse_4503 atop joint02 hyp enumeration) never improved correctness vs phoneme_matcher_joint02; correct 19=19 tie, composite objective ties at 0.634375 slice proxy. Larger beam/LP blending weights regressed slices (16 correct). Blind LP-only reranking on alternate hyp sets also regressed.",
+  "run_id": "task-3958d3b8cf22-20260511T133800Z"
+}

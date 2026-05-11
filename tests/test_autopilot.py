@@ -124,7 +124,10 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
     assert "runtime.threshold_sweep.first_match" in result["blocked_families"]
     keys = [t.payload["autopilot_key"] for t in tq.load_state().tasks]
     assert "runtime.threshold_sweep.first_match" not in keys
-    assert "runtime.chunk_window_sweep" in keys
+    # Two threshold-sweep failures also trip the smoke_runtime change_class guard, so other static
+    # runtime smoke/chunk seeds are skipped; backlog should still seed model/joint probes.
+    assert "model.fastconformer_phoneme_smoke" in keys
+    assert "joint.model_runtime_export_contract" in keys
 
 
 def _smoke_runtime_failure(i: int, param: str = "chunk_seconds") -> dict:
