@@ -1,0 +1,23 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T21:51:00.175836+00:00",
+  "workflow_run_id": "25699417532",
+  "pr_number": 216,
+  "title": "Autopilot offline-tarteel state: 89.45% champion, fifo block (no cand eval) \u2014 shard2 queue order",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/216",
+  "base_ref": "main",
+  "base_sha": "ffc6a98d42ce5fb20f34cc3638ebdcd0275c4ba9",
+  "head_ref": "cursor/offline-tarteel-shard2-autonomy-5b05",
+  "head_sha": "72c81d3020100781bd2d617a77944497cbdf802a",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-00058b49ff3a-fifo-ref-ahead-20260511T214727Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-00058b49ff3a-20260511T214727Z.json",
+    "lab_tools/autopilot.py"
+  ],
+  "blocked_file_hints": [
+    "lab_tools/autopilot.py"
+  ]
+}
