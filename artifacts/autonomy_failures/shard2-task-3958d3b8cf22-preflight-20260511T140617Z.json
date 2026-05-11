@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T14:06:17.959999+00:00",
+  "shard": "2/3",
+  "task_id": "task-3958d3b8cf22",
+  "autopilot_key": "escalate.non_smoke.model_only.45.03",
+  "experiment_family": "lightweight_audio_baseline",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "reason": "Tier-2 preflight (limit 32, test_corpus_v3): lightweight_phoneme_baseline_v03 best match phoneme_matcher_joint02 at 19/32 correct (59.375%); CTC logprob temperature 1.07/0.93 regressed to 18/32. Strict gate requires strictly greater accuracy and composite objective; tie and regression fail.",
+  "negative_memory": "Do not retry joint02-identical matcher with only PHONEME_CTC_LOGPROB_TEMP\u22601.0 or marginal relative acoustic hyp tie-break on first-32 slice \u2014 ties at 19/32 or 18/32 vs champion. Need decode/search change with measurable margin (e.g. distinct merge/rescore), not temperature-only.",
+  "run_id": "task-3958d3b8cf22-20260511T140617Z"
+}
