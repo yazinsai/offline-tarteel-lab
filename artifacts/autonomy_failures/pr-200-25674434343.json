@@ -1,0 +1,23 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T13:52:33.683806+00:00",
+  "workflow_run_id": "25674434343",
+  "pr_number": 200,
+  "title": "Autopilot offline-tarteel state: slice 43.8%, \u221215.6pp vs champ \u2014 shard3 dual-mel fusion probe rejected",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/200",
+  "base_ref": "main",
+  "base_sha": "d4df8621b7c9bca94e3f10018d0f8256e3badd8e",
+  "head_ref": "cursor/offline-tarteel-model-only-v46-ab89",
+  "head_sha": "a2f15a962265206e16ef613299523a70141aab8c",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-model-only-dual-mel-fusion-preflight-20260511T134930Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-cf1eb9ef8906-20260511T134930Z.json",
+    "lab_tools/autopilot.py"
+  ],
+  "blocked_file_hints": [
+    "lab_tools/autopilot.py"
+  ]
+}
