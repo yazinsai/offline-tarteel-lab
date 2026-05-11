@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T07:14:28.364423+00:00",
+  "workflow_run_id": "25655827715",
+  "pr_number": 183,
+  "title": "Autopilot offline-tarteel state: 89.1%, -0.4pp \u2014 shard2 model_only.41 lennorm-beam slice win, full-corpus reject",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/183",
+  "base_ref": "cursor-autonomy-base-25653508469-1",
+  "base_sha": "619dac86fcccc8415e7a9932f8b38c4816d4a954",
+  "head_ref": "cursor/offline-tarteel-asr-lennorm-v41-1b02",
+  "head_sha": "76b0df73e8f8aee340abf77fbd12825450d96763",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-model_only-lennorm-v41-full-corpus-regress-20260511T071243Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-d7947cab1372-20260511T071243Z.json"
+  ],
+  "blocked_file_hints": []
+}
