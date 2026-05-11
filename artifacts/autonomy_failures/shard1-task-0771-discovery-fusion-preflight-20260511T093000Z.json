@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T09:30:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-0771e51ce454",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.41",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.discovery_fusion_probe",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": -2,
+  "candidate_experiment": "reference_phoneme_v4_discovery_fusion",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Mandatory Tier-2 slice preflight (--limit 32): discovery-fusion candidate 17/32 correct vs champion phoneme_matcher_joint02 19/32; surrogate composite 0.578125 vs 0.634375 (DEFAULT_WEIGHTS on slice accuracy). Strict simultaneous accuracy+objective improvement gate failed; candidate code reverted; no bounded controller or full corpus run.",
+  "negative_memory": "Direct port of offline-tarteel discovery ranking (scoreCtcSequence + DISCOVERY_FUSION_* on verse phoneme_token_ids from quran JSON) on top of joint02-scale beam+matcher shortlist regresses versus matcher-argmax-over-beam-hyps at 17/32 vs 19/32 on the canonical prefix slice; repeating raw fusion weights without aligning mobile tokenization/state machine or tightening fusion candidate pool will likely repeat the gap."
+}

@@ -1,0 +1,21 @@
+{
+  "tier": 2,
+  "schema": "offline-tarteel.tier2_report.v1",
+  "referenceRoot": "/workspace",
+  "corpus": "test_corpus_v3",
+  "manifest_samples": 256,
+  "sample_limit": 32,
+  "selected_samples": 32,
+  "timestamp": "2026-05-11T09:26:10.852918+00:00",
+  "results": [
+    {
+      "experiment": "phoneme_matcher_joint02",
+      "samples": 32,
+      "evaluated_samples": 32,
+      "manifest_samples": 256,
+      "correct": 19,
+      "accuracy": 0.59375,
+      "failures": 0
+    }
+  ]
+}

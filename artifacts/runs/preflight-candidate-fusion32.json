@@ -1,0 +1,22 @@
+{
+  "tier": 2,
+  "schema": "offline-tarteel.tier2_report.v1",
+  "referenceRoot": "/workspace",
+  "corpus": "test_corpus_v3",
+  "manifest_samples": 256,
+  "sample_limit": 32,
+  "selected_samples": 32,
+  "timestamp": "2026-05-11T09:20:17.866233+00:00",
+  "experiment_note": "reference_phoneme_v4_discovery_fusion probe reverted after preflight; report values preserved from live run",
+  "results": [
+    {
+      "experiment": "reference_phoneme_v4_discovery_fusion",
+      "samples": 32,
+      "evaluated_samples": 32,
+      "manifest_samples": 256,
+      "correct": 17,
+      "accuracy": 0.53125,
+      "failures": 0
+    }
+  ]
+}
