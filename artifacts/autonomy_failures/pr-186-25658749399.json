@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T08:21:43.215001+00:00",
+  "workflow_run_id": "25658749399",
+  "pr_number": 186,
+  "title": "Autopilot offline-tarteel state: 59.4% acc / 63.4% obj, tie (+0.0pp) \u2014 shard2 model_only .42.01 ASR logprob sharpen",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/186",
+  "base_ref": "cursor-autonomy-base-25656730743-1",
+  "base_sha": "e9f72e8330f6a9d256670fb48768aa45c6ac7d12",
+  "head_ref": "cursor/offline-tarteel-asr-sharp-decode-2d6c",
+  "head_sha": "ec0831743c85cfde6ddc5b7d6022fba7794c8c9e",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-b186ddc4b52e-asr-sharp-preflight-tie-20260511T081952Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-b186ddc4b52e-20260511T081952Z.json"
+  ],
+  "blocked_file_hints": []
+}
