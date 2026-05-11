@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T14:51:00.000000+00:00",
+  "shard": "3/3",
+  "task_id": "task-19fffcad4cbd",
+  "autopilot_key": "escalate.non_smoke.model_only.46.01",
+  "experiment_family": "phoneme_asr_dualview_46",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": -1,
+  "reason": "Tier-2 preflight (test_corpus_v3, --limit 32): prototype phoneme_asr_dualview_46 scored 18/32 (56.25% acc, surrogate objective 0.60625) vs champion phoneme_matcher_joint02 19/32 (59.375% acc, surrogate 0.634375). Strict gate requires strictly greater accuracy and objective; regression fails champion_objective_not_improved.",
+  "negative_memory": "Do not retry dual mel fmax 8000 + 7100 log-average fusion of the same fastconformer_phoneme ONNX stacked onto joint02 beam+matcher; on manifest prefix N=32 it lost 1 correct vs phoneme_matcher_joint02 (18 vs 19) with doubled CPU inference.",
+  "run_id": "task-19fffcad4cbd-20260511T145100Z"
+}
