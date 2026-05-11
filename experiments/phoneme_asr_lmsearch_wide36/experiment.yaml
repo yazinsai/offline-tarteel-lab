@@ -1,0 +1,11 @@
+kind: model_only
+hypothesis: >
+  Same public phoneme ONNX and CTC beam decode as phoneme_matcher_joint02; expand retrieval head
+  (Levenshtein shortlist breadth, ayah-span search, wider surah pass-two set) defaulting to TOP_K 24 /
+  TOP_SURAHS 48 / MAX_SPAN 7 instead of joint02 18 / 32 / 6 — audio-only logits into matcher, no corpus metadata.
+owner: ""
+constraints:
+  max_onnx_mb: 200
+  cpu_time_note: fuller shortlist raises per-sample CPU versus joint02 baseline
+expected_metrics:
+  recall_delta_pp: null
