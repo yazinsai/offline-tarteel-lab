@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T19:49:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-dd39e08f8c3c",
+  "autopilot_key": "escalate.non_smoke.model_only.46.01",
+  "experiment_family": "phoneme_dual_preemph_fuse46",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "reason": "Tier-2 preflight limit=32 corpus test_corpus_v3: candidate phoneme_dual_preemph_fuse46 (multi-view CTC beam hypothesis union over preemph 0.97/0.88/0.82, deduped pool, same joint02 matcher) matched champion phoneme_matcher_joint02 at 19/32 correct (59.375% accuracy). Composite slice objective ~0.634 (weights: streaming 0.55, correction 0.20, verse_boundary 0.15, latency 0.10) ties on proxy metrics. Strict gate requires strictly greater correct count and strictly greater accuracy/objective; tie fails champion_objective_not_improved / preflight_strict_gate_failed.",
+  "negative_memory": "Do not retry extra preemph-only hypothesis-pool expansions on the same ONNX+quran shortlist expecting >19/32 on the fixed first-32 slice vs phoneme_matcher_joint02. Log-prob fusion of two views also regressed to 18/32 in an earlier local probe.",
+  "run_id": "task-dd39e08f8c3c-20260511T194853Z"
+}
