@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T04:31:23.681167+00:00",
+  "workflow_run_id": "25650382006",
+  "pr_number": 178,
+  "title": "Autopilot offline-tarteel state: 59.4%, +0pp \u2014 shard2 model_only.39.01 preflight tie vs phoneme_matcher_joint02@32",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/178",
+  "base_ref": "cursor-autonomy-base-25648595520-1",
+  "base_sha": "2c3c626de3e744b6a617a809dc47fb79524079fe",
+  "head_ref": "cursor/offline-tarteel-shard2-preflight-tie-cea8",
+  "head_sha": "d27f65c4792621ad390defebd5219ad499bca9b1",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-e2999829d82c-preflight-tie-20260511T042956Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-e2999829d82c-20260511T042956Z.json"
+  ],
+  "blocked_file_hints": []
+}
