@@ -1,0 +1,43 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-0e459076da7b-20260511T191500Z",
+  "task_id": "task-0e459076da7b",
+  "created_at_utc": "2026-05-11T19:15:00.000000+00:00",
+  "git_sha": "8093abfff5b85e64744ce151bd30bd027ae11bbe",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment": "reference_port_ctc_fwd45",
+    "corpus": "test_corpus_v3",
+    "preflight_candidate_experiment": "reference_port_ctc_fwd45",
+    "preflight_champion_experiment": "phoneme_matcher_joint02",
+    "preflight_limit": 32,
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.45",
+    "change_class": "reference_port"
+  },
+  "metrics": {
+    "tier2_experiment_probe": "reference_port_ctc_fwd45",
+    "tier2_accuracy": 0.59375,
+    "tier2_correct": 19,
+    "tier2_samples": 32,
+    "tier2_candidate_accuracy_slice": 0.59375,
+    "tier2_champion_correct_slice": 19,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "latency_budget_score": 1.0,
+    "tier2_reports": [
+      "artifacts/tier2/tier2-20260511T185748Z.json",
+      "artifacts/tier2/tier2-20260511T190332Z.json"
+    ],
+    "surrogate_candidate_objective_slice": 0.634375,
+    "surrogate_champion_objective_slice": 0.634375,
+    "note": "Preflight Tier-2@32 probe only \u2014 candidate mirrored champion correct count; bounded controller skipped."
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment reference_port_ctc_fwd45",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}

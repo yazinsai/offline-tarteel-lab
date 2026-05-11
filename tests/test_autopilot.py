@@ -103,28 +103,29 @@ def test_plan_uses_ledger_champion_and_worst_slice(tmp_path, monkeypatch):
 
 def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
     monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
-    monkeypatch.setattr(
-        ap,
-        "read_entries",
-        lambda: [
-            {
-                "schema": "offline-tarteel.experiment_ledger.v1",
-                "run_id": f"run-fail-{i}",
-                "status": "rejected",
-                "experiment_family": "runtime.threshold_sweep.first_match",
-                "objective": 0.1,
-            }
-            for i in range(2)
-        ],
-    )
+    _mock_entries = [
+        {
+            "schema": "offline-tarteel.experiment_ledger.v1",
+            "run_id": f"run-fail-{i}",
+            "status": "rejected",
+            "experiment_family": "runtime.threshold_sweep.first_match",
+            "objective": 0.1,
+        }
+        for i in range(2)
+    ]
+    # plan() binds read_entries at import — patch the module-global, not autopilot.ap alias.
+    monkeypatch.setattr("lab_tools.autopilot.read_entries", lambda: _mock_entries)
     tq.save_state(tq.QueueState())
 
     result = ap.plan(3)
 
     assert "runtime.threshold_sweep.first_match" in result["blocked_families"]
+    assert "smoke_runtime" in result["blocked_change_classes"]
     keys = [t.payload["autopilot_key"] for t in tq.load_state().tasks]
     assert "runtime.threshold_sweep.first_match" not in keys
-    assert "runtime.chunk_window_sweep" in keys
+    # Repeated threshold failures infer `smoke_runtime` as a suppressed change-class, so seeded
+    # runtime chunk/smoke probes are skipped alongside the blocked family itself.
+    assert keys == ["model.fastconformer_phoneme_smoke", "joint.model_runtime_export_contract"]
 
 
 def _smoke_runtime_failure(i: int, param: str = "chunk_seconds") -> dict:
