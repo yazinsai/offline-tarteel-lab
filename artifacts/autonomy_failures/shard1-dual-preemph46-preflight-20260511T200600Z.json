@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T20:06:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-c36fea5e2fba",
+  "autopilot_key": "escalate.non_smoke.model_only.46.01",
+  "experiment_family": "phoneme_asr_dual_preemph46",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": -2,
+  "candidate_experiment": "phoneme_asr_dual_preemph46",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Mandatory Tier-2 preflight (--limit 32, test_corpus_v3 manifest prefix): phoneme_asr_dual_preemph46 scored 17/32 correct (53.125% acc) vs champion phoneme_matcher_joint02 19/32 (59.375%). Composite objectives (DEFAULT_WEIGHTS via lab_tools.scorer.score_metrics on slice accuracy, latency=1.0): ~0.578125 vs ~0.634375. Strict simultaneous accuracy+objective improvement gate failed; bounded controller and full corpus not run. Code reverted.",
+  "negative_memory": "Dual preemphasis blend (A1=0.97, A2=0.88, blend=0.42) on the mel frontend before the same shipped phoneme ONNX, with joint02 beam+matcher otherwise unchanged, regresses the canonical 32-prefix slice vs joint02 alone. Repeats need a different acoustic change (single optimal preemph, band-limit, or true model retrain/export), not this two-branch CMVN blend."
+}
