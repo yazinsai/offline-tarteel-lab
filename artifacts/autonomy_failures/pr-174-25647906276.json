@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T02:57:22.567707+00:00",
+  "workflow_run_id": "25647906276",
+  "pr_number": 174,
+  "title": "Autopilot offline-tarteel state: 59.375% slice tie, +0.0pp composite \u2014 shard2 model_only ASR preflight rejected",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/174",
+  "base_ref": "cursor-autonomy-base-25646452910-1",
+  "base_sha": "272bc54f6a6cd7a74bcd86785bfbe2b5a380f1a5",
+  "head_ref": "cursor/autopilot-state-shard2-preflight-2cd6",
+  "head_sha": "f29ee6f6e4b97512bd45d18a09985e84c6d6e125",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-08ef563fed58-preflight-tie-asr-decode-20260511T035500Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-08ef563fed58-20260511T035500Z.json"
+  ],
+  "blocked_file_hints": []
+}
