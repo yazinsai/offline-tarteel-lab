@@ -1,0 +1,21 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T16:27:47.037693+00:00",
+  "workflow_run_id": "25683019062",
+  "pr_number": 207,
+  "title": "Autopilot offline-tarteel state: 50.0% slice, -9.4pp vs 59.4% champion \u2014 shard1 model_only.45.03 twopass surah preflight rejection",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/207",
+  "base_ref": "main",
+  "base_sha": "e02e921c08635f3446c5447dda7894a27c3a28e0",
+  "head_ref": "cursor/twopass-surah-model-only-45-03-c29a",
+  "head_sha": "49ab6eb93c752df8d660f2bf92f36c4e5d8645a4",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-3958d3b8cf22-twopass-surah-preflight-20260511T163500Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-3958d3b8cf22-20260511T163500Z.json",
+    "tests/test_autopilot.py"
+  ],
+  "blocked_file_hints": []
+}
