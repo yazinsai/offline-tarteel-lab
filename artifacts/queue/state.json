@@ -5947,7 +5947,7 @@
     },
     {
       "id": "task-917c233756e1",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
       "payload": {
@@ -5959,12 +5959,14 @@
         "change_class": "asr_model_evidence"
       },
       "created_at": "2026-05-11T11:21:41.980291+00:00",
-      "updated_at": "2026-05-11T11:21:41.980291+00:00",
+      "updated_at": "2026-05-11T16:44:41.423903+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-115568905fe6",
@@ -5990,7 +5992,7 @@
     },
     {
       "id": "task-3958d3b8cf22",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Probe lightweight offline recognition baseline variant 03",
       "payload": {
@@ -6002,12 +6004,14 @@
         "change_class": "lightweight_audio_baseline"
       },
       "created_at": "2026-05-11T11:21:41.993161+00:00",
-      "updated_at": "2026-05-11T11:21:41.993161+00:00",
+      "updated_at": "2026-05-11T16:44:41.423936+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-f344e8bf02e1",
@@ -6108,6 +6112,135 @@
         "autopilot_backlog_trimmed"
       ],
       "notes": "Retired during autopilot guardrail merge so the active backlog stays focused on reference reproduction plus two audio/model evidence tasks."
+    },
+    {
+      "id": "task-67e1efdac2b4",
+      "status": "rejected",
+      "kind": "model_only",
+      "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "asr_model_evidence",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+        "autopilot_key": "escalate.non_smoke.model_only.46.01"
+      },
+      "created_at": "2026-05-11T16:44:41.436350+00:00",
+      "updated_at": "2026-05-11T16:52:49.060550+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "artifacts/runs/task-67e1efdac2b4-20260511T165234Z.json",
+      "judge_reasons": [
+        "preflight_strict_gate_failed",
+        "champion_slice_not_strictly_improved"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "task-5f926cb0c46f",
+      "status": "queued",
+      "kind": "model_only",
+      "title": "Probe lightweight offline recognition baseline variant 03",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "lightweight_audio_baseline",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+        "autopilot_key": "escalate.non_smoke.model_only.46.03"
+      },
+      "created_at": "2026-05-11T16:44:41.441899+00:00",
+      "updated_at": "2026-05-11T16:44:41.441899+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-6f628adddd01",
+      "status": "queued",
+      "kind": "model_only",
+      "title": "Evaluate non-smoke ASR candidate on full corpus variant 05",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "asr_model_evidence",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+        "autopilot_key": "escalate.non_smoke.model_only.46.05"
+      },
+      "created_at": "2026-05-11T16:44:41.447410+00:00",
+      "updated_at": "2026-05-11T16:44:41.447410+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-0cff5e7f18b3",
+      "status": "queued",
+      "kind": "model_only",
+      "title": "Probe lightweight offline recognition baseline variant 07",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "lightweight_audio_baseline",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+        "autopilot_key": "escalate.non_smoke.model_only.46.07"
+      },
+      "created_at": "2026-05-11T16:44:41.452687+00:00",
+      "updated_at": "2026-05-11T16:44:41.452687+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-5a3b5e3df5d6",
+      "status": "queued",
+      "kind": "model_only",
+      "title": "Evaluate non-smoke ASR candidate on full corpus variant 09",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "asr_model_evidence",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+        "autopilot_key": "escalate.non_smoke.model_only.46.09"
+      },
+      "created_at": "2026-05-11T16:44:41.458071+00:00",
+      "updated_at": "2026-05-11T16:44:41.458071+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-4ff211a03e41",
+      "status": "queued",
+      "kind": "model_only",
+      "title": "Probe lightweight offline recognition baseline variant 11",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "lightweight_audio_baseline",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+        "autopilot_key": "escalate.non_smoke.model_only.46.11"
+      },
+      "created_at": "2026-05-11T16:44:41.463512+00:00",
+      "updated_at": "2026-05-11T16:44:41.463512+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
     }
   ]
 }
