@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T04:53:59.785171+00:00",
+  "workflow_run_id": "25651055975",
+  "pr_number": 179,
+  "title": "Autopilot offline-tarteel state: 89.5%, +0.0pp \u2014 shard 3/3 step-10 FIFO block (joint_model_runtime.40.02)",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/179",
+  "base_ref": "main",
+  "base_sha": "302f75c312ed0faa9cecb5b9878d79a50cff9936",
+  "head_ref": "cursor/shard3-step10-queue-order-9bbb",
+  "head_sha": "28829adbbadf9b91ff906ea6f8112463267b34e3",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-task-3cf1b02ecad6-queue-order-20260511T045212Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-3cf1b02ecad6-20260511T045212Z.json"
+  ],
+  "blocked_file_hints": []
+}
