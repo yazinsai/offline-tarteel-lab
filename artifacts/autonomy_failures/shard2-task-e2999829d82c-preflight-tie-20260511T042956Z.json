@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T04:29:56.502614.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-e2999829d82c",
+  "autopilot_key": "escalate.non_smoke.model_only.39.01",
+  "experiment_family": "escalate.non_smoke.model_only.39.01",
+  "change_class": "preflight_tie",
+  "tier2_delta_correct": 0,
+  "reason": "Mandatory Tier-2 preflight on test_corpus_v3[:32]: ASR-side probes (wider CTC beam 11/11/7, acoustic\u00d7matcher fusion with \u03bb\u2208[0.085,0.18], logprob temperature T=0.88) each matched phoneme_matcher_joint02 at 19/32 correct (59.375% acc). Strict gate requires >19 correct and higher objective on the same slice; tie fails promotion.",
+  "negative_memory": "On slice limit 32, ONNX fastconformer phoneme q8 + joint02-class matcher: do not expect gains from beam width 11/11/7, acoustic-logp fusion rerank, or frame logprob temperature 0.88 versus joint02 defaults; re-test needs a genuinely new decode path or model change, with preflight showing >champion correct count before autonomous_loop.",
+  "run_id": "task-e2999829d82c-20260511T042956Z"
+}
