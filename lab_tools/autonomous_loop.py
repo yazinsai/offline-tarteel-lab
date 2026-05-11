@@ -363,7 +363,7 @@ def _preflight_strict_gate(
     commands: list[CommandResult],
 ) -> tuple[bool, Path | None, dict[str, Any] | None]:
     champion = _valid_full_corpus_champion(corpus)
-    champ_exp = str(((champ or {}).get("parameters") or {}).get("experiment") or "")
+    champ_exp = str(((champion or {}).get("parameters") or {}).get("experiment") or "")
     if not champion or not champ_exp or champ_exp == experiment:
         return True, None, None
 

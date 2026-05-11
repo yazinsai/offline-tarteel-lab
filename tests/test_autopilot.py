@@ -111,7 +111,9 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
                 "schema": "offline-tarteel.experiment_ledger.v1",
                 "run_id": f"run-fail-{i}",
                 "status": "rejected",
-                "experiment_family": "runtime.threshold_sweep.first_match",
+                # Use a family string that does not infer the smoke_runtime change_class; two
+                # rejected threshold_sweep entries would block chunk_window_sweep too (also smoke_runtime).
+                "experiment_family": "model.fastconformer_phoneme_smoke",
                 "objective": 0.1,
             }
             for i in range(2)
@@ -119,11 +121,11 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
     )
     tq.save_state(tq.QueueState())
 
-    result = ap.plan(3)
+    result = ap.plan(8)
 
-    assert "runtime.threshold_sweep.first_match" in result["blocked_families"]
+    assert "model.fastconformer_phoneme_smoke" in result["blocked_families"]
     keys = [t.payload["autopilot_key"] for t in tq.load_state().tasks]
-    assert "runtime.threshold_sweep.first_match" not in keys
+    assert "model.fastconformer_phoneme_smoke" not in keys
     assert "runtime.chunk_window_sweep" in keys
 
 
