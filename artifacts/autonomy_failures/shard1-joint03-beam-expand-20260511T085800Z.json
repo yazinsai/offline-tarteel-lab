@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T08:58:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-68d66ccf5e78",
+  "autopilot_key": "escalate.non_smoke.model_only.42.01",
+  "experiment_family": "phoneme_matcher_joint03.decode_beam_expand",
+  "change_class": "full_corpus_champion_objective_not_improved_after_slice_preflight_win",
+  "tier2_delta_correct": -1,
+  "candidate_experiment": "phoneme_matcher_joint03",
+  "champion_experiment_full_corpus": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "preflight_tier2_candidate_correct": 20,
+  "preflight_tier2_champion_correct": 19,
+  "full_corpus_tier2_correct": 228,
+  "full_corpus_champion_correct": 229,
+  "reason": "Mandatory slice preflight passed (20/32 vs joint02 19/32; surrogate objectives ~0.6625 vs ~0.634375), but full Tier-2 corpus (256 samples) produced 228/256 correct (89.0625%) versus ledger champion phoneme_matcher_joint02 229/256 (89.4531%). Composite candidate objective 0.901563 < champion 0.905078; bounded controller rejection champion_objective_not_improved.",
+  "negative_memory": "Do not promote shallow CTC prefix-beam widen alone (beam 10, top_symbols 11, max_hyps 6 vs joint02 6/8/4) on the same ONNX: prefix-slice gains do not transfer and full corpus loses one correct vs joint02. Next attempts need a different decode/search hypothesis (e.g. two-pass surah restrict, length-normalized hyp selection, or real model change), not another beam-width-only tick on this stack."
+}
