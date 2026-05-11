@@ -1,0 +1,24 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T12:47:07.174137+00:00",
+  "workflow_run_id": "25671014815",
+  "pr_number": 197,
+  "title": "Autopilot offline-tarteel state: 59.4% Tier-2@32, +0.0pp \u2014 hypfuse preflight tie (shard 2/3)",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/197",
+  "base_ref": "main",
+  "base_sha": "c53730bd2a47ac1ecf4f0ee6a0ae3c24ee1a67cf",
+  "head_ref": "cursor/offline-tarteel-hypfuse-acoustic-611c",
+  "head_sha": "696ec0f31c6b07e7e0c1fb03f107cfb6ef7a391e",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-917c-hypfuse-preflight-tie-20260511T124500Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-917c233756e1-20260511T124500Z.json",
+    "lab_tools/autonomous_loop.py",
+    "tests/test_autopilot.py"
+  ],
+  "blocked_file_hints": [
+    "lab_tools/autonomous_loop.py"
+  ]
+}
