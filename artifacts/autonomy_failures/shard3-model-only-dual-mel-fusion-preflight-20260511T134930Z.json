@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T13:49:55.053529+00:00",
+  "shard": "3/3",
+  "task_id": "task-cf1eb9ef8906",
+  "autopilot_key": "escalate.non_smoke.model_only.46.01",
+  "experiment_family": "escalate.non_smoke.model_only.46.01",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": -5,
+  "reason": "Tier-2 preflight limit 32 corpus test_corpus_v3: phoneme_dual_frontend_fusion_v46 14/32 correct (43.75% acc, objective 0.493750) vs champion phoneme_matcher_joint02 19/32 (59.375% acc); strict gate requires strictly greater correct, accuracy, and objective.",
+  "negative_memory": "Dual mel-hop (160+144) posterior fusion before joint02 decode+mirror matcher hurt offline slice accuracy badly (-5 correct on first 32 vs champion); ONNX expects training-matched 160-hop frontend \u2014 do not retry arbitrary hop interpolation fusion without calibration or distinct acoustic branches.",
+  "run_id": "task-cf1eb9ef8906-20260511T134930Z"
+}
