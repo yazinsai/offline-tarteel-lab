@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T14:52:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-0e459076da7b",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.45",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.45",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": -15,
+  "candidate_experiment": "reference_trie_beam_v45",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Tier-2 manifest-prefix slice (--limit 32): faithful Python port of reference phoneme-trie + trie-constrained CTC beam (inference.ts/beam-decode.ts) with beam width 12 for offline full-clip pruning (reference worker uses 8 on short windows) scored 4/32 correct (12.5%) vs champion phoneme_matcher_joint02 19/32 (59.375%). Surrogate DEFAULT_WEIGHTS objectives ~0.2125 vs ~0.634375. Strict simultaneous accuracy+objective improvement gate failed; experiment code reverted before bounded controller.",
+  "negative_memory": "Trie-only constrained CTC beam matching shipped web worker decode—even with beam 12 and ~1.7M-node span trie—does not beat joint02 unconstrained-prefix-beam+Levenshtein matcher on the canonical 32-prefix slice; replay needs different hypothesis generation (e.g. wider documented beam with CPU cap), two-pass offline procedures, or acoustic/model changes—not another matcher-only rerank atop joint02."
+}
