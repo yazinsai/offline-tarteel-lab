@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-11T00:18:12.522372+00:00",
+  "workflow_run_id": "25643791288",
+  "pr_number": 168,
+  "title": "Autopilot offline-tarteel state: 59.4%, +0.0pp \u2014 shard1 ASR decode preflight tie",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/168",
+  "base_ref": "cursor-autonomy-base-25642871411-0",
+  "base_sha": "bf60df13db7c1fadcbd774c7dc0a68400a804ad7",
+  "head_ref": "cursor/offline-tarteel-shard1-asr-preflight-tie-86d9",
+  "head_sha": "646c8f2c8421c3cd592cb8cc76ca19292f2437b1",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-6b793e7837bf-asr-decode-wide-preflight-tie-20260511T001700Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-6b793e7837bf-20260511T001637Z.json"
+  ],
+  "blocked_file_hints": []
+}
