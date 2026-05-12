@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T20:44:35.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "1/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.54",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog",
+  "negative_memory": "lab_tools.task_queue.next_queued(shard_index=1, shard_total=3) returned None while sole queued task remains task-6e323bb7e1f4 (joint_model_runtime reference_port). Ordinal 0 satisfies 0 mod 3 == 0, assigned only to shard_index=0. Autopilot smoke_runtime_plateau=true; reference_port completes on shard 0 or when backlog adds ordinals ≡1 mod 3. Per policy step 10: wrong task ordering for this shard — do not implement matcher-only probes, do not seize shard-0 work. Coordinate pre-ASR reference port elsewhere.",
+  "run_id": "shard1-no-queued-task-20260512T204435Z-base25760995217"
+}
