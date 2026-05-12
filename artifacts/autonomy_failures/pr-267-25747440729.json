@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T16:20:43.186220+00:00",
+  "workflow_run_id": "25747440729",
+  "pr_number": 267,
+  "title": "Autopilot offline-tarteel state: 59.4% Tier-2 slice, +0.0pp tie \u2014 shard2 trim/norm preflight vs joint02",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/267",
+  "base_ref": "main",
+  "base_sha": "1134dff4f7cb86ca82d459b4776a7d1fff3e6db0",
+  "head_ref": "cursor/offline-tarteel-lightweight-audio-baseline-50-03-981a",
+  "head_sha": "19f8b2e2bb8d94d9dab8f2d3196ebeb6dc4ba40d",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-707d2140d622-trimnorm-preflight-tie-20260512T162000Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-707d2140d622-20260512T162000Z.json"
+  ],
+  "blocked_file_hints": []
+}
