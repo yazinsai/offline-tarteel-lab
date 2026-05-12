@@ -80,14 +80,19 @@ def failed_change_classes(
     *,
     threshold: int = CHANGE_CLASS_FAILURE_THRESHOLD,
 ) -> set[str]:
-    counts: Counter[str] = Counter()
+    failed_families_by_class: dict[str, set[str]] = {}
     for entry in entries if entries is not None else read_entries():
         if entry.get("status") not in {"rejected", "failed", "superseded"}:
             continue
         change_class = _entry_change_class(entry)
         if change_class:
-            counts[change_class] += 1
-    return {change_class for change_class, count in counts.items() if count >= threshold}
+            family = str(entry.get("experiment_family") or entry.get("run_id") or "")
+            failed_families_by_class.setdefault(change_class, set()).add(family)
+    return {
+        change_class
+        for change_class, families in failed_families_by_class.items()
+        if len(families) >= threshold
+    }
 
 
 def _promoted_keys(entries: list[dict[str, Any]]) -> set[str]:
