@@ -117,6 +117,10 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
             for i in range(2)
         ],
     )
+    # Ledger rejects above classify into smoke_runtime via heuristic overlap ("threshold"),
+    # which would incorrectly blanket-block other unrelated runtime tasks via change-class gates.
+    # This case intends only failed-family skipping (same autopilot_key family).
+    monkeypatch.setattr(ap, "failed_change_classes", lambda entries=None: set())
     tq.save_state(tq.QueueState())
 
     result = ap.plan(3)
