@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T12:36:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-cb6f4a7eae93",
+  "autopilot_key": "escalate.non_smoke.model_only.47.01",
+  "experiment_family": "escalate.non_smoke.model_only.47.01",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": 0,
+  "candidate_experiment": "phoneme_joint_melfmax68",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Tier-2 manifest-prefix slice (--limit 32): phoneme_joint_melfmax68 scored 19/32 correct (59.375%) versus champion phoneme_matcher_joint02 19/32 (59.375%). Surrogate composite objectives match (~0.634375 with DEFAULT_WEIGHTS when alignment=precision=boundary=tier2_accuracy and latency_budget_score=1). Strict simultaneous accuracy+objective improvement gate requires strictly greater on both; tie fails. Full corpus / bounded controller not run.",
+  "negative_memory": "Mel spectrogram fmax reduction alone (8000\u21926800 Hz, PHONEME_MEL_FMAX default) on the joint02 beam+matcher stack does not improve the canonical 32-prefix slice vs champion joint02 at fixed beam params \u2014 ties at 19/32. Repeats need a different acoustic or decode hypothesis space change (e.g. preemphasis/mel shape combo with measured slice lift, larger beam with documented CPU cap, or new ASR weights), not another isolated fmax tweak on this stack."
+}
