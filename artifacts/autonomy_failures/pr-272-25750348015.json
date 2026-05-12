@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T17:15:53.257170+00:00",
+  "workflow_run_id": "25750348015",
+  "pr_number": 272,
+  "title": "Autopilot offline-tarteel state: 59.4% Tier-2 prefix tie, +0.0pp \u2014 beam-hyp fuse shard 1/3 rejection",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/272",
+  "base_ref": "cursor-autonomy-base-25749293290-0",
+  "base_sha": "c60b56ef511524d67479c325387c46be4bbca6e4",
+  "head_ref": "cursor/offline-hyp-beamfuse507-b6dc",
+  "head_sha": "e63b40ffd00f012f8096ecc75d9ff4b5193eb3d0",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-fba74e3a5bee-beamfuse-preflight-tie-20260512T171300Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-fba74e3a5bee-20260512T171205Z.json"
+  ],
+  "blocked_file_hints": []
+}
