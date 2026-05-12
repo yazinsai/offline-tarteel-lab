@@ -1,0 +1,37 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-6e323bb7e1f4-fusion54-preflight-20260512T221330Z",
+  "task_id": "task-6e323bb7e1f4",
+  "created_at_utc": "2026-05-12T22:12:39+00:00",
+  "git_sha": "f8b173ec6ec8bb0023f882d2da75109a1b31b57f",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.54",
+    "change_class": "reference_port",
+    "candidate_experiment": "reference_phoneme_v4_fusion54",
+    "champion_experiment": "phoneme_matcher_joint02",
+    "preflight_limit": 32,
+    "reference_clone": "/tmp/offline-tarteel-reference",
+    "task_note": "Reverted experiments/reference_phoneme_v4_fusion54 after Tier-2 slice gate: ported tracker.ts discovery fusion (CTC scoreCtcSequence + text/acoustic/length weights) on joint02 beam/matcher pool; no strict gain vs champion."
+  },
+  "metrics": {
+    "preflight_blocked": true,
+    "tier2_preflight_samples": 32,
+    "tier2_candidate_correct": 19,
+    "tier2_champion_correct": 19,
+    "tier2_candidate_accuracy": 0.59375,
+    "tier2_champion_accuracy": 0.59375,
+    "surrogate_objective_candidate_slice": 0.634375,
+    "surrogate_objective_champion_slice": 0.634375,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective_full_corpus": 0.905078,
+    "decision_reason": "preflight_strict_gate_failed_tie_slice"
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment reference_phoneme_v4_fusion54",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}
