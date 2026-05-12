@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T08:12:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-c6923fd11995",
+  "autopilot_key": "escalate.non_smoke.model_only.46.01",
+  "experiment_family": "escalate.non_smoke.model_only.46",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": -1,
+  "candidate_experiment": "phoneme_prep_ensemble_m46",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Tier-2 manifest-prefix slice (--limit 32): phoneme_prep_ensemble_m46 (three preemph coefficients, averaged softmax, then identical joint02 beam+mirror matcher) scored 18/32 correct (56.25%) vs champion phoneme_matcher_joint02 19/32 (59.375%). Canonical composite surrogates on slice: ~0.60625 vs ~0.634375 (DEFAULT_WEIGHTS). Strict simultaneous correct-count / accuracy / objective improvement gate failed; full corpus controller not run.",
+  "negative_memory": "Test-time averaging of ONNX posteriors over small preemphasis coeff spread {0.955, 0.97, 0.985} atop the phoneme_matcher_joint02-equivalent decoder+mirror matcher does NOT beat joint02 on the fixed 32-prefix slice; stacking more softmax-only ensembles without different features/training repeats this plateau. Prefer new acoustic features, RNNT/attention outputs, Modal-trained checkpoints, or two-pass decode with documented caps."
+}
