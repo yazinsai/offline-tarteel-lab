@@ -103,6 +103,10 @@ def test_plan_uses_ledger_champion_and_worst_slice(tmp_path, monkeypatch):
 
 def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
     monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
+    # Rejected rows reuse the static candidate key as experiment_family; that string matches the
+    # smoke_runtime change-class heuristic ("threshold"). Isolate family blocking from class blocking
+    # so chunk_window_sweep remains eligible in this scenario.
+    monkeypatch.setattr(ap, "failed_change_classes", lambda entries=None, threshold=2: set())
     monkeypatch.setattr(
         ap,
         "read_entries",
