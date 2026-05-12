@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T22:23:45.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "2/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.54",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.54",
+  "negative_memory": "Bounded autonomy cycle (shard-index=1, shard-total=3): next_queued returned None — FIFO ordinal 0 for task-6e323bb7e1f4 is claimed exclusively by shard 1/3 (0 mod 3). Shard 2/3 idle; do not substitute matcher-only probes or smoke reruns. smoke_runtime_plateau=true; unblock by completing reference_port on shard 1/3 and registering a real audio-driven experiment per payload—not filename-order tricks.",
+  "run_id": "shard2-no-queued-task-20260512T222345Z-autonomy-25765621022"
+}
