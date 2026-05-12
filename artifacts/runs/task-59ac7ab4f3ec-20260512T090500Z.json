@@ -1,0 +1,63 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-59ac7ab4f3ec-20260512T090500Z",
+  "task_id": "task-59ac7ab4f3ec",
+  "created_at_utc": "2026-05-12T09:05:00.000000+00:00",
+  "git_sha": "05aee037624d23a1b45e4eeaf707e7b0991d42e7",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "reference_repo": "../offline-tarteel",
+    "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+    "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+    "target_corpus": "test_corpus_v3",
+    "target_correct_range": [
+      223,
+      225
+    ],
+    "target_recall": 0.893,
+    "min_accuracy": 0.8,
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.46",
+    "experiment": "phoneme_joint02_hyp_acoustic_rank_v46",
+    "candidate_description": "Reverted after preflight — forward CTC score (web/frontend/src/lib/ctc-rescore.ts) used only to reorder joint02 beam hypotheses (no discovery fusion).",
+    "corpus": "test_corpus_v3",
+    "full_corpus_gate": true,
+    "agent_instructions": "(see queued task baseline.reference_shipped_fastconformer_v4_tlog.46)",
+    "change_class": "reference_ctc_rescore_hyp_rank"
+  },
+  "metrics": {
+    "tier2_experiment": "phoneme_joint02_hyp_acoustic_rank_v46",
+    "tier2_correct": 19,
+    "tier2_samples": 32,
+    "tier2_sample_limit": 32,
+    "tier2_accuracy": 0.59375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "latency_budget_score": 1.0,
+    "candidate_preflight_objective_surrogate": 0.634375,
+    "preflight_champion_experiment": "phoneme_matcher_joint02",
+    "preflight_champion_correct": 19,
+    "preflight_champion_accuracy_slice": 0.59375,
+    "preflight_champion_objective_surrogate_slice": 0.634375,
+    "tier2_evaluation_only_preflight_stop": true,
+    "tier2_evaluation_rejection_reason": "champion_slice_tie_strict_gate_failed",
+    "requires_champion_improvement": true,
+    "champion_run_id_for_gate": "task-0aa3b7531952-20260510T033442Z",
+    "champion_full_corpus_objective": 0.905078,
+    "tier2_failures": 0,
+    "shard": "1/3",
+    "shard_index": 0,
+    "shard_total": 3
+  },
+  "tier_completed": [
+    2
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_joint02_hyp_acoustic_rank_v46",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}

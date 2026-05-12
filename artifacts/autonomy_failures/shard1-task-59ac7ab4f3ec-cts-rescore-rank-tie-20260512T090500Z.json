@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T09:05:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-59ac7ab4f3ec",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.46",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.46",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": 0,
+  "candidate_experiment": "phoneme_joint02_hyp_acoustic_rank_v46",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Tier-2 manifest-prefix slice (--limit 32): candidate phoneme_joint02_hyp_acoustic_rank_v46 (reference ctc-rescore.ts acoustic-only reordering of beam hypotheses before matcher) ties champion phoneme_matcher_joint02 at 19/32 correct (59.375%); surrogate composite tied at ~0.634375 vs ~0.634375 using DEFAULT_WEIGHTS on slice. Strict simultaneous accuracy+objective improvement gate fails (tie). No full corpus run or bounded autonomous_loop.",
+  "negative_memory": "Pure acoustic CTC forward rescore + longest-within-band ordering of the same prefix-beam hypotheses as joint02 ties joint02 on the canonical 32-prefix slice — hypothesis reorder alone does not unlock gains. Needs different RN trie/QuranDB discovery port, materially wider beam/top-k with capped wall time, or ASR/modality change — not repeat of same-beam reorder-only probes atop joint02."
+}
