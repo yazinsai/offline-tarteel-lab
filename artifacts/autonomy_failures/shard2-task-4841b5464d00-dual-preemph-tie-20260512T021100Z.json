@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T02:11:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-4841b5464d00",
+  "autopilot_key": "escalate.non_smoke.model_only.46.01",
+  "experiment_family": "phoneme_asr_dual_preemph_fusion_46",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "reason": "Tier-2 preflight limit 32 on test_corpus_v3: candidate phoneme_asr_dual_preemph_fusion_46 (two acoustic preemph branches 0.97/0.85, log-average logprobs, same joint02 beam/matcher) tied champion phoneme_matcher_joint02 at 19/32 correct (59.375% accuracy). Surrogate slice objective 0.634375 both sides (0.9*acc+0.1). Strict gate requires strictly greater correct count and objective; tie => champion_objective_not_improved.",
+  "negative_memory": "Do not retry dual-preemph log-average fusion on the same shipped phoneme_q8 ONNX as the sole delta vs phoneme_matcher_joint02 without a different acoustic or model path (e.g. new front-end bands, separate checkpoint, or reference v4-tlog port complete); 19/32 slice ties baseline joint02.",
+  "run_id": "task-4841b5464d00-20260512T021100Z"
+}

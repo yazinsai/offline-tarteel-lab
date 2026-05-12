@@ -1,0 +1,53 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-4841b5464d00-20260512T021100Z",
+  "task_id": "task-4841b5464d00",
+  "created_at_utc": "2026-05-12T02:11:00.000000+00:00",
+  "git_sha": "afa1be02cb04465956c0d22dfa51e2d161ddf02c",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "model_only",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "change_class": "asr_model_evidence",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+    "autopilot_key": "escalate.non_smoke.model_only.46.01",
+    "experiment_probe": "phoneme_asr_dual_preemph_fusion_46",
+    "preflight_note": "Dual ONNX forward on mel from preemph 0.97 vs 0.85, log-average log-probs before joint02-identical decode/matcher; experiment directory removed after strict preflight tie vs phoneme_matcher_joint02 on first-32 samples.",
+    "corpus": "test_corpus_v3",
+    "shard": "2/3"
+  },
+  "metrics": {
+    "tier2_accuracy": 0.59375,
+    "tier2_correct": 19,
+    "tier2_samples": 32,
+    "tier2_manifest_samples": 256,
+    "tier2_sample_limit": 32,
+    "preflight_candidate_experiment": "phoneme_asr_dual_preemph_fusion_46",
+    "preflight_champion_experiment": "phoneme_matcher_joint02",
+    "preflight_candidate_correct": 19,
+    "preflight_champion_correct": 19,
+    "preflight_candidate_accuracy": 0.59375,
+    "preflight_champion_accuracy": 0.59375,
+    "champion_slice_correct": 19,
+    "champion_slice_accuracy": 0.59375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "latency_budget_score": 1.0,
+    "requires_champion_improvement": true,
+    "candidate_objective": 0.634375,
+    "champion_objective_slice_surrogate": 0.634375,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_full_corpus_objective": 0.905078
+  },
+  "tier_completed": [
+    2
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_asr_dual_preemph_fusion_46",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}

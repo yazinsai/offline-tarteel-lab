@@ -113,6 +113,10 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
                 "status": "rejected",
                 "experiment_family": "runtime.threshold_sweep.first_match",
                 "objective": 0.1,
+                "parameters": {
+                    "autopilot_key": "runtime.threshold_sweep.first_match",
+                    "change_class": "first_match_threshold_ablation",
+                },
             }
             for i in range(2)
         ],
