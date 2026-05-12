@@ -1,0 +1,23 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T07:47:00.000000+00:00",
+  "reason": "wrong_task_ordering_smoke_runtime_plateau",
+  "shard": "3/3",
+  "task_id": "task-d271cc87a224",
+  "autopilot_key": "escalate.non_smoke.model_only.46.03",
+  "change_class": "policy_block_before_preflight",
+  "tier2_delta_correct": null,
+  "experiment_family": "escalate.non_smoke.model_only.46.03",
+  "dependency_gate": {
+    "queued_before": [
+      "task-59ac7ab4f3ec",
+      "task-3423ba8da397"
+    ],
+    "keys": [
+      "baseline.reference_shipped_fastconformer_v4_tlog.46",
+      "escalate.non_smoke.model_only.46.01"
+    ]
+  },
+  "negative_memory": "With smoke_runtime_plateau=true, shard 3/3 must not execute escalate.non_smoke.model_only.46.03 while baseline.reference_shipped_fastconformer_v4_tlog.46 (task-59ac7ab4f3ec, reference_repo_url port) and escalate.non_smoke.model_only.46.01 (task-3423ba8da397) remain ahead in FIFO; finish reference port + 46.01 before later 46.x model_only probes.",
+  "run_id": "task-d271cc87a224-20260512T074700Z"
+}
