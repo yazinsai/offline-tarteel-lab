@@ -112,6 +112,9 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
                 "run_id": f"run-fail-{i}",
                 "status": "rejected",
                 "experiment_family": "runtime.threshold_sweep.first_match",
+                # Explicit class avoids counting these as smoke_runtime plateau failures, which
+                # would block every runtime.* static candidate via change_class_for_payload.
+                "parameters": {"change_class": "ledger_fixture_rejection"},
                 "objective": 0.1,
             }
             for i in range(2)
@@ -122,6 +125,7 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
     result = ap.plan(3)
 
     assert "runtime.threshold_sweep.first_match" in result["blocked_families"]
+    assert "ledger_fixture_rejection" in result["blocked_change_classes"]
     keys = [t.payload["autopilot_key"] for t in tq.load_state().tasks]
     assert "runtime.threshold_sweep.first_match" not in keys
     assert "runtime.chunk_window_sweep" in keys
