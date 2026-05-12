@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T13:31:16.121272+00:00",
+  "workflow_run_id": "25737759409",
+  "pr_number": 262,
+  "title": "Autopilot offline-tarteel state: 56.3%, \u22123.1pp \u2014 shard 3/3 lightweight HPSS baseline 49.03",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/262",
+  "base_ref": "cursor-autonomy-base-25736515723-2",
+  "base_sha": "e1650409704c1fc6dc750b2bf564be8e835f326b",
+  "head_ref": "cursor/offline-autonomy-shard3-hpss-4903-4d4b",
+  "head_sha": "0cabcc7bbf2e53115fb534c58321c31fa2d182f0",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-task-ea045d5b6ec8-hpss-preflight-20260512T132923Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-ea045d5b6ec8-20260512T132923Z.json"
+  ],
+  "blocked_file_hints": []
+}
