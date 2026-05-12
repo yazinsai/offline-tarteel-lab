@@ -113,6 +113,9 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
                 "status": "rejected",
                 "experiment_family": "runtime.threshold_sweep.first_match",
                 "objective": 0.1,
+                # Explicit change_class avoids inferring smoke_runtime from the family/key substring
+                # "threshold", which would block all smoke-style runtime candidates before chunk_window.
+                "parameters": {"change_class": "ledger_synthetic_failure_family"},
             }
             for i in range(2)
         ],

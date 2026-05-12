@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T02:34:17.000000+00:00",
+  "reason": "preflight_strict_gate_failed",
+  "shard": "3/3",
+  "task_id": "task-70a995bb189f",
+  "autopilot_key": "escalate.non_smoke.model_only.47.03",
+  "experiment_family": "escalate.non_smoke.model_only.47.03",
+  "change_class": "lightweight_audio_baseline",
+  "tier2_delta_correct": 0,
+  "run_id": "task-70a995bb189f-20260512T023417Z",
+  "negative_memory": "lightweight_audio_baseline_47_03: joint02 + logprob temperature sharpen 0.88 + beam 8/top-symbols 9/5 hyps tied phoneme_matcher_joint02 on test_corpus_v3 Tier-2 preflight head slice (limit 32): 19/32 correct each, ~59.38% acc, composite objective ~0.634 on that slice. Strict preflight requires cand_correct > champ_correct; tie fails. Block repeat decode-only temp/beam wrappers on same ONNX unless new acoustic evidence (Modal ASR, reference port, or model swap) lands first."
+}
