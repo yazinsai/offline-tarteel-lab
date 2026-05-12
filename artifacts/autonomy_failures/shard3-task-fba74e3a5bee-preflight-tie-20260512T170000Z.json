@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T17:00:00.000000+00:00",
+  "reason": "preflight_strict_gate_failed",
+  "shard": "3/3",
+  "task_id": "task-fba74e3a5bee",
+  "autopilot_key": "escalate.non_smoke.model_only.50.07",
+  "change_class": "lightweight_audio_baseline",
+  "tier2_delta_correct": 0,
+  "experiment_family": "escalate.non_smoke.model_only.50.07",
+  "negative_memory": "\u002250.07\u0022 phoneme_lightweight_nf07: quantile mel noise-floor (0.085/0.48) tied champion phoneme_matcher_joint02 on test_corpus_v3 first-32 (19/32; slice surrogate objective ~0.634). Median floor, dual-ONNX logprob fusion, floor grid {q,scale}, and wider CTC beam (8\u201310/top-symbols 12) did not yield strictly greater correct count. Do not re-queue floor+beam-only re-tunes expecting slice strict-beating joint02 without new ASR evidence or reference-port dependency.",
+  "run_id": "task-fba74e3a5bee-20260512T170000Z"
+}

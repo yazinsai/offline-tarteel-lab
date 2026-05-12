@@ -6341,7 +6341,7 @@
     },
     {
       "id": "task-77fee1ba643b",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
       "payload": {
@@ -6353,12 +6353,14 @@
         "autopilot_key": "escalate.non_smoke.model_only.48.01"
       },
       "created_at": "2026-05-12T09:49:20.247192+00:00",
-      "updated_at": "2026-05-12T09:49:20.247192+00:00",
+      "updated_at": "2026-05-12T16:06:21.758884+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-ea045d5b6ec8",
@@ -6383,7 +6385,7 @@
     },
     {
       "id": "task-a7fe29a06488",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
       "payload": {
@@ -6404,12 +6406,14 @@
         "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.50"
       },
       "created_at": "2026-05-12T11:33:16.815079+00:00",
-      "updated_at": "2026-05-12T11:33:16.815079+00:00",
+      "updated_at": "2026-05-12T16:06:21.758906+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-707d2140d622",
@@ -6434,7 +6438,7 @@
     },
     {
       "id": "task-fba74e3a5bee",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Probe lightweight offline recognition baseline variant 07",
       "payload": {
@@ -6446,7 +6450,40 @@
         "autopilot_key": "escalate.non_smoke.model_only.50.07"
       },
       "created_at": "2026-05-12T11:33:16.826141+00:00",
-      "updated_at": "2026-05-12T11:33:16.826141+00:00",
+      "updated_at": "2026-05-12T17:00:00.000000+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "artifacts/runs/task-fba74e3a5bee-20260512T170000Z.json",
+      "judge_reasons": [
+        "preflight_strict_gate_failed",
+        "champion_slice_not_strictly_improved"
+      ],
+      "notes": "Shard 3/3: Tier-2 preflight test_corpus_v3 --limit 32 tried phoneme_lightweight_nf07 (quantile mel noise-floor 0.085/0.48 + beam 10/top-symbols 12/max-hyps 6); candidate 19/32 vs champion phoneme_matcher_joint02 19/32 (slice accuracy tie 0.59375; surrogate objective tie ~0.634). Fusion/median-floor/parameter retries did not exceed champion. Experiment directory removed; strict gate failed."
+    },
+    {
+      "id": "task-b38b26c70136",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "reference_port",
+        "plateau_failures": 18,
+        "reference_repo": "../offline-tarteel",
+        "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+        "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+        "target_corpus": "test_corpus_v3",
+        "target_correct_range": [
+          223,
+          225
+        ],
+        "target_recall": 0.893,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.53"
+      },
+      "created_at": "2026-05-12T16:06:21.769944+00:00",
+      "updated_at": "2026-05-12T16:06:21.769944+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
