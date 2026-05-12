@@ -1,0 +1,48 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-77fee1ba643b-20260512T123700Z",
+  "task_id": "task-77fee1ba643b",
+  "created_at_utc": "2026-05-12T12:35:27.427750+00:00",
+  "git_sha": "46fd035e5cc52b0e7d8f3e38d2a7fc4e4476f809",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "model_only",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "change_class": "asr_model_evidence",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+    "autopilot_key": "escalate.non_smoke.model_only.48.01",
+    "candidate_probe": "phoneme_dualmel_fusion_48 (reverted): dual mel fmax/HTK views, logprob fusion, joint02 beam/matcher"
+  },
+  "metrics": {
+    "tier1_passed": null,
+    "tier1_total": null,
+    "preflight_limit": 32,
+    "preflight_candidate_experiment": "phoneme_dualmel_fusion_48",
+    "preflight_champion_experiment": "phoneme_matcher_joint02",
+    "preflight_candidate_correct": 19,
+    "preflight_champion_correct": 19,
+    "preflight_candidate_accuracy": 0.59375,
+    "preflight_champion_accuracy": 0.59375,
+    "candidate_objective_proxy": 0.634375,
+    "champion_objective_proxy": 0.634375,
+    "requires_full_corpus_gate": true,
+    "requires_champion_improvement": true,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "tier2_accuracy": 0.59375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "tier2_correct": 19,
+    "tier2_samples": 32,
+    "latency_budget_score": 1.0
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_dualmel_fusion_48",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}

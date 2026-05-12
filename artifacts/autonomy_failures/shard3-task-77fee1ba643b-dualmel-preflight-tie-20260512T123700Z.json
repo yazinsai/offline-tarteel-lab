@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T12:37:00.000000+00:00",
+  "reason": "preflight_strict_gate_failed",
+  "shard": "3/3",
+  "task_id": "task-77fee1ba643b",
+  "autopilot_key": "escalate.non_smoke.model_only.48.01",
+  "change_class": "asr_model_evidence",
+  "tier2_delta_correct": 0,
+  "experiment_family": "escalate.non_smoke.model_only.48.01",
+  "negative_memory": "Dual-view mel ASR (joint02 stack, ONNX×2: primary fmax=8000 HTK + secondary fmax=7200 HTK off, logaddexp−log2 fusion per frame) on test_corpus_v3 first-32: 19/32 vs champion phoneme_matcher_joint02 19/32 — tie (59.375% each); slice objective proxy ~0.634 tie. Do not retry same dual-view fusion expecting strict promotion vs joint02 without different acoustic views or new weights.",
+  "run_id": "task-77fee1ba643b-20260512T123700Z"
+}
