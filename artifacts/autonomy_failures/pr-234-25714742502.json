@@ -1,0 +1,21 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T05:10:31.118619+00:00",
+  "workflow_run_id": "25714742502",
+  "pr_number": 234,
+  "title": "Autopilot offline-tarteel state: 88.7%, -0.78pp \u2014 shard 3/3 dual preemph probe rejected on full v3",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/234",
+  "base_ref": "main",
+  "base_sha": "3af8b61d3e82a8e5bf8d7fd835f4166819e9d173",
+  "head_ref": "cursor/lightweight-dual-preemph-46-03-57ad",
+  "head_sha": "6ec91b0f527149ec04c52f671112f7b1c46d29e8",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-task-b32589e3e4b9-dualpreemph-slice-win-fullcorpus-loss-20260512T050130Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-b32589e3e4b9-20260512T050130Z.json",
+    "tests/test_autopilot.py"
+  ],
+  "blocked_file_hints": []
+}
