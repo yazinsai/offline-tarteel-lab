@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T20:44:42.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "3/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.54",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog",
+  "negative_memory": "Bounded cycle shard-index=2, shard_total=3: sole queued joint_model_runtime reference_port task task-6e323bb7e1f4 sits at queue ordinal 0 (0 mod 3 == 0), so only shard 1/3 receives it via next_queued. Autopilot smoke_runtime_plateau=true; baseline.reference_shipped_fastconformer_v4_tlog.54 must finish on shard 1 before shard 3 should attempt matcher-heavy joint work or clone.reference smoke. autonomous_loop exited with no queued tasks for this shard. Do not implement matcher-only probes from shard 3/3.",
+  "run_id": "shard3-no-queued-task-20260512T204442Z-25760995217"
+}
