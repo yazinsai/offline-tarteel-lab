@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T18:00:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-5b5521b732d1",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.53",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.53",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": 0,
+  "candidate_experiment": "reference_v4_tlog_rescore53",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Tier-2 slice --limit 32: candidate 19/32 correct (59.375%) vs champion 19/32 (59.375%); surrogate objectives ~0.6344 each \u2014 strict simultaneous strict-greater gate failed (tie).",
+  "negative_memory": "TS-aligned CTC rescoring (chooseLongestStablePrefix over prefix-beam labelings, then joint02 matcher) ties phoneme_matcher_joint02 on the canonical 32-prefix; do not re-queue this exact decode-selection path. Any reference-port follow-up must change matcher inputs (different hypotheses set), tracker-stage fusion, or acoustic front-end/model evidence\u2014not matcher-only reranks on the same beam pool."
+}
