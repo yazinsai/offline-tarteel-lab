@@ -6498,7 +6498,7 @@
     },
     {
       "id": "task-6e323bb7e1f4",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
       "payload": {
@@ -6519,12 +6519,15 @@
         "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.54"
       },
       "created_at": "2026-05-12T18:28:36.428899+00:00",
-      "updated_at": "2026-05-12T22:50:24.780000+00:00",
+      "updated_at": "2026-05-12T23:30:58.369196+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
-      "notes": "Queue routing (2026-05-12): sole queued task sits at ordinal 0, so shard 3/3 (shard-index=2) sees no work via next_queued. Autopilot smoke_runtime_plateau=true; this reference_port (baseline.reference_shipped_fastconformer_v4_tlog.54) remains the dependency path before additional joint_model_runtime probes on other shards. See artifacts/autonomy_failures/shard3-no-queued-task-20260512T200134Z-25758816625.json | shard3 bounded cycle 2026-05-12T20:44:42Z: reiterated idle shard; autonomy artifact shard3-no-queued-task-20260512T204442Z-25760995217.json. | 2026-05-12T21:17:52Z bounded cycle: shard3-no-queued-task-20260512T211752Z-25762633826.json | 2026-05-12T21:50:45Z bounded cycle shard 2/3: idle; artifacts/autonomy_failures/shard2-no-queued-task-20260512T215045Z-queue-routing-25764215298.json | 2026-05-12T22:22:47Z bounded cycle: shard3 idle; artifacts/runs/shard3-no-queued-task-20260512T222247Z.json + artifacts/autonomy_failures/shard3-no-queued-task-20260512T222247Z-e1b6.json | 2026-05-12T22:50:24Z bounded cycle (Cursor Cloud shard 3/3): no selected task via next_queued(2,3); autonomy_failures shard3-no-queued-task-20260512T225024Z-bcca.json; ledger run shard3-no-queued-task-20260512T225024Z"
+      "run_record_path": "artifacts/runs/task-6e323bb7e1f4-20260512T232916Z.json",
+      "judge_reasons": [
+        "preflight_strict_gate_failed",
+        "champion_slice_not_strictly_improved"
+      ],
+      "notes": "Queue routing (2026-05-12): sole queued task sits at ordinal 0, so shard 3/3 (shard-index=2) sees no work via next_queued. Autopilot smoke_runtime_plateau=true; this reference_port (baseline.reference_shipped_fastconformer_v4_tlog.54) remains the dependency path before additional joint_model_runtime probes on other shards. See artifacts/autonomy_failures/shard3-no-queued-task-20260512T200134Z-25758816625.json | shard3 bounded cycle 2026-05-12T20:44:42Z: reiterated idle shard; autonomy artifact shard3-no-queued-task-20260512T204442Z-25760995217.json. | 2026-05-12T21:17:52Z bounded cycle: shard3-no-queued-task-20260512T211752Z-25762633826.json | 2026-05-12T21:50:45Z bounded cycle shard 2/3: idle; artifacts/autonomy_failures/shard2-no-queued-task-20260512T215045Z-queue-routing-25764215298.json | 2026-05-12T22:22:47Z bounded cycle: shard3 idle; artifacts/runs/shard3-no-queued-task-20260512T222247Z.json + artifacts/autonomy_failures/shard3-no-queued-task-20260512T222247Z-e1b6.json | 2026-05-12T22:50:24Z bounded cycle (Cursor Cloud shard 3/3): no selected task via next_queued(2,3); autonomy_failures shard3-no-queued-task-20260512T225024Z-bcca.json; ledger run shard3-no-queued-task-20260512T225024Z | 2026-05-12T23:20:34Z bounded autonomy shard 1/3 (shard-index=0): set payload.experiment=reference_tracker_v4_tlog (offline surrogate for types.ts DISCOVERY_* budgets); clone verified under /tmp/offline-tarteel-reference. | 2026-05-12T23:30:58Z preflight rejected (reference_tracker_v4_tlog DISCOVERY_* offline surrogate vs phoneme_matcher_joint02): 14/32 vs 19/32 correct on same tier2 slice (--limit 32); experiment folder removed."
     }
   ]
 }

@@ -1,0 +1,58 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-6e323bb7e1f4-20260512T232916Z",
+  "task_id": "task-6e323bb7e1f4",
+  "created_at_utc": "2026-05-12T23:29:16.000000+00:00",
+  "git_sha": "7eb1b36a1d10e793fc56e3725581c07c911f170b",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "change_class": "reference_port",
+    "plateau_failures": 18,
+    "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+    "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+    "target_corpus": "test_corpus_v3",
+    "target_correct_range": [
+      223,
+      225
+    ],
+    "target_recall": 0.893,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior.",
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.54",
+    "experiment_probe": "reference_tracker_v4_tlog",
+    "reference_clone_used": "/tmp/offline-tarteel-reference",
+    "full_corpus_gate": true,
+    "corpus": "test_corpus_v3"
+  },
+  "metrics": {
+    "preflight_limit": 32,
+    "preflight_candidate_experiment": "reference_tracker_v4_tlog",
+    "preflight_champion_experiment": "phoneme_matcher_joint02",
+    "preflight_candidate_correct": 14,
+    "preflight_champion_correct": 19,
+    "preflight_candidate_accuracy": 0.4375,
+    "preflight_champion_accuracy": 0.59375,
+    "tier2_accuracy": 0.4375,
+    "streaming_alignment_accuracy": 0.4375,
+    "correction_precision": 0.4375,
+    "verse_boundary_f1": 0.4375,
+    "latency_budget_score": 1.0,
+    "candidate_objective": 0.49375,
+    "champion_objective_slice_surrogate": 0.634375,
+    "requires_full_corpus_gate": true,
+    "requires_champion_improvement": true,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "note": "Probe dropped before autonomous_loop tier2 limit 0: TS discovery budgets (DISCOVERY_TOP_SINGLE_CANDIDATES=64 / TOP_SURAHS=5 / MAX_SPAN=4 from types.ts) mapped onto greedy batch matcher is not a valid offline substitute for tracker.ts + CTC fusion; slice correct 14 vs champion 19; objective 0.4938 vs slice surrogate 0.6344. Experiment directory reverted.",
+    "preflight_candidate_tier2_report": "artifacts/tier2/tier2-20260512T232240Z.json",
+    "preflight_champion_tier2_report": "artifacts/tier2/tier2-20260512T232844Z.json"
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment reference_tracker_v4_tlog",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}
