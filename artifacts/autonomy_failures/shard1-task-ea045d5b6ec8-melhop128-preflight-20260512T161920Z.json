@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T16:19:20.526631+00:00",
+  "shard": "1/3",
+  "task_id": "task-ea045d5b6ec8",
+  "autopilot_key": "escalate.non_smoke.model_only.49.03",
+  "experiment_family": "escalate.non_smoke.model_only.49.03",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": -7,
+  "candidate_experiment": "lightweight_melhop128_4903",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Tier-2 slice --limit 32: mel hop_length reduction 160\u2192128 yielded 12/32 correct vs champion 19/32; objectives ~0.4375 vs ~0.6344 \u2014 strict simultaneous gate failed.",
+  "negative_memory": "Do not retry finer mel hop (128) or ad-hoc STFT stride tweaks on top of shipped fastconformer_phoneme_q8 while keeping per-bin temporal CMVN; ONNX was trained at hop 160 equivalence and naive resampling destroys accuracy."
+}
