@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T12:38:10.787742+00:00",
+  "workflow_run_id": "25734847345",
+  "pr_number": 258,
+  "title": "Autopilot offline-tarteel state: Tier-2 @59.375%, tie +0.0pp \u2014 shard1 mel-fmax ASR probe (task-cb6f4a7eae93)",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/258",
+  "base_ref": "main",
+  "base_sha": "c16435e49573c4f488b8d28432ac483659b6748f",
+  "head_ref": "cursor/offline-tarteel-asr-melfmax-6070",
+  "head_sha": "e67f37b84af884c8bd1b7b54ad43100eb7623fd7",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-cb6f4a7eae93-melfmax68-preflight-20260512T123600Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-cb6f4a7eae93-preflight-20260512T123600Z.json"
+  ],
+  "blocked_file_hints": []
+}
