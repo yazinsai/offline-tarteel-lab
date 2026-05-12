@@ -1,0 +1,36 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "shard2-no-queued-task-20260512T204659Z",
+  "task_id": null,
+  "created_at_utc": "2026-05-12T20:46:59.000000+00:00",
+  "git_sha": "a0ec56b7de5805602ca6175eebbcc46237a39fee",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "shard": "2/3",
+    "shard_index": 1,
+    "shard_total": 3,
+    "policy": "evaluate_only_task_selected_by_shard",
+    "only_queued_task_id": "task-6e323bb7e1f4",
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.54",
+    "only_queued_autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.54",
+    "autopilot_smoke_runtime_plateau": true,
+    "blocked_family": "smoke_runtime_plateau"
+  },
+  "metrics": {
+    "blocked_before_eval": true,
+    "no_queued_task_for_shard": true,
+    "queue_ordinal_for_sole_queued": 0,
+    "ordinal_mod_shard_total": 0,
+    "assigned_shard_for_sole_task": "1/3",
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "champion_experiment": "phoneme_matcher_joint02",
+    "champion_tier2_accuracy": 0.89453125
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "[blocked] shard 2/3 (index 1): next_queued returned None — sole queued item task-6e323bb7e1f4 (reference_port baseline.reference_shipped_fastconformer_v4_tlog.54, smoke_runtime_plateau) maps to ordinal 0 -> shard 1/3 only; no Tier-2 preflight, no matcher-only substitution per queue policy steps 10/9."
+  ]
+}
