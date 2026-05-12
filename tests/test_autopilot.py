@@ -124,7 +124,9 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
     assert "runtime.threshold_sweep.first_match" in result["blocked_families"]
     keys = [t.payload["autopilot_key"] for t in tq.load_state().tasks]
     assert "runtime.threshold_sweep.first_match" not in keys
-    assert "runtime.chunk_window_sweep" in keys
+    assert len(keys) == 2
+    assert "model.fastconformer_phoneme_smoke" in keys
+    assert "joint.model_runtime_export_contract" in keys
 
 
 def _smoke_runtime_failure(i: int, param: str = "chunk_seconds") -> dict:

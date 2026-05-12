@@ -1,0 +1,46 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-260c118b5afe-20260512T064455Z",
+  "task_id": "task-260c118b5afe",
+  "created_at_utc": "2026-05-12T06:44:55.000000+00:00",
+  "git_sha": "e615fa4df549918621366a7ee7e30606dbba6c98",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "model_only",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+    "autopilot_key": "escalate.non_smoke.model_only.46.03",
+    "change_class": "lightweight_audio_baseline",
+    "experiment_probe": "lightweight_audio_baseline_46_03",
+    "preflight_note": "ASR-side probes: (1) dual preemph logit-fuse 0.97/0.865 and fmax 8k/7.2k → 18/32; (2) RMS target-level 0.058 single-path tie 19/32 vs champion; sweeps 0.045–0.072 did not exceed 19; (3) HPSS harmonic logit-fuse → 15/32. Candidate experiment directory removed after strict preflight failure (no code promoted).",
+    "champion_experiment_slice": "phoneme_matcher_joint02",
+    "preflight_limit": 32,
+    "preflight_candidate_correct": 19,
+    "preflight_champion_correct": 19
+  },
+  "metrics": {
+    "tier2_accuracy": 0.59375,
+    "tier2_correct": 19,
+    "tier2_samples": 32,
+    "tier2_manifest_samples": 256,
+    "tier2_sample_limit": 32,
+    "champion_slice_correct": 19,
+    "champion_slice_accuracy": 0.59375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "latency_budget_score": 1.0,
+    "requires_full_corpus_gate": true,
+    "requires_champion_improvement": true,
+    "candidate_objective": 0.634375,
+    "champion_objective": 0.634375
+  },
+  "tier_completed": [2],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment lightweight_audio_baseline_46_03",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}
