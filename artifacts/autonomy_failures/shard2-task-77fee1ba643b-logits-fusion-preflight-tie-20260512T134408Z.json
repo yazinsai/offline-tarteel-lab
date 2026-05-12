@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T13:44:08.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-77fee1ba643b",
+  "autopilot_key": "escalate.non_smoke.model_only.48.01",
+  "experiment_family": "phoneme_joint_logits_rescore",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "reason": "Tier-2 preflight (--limit 32, test_corpus_v3): phoneme_joint_logits_rescore tied champion phoneme_matcher_joint02 at 19/32 correct; slice accuracy 59.375% each; surrogate composite (0.9*acc+0.1*latency_budget) 0.634375 each. Strict gate requires strictly greater correct count and objective on the fixed prefix; tie fails (champion_objective_not_improved on slice). Candidate code reverted (experiments/phoneme_joint_logits_rescore removed).",
+  "negative_memory": "Do not retry marginal within-clip z-scored logits + matcher fusion for hypothesis pick on top of joint02 beam/matcher without new ONNX/training or a materially different decode graph; first-32 slice tied 19/19 vs joint02 (PHONEME_ACOUSTIC_FUSE_W=0.35). training/train_fastconformer_phoneme_modal.py is still a print-only placeholder\u2014no Modal artifact to evaluate.",
+  "run_id": "task-77fee1ba643b-20260512T134408Z"
+}

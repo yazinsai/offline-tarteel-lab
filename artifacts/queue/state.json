@@ -6338,7 +6338,7 @@
     },
     {
       "id": "task-77fee1ba643b",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
       "payload": {
@@ -6350,10 +6350,10 @@
         "autopilot_key": "escalate.non_smoke.model_only.48.01"
       },
       "created_at": "2026-05-12T09:49:20.247192+00:00",
-      "updated_at": "2026-05-12T09:49:20.247192+00:00",
+      "updated_at": "2026-05-12T13:44:35.303214+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
+      "run_record_path": "artifacts/runs/task-77fee1ba643b-20260512T134408Z.json",
       "judge_reasons": null,
       "notes": ""
     },
