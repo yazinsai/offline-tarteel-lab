@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T13:29:23.000000+00:00",
+  "reason": "preflight_strict_gate_failed",
+  "shard": "3/3",
+  "task_id": "task-ea045d5b6ec8",
+  "autopilot_key": "escalate.non_smoke.model_only.49.03",
+  "change_class": "lightweight_audio_baseline",
+  "tier2_delta_correct": -1,
+  "experiment_family": "escalate.non_smoke.model_only.49.03",
+  "negative_memory": "HPSS harmonic+rms-match+0.55/0.45 dry blend before phoneme ONNX + joint02 CTC beam/matcher on test_corpus_v3 manifest-prefix slice (--limit 32): 18/32 correct versus phoneme_matcher_joint02 19/32; slice surrogate objectives ~0.60625 vs ~0.634375 (DEFAULT_WEIGHTS, latency=1). Pure HPSS harmonic-only path yielded 0/32 (near-silent features) — useless. Do not retry narrow HPSS mix-only preprocessing vs joint02 without a distinct decode/stack change.",
+  "run_id": "task-ea045d5b6ec8-20260512T132923Z"
+}
