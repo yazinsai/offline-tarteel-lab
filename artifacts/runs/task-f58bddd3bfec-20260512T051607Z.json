@@ -1,0 +1,48 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-f58bddd3bfec-20260512T051607Z",
+  "task_id": "task-f58bddd3bfec",
+  "created_at_utc": "2026-05-12T05:16:07.739196+00:00",
+  "git_sha": "3af8b61d3e82a8e5bf8d7fd835f4166819e9d173",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "model_only",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+    "autopilot_key": "escalate.non_smoke.model_only.46.01",
+    "corpus": "test_corpus_v3",
+    "experiment_probe": "phoneme_dualview_merge46",
+    "preflight_note": "Dual linear preemph (0.97 vs 0.88) + merged beam hyps before joint02 matcher; code removed after Tier-2 preflight tie vs champion on first-32 slice."
+  },
+  "metrics": {
+    "tier1_passed": null,
+    "tier2_experiment": "phoneme_dualview_merge46",
+    "tier2_accuracy": 0.59375,
+    "tier2_correct": 19,
+    "tier2_samples": 32,
+    "tier2_evaluated_samples": 32,
+    "tier2_manifest_samples": 256,
+    "tier2_sample_limit": 32,
+    "champion_slice_experiment": "phoneme_matcher_joint02",
+    "champion_slice_correct": 19,
+    "champion_slice_accuracy": 0.59375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "latency_budget_score": 1.0,
+    "requires_full_corpus_gate": true,
+    "requires_champion_improvement": true,
+    "candidate_objective": 0.634375,
+    "champion_objective_preflight_slice": 0.634375,
+    "ledger_champion_objective_full_corpus": 0.905078,
+    "preflight_objective_tie_slice": 0.634375
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_dualview_merge46",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}
