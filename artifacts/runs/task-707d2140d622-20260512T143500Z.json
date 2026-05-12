@@ -1,0 +1,51 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-707d2140d622-20260512T143500Z",
+  "task_id": "task-707d2140d622",
+  "created_at_utc": "2026-05-12T14:35:00.000000+00:00",
+  "git_sha": "c954f078df8d5e5a038042fec5cb105822b8e036",
+  "dataset_revision": "test_corpus_v3@2026-05-12",
+  "experiment_kind": "model_only",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+    "autopilot_key": "escalate.non_smoke.model_only.50.03",
+    "change_class": "lightweight_audio_baseline",
+    "experiment_probe": "lightweight_phoneme_baseline_v03",
+    "preflight_note": "Score-squared voting over joint02 beam hypotheses for (surah,ayah); same ONNX/mel/matcher stack. Prototype code reverted after Tier-2 preflight tied champion on first-32 slice."
+  },
+  "metrics": {
+    "tier2_accuracy": 0.59375,
+    "tier2_correct": 19,
+    "tier2_samples": 32,
+    "tier2_manifest_samples": 256,
+    "tier2_sample_limit": 32,
+    "champion_slice_correct": 19,
+    "champion_slice_accuracy": 0.59375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "latency_budget_score": 1.0,
+    "requires_champion_improvement": true,
+    "preflight_limit": 32,
+    "preflight_candidate_correct": 19,
+    "preflight_champion_correct": 19,
+    "preflight_candidate_experiment": "lightweight_phoneme_baseline_v03",
+    "preflight_champion_experiment": "phoneme_matcher_joint02",
+    "surrogate_objective_candidate_slice": 0.634375,
+    "surrogate_objective_champion_slice": 0.634375,
+    "candidate_objective": null,
+    "champion_objective": null,
+    "judge_reason": "champion_objective_not_improved_tie_on_preflight_slice"
+  },
+  "tier_completed": [
+    2
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment lightweight_phoneme_baseline_v03",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}
