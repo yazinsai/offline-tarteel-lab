@@ -6341,7 +6341,7 @@
     },
     {
       "id": "task-77fee1ba643b",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
       "payload": {
@@ -6353,12 +6353,14 @@
         "autopilot_key": "escalate.non_smoke.model_only.48.01"
       },
       "created_at": "2026-05-12T09:49:20.247192+00:00",
-      "updated_at": "2026-05-12T09:49:20.247192+00:00",
+      "updated_at": "2026-05-12T13:58:22.394576+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-ea045d5b6ec8",
@@ -6383,7 +6385,7 @@
     },
     {
       "id": "task-a7fe29a06488",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
       "payload": {
@@ -6401,14 +6403,18 @@
         "target_recall": 0.893,
         "min_accuracy": 0.8,
         "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
-        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.50"
+        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.50",
+        "corpus": "test_corpus_v3"
       },
       "created_at": "2026-05-12T11:33:16.815079+00:00",
-      "updated_at": "2026-05-12T11:33:16.815079+00:00",
+      "updated_at": "2026-05-12T14:26:37.685749+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-a7fe29a06488-20260512T142637Z.json",
+      "judge_reasons": [
+        "preflight_strict_gate_failed",
+        "champion_slice_not_strictly_improved"
+      ],
       "notes": ""
     },
     {

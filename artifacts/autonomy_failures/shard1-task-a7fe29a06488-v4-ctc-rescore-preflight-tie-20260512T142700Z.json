@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T14:27:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-a7fe29a06488",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.50",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.50",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": 0,
+  "candidate_experiment": "reference_shipped_v4_ctc_rescore",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Tier-2 slice --limit 32: candidate 19/32 correct (59.375%) vs champion 19/32 (59.375%); slice composite objective tied (~0.634) — strict simultaneous correct-count > champion failed (controller gate champion_slice_not_strictly_improved). Code probe reverted.",
+  "negative_memory": "Direct Python port of shipped browser ctc-rescore.ts (scoreCtcSequence + chooseLongestStablePrefix) to reorder joint02-class beam hypotheses before the same matcher does not improve the canonical 32-prefix slice vs phoneme_matcher_joint02; wall-clock ~6min/side due to O(T\u00d7state) rescoring per hypothesis. Next reference-port work needs tracker/QuranDB fusion paths or different decode budget, not CTC-rescore-only reorder on the same ONNX+matcher stack."
+}
