@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T16:55:39.353977+00:00",
+  "workflow_run_id": "25749288689",
+  "pr_number": 269,
+  "title": "Autopilot offline-tarteel state: 59.4% slice acc, 0.0pp tie \u2014 shard3 lightweight 50.07 preflight rejected",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/269",
+  "base_ref": "cursor-autonomy-base-25746539874-2",
+  "base_sha": "1134dff4f7cb86ca82d459b4776a7d1fff3e6db0",
+  "head_ref": "cursor/offline-tarteel-lightweight-noisefloor07-51f6",
+  "head_sha": "d143ade79cd8bcbe5f82247ab493aee107f936ae",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-task-fba74e3a5bee-preflight-tie-20260512T170000Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-fba74e3a5bee-20260512T170000Z.json"
+  ],
+  "blocked_file_hints": []
+}
