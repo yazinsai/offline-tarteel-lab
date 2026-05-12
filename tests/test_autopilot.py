@@ -117,6 +117,9 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
             for i in range(2)
         ],
     )
+    # Isolated from change_class smoke_runtime heuristics (chunk/threshold keywords) so this test
+    # only asserts failed_families blocking for first_match.
+    monkeypatch.setattr(ap, "failed_change_classes", lambda *a, **kwargs: set())
     tq.save_state(tq.QueueState())
 
     result = ap.plan(3)
