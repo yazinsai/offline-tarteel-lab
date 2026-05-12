@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T09:02:09.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-3423ba8da397",
+  "autopilot_key": "escalate.non_smoke.model_only.46.01",
+  "experiment_family": "phoneme_asr_dualmel46",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": -2,
+  "reason": "Tier-2 preflight (limit 32, corpus test_corpus_v3, manifest prefix slice): phoneme_asr_dualmel46 dual-preemphasis log-mel fusion (0.97/0.88, w=0.58) before single ONNX scored 17/32 correct (53.125%) vs champion phoneme_matcher_joint02 19/32 (59.375%). Composite surrogate objective 0.578125 vs 0.634375 at latency_budget_score=1.0 using DEFAULT_WEIGHTS on tier2_accuracy-derived components. Strict gate requires strictly greater accuracy and objective on same slice.",
+  "negative_memory": "Do not retry naive dual-preemphasis normalized-logmel linear fusion (fixed ~0.58 weight, 0.97 vs 0.88) atop the shipped phoneme ONNX expecting to beat phoneme_matcher_joint02 on the first-32 manifest slice; it lost −2 correct vs champion.",
+  "run_id": "task-3423ba8da397-20260512T090209Z"
+}
