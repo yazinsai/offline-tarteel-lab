@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T09:53:09.571767+00:00",
+  "workflow_run_id": "25726983751",
+  "pr_number": 251,
+  "title": "Autopilot offline-tarteel state: 89.45% champion hold, wrong_task_ordering \u2014 shard 3 FIFO gate (46.07)",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/251",
+  "base_ref": "cursor-autonomy-base-25726705735-2",
+  "base_sha": "330502ea3d03b02b5200c80a8564fbc988930ce9",
+  "head_ref": "cursor/offline-shard3-fifo-block-46-07-c4ac",
+  "head_sha": "69e53fb5b03e7b1167fd0b366cba5de545412391",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-task-6dafbc7624f3-queue-order-20260512T095036Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-6dafbc7624f3-20260512T095036Z.json"
+  ],
+  "blocked_file_hints": []
+}
