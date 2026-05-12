@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T18:01:55.575620+00:00",
+  "workflow_run_id": "25752746235",
+  "pr_number": 275,
+  "title": "Autopilot offline-tarteel state: 59.4%, tie (+0.0pp) \u2014 reference port ctc-rescore preflight",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/275",
+  "base_ref": "cursor-autonomy-base-25751954677-0",
+  "base_sha": "430f3f22d6c872713788a0e3fb3fa64dda0c5bec",
+  "head_ref": "cursor/shard1-reference-port-preflight-tie-1078",
+  "head_sha": "f6f56ed0bbf30bffa42f38d8c4150cc873d2cc87",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-5b5521b732d1-preflight-tie-20260512T180000Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-5b5521b732d1-20260512T180000Z.json"
+  ],
+  "blocked_file_hints": []
+}
