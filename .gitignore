@@ -18,3 +18,6 @@ artifacts/queue/state.lock
 !artifacts/autonomy_failures/*.json
 orchestration/node_modules/
 orchestration/dist/
+
+# Local reference repo clones (lab cycles); never commit
+reference_repos/
