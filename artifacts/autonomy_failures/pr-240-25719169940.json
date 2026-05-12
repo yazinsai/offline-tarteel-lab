@@ -1,0 +1,21 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T07:08:10.413826+00:00",
+  "workflow_run_id": "25719169940",
+  "pr_number": 240,
+  "title": "Autopilot offline-tarteel state: 56.3% acc, -3.1pp vs champ on Tier-2 slice \u2014 shard1 ASR RMS probe rejected",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/240",
+  "base_ref": "main",
+  "base_sha": "d9ce15c6f0d69a1a884eaa570b73243faae31c04",
+  "head_ref": "cursor/offline-tarteel-asr-rmsnorm-46-0f90",
+  "head_sha": "505bd3e30f182f29a4eefe308d69fb77aad5d56b",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-asr-rmsnorm46-preflight-20260512T070550Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-9f026325b693-20260512T070550Z.json",
+    "tests/test_autopilot.py"
+  ],
+  "blocked_file_hints": []
+}
