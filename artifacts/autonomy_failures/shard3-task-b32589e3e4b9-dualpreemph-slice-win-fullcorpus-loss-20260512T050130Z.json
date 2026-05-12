@@ -1,0 +1,27 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T05:01:30.000000+00:00",
+  "reason": "full_corpus_champion_objective_not_improved_after_slice_preflight_win",
+  "shard": "3/3",
+  "task_id": "task-b32589e3e4b9",
+  "autopilot_key": "escalate.non_smoke.model_only.46.03",
+  "change_class": "lightweight_audio_baseline",
+  "tier2_delta_correct": -2,
+  "experiment_family": "escalate.non_smoke.model_only.46.03",
+  "preflight": {
+    "limit": 32,
+    "candidate_correct": 20,
+    "champion_correct": 19,
+    "candidate_experiment": "lightweight_audio_dualpreemph_46_03",
+    "champion_experiment": "phoneme_matcher_joint02"
+  },
+  "full_corpus": {
+    "candidate_correct": 227,
+    "champion_correct_baseline": 229,
+    "candidate_accuracy": 0.88671875,
+    "candidate_objective": 0.898047,
+    "champion_objective": 0.905078
+  },
+  "negative_memory": "Dual acoustic view (0.97 preemph vs raw waveform mel, two ONNX passes, union up to 10 CTC beam transcripts, joint02 matcher) beat phoneme_matcher_joint02 on canonical Tier-2 prefix slice (20/32 vs 19/32) but regressed on full test_corpus_v3 (227/256 vs 229/256; objective 0.898047 vs 0.905078). Do not re-queue the same union recipe expecting full-corpus promotion without a decode/matcher change that fixes off-prefix errors; slice-only gains are misleading for this stack.",
+  "run_id": "task-b32589e3e4b9-20260512T050130Z"
+}
