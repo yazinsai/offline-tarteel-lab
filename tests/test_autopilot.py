@@ -112,6 +112,12 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
                 "run_id": f"run-fail-{i}",
                 "status": "rejected",
                 "experiment_family": "runtime.threshold_sweep.first_match",
+                "parameters": {
+                    "autopilot_key": "runtime.threshold_sweep.first_match",
+                    # Explicit class keeps failed_change_classes from collapsing to inferred
+                    # smoke_runtime via the substring "threshold" in the autopilot_key/family names.
+                    "change_class": "unit_test_blocked_threshold_family_only",
+                },
                 "objective": 0.1,
             }
             for i in range(2)
