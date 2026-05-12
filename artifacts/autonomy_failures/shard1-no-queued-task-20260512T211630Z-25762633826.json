@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T21:16:30.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "1/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.54",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog",
+  "negative_memory": "Bounded cycle shard-index=1, shard_total=3: exactly one queued joint_model_runtime reference_port task task-6e323bb7e1f4 sits at ordinal 0 (0 mod 3 == 0), so only shard_index=0 receives it via next_queued. Autopilot smoke_runtime_plateau=true; execute baseline.reference_shipped_fastconformer_v4_tlog.54 on shard 0/3 before matcher-heavy joint probes. autonomous_loop returned no task for this shard. Do not implement matcher-only probes or take shard-0 work from this agent.",
+  "run_id": "shard1-no-queued-task-20260512T211630Z-25762633826"
+}
