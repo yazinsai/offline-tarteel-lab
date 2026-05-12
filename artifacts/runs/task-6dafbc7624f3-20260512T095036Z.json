@@ -1,0 +1,34 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-6dafbc7624f3-20260512T095036Z",
+  "task_id": "task-6dafbc7624f3",
+  "created_at_utc": "2026-05-12T09:50:36.000000+00:00",
+  "git_sha": "330502ea3d03b02b5200c80a8564fbc988930ce9",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "model_only",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "change_class": "lightweight_audio_baseline",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+    "autopilot_key": "escalate.non_smoke.model_only.46.07",
+    "corpus": "test_corpus_v3",
+    "full_corpus_gate": true
+  },
+  "metrics": {
+    "policy_block": "wrong_task_ordering_smoke_runtime_plateau",
+    "blocked_fifo_dependency_keys": [
+      "baseline.reference_shipped_fastconformer_v4_tlog.46",
+      "escalate.non_smoke.model_only.46.01"
+    ],
+    "blocked_queued_before_task_ids": [
+      "task-59ac7ab4f3ec",
+      "task-3423ba8da397"
+    ],
+    "note": "Shard 3/3 selected this task via FIFO sharding, but smoke_runtime_plateau queue policy requires completing reference port (task-59ac7ab4f3ec) and 46.01 ASR evidence task (task-3423ba8da397) before later 46.x model_only probes. No tier evaluation."
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": []
+}
