@@ -117,6 +117,10 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
             for i in range(2)
         ],
     )
+    # Ledger rows above infer `smoke_runtime` via family string; without this isolation, two rejects
+    # would also block every static runtime candidate (chunk/window, adaptive.*) and the test would
+    # only exercise model/joint seeds — not the intended failed-family skip behavior.
+    monkeypatch.setattr(ap, "failed_change_classes", lambda _entries: set())
     tq.save_state(tq.QueueState())
 
     result = ap.plan(3)
