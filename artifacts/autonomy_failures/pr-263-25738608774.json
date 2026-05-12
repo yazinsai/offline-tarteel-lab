@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T13:46:30.583694+00:00",
+  "workflow_run_id": "25738608774",
+  "pr_number": 263,
+  "title": "Autopilot offline-tarteel state: 59.4% acc tie, +0.0pp objective \u2014 shard 2/3 logits fusion preflight",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/263",
+  "base_ref": "cursor-autonomy-base-25736515723-1",
+  "base_sha": "e1650409704c1fc6dc750b2bf564be8e835f326b",
+  "head_ref": "cursor/offline-tarteel-logits-rescore-c66d",
+  "head_sha": "f2a50cdac96a6522263ec20e00ca8b2a6c7a8ea0",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-77fee1ba643b-logits-fusion-preflight-tie-20260512T134408Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-77fee1ba643b-20260512T134408Z.json"
+  ],
+  "blocked_file_hints": []
+}
