@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T01:23:34.154012+00:00",
+  "reason": "preflight_strict_gate_failed",
+  "shard": "3/3",
+  "task_id": "task-7159cd6a6a43",
+  "autopilot_key": "escalate.non_smoke.model_only.46.03",
+  "change_class": "lightweight_audio_baseline",
+  "tier2_delta_correct": -6,
+  "experiment_family": "escalate.non_smoke.model_only.46.03",
+  "negative_memory": "Greedy ONNX + minimal matcher baseline (TOP_K=6, TOP_SURAHS=10, no spans/fragment rerank, experiment lightweight_phoneme_baseline46) loses hard on fixed slice n=32 versus phoneme_matcher_joint02 (13 vs 19 correct; objective 0.466 vs 0.634). Repeat with stronger decode/search only if preflight can beat joint02 on both accuracy and objective.",
+  "run_id": "task-7159cd6a6a43-20260512T012334Z"
+}
