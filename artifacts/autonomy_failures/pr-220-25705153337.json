@@ -1,0 +1,21 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T00:16:47.725005+00:00",
+  "workflow_run_id": "25705153337",
+  "pr_number": 220,
+  "title": "Autopilot offline-tarteel state: 88.7% / 0.898 obj, -0.78pp acc vs 89.5% champ \u2014 shard2 model_only.46.01 dual-view preflight win, full-corpus regression",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/220",
+  "base_ref": "main",
+  "base_sha": "ffbc81a8e3490cb53a01d11e4b0e21d5ab9f6741",
+  "head_ref": "cursor/offline-tarteel-asr-fusion46-d14e",
+  "head_sha": "a0f866bd65671c9e4f0748c5f58677b7fd6b27bb",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-model-only-46-dualview-preflight-win-fullcorpus-regress-20260512T001200Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-315360c94cf6-20260512T001128Z.json",
+    "tests/test_autopilot.py"
+  ],
+  "blocked_file_hints": []
+}
