@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T22:50:24.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "3/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.54",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog",
+  "negative_memory": "2026-05-12T22:50:24Z bounded cycle: autopilot backlog stuck with exactly one queued task task-6e323bb7e1f4 (joint_model_runtime reference_port, smoke_runtime plateau). Shard 3/3 next_queued(index=2,total=3)=None because queue ordinal 0 routes only to shard 1/3. Wrong task ordering for shards 2/3: do not idle-run matcher tweaks or autonomous_loop on stale runner-up hypotheses; unblock by completing baseline.reference_shipped_* on shard 1/3 or enqueueing additional queued rows so ordinal mod 3 == 2. Artifacts: runs/shard3-no-queued-task-20260512T225024Z.json.",
+  "run_id": "shard3-no-queued-task-20260512T225024Z-bcca"
+}
