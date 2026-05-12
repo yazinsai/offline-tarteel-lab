@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T08:15:30.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-5fe0e0a1d46d",
+  "autopilot_key": "escalate.non_smoke.model_only.46.01",
+  "experiment_family": "phoneme_dual_preemph_asr46",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "reason": "Tier-2 preflight on test_corpus_v3 prefix (limit 32): dual acoustic frontend phoneme_dual_preemph_asr46 (two waveform preemphasis coeffs 0.97+0.88, merged CTC hypotheses, same matcher/decode beam as joint02) tied champion phoneme_matcher_joint02 at 19/32 correct (59.375% accuracy). Strict gate requires cand_correct > champ_correct; tie fails champion_slice_not_strictly_improved. Composite objective on slice ties at 0.634375 (proxy accuracy).",
+  "negative_memory": "Do not retry dual-preemph 0.97+0.88 merge-only probe on same ONNX vs phoneme_matcher_joint02; add distinct acoustic or model change (e.g. third view, different mel staging, or trained weights) if revisiting multi-frontend ASR.",
+  "run_id": "task-5fe0e0a1d46d-20260512T081530Z"
+}
