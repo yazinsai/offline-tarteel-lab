@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T11:51:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-cb6f4a7eae93",
+  "autopilot_key": "escalate.non_smoke.model_only.47.01",
+  "experiment_family": "phoneme_overlap_logits_fusion",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "reason": "Tier-2 preflight limit 32 on test_corpus_v3 (manifest prefix slice): candidate phoneme_overlap_logits_fusion tied full-corpus champion phoneme_matcher_joint02 at 19/32 correct (59.375% accuracy). Strict gate requires strictly greater accuracy and composite objective on the same slice; tie fails champion_objective_not_improved.",
+  "negative_memory": "Dual-view tail-window log-average fusion of ONNX logits before joint02-equivalent beam tied champion on first-32 slice (many clips shorter than fusion threshold behave identically); do not retry naive tail-aligned frame stacking without verified timeline alignment / distinct acoustic frontend.",
+  "run_id": "task-cb6f4a7eae93-20260512T115000Z"
+}
