@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T13:23:35.135836+00:00",
+  "shard": "1/3",
+  "task_id": "task-17e978540b37",
+  "autopilot_key": "escalate.non_smoke.model_only.46.11",
+  "experiment_family": "escalate.non_smoke.model_only.46.11",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": -1,
+  "candidate_experiment": "lightweight_global_cmvn4611",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Tier-2 slice --limit 32: candidate 18/32 correct (56.25%) vs champion 19/32 (59.375%); surrogate objectives ~0.606 vs ~0.634 \u2014 strict simultaneous correct-count + objective gate failed.",
+  "negative_memory": "Replacing joint02 per-mel-bin temporal CMVN with utterance-wide global mean/std on log-mel before the same ONNX+beam+matcher stack does not beat phoneme_matcher_joint02 on the canonical 32-prefix slice; do not retry global-CMVN-only probes atop joint02 without a different feature law (e.g. PCEN with training match) or decode change with documented caps."
+}
