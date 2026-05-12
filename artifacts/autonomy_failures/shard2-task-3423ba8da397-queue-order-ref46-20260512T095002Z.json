@@ -1,0 +1,22 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T09:50:02.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-3423ba8da397",
+  "autopilot_key": "escalate.non_smoke.model_only.46.01",
+  "experiment_family": "escalate.non_smoke.model_only.46.01",
+  "change_class": "policy_block_wrong_task_ordering",
+  "tier2_delta_correct": null,
+  "dependency_gate": {
+    "fifo_ahead_reference_port": [
+      "task-59ac7ab4f3ec"
+    ],
+    "reference_keys": [
+      "baseline.reference_shipped_fastconformer_v4_tlog.46"
+    ],
+    "autopilot_smoke_runtime_plateau": true
+  },
+  "reason": "Shard 2/3 selected escalate.non_smoke.model_only.46.01 while task-59ac7ab4f3ec (baseline.reference_shipped_fastconformer_v4_tlog.46) remains queued earlier in FIFO; autopilot reports smoke_runtime_plateau. Per autonomy FIFO gate used for sibling model_only 46.03/46.05 blocks, finish reference port .46 before wave-local ASR model_only .46.01.",
+  "negative_memory": "Under smoke_runtime_plateau, do not execute sharded next_queued model_only escalate.non_smoke.model_only.46.01 when baseline.reference_shipped_fastconformer_v4_tlog.46 is still queued FIFO-ahead (task-59ac7ab4f3ec pattern); shard 2/3 must yield to shard 0/1 reference port completion first.",
+  "run_id": "task-3423ba8da397-20260512T095002Z"
+}

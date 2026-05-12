@@ -6147,7 +6147,7 @@
     },
     {
       "id": "task-3423ba8da397",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
       "payload": {
@@ -6159,12 +6159,15 @@
         "autopilot_key": "escalate.non_smoke.model_only.46.01"
       },
       "created_at": "2026-05-12T07:46:13.008795+00:00",
-      "updated_at": "2026-05-12T07:46:13.008795+00:00",
+      "updated_at": "2026-05-12T09:50:13.164364+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "run_record_path": "artifacts/runs/task-3423ba8da397-20260512T095002Z.json",
+      "judge_reasons": [
+        "wrong_task_ordering_smoke_runtime_plateau",
+        "blocked_fifo_reference_port_46"
+      ],
+      "notes": "Blocked before preflight: FIFO still has baseline.reference_shipped_fastconformer_v4_tlog.46 (task-59ac7ab4f3ec) queued ahead while smoke_runtime_plateau=true; shard 2/3 must not run model_only 46.01 until that reference port completes."
     },
     {
       "id": "task-d271cc87a224",
@@ -6313,6 +6316,27 @@
       },
       "created_at": "2026-05-12T08:48:31.007565+00:00",
       "updated_at": "2026-05-12T08:48:31.007565+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-77fee1ba643b",
+      "status": "queued",
+      "kind": "model_only",
+      "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "asr_model_evidence",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+        "autopilot_key": "escalate.non_smoke.model_only.48.01"
+      },
+      "created_at": "2026-05-12T09:49:20.247192+00:00",
+      "updated_at": "2026-05-12T09:49:20.247192+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
