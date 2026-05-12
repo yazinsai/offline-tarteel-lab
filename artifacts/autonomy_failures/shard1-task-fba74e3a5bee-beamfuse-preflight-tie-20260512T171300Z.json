@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T17:13:00.000000+00:00",
+  "shard": "1/3",
+  "task_id": "task-fba74e3a5bee",
+  "autopilot_key": "escalate.non_smoke.model_only.50.07",
+  "experiment_family": "escalate.non_smoke.model_only.50.07",
+  "change_class": "preflight_slice_gate_failed",
+  "tier2_delta_correct": 0,
+  "candidate_experiment_slice": "phoneme_joint02_beam_hypfuse",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "reason": "Tier-2 slice --limit 32: matcher+beam-LP fusion tied 19/32 correct versus champion phoneme_matcher_joint02 at 19/32; surrogate slice objectives both ~0.634375\u2014strict simultaneous improvement gate failed.",
+  "negative_memory": "Do not retry small convex fuses (e.g. 0.88 matcher / 0.12 normalized CTC-prefix beam LP) on the same ONNX front-end (hop 160, per-bin CMVN), beam width 6, top-symbol 8, and MAX_HYP=4 ensemble as phoneme_joint02 unless the hypothesis set or neural front-end materially changes\u2014ties the canonical prefix slice versus matcher-only hypothesis pick."
+}
