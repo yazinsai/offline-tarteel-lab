@@ -1,0 +1,13 @@
+kind: model_only
+hypothesis: >
+  Lightweight dual acoustic view for shard task escalate.non_smoke.model_only.46.03: run the same
+  shipped FastConformer phoneme ONNX twice: standard 0.97 preemph vs raw waveform (no delta preemph),
+  run the joint02 CTC beam on each view, union distinct hypotheses (max 10), then reuse
+  the phoneme_matcher_joint02 Quran matcher. ~2x acoustic forward pass per clip; no corpus metadata.
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  CPU/time cap: two mel+ONNX passes per clip; beam width/top_symbols/max_hyps match joint02 defaults.
