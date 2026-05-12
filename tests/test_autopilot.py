@@ -112,6 +112,10 @@ def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
                 "run_id": f"run-fail-{i}",
                 "status": "rejected",
                 "experiment_family": "runtime.threshold_sweep.first_match",
+                # Ledger family string includes "threshold", which previously inflated
+                # failed_change_classes with smoke_runtime via substring heuristic and
+                # blocked every runtime.chunk_window_sweep task. Pin a neutral class.
+                "parameters": {"change_class": "synthetic_test_family_block"},
                 "objective": 0.1,
             }
             for i in range(2)

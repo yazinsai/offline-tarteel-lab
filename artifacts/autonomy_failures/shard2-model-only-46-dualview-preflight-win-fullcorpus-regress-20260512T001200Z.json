@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T00:12:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-315360c94cf6",
+  "autopilot_key": "escalate.non_smoke.model_only.46.01",
+  "experiment_family": "phoneme_asr_dual_preamp_46",
+  "change_class": "full_corpus_champion_objective_not_improved",
+  "tier2_delta_correct": 1,
+  "reason": "Tier-2 preflight (test_corpus_v3, limit 32): two-view CTC hypothesis union (pre-emphasis 0.97 vs 0.0, independent beams, same ONNX+matcher as phoneme_matcher_joint02) scored 20/32 vs champion 19/32 (strict slice gate passed). Full corpus tier-2 (limit 0): candidate 227/256 correct (88.671875% acc, objective 0.898047) vs champion phoneme_matcher_joint02 229/256 (89.453125% acc, objective 0.905078) — -2 correct, champion_objective_not_improved; slice gain does not generalize.",
+  "negative_memory": "Do not rely on first-32 manifest-prefix lift alone for this dual acoustic decode-union pattern on shipped fastconformer_phoneme_q8; full-v3 regressed vs joint02 by ~0.78pp accuracy. Re-validating any similar multi-forward decode on limit-0 before promotion; avoid repeating union-of-beams-on-0.97-and-0.0 without new weights or corpus-wide calibration.",
+  "run_id": "task-315360c94cf6-20260512T001128Z"
+}
