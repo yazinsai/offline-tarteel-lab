@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T12:37:31.474862+00:00",
+  "workflow_run_id": "25734849309",
+  "pr_number": 259,
+  "title": "Autopilot offline-tarteel state: 59.375%, tie (0.0pp) \u2014 shard 3 task-77fee dual-mel preflight",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/259",
+  "base_ref": "main",
+  "base_sha": "775e633dbf13746dbee12310a1b5bd8b2ce5418f",
+  "head_ref": "cursor/offline-dualmel-asr48-73d4",
+  "head_sha": "df8907a47b1e7777d732de56dac35b690e9fa28d",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-task-77fee1ba643b-dualmel-preflight-tie-20260512T123700Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-77fee1ba643b-20260512T123700Z.json"
+  ],
+  "blocked_file_hints": []
+}
