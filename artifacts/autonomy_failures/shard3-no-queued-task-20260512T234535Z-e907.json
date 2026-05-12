@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T23:45:35.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "3/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.58",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog",
+  "negative_memory": "2026-05-12T234535Z shard 3/3 bounded lab cycle: autopilot retired task-6e323bb7e1f4 and added sole queued task-9cfada598cfe (joint_model_runtime reference_port, baseline.reference_shipped_fastconformer_v4_tlog.58). next_queued(shard_index=2, shard_total=3)=None — ordinal 0 % 3 == 0 binds only shard 1/3. smoke_runtime_plateau=true; ASR/reference port is still the unblocker—do not run matcher-only probes or autonomous_loop as substitute on shard 3. Unblock via shard 1/3 completing the reference_port task or enqueueing tasks so ordinal mod 3 == 2. Tier-2 preflight and bounded autonomous_loop skipped.",
+  "run_id": "shard3-no-queued-task-20260512T234535Z-e907"
+}
