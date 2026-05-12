@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T12:37:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-cb6f4a7eae93",
+  "autopilot_key": "escalate.non_smoke.model_only.47.01",
+  "experiment_family": "phoneme_dual_preemph_fusion",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": -1,
+  "reason": "Tier-2 preflight (--limit 32, test_corpus_v3): phoneme_dual_preemph47 dual preemph+logprob fusion scored 18/32 vs champion phoneme_matcher_joint02 19/32 on the same fixed prefix; accuracy and slice composite (0.9\u00b7acc+0.1\u00b7latency) both regressed. Strict promotion gate requires strictly greater correct count and objective versus champion on the slice.",
+  "negative_memory": "Do not retry marginal dual-path preemphasis-only logprob average (0.97 vs 0.88) on top of joint02 beam+matcher without a new ONNX/training deliverable or a distinct non-matcher decode merge; first-32 slice lost 1 correct vs joint02 (18 vs 19).",
+  "run_id": "task-cb6f4a7eae93-20260512T123700Z"
+}
