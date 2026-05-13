@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T16:02:55.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "1/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+  "negative_memory": "next_queued(shard_index=1, shard_total=3) empty: sole queued task task-72c32b270b87 (joint_model_runtime reference_port, smoke_runtime_plateau; reference_repo_url+baseline in payload) at ordinal 0 and 0 mod 3 == 0 maps only to shard 0. Real work is reference clone+experiments/ wrap per agent_instructions. Do not steal shard-0 task; do not run matcher-only or greedy decode substituents while plateau_failures/autopilot blocks reference_port ordering for other shards.",
+  "run_id": "shard1-no-queued-task-20260513T160255Z"
+}
