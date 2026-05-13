@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T23:52:28.120000+00:00",
+  "workflow_run_id": "25833171363",
+  "pr_number": 382,
+  "title": "Autopilot offline-tarteel state: 53.1%, -6.3pp vs 59.4% slice champion \u2014 shard1 reference-port CTC-fusion preflight",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/382",
+  "base_ref": "cursor-autonomy-base-25832146130-0",
+  "base_sha": "f3d0b8e7e45a7c4efcfe1fbed1e621c8e0666c76",
+  "head_ref": "cursor/shard1-ref-port-fusion-preflight-853a",
+  "head_sha": "06301c6c102ac263fde66c1c17025adc3e82551d",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-6a8e2bead04b-preflight-ctc-fusion-20260513T235200Z-f3d0b8e.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-6a8e2bead04b-preflight-ctc-fusion-20260513T235200Z-f3d0b8e.json"
+  ],
+  "blocked_file_hints": []
+}
