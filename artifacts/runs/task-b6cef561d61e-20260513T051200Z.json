@@ -1,0 +1,46 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-b6cef561d61e-20260513T051200Z",
+  "task_id": "task-b6cef561d61e",
+  "created_at_utc": "2026-05-13T05:12:00.000000+00:00",
+  "git_sha": "9d69e112a953c9046d1c544403eeccc91c123c86",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "change_class": "reference_port",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "candidate_experiment": "reference_v4_ctc_fusion62",
+    "champion_experiment_slice": "phoneme_matcher_joint02",
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.62",
+    "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+    "note": "Probe implemented RN discovery fusion (ctc-rescore DP + tracker fusion weights) atop joint02 ONNX/mel/beam/matcher shortlist; reference repo cloned to /tmp/offline-tarteel-reference for review; experiment directory removed after preflight tie."
+  },
+  "metrics": {
+    "preflight_limit": 32,
+    "preflight_candidate_experiment": "reference_v4_ctc_fusion62",
+    "preflight_champion_experiment": "phoneme_matcher_joint02",
+    "preflight_candidate_correct": 19,
+    "preflight_champion_correct": 19,
+    "preflight_candidate_accuracy": 0.59375,
+    "preflight_champion_accuracy": 0.59375,
+    "candidate_objective": 0.634375,
+    "champion_objective_slice_surrogate": 0.634375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "latency_budget_score": 1.0,
+    "tier2_accuracy": 0.59375,
+    "failure_reasons": [
+      "preflight_tie_strict_gate",
+      "champion_slice_not_strictly_improved"
+    ]
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment reference_v4_ctc_fusion62",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}
