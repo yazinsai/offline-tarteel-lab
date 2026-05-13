@@ -6681,12 +6681,12 @@
         "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.69"
       },
       "created_at": "2026-05-13T13:55:18.561422+00:00",
-      "updated_at": "2026-05-13T13:55:18.561422+00:00",
+      "updated_at": "2026-05-13T17:01:08+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
       "judge_reasons": null,
-      "notes": ""
+      "notes": "Queue routing 20260513T170108Z Cursor Cloud shard 2/3: sole queued ordinal 0 -> shard_index=0 only; shard_index=1 idle (wrong_task_ordering_for_idle_shard until second queue item or shard-0 completes reference port). Smoke/runtime plateau; do not substitute matcher-only probes."
     }
   ]
 }
