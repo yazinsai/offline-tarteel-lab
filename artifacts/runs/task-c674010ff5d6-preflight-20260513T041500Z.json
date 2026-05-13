@@ -1,0 +1,42 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-c674010ff5d6-preflight-20260513T041500Z",
+  "task_id": "task-c674010ff5d6",
+  "created_at_utc": "2026-05-13T04:15:00.000000+00:00",
+  "git_sha": "f22dfaf4b4f63011787d71eb183e2222c8c86c43",
+  "dataset_revision": "test_corpus_v3",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.62",
+    "change_class": "reference_port",
+    "experiment": "reference_shipped_rn_fusion",
+    "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+    "preflight_candidate": "reference_shipped_rn_fusion",
+    "preflight_champion": "phoneme_matcher_joint02",
+    "preflight_limit": 32,
+    "preflight_notes": "Greedy CTC + QuranDB retrieveCandidates + CTC scoreCtcSequence fusion (tracker.ts); CPU caps on verse shortlist, spans, and fusion candidate count; code reverted after failed slice gate."
+  },
+  "metrics": {
+    "tier2_correct": 12,
+    "tier2_samples": 32,
+    "tier2_accuracy": 0.375,
+    "champion_tier2_correct": 19,
+    "champion_tier2_accuracy": 0.59375,
+    "streaming_alignment_accuracy": 0.375,
+    "correction_precision": 0.375,
+    "verse_boundary_f1": 0.375,
+    "latency_budget_score": 1.0,
+    "candidate_objective_proxy": 0.4375,
+    "champion_objective_proxy": 0.634375,
+    "gate_outcome": "preflight_slice_gate_failed",
+    "rejection_reason": "champion_objective_not_improved"
+  },
+  "tier_completed": [
+    2
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment reference_shipped_rn_fusion",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}
