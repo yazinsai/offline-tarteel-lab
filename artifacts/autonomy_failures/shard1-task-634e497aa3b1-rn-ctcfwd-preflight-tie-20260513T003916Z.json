@@ -1,0 +1,28 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T00:39:16.673000+00:00",
+  "shard": "1/3",
+  "shard_index": 0,
+  "shard_total": 3,
+  "task_id": "task-634e497aa3b1",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.58",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.58",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "candidate_experiment": "reference_v4_ctc_forward_order58",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "candidate_correct": 19,
+  "champion_correct": 19,
+  "candidate_accuracy": 0.59375,
+  "champion_accuracy": 0.59375,
+  "composite_objective_slice": {
+    "candidate": 0.634375,
+    "champion": 0.634375,
+    "weights_note": "DEFAULT_WEIGHTS with tier2_accuracy surrogate for streamed components"
+  },
+  "reason": "Tier-2 manifest-prefix (--limit 32, test_corpus_v3): reordering ONNX beam hypotheses with RN forward CTC scorer (ctc-rescore.ts scoreCtcSequence port) before the joint02 matcher tied phoneme_matcher_joint02 at 19/32 correct (59.375%). Composite surrogate objective ~0.634375 vs ~0.634375 (tie). Strict preflight gate requires strictly greater accuracy and objective; cand_correct<=champion — champion_objective_not_improved tier.",
+  "negative_memory": "Acoustic-order-only preprocessing on the existing joint02 beam+matcher stack does not outperform joint02 on the canonical 32-prefix slice; tying 19/32. Avoid retrying RN ctc-forward hypothesis sort as the sole decode delta atop the same ONNX+beam widths; combine with materially different decoding (streaming chunk/overlap emulation from tracker.ts with documented caps) or ONNX/model churn.",
+  "run_id": "task-634e497aa3b1-20260513T003916Z",
+  "reference_clone_verified": "/tmp/offline-tarteel-reference"
+}
