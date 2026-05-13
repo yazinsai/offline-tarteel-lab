@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T04:15:49.243321+00:00",
+  "workflow_run_id": "25777894967",
+  "pr_number": 317,
+  "title": "Autopilot offline-tarteel state: 37.5% acc, \u221221.9pp vs 59.4% champion \u2014 reference RN fusion slice gate",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/317",
+  "base_ref": "cursor-autonomy-base-25776268110-0",
+  "base_sha": "f22dfaf4b4f63011787d71eb183e2222c8c86c43",
+  "head_ref": "cursor/autopilot-shard1-ref-port-preflight-reject-95af",
+  "head_sha": "e28f6669fb643b7f00799dc282fa610ae5a783f9",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-c674010ff5d6-reference-rn-fusion-preflight-20260513.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-c674010ff5d6-preflight-20260513T041500Z.json"
+  ],
+  "blocked_file_hints": []
+}
