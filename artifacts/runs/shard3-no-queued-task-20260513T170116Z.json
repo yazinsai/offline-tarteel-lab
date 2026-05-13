@@ -1,0 +1,50 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "shard3-no-queued-task-20260513T170116Z",
+  "task_id": null,
+  "created_at_utc": "2026-05-13T17:01:16.000000+00:00",
+  "git_sha": "5c302426963c2de4780581463ac44d49f5c1442f",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "shard": "3/3",
+    "shard_index": 2,
+    "shard_total": 3,
+    "policy": "evaluate_only_task_selected_by_shard",
+    "only_queued_task_id": "task-72c32b270b87",
+    "only_queued_autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+    "only_queued_change_class": "reference_port",
+    "only_queued_reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+    "autopilot_smoke_runtime_plateau": true,
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+    "blocked_family": "smoke_runtime_plateau",
+    "bounded_cycle_notes": "2026-05-13 Cursor Cloud bounded cycle shard 3/3: pip install -e '.[dev]'; autonomy_failures reviewed (queue_routing blocks, joint-before-ASR deps, greedy ref-port preflight losses); lab_tools.task_queue init; autopilot plan --target-backlog 8; task_queue next --shard-index 2 --shard-total 3 empty — sole queued task-72c32b270b87 occupies FIFO ordinal 0 (0 mod 3 == 0 → shard_index 0 / human shard 1/3 only). Tier-2 preflight, full corpus eval, and Matcher-only substitutes disallowed without shard-selected work. autonomous_loop run --max-cycles 1 --shard-index 2 printed no queued tasks and exited 0.",
+    "champion_forensics_note": "Champion phoneme_matcher_joint02 (task-0aa3b7531952-20260510T033442Z): 229/256 correct, objective 0.905078 vs runner-up matcher_asr_path_v02 (task-5858c078713e-20260510T032653Z): 218/256 — delta driven by joint ASR decode + matcher integration (beam/CTC + Quran path), not smoke runtime knobs alone.",
+    "champion_runner_up_run_id": "task-5858c078713e-20260510T032653Z",
+    "champion_runner_up_experiment": "matcher_asr_path_v02",
+    "champion_runner_up_tier2_correct": 218
+  },
+  "metrics": {
+    "blocked_before_eval": true,
+    "no_queued_task_for_shard": true,
+    "queue_ordinal_for_sole_queued": 0,
+    "ordinal_mod_shard_total": 0,
+    "assigned_shard_index_for_sole_task": 0,
+    "assigned_human_shard_label_for_sole_task": "1/3",
+    "idle_shard_human_label": "3/3",
+    "idle_shard_index": 2,
+    "this_shard_idle_reason": "ordinal 0 binds to shard_index 0 only under queued_index % shard_total; shard_index=2 receives no next_queued() task",
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "champion_experiment": "phoneme_matcher_joint02",
+    "champion_tier2_correct": 229,
+    "champion_tier2_accuracy": 0.89453125,
+    "latency_budget_score": 1.0
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.autonomous_loop run --max-cycles 1 --limit 12 --corpus test_corpus_v3 --shard-index 2 --shard-total 3 --allow-modal",
+    "[blocked] shard 3/3: python3 -m lab_tools.task_queue next --shard-index 2 --shard-total 3 -> empty — evaluate task-72c32b270b87 on shard 1/3 or enqueue until ordinal maps to shard_index==2."
+  ]
+}
