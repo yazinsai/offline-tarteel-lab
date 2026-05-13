@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T01:20:24.710182+00:00",
+  "workflow_run_id": "25772199129",
+  "pr_number": 311,
+  "title": "Autopilot offline-tarteel state: no eval, champ ~89.45% unchanged \u2014 shard 2/3 queue idle",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/311",
+  "base_ref": "cursor-autonomy-base-25772034369-1",
+  "base_sha": "8d56b4a2e4d13bcf08c1adbd44138368eece5394",
+  "head_ref": "cursor/offline-shard2-routing-idle-25772034369-124c",
+  "head_sha": "b51c51ec1e0e3e4583da9fdfac907e1323fce8d5",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-no-queued-task-20260513T011846Z-25772034369.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/runs/shard2-no-queued-task-20260513T011846Z.json"
+  ],
+  "blocked_file_hints": []
+}
