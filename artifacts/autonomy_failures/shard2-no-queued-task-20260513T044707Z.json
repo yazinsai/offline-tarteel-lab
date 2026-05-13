@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T04:47:07.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "2/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.62",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.62",
+  "negative_memory": "Shard 2/3 (shard_index=1, shard_total=3): FIFO assigns the only queued task (task-b6cef561d61e, joint_model_runtime reference_port to ../offline-tarteel + reference_repo_url, autopilot_key baseline.reference_shipped_fastconformer_v4_tlog.62) to shard 0. Autopilot reports smoke_runtime_plateau with blocked_change_classes including smoke_runtime; downstream joint/model_only backlog keys remain dependency-blocked until this reference port completes on shard 1/3. Do not substitute matcher-only probes, Modal ASR placeholders, or autonomous_loop from shard 2 until next_queued(shard_index=1) returns a task or queue gains additional queued rows.",
+  "run_id": "shard2-no-queued-task-20260513T044707Z"
+}
