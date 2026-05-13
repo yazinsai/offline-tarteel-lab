@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T09:29:13.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "2/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.63",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.63",
+  "negative_memory": "Shard 2/3 (shard_index=1): FIFO assigns the only queued task task-d3443b4beb92 (joint_model_runtime reference_port, autopilot_key baseline.reference_shipped_fastconformer_v4_tlog.63) to shard 1/3 (ordinal 0 % 3 == 0). Autopilot reports smoke_runtime_plateau and blocks smoke_runtime-class work; reference port is the real dependency. Do not implement matcher-only Modal ASR placeholders, fragment reranks, dual-preemph logprob fusion on joint02, or beam-width-only widen probes on this shard until next_queued(shard_index=1) is non-empty or the reference port completes on shard 1/3.",
+  "run_id": "shard2-no-queued-task-20260513T092913Z-6361"
+}

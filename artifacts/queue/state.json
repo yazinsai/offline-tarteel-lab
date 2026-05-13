@@ -6620,7 +6620,7 @@
       "cursor_run_id": null,
       "run_record_path": null,
       "judge_reasons": null,
-      "notes": ""
+      "notes": "Queue routing 2026-05-13T092913Z: sole queued task lands on shard 1/3 only (FIFO ordinal 0). Shards 2/3 idle until another task is queued or this reference_port completes. Smoke/runtime plateau; do not substitute matcher-only probes for ASR reference port work."
     }
   ]
 }
