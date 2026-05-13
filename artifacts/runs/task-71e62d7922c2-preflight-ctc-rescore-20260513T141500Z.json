@@ -1,0 +1,45 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-71e62d7922c2-preflight-ctc-rescore-20260513T141500Z",
+  "task_id": "task-71e62d7922c2",
+  "created_at_utc": "2026-05-13T14:09:55.750821+00:00",
+  "git_sha": "a63a3ff1449e10fab1c90242691d48f98f5d3bab",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "change_class": "reference_port",
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+    "preflight_candidate_experiment": "phoneme_ref_v69_ctc_rescore",
+    "preflight_champion_experiment": "phoneme_matcher_joint02",
+    "preflight_limit": 32,
+    "probe_notes": "Decode-side port of reference ctc-rescore.ts scoreCtcSequence to reorder CTC beam hypotheses before existing joint02 matcher. Candidate code removed after failed strict preflight tie.",
+    "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git"
+  },
+  "metrics": {
+    "preflight_blocked_full_eval": true,
+    "preflight_strict_gate_passed": false,
+    "preflight_rejection_reason": "candidate_tied_champion_accuracy_and_objective",
+    "tier2_correct_candidate": 19,
+    "tier2_correct_champion": 19,
+    "tier2_accuracy_candidate": 0.59375,
+    "tier2_accuracy_champion": 0.59375,
+    "objective_candidate": 0.634375,
+    "objective_champion": 0.634375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "latency_budget_score": 1.0,
+    "requires_champion_improvement": true,
+    "champion_run_id_reference": "task-0aa3b7531952-20260510T033442Z",
+    "champion_full_corpus_objective": 0.905078
+  },
+  "tier_completed": [
+    2
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_ref_v69_ctc_rescore",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}

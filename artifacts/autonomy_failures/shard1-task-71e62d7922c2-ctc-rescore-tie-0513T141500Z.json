@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T14:09:55.750821+00:00",
+  "reason": "preflight_strict_gate_failed",
+  "shard": "1/3",
+  "task_id": "task-71e62d7922c2",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+  "change_class": "reference_port",
+  "tier2_delta_correct": 0,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+  "candidate_experiment": "phoneme_ref_v69_ctc_rescore",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "preflight_limit": 32,
+  "negative_memory": "Porting only ctc-rescore.ts scoreCtcSequence hypothesis reordering on top of phoneme_matcher_joint02 decode+matcher stack tied slice 19/32 vs champion (objective ~0.634375 both). Tie fails strict simultaneous accuracy+objective gate. Need stronger delta: fuller tracker/quran-db fusion parity from reference tracker.ts, richer beam+RNN-T align, or two-pass hypotheses\u201414 avoid matcher-only tweaks without decode movement."
+}
