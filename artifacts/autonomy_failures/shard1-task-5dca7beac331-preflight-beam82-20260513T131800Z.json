@@ -1,0 +1,14 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T13:18:00.000000+00:00",
+  "reason": "preflight_strict_gate_failed",
+  "shard": "1/3",
+  "task_id": "task-5dca7beac331",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.67",
+  "change_class": "reference_port",
+  "tier2_delta_correct": -1,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.67",
+  "negative_memory": "reference_phoneme_v4 probe: CTC prefix beam width 8, top_symbols 10, max_hyp 5 + trigram verse shortlist + joint02 fragment blend on manifest prefix n=32 yielded 18/32 vs phoneme_matcher_joint02 19/32 (~56.25% vs 59.38% acc); composite objective ~0.60625 vs ~0.634375 (0.9*acc+0.1 with latency 1.0). Same fixed slice (first 32 rows). Do not re-ship wider-beam clone of joint02 matcher stack as reference_port without a decode change that strictly wins; next paths: deeper RN ctc-rescore parity from /tmp/offline-tarteel-reference web/frontend ctc-rescore.ts or two-pass hypotheses, not matcher-only tuning.",
+  "run_id": "task-5dca7beac331-preflight-beam82-20260513T131800Z",
+  "reference_clone_ok": true
+}

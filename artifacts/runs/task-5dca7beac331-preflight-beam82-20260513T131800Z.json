@@ -1,0 +1,46 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-5dca7beac331-preflight-beam82-20260513T131800Z",
+  "task_id": "task-5dca7beac331",
+  "created_at_utc": "2026-05-13T13:18:00.000000+00:00",
+  "git_sha": "9372e5b1ba9889b77ede81a2e560119fb158f95a",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.67",
+    "change_class": "reference_port",
+    "candidate_experiment": "reference_phoneme_v4",
+    "champion_experiment": "phoneme_matcher_joint02",
+    "preflight_commands": [
+      "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment reference_phoneme_v4",
+      "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+    ],
+    "probe_decode": "CTC beam8 top_symbols10 max_hyp5 + trigram shortlist + FRAGMENT_BLEND 0.82",
+    "reference_repo_clone": "/tmp/offline-tarteel-reference",
+    "bounded_cycle_notes": "Probe reverted after preflight; no promotion.",
+    "tier2_reports": [
+      "artifacts/tier2/tier2-20260513T131204Z.json",
+      "artifacts/tier2/tier2-20260513T131801Z.json"
+    ]
+  },
+  "metrics": {
+    "preflight_candidate_correct": 18,
+    "preflight_candidate_accuracy": 0.5625,
+    "preflight_candidate_objective": 0.60625,
+    "preflight_champion_correct": 19,
+    "preflight_champion_accuracy": 0.59375,
+    "preflight_champion_objective": 0.634375,
+    "preflight_sample_count": 32,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective_full_corpus": 0.905078,
+    "streaming_alignment_accuracy": 0.5625,
+    "correction_precision": 0.5625,
+    "verse_boundary_f1": 0.5625,
+    "latency_budget_score": 1.0,
+    "requires_champion_improvement": true,
+    "gate_outcome": "champion_objective_not_improved"
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": []
+}

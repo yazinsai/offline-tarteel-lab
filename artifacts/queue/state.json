@@ -6654,7 +6654,7 @@
       "cursor_run_id": null,
       "run_record_path": null,
       "judge_reasons": null,
-      "notes": "2026-05-13T11:19:52+00:00 blocked queue routing (shard 2/3 idle): sole queued slot is FIFO ordinal 0, so shard 1/3 owns this reference_port; shards 2/3 see no next_queued task until another item is enqueued or this task leaves queued. smoke_runtime_plateau; dependency is shipped v4-tlog ASR+tracker port\u2014not matcher-only follow-ups per autopilot blocked_change_classes.\n2026-05-13T12:09:39+00:00 shard 3/3 idle: next_queued(2,3)=empty; sole queued task-5dca7beac331 ordinal 0 -> shard 1/3 only (FIFO)."
+      "notes": "2026-05-13T11:19:52+00:00 queue routing: sole queued task at FIFO ordinal 0 maps to shard_index=0 (human shard 1/3 when using 1-based labels); shard_index 1 and 2 idle until more queued ordinals exist.\n2026-05-13T12:09:39+00:00 corrected FIFO math: ordinal 0 % 3 == 0, not residue 1.\n2026-05-13T13:04+00:00 reference repo clone at /tmp/offline-tarteel-reference.\n2026-05-13T13:18+00:00 Tier-2 preflight --limit 32 reverted probe: reference_phoneme_v4 beam8+trigram shortlist 18/32 vs phoneme_matcher_joint02 19/32; surrogate objective ~0.5625 vs ~0.59375; champion_objective_not_improved; code reverted to base."
     }
   ]
 }
