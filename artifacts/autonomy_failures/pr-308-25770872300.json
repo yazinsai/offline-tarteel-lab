@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T00:41:37.116066+00:00",
+  "workflow_run_id": "25770872300",
+  "pr_number": 308,
+  "title": "Autopilot offline-tarteel state: 59.375%, tie 0 pp \u2014 shard 1/3 RN CTC hyp-order baseline .58 probe",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/308",
+  "base_ref": "cursor-autonomy-base-25769831046-0",
+  "base_sha": "d737fd81e3f26f2760060b0b33d674ef8b2fc889",
+  "head_ref": "cursor/autopilot-rn-ctcfwd58-reject-d15f",
+  "head_sha": "4263fe671461d6531a9ee03b3777fcaeeaa45648",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-634e497aa3b1-rn-ctcfwd-preflight-tie-20260513T003916Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-634e497aa3b1-20260513T003916Z.json"
+  ],
+  "blocked_file_hints": []
+}
