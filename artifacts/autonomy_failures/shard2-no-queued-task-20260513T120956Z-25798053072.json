@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T12:09:56.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "2/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.67",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.67",
+  "negative_memory": "Shard 2/3 (shard_index=1): after autopilot plan --target-backlog 8, exactly one task remains queued (task-5dca7beac331, joint_model_runtime reference_port baseline.reference_shipped_fastconformer_v4_tlog.67). FIFO assigns ordinal 0 to shard 1/3 only (0 % 3 == 0); next_queued(shard_index=1) is empty. smoke_runtime_plateau=true; dependency is shipped v4-tlog ASR+tracker port from reference repo, not matcher reranking. Do not substitute matcher-only probes or smoke knob sweeps on this shard until another task is queued or shard 1/3 completes the reference port. autonomous_loop run --shard-index 1 confirms no work.",
+  "run_id": "shard2-no-queued-task-20260513T120956Z"
+}
