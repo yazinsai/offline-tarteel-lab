@@ -6713,12 +6713,12 @@
         "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.75"
       },
       "created_at": "2026-05-13T20:02:53.772281+00:00",
-      "updated_at": "2026-05-13T20:02:53.772281+00:00",
+      "updated_at": "2026-05-13T21:55:36.073112+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
       "judge_reasons": null,
-      "notes": "20260513T200530Z shard 1/3 idle (89679b bounded cycle): next_queued(shard_index=1,shard_total=3) empty; sole queued task-6a8e2bead04b reference_port baseline.reference_shipped_fastconformer_v4_tlog.75 at ordinal 0 routes shard_index=0 only (0 mod 3). smoke_runtime_plateau; per policy shard 1 must not steal reference_port work or substitute matcher-only/greedy decode probes.\n20260513T212028Z shard 1/3 idle (e84b10a lab cycle): same FIFO routing; recorded autonomy_failure shard1-no-queued-task-20260513T212028Z-e84b10a + ledger run shard1-no-queued-task-20260513T212028Z-e84b10a; autonomous_loop --shard-index 1 --shard-total 3 -> no queued tasks."
+      "notes": "20260513T200530Z shard 1/3 idle (89679b bounded cycle): next_queued(shard_index=1,shard_total=3) empty; sole queued task-6a8e2bead04b reference_port baseline.reference_shipped_fastconformer_v4_tlog.75 at ordinal 0 routes shard_index=0 only (0 mod 3). smoke_runtime_plateau; per policy shard 1 must not steal reference_port work or substitute matcher-only/greedy decode probes.\n20260513T212028Z shard 1/3 idle (e84b10a lab cycle): same FIFO routing; recorded autonomy_failure shard1-no-queued-task-20260513T212028Z-e84b10a + ledger run shard1-no-queued-task-20260513T212028Z-e84b10a; autonomous_loop --shard-index 1 --shard-total 3 -> no queued tasks.\n20260513T215521Z shard 3/3 idle (dcc3835 bounded lab cycle): python3 -m pip install -e '.[dev]'; lab_tools.task_queue init; autopilot plan --target-backlog 8 (queued=1); experiment_ledger champion phoneme_matcher_joint02; task_queue next --shard-index 2 --shard-total 3 empty; sole queued task-6a8e2bead04b reference_port baseline.reference_shipped_fastconformer_v4_tlog.75 ordinal 0 \u2192 shard_index=0 only; smoke_runtime_plateau; per steps 9\u201310 blocked wrong_task_ordering \u2014 no matcher-only / Modal substitute. Recorded autonomy_failures shard3-no-queued-task-20260513T215521Z-dcc3835.json + run_record + ledger."
     }
   ]
 }
