@@ -6588,7 +6588,7 @@
       "cursor_run_id": null,
       "run_record_path": null,
       "judge_reasons": null,
-      "notes": "[2026-05-13T03:25:24Z] Shard 2/3 idle: FIFO routes sole queued reference_port to shard 0 only; see artifacts/autonomy_failures/shard2-no-queued-task-20260513T032524Z-fc01.json"
+      "notes": "[2026-05-13T03:25:24Z] Shard 2/3 idle: FIFO routes sole queued reference_port to shard 0 only; see artifacts/autonomy_failures/shard2-no-queued-task-20260513T032524Z-fc01.json\n[2026-05-13T04:46:52Z] Shard 3/3 idle: same FIFO binding; see artifacts/autonomy_failures/shard3-no-queued-task-20260513T044652Z.json"
     }
   ]
 }

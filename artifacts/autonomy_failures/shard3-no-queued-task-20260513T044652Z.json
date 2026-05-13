@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T04:46:52+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "3/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.62",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.62",
+  "negative_memory": "next_queued(shard_index=2, shard_total=3) returned null: sole queued task task-b6cef561d61e (joint_model_runtime reference_port, autopilot_key baseline.reference_shipped_fastconformer_v4_tlog.62, smoke_runtime_plateau) occupies FIFO ordinal 0; ordinal %% 3 == 0 binds shard_index=0 (human shard 1/3) only. Do not steal that reference_port task from shard 3/3 (shard_index=2). Bounded controller exits immediately; record state instead of matcher-only or Modal substitutes.",
+  "run_id": "shard3-no-queued-task-20260513T044652Z"
+}
