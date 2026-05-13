@@ -1,0 +1,49 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-5dca7beac331-preflight-tie-20260513T124530Z",
+  "task_id": "task-5dca7beac331",
+  "created_at_utc": "2026-05-13T12:45:30.000000+00:00",
+  "git_sha": "f12e25973de0458d14e80b65b1421b8b35f05d0e",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "change_class": "reference_port",
+    "reference_repo": "../offline-tarteel",
+    "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+    "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+    "target_corpus": "test_corpus_v3",
+    "min_accuracy": 0.8,
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.67",
+    "candidate_experiment_probed": "reference_v4_tlog_acoustic_fusion",
+    "champion_experiment_slice": "phoneme_matcher_joint02",
+    "preflight_note": "Reference ctc-rescore.ts forward-CTC + tracker discovery fusion (types.ts weights) over joint02 beam/matcher shortlist; REFERENCE_V4_FUSION_TOP=22, per-hyp match top_k<=12. Candidate code removed after strict preflight tie.",
+    "reference_clone_path": "/tmp/offline-tarteel-reference"
+  },
+  "metrics": {
+    "tier2_accuracy": 0.59375,
+    "tier2_correct": 19,
+    "tier2_samples": 32,
+    "tier2_manifest_samples": 256,
+    "tier2_sample_limit": 32,
+    "champion_slice_correct": 19,
+    "champion_slice_accuracy": 0.59375,
+    "surrogate_objective_candidate_slice": 0.634375,
+    "surrogate_objective_champion_slice": 0.634375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "latency_budget_score": 1.0,
+    "requires_champion_improvement": true,
+    "preflight_gate": "failed_tie_strict_accuracy_and_objective",
+    "tier2_report_candidate": "artifacts/tier2/tier2-20260513T123051Z.json",
+    "tier2_report_champion": "artifacts/tier2/tier2-20260513T123602Z.json"
+  },
+  "tier_completed": [2],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment reference_v4_tlog_acoustic_fusion",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}
