@@ -6600,6 +6600,9 @@
       "payload": {
         "blocked_family": "smoke_runtime_plateau",
         "change_class": "reference_port",
+        "corpus": "test_corpus_v3",
+        "experiment": "reference_phoneme_v4",
+        "full_corpus_gate": true,
         "plateau_failures": 18,
         "reference_repo": "../offline-tarteel",
         "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
