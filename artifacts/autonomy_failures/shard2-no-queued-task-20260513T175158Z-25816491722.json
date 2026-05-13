@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T17:51:58.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "2/3",
+  "shard_index": 1,
+  "shard_total": 3,
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+  "negative_memory": "Shard 2/3 uses next_queued(shard_index=1,shard_total=3). With exactly one queued FIFO item (task-72c32b270b87 joint_model_runtime reference port, autopilot_key baseline.reference_shipped_fastconformer_v4_tlog.69), ordinal 0 maps only to shard_index=0. Re-runs on this shard must not substitute matcher-only probes; wait for shard 0/1 to drain or enqueue additional queued tasks until 1\u2261ordinal (mod 3). smoke_runtime_plateau=true.",
+  "run_id": "shard2-no-queued-task-20260513T175158Z-25816491722"
+}
