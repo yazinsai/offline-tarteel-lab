@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T01:18:46.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "2/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.58",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.58",
+  "negative_memory": "bounded cycle shard_index=1/shard_total=3: next_queued empty; FIFO ordinal 0 is task-634e497aa3b1 (joint_model_runtime reference_port, smoke_runtime_plateau) with 0 mod 3 == 0 -> shard_index 0 only. Do not run matcher-only substitute or Tier-2 preflight stealing shard-0/reference_port work; complete clone+experiment registration path on owning shard.",
+  "run_id": "shard2-no-queued-task-20260513T011846Z"
+}
