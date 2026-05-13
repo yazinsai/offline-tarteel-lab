@@ -1,0 +1,14 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T19:31:00.000000+00:00",
+  "reason": "preflight_strict_gate_failed",
+  "shard": "1/3",
+  "task_id": "task-72c32b270b87",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+  "change_class": "reference_port",
+  "tier2_delta_correct": 0,
+  "experiment_family": "reference_phoneme_ctc_rescore",
+  "negative_memory": "Reference scoreCtcSequence re-rank before joint02 matcher: Tier-2 slice test_corpus_v3 --limit 32 (first 32 manifest rows) tied champion phoneme_matcher_joint02 at 19/32 correct (~59.38% acc); surrogate objective ~0.634375 both; strict gate requires strictly greater acc and objective vs champion — tie fails. Re-try reference port needs hypothesis merge / trie-constrained beam / tracker-stage fusion from tracker.ts (not reorder-only on same prefix beam) or decode path that changes logits/search, not CTC-rescore ordering alone on top of joint02-equivalent matcher.",
+  "run_id": "task-72c32b270b87-preflight-ctc-rescore-tie-20260513T193100Z",
+  "reference_clone_ok": true
+}
