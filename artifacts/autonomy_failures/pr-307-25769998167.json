@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T00:16:10.536667+00:00",
+  "workflow_run_id": "25769998167",
+  "pr_number": 307,
+  "title": "Autopilot offline-tarteel state: 89.5% acc champ, +0pp \u2014 shard 2/3 idle (queue ordinal routes reference_port to shard 0 only)",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/307",
+  "base_ref": "cursor-autonomy-base-25769831046-1",
+  "base_sha": "d737fd81e3f26f2760060b0b33d674ef8b2fc889",
+  "head_ref": "cursor/offline-tarteel-shard2-idle-queue-routing-a58a",
+  "head_sha": "53241b339a0b60896f6c08be05e487f17b64bc1b",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-no-queued-task-20260513T001428Z-d737.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/runs/shard2-no-queued-task-20260513T001428Z-d737.json"
+  ],
+  "blocked_file_hints": []
+}
