@@ -1,0 +1,48 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-634e497aa3b1-preflight-20260513T023100Z",
+  "task_id": "task-634e497aa3b1",
+  "created_at_utc": "2026-05-13T02:31:00.000000+00:00",
+  "git_sha": "28217a7f4c5a9eeb140a31cd8367fd0d8d81368d",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "plateau_failures": 18,
+    "reference_repo": "../offline-tarteel",
+    "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+    "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+    "target_corpus": "test_corpus_v3",
+    "target_correct_range": [223, 225],
+    "target_recall": 0.893,
+    "min_accuracy": 0.8,
+    "change_class": "reference_port",
+    "candidate_experiment_attempted": "shipped_fc_v4_ref_ctcscore58",
+    "preflight_note": "Portable experiment (ported scoreCtcSequence + DISCOVERY_* fusion weights from reference tracker/types) atop joint phoneme ONNX + joint02 beam/matcher; repo shallow-cloned to /tmp/offline-tarteel-reference for TS validation only. Probe code intentionally not committed.",
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.58"
+  },
+  "metrics": {
+    "tier2_accuracy": 0.59375,
+    "tier2_correct": 19,
+    "tier2_samples": 32,
+    "tier2_manifest_samples": 256,
+    "tier2_sample_limit": 32,
+    "champion_slice_correct": 19,
+    "champion_slice_accuracy": 0.59375,
+    "champion_preflight_experiment": "phoneme_matcher_joint02",
+    "surrogate_objective_candidate_slice": 0.634375,
+    "surrogate_objective_champion_slice": 0.634375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "latency_budget_score": 1.0,
+    "requires_champion_improvement": true,
+    "preflight_gate": "failed_strict_tie_requires_strict_improvement"
+  },
+  "tier_completed": [2],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment shipped_fc_v4_ref_ctcscore58",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}

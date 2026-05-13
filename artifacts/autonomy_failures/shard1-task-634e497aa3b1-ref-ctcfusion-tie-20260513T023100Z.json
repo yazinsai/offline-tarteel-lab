@@ -1,0 +1,14 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T02:31:00.000000+00:00",
+  "reason": "preflight_tie_strict_gate",
+  "shard": "1/3",
+  "task_id": "task-634e497aa3b1",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.58",
+  "change_class": "reference_port",
+  "tier2_delta_correct": 0,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog",
+  "experiment_family_actual": "shipped_fc_v4_ref_ctcscore58_removed",
+  "negative_memory": "Cursor Cloud bounded cycle shard 1/3 reference_port 58: Python port of offline-tarteel ctc-rescore.ts forward CTC path + tracker.ts discovery fusion constants (weights 0.6/0.25/0.15 normal; weak-text branch unchanged) fused with joint ONNX multi-hypothesis enumeration (beam 6, max 4 hyps identical to phoneme_matcher_joint02 knobs). Mandatory Tier-2 preflight corpus test_corpus_v3 --limit 32: candidate 19/32 correct = 59.375% accuracy, composite surrogate objective 0.634375 versus champion phoneme_matcher_joint02 identical 19/32 and 0.634375 (tie). Strict promotion gate demands strictly greater accuracy and objective; tie rejects. Hypothesis-merge vs matcher-only rerun on same ONNX/joint matcher shortlist yields no uplift on fixed head slice; further attempts need different acoustic front-end, Trie-constrained Quranic hypotheses from phoneme-trie.ts, streaming tracker state machine, or new ASR modality—not standalone fusion re-layer on joint02 hypotheses.",
+  "run_id": "task-634e497aa3b1-preflight-20260513T023100Z"
+}
