@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T13:04:32.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "2/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.67",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.67",
+  "negative_memory": "Shard 2/3 (shard_index=1): autopilot plan --target-backlog 8 leaves one queued reference_port task-5dca7beac331 (baseline.reference_shipped_fastconformer_v4_tlog.67). FIFO ordinal 0 % 3 == 0 -> shard 1/3 only; next_queued(1,3)=empty. smoke_runtime_plateau=true blocks smoke_runtime knobs; dependency is shipped v4-tlog ASR+tracker port—not matcher reranks, beam tweaks, or dual-preemph fusion on joint02 until this task clears or additional tasks enqueue. Prior cycle task-d3443b4beb92 (.63 port) greedy preflight lost slice to phoneme_matcher_joint02.",
+  "run_id": "shard2-no-queued-task-20260513T130432Z"
+}
