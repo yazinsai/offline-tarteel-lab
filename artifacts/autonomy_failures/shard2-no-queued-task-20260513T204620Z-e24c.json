@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T20:46:20.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "2/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.75",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.75",
+  "negative_memory": "Shard 2/3 (shard_index=1): sole queued joint_model_runtime reference_port task-6a8e2bead04b (autopilot_key baseline.reference_shipped_fastconformer_v4_tlog.75) sits at FIFO ordinal 0, so next_queued routes it only to shard_index 0 (human 1/3). Autopilot shows smoke_runtime_plateau and skips non-smoke model/joint dependents; do not substitute matcher-only beam reranks, fragment-head reranks on joint02, greedy CTC widen-only probes, or Modal ASR stubs on shard 2/3 until this shard gets its own ordinal or shard 1/3 completes the port.",
+  "run_id": "shard2-no-queued-task-20260513T204620Z"
+}
