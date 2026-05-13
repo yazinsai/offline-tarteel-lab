@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T01:17:53.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "3/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.58",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog",
+  "negative_memory": "20260513 Cursor Cloud bounded lab cycle shard 3/3 rerun: backlog still exactly one queued row task-634e497aa3b1 (joint_model_runtime reference_port, change_class reference_port, autopilot_key baseline.reference_shipped_fastconformer_v4_tlog.58). task_queue.next_queued(shard_index=2, shard_total=3)=None because queued ordinal 0 mod 3 == 0 binds that row to shard 1/3 only. smoke_runtime_plateau still true per autopilot plan. Do not steal task-634e497aa3b1 onto shard 3 without queue policy fix; unblock reference port work on shards that actually receive ordinal 0, or enqueue additional queued tasks until ordinal maps to shard_index==2.",
+  "run_id": "shard3-no-queued-task-20260513T011753Z"
+}
