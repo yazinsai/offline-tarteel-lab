@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_negative_memory.v1",
+  "created_at_utc": "2026-05-13T18:05:00+00:00",
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+  "change_class": "reference_port",
+  "experiment": "reference_phoneme_v4",
+  "champion_experiment_slice": "phoneme_matcher_joint02",
+  "tier2_preflight_correct": [
+    16,
+    19
+  ],
+  "tier2_delta_correct": -3,
+  "reason": "reference_phoneme_v4 greedy-CTC ONNX port already registered under experiments/ cannot pass strict preflight versus phoneme_matcher_joint02 (+CTC beam + multi-hypothesis matcher) on the same test_corpus_v3 head-first-32 slice: 50.0% acc / objective 0.55 vs champion slice 59.375% / 0.634375. Bounded autonomous_loop intentionally not run.",
+  "corpus_slice": {
+    "corpus": "test_corpus_v3",
+    "limit": 32
+  },
+  "task_id": "task-72c32b270b87"
+}
