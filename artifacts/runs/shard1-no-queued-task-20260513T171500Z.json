@@ -1,0 +1,42 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "shard1-no-queued-task-20260513T171500Z",
+  "task_id": null,
+  "created_at_utc": "2026-05-13T17:15:00.000000+00:00",
+  "git_sha": "5c302426963c2de4780581463ac44d49f5c1442f",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "shard": "1/3",
+    "shard_index": 1,
+    "shard_total": 3,
+    "policy": "evaluate_only_task_selected_by_shard",
+    "only_queued_task_id": "task-72c32b270b87",
+    "only_queued_autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+    "autopilot_smoke_runtime_plateau": true,
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+    "blocked_family": "smoke_runtime_plateau",
+    "bounded_cycle_notes": "2026-05-13 Cursor Cloud shard 1/3: pip install -e .[dev]; task_queue init; autopilot plan --target-backlog 8; next(shard_index=1,shard_total=3) empty — sole queued reference_port task maps ordinal 0 -> shard 0 only; queue notes updated on task-72c32b270b87; autonomy_failure shard1-no-queued-task-20260513T171500Z-819a.json; no matcher-only probe per plateau + prior ref_v4 greedy preflight failure memory."
+  },
+  "metrics": {
+    "blocked_before_eval": true,
+    "no_queued_task_for_shard": true,
+    "queue_ordinal_for_sole_queued": 0,
+    "ordinal_mod_shard_total": 0,
+    "assigned_shard_index_for_sole_task": 0,
+    "assigned_shard_label_for_sole_task": "0/3",
+    "this_shard_idle_reason": "ordinal 0 routes to shard_index 0 only",
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "champion_experiment": "phoneme_matcher_joint02",
+    "champion_tier2_accuracy": 0.89453125,
+    "runner_up_run_id": "task-5858c078713e-20260510T032653Z",
+    "runner_up_objective": 0.866406,
+    "runner_up_experiment": "matcher_asr_path_v02"
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "[blocked] shard 1/3 (shard_index=1, shard_total=3): python3 -m lab_tools.task_queue next -> empty — sole queued task-72c32b270b87 (joint_model_runtime reference_port baseline.reference_shipped_fastconformer_v4_tlog.69; smoke_runtime_plateau) at ordinal 0 routes only to shard 0/3. Per shard policy do not steal shard-0 work; no Tier-2 preflight; bounded autonomous_loop run shard_index=1 -> no queued tasks."
+  ]
+}
