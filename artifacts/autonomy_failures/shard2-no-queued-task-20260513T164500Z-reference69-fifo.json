@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T16:45:00.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "2/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.69",
+  "negative_memory": "Shard 2/3 (shard_index=1): after autopilot plan --target-backlog 8, exactly one task stays queued (task-72c32b270b87, joint_model_runtime reference_port for shipped FastConformer phoneme v4-tlog). FIFO assigns ordinal 0 to shard 1/3 only (queued_index % 3 == 0); next_queued(shard_index=1) is empty. Autopilot reports smoke_runtime_plateau=true with blocked_change_classes including smoke_runtime and reference_port dependency before matcher reranking. Do not substitute matcher-only probes on this shard; run reference clone/port on shard 1/3 first or enqueue parallel mirrored tasks so shard 2/3 receives work.",
+  "run_id": "shard2-no-queued-task-20260513T164500Z-reference69-fifo"
+}
