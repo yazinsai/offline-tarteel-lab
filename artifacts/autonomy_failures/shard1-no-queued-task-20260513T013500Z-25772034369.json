@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T01:17:47.839394+00:00",
+  "reason": "wrong_task_ordering_no_queued_task_for_shard",
+  "shard": "1/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.58",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.58",
+  "negative_memory": "Shard 1/3 idle again: sole queued task task-634e497aa3b1 (joint_model_runtime reference_port, smoke_runtime_plateau) sits at queue ordinal 0; 0 mod 3 == 0 maps only to shard 0. Real dependency is ASR/reference clone+wrap per payload; do not substitute matcher-only probes. Bounded autonomy must not run autonomous_loop with shard_index=0 while policy is evaluate_only_shard_1_selection.",
+  "run_id": "shard1-no-queued-task-20260513T013500Z-25772034369"
+}
