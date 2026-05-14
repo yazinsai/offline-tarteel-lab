@@ -6750,7 +6750,7 @@
     },
     {
       "id": "task-b22c5173a054",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual: champion miss atlas and recoverability harness",
       "payload": {
@@ -6762,14 +6762,18 @@
         "change_class": "failure_atlas",
         "min_accuracy": 0.89453125,
         "agent_instructions": "Create a reviewable failure-analysis artifact for phoneme_matcher_joint02 on full test_corpus_v3. For each miss, capture the predicted transcript, top Quran candidates, score gaps, expected first verse, duration/tags, and whether the expected verse appears in top-N candidates before final ranking. Use this to classify the 27 misses into decode missing, candidate missing, ranking error, BSM/boundary error, and multi-verse span error. This task can produce JSON/markdown diagnostics and tests, but should not promote unless it also includes a strictly improving experiment.",
-        "autopilot_key": "manual.champion_miss_atlas.01"
+        "autopilot_key": "manual.champion_miss_atlas.01",
+        "experiment": "champion_miss_atlas"
       },
       "created_at": "2026-05-14T05:35:37.190394+00:00",
-      "updated_at": "2026-05-14T05:35:37.190394+00:00",
+      "updated_at": "2026-05-14T07:11:56.399337+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-b22c5173a054-20260514T071156Z.json",
+      "judge_reasons": [
+        "preflight_strict_gate_failed",
+        "champion_slice_not_strictly_improved"
+      ],
       "notes": ""
     },
     {

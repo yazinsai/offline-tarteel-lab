@@ -1,0 +1,12 @@
+kind: joint_model_runtime
+hypothesis: >
+  Diagnostic wrapper delegating inference to phoneme_matcher_joint02; produces offline miss-atlas artifacts
+  (no scoring change versus champion experiment).
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Enables Tier-2 registration as a sibling experiment without matching gains; atlas JSON is emitted by
+  run.py invoked as __main__ with --corpus.

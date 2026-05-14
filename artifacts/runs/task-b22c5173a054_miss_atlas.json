@@ -1,0 +1,2032 @@
+{
+  "schema": "offline-tarteel.champion_miss_atlas.v1",
+  "created_at_utc": "2026-05-14T07:00:59.252111+00:00",
+  "champion_experiment": "phoneme_matcher_joint02",
+  "corpus": "test_corpus_v3",
+  "manifest_samples": 256,
+  "evaluated_rows": 256,
+  "correct_count": 229,
+  "miss_count": 27,
+  "bucket_histogram": {
+    "decode_or_candidate_miss": 16,
+    "ranking_error_across_hypotheses": 1,
+    "ranking_error_within_winning_hypothesis_shortlist": 10
+  },
+  "misses": [
+    {
+      "id": "ea_alafasy_multi_001_001_007",
+      "benchmark_file": "ea_alafasy_multi_001_001_007.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "alafasy",
+      "manifest_source": "everyayah",
+      "gold_surah": 1,
+      "gold_ayah": 1,
+      "predicted_surah": 1,
+      "predicted_ayah": 4,
+      "predicted_ayah_end": 7,
+      "winning_hypothesis_trim": "ianam lianaaai yawmi<yaaa nabu wa<aaka astaEiinin aaamsaqiimraaa*iina <anEamtaEalaim gayi lmagDuubi Ealaim walaaaaaalina",
+      "greedy_trim": "na inaaai yawmi<aaa nabuwa<aaka nastaEiiidin aaastaqiimraaa*iina <anEamta Ealaim gayi lmagDuubi Ealaim walaaa",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.012499999999999956,
+      "primary_top_candidates": [
+        {
+          "surah": 1,
+          "ayah": 4,
+          "score": 0.756,
+          "ayah_end": 7
+        },
+        {
+          "surah": 1,
+          "ayah": 5,
+          "score": 0.7435,
+          "ayah_end": 7
+        },
+        {
+          "surah": 1,
+          "ayah": 3,
+          "score": 0.7308,
+          "ayah_end": 7
+        },
+        {
+          "surah": 1,
+          "ayah": 6,
+          "score": 0.7043,
+          "ayah_end": 7
+        },
+        {
+          "surah": 1,
+          "ayah": 2,
+          "score": 0.6744,
+          "ayah_end": 7
+        },
+        {
+          "surah": 1,
+          "ayah": 7,
+          "score": 0.6231,
+          "ayah_end": null
+        },
+        {
+          "surah": 1,
+          "ayah": 4,
+          "score": 0.5403,
+          "ayah_end": 6
+        },
+        {
+          "surah": 2,
+          "ayah": 1,
+          "score": 0.5314,
+          "ayah_end": 3
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": [
+        "predicted_span_ayah_range"
+      ]
+    },
+    {
+      "id": "ea_alafasy_multi_044_001_005",
+      "benchmark_file": "ea_alafasy_multi_044_001_005.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "alafasy",
+      "manifest_source": "everyayah",
+      "gold_surah": 44,
+      "gold_ayah": 1,
+      "predicted_surah": 37,
+      "predicted_ayah": 109,
+      "predicted_ayah_end": 110,
+      "winning_hypothesis_trim": "alitaai naa laaaa niiaa u <miam ninaa naa musiiin",
+      "greedy_trim": "ataaiaaaakaaa yuu<am<amnusiii",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.006000000000000005,
+      "primary_top_candidates": [
+        {
+          "surah": 37,
+          "ayah": 109,
+          "score": 0.5849,
+          "ayah_end": 110
+        },
+        {
+          "surah": 37,
+          "ayah": 130,
+          "score": 0.5789,
+          "ayah_end": 131
+        },
+        {
+          "surah": 21,
+          "ayah": 88,
+          "score": 0.576,
+          "ayah_end": null
+        },
+        {
+          "surah": 37,
+          "ayah": 121,
+          "score": 0.576,
+          "ayah_end": 122
+        },
+        {
+          "surah": 15,
+          "ayah": 89,
+          "score": 0.576,
+          "ayah_end": 90
+        },
+        {
+          "surah": 37,
+          "ayah": 110,
+          "score": 0.5739,
+          "ayah_end": 111
+        },
+        {
+          "surah": 37,
+          "ayah": 80,
+          "score": 0.5738,
+          "ayah_end": 81
+        },
+        {
+          "surah": 37,
+          "ayah": 131,
+          "score": 0.5738,
+          "ayah_end": 132
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": [
+        "predicted_span_ayah_range"
+      ]
+    },
+    {
+      "id": "ea_husary_multi_050_001_005",
+      "benchmark_file": "ea_husary_multi_050_001_005.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "husary",
+      "manifest_source": "everyayah",
+      "gold_surah": 50,
+      "gold_ayah": 1,
+      "predicted_surah": 7,
+      "predicted_ayah": 80,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "aluaani alEa<n*inhm aaala aaaiuuna aaa aiaa miaa aaaa aEainaa au au nanaa al auu Hai lamj<aii",
+      "greedy_trim": "uiilEa<*ihualaaaiuuaaaaamiaaaaaEaEalinauanaaaalaauuHala<aaii",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.00880000000000003,
+      "primary_top_candidates": [
+        {
+          "surah": 7,
+          "ayah": 80,
+          "score": 0.5787,
+          "ayah_end": null
+        },
+        {
+          "surah": 3,
+          "ayah": 33,
+          "score": 0.5699,
+          "ayah_end": null
+        },
+        {
+          "surah": 25,
+          "ayah": 63,
+          "score": 0.5644,
+          "ayah_end": null
+        },
+        {
+          "surah": 29,
+          "ayah": 28,
+          "score": 0.5631,
+          "ayah_end": null
+        },
+        {
+          "surah": 2,
+          "ayah": 32,
+          "score": 0.5574,
+          "ayah_end": null
+        },
+        {
+          "surah": 3,
+          "ayah": 173,
+          "score": 0.5565,
+          "ayah_end": null
+        },
+        {
+          "surah": 18,
+          "ayah": 102,
+          "score": 0.5545,
+          "ayah_end": null
+        },
+        {
+          "surah": 32,
+          "ayah": 19,
+          "score": 0.5528,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": []
+    },
+    {
+      "id": "ea_husary_multi_054_001_005",
+      "benchmark_file": "ea_husary_multi_054_001_005.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "husary",
+      "manifest_source": "everyayah",
+      "gold_surah": 54,
+      "gold_ayah": 1,
+      "predicted_surah": 78,
+      "predicted_ayah": 7,
+      "predicted_ayah_end": 10,
+      "winning_hypothesis_trim": "tarabatatuwaaamawa<inaa<ataiayastamwka*aataaa<awaku<amstaialamnaaaiklianu*u",
+      "greedy_trim": "tarabatatuwaaamawa<inaa<ataiayastamwka*aataaa<awaku<amstaialamnaaaiklianu*u",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.0034999999999999476,
+      "primary_top_candidates": [
+        {
+          "surah": 78,
+          "ayah": 7,
+          "score": 0.4972,
+          "ayah_end": 10
+        },
+        {
+          "surah": 20,
+          "ayah": 41,
+          "score": 0.4937,
+          "ayah_end": 42
+        },
+        {
+          "surah": 6,
+          "ayah": 75,
+          "score": 0.4881,
+          "ayah_end": null
+        },
+        {
+          "surah": 78,
+          "ayah": 11,
+          "score": 0.4857,
+          "ayah_end": 12
+        },
+        {
+          "surah": 78,
+          "ayah": 32,
+          "score": 0.4853,
+          "ayah_end": 34
+        },
+        {
+          "surah": 78,
+          "ayah": 32,
+          "score": 0.4835,
+          "ayah_end": 35
+        },
+        {
+          "surah": 78,
+          "ayah": 7,
+          "score": 0.4832,
+          "ayah_end": 9
+        },
+        {
+          "surah": 19,
+          "ayah": 45,
+          "score": 0.4828,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": [
+        "predicted_span_ayah_range"
+      ]
+    },
+    {
+      "id": "ea_alafasy_multi_069_001_006",
+      "benchmark_file": "ea_alafasy_multi_069_001_006.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "alafasy",
+      "manifest_source": "everyayah",
+      "gold_surah": 69,
+      "gold_ayah": 1,
+      "predicted_surah": 85,
+      "predicted_ayah": 1,
+      "predicted_ayah_end": 5,
+      "winning_hypothesis_trim": "aaaaaaka a*abatamuuu waEaaiamuuu a<likuu iamaaa<ulikuu bi SarSali Eaatiai",
+      "greedy_trim": "ka a*abatamuuuwaEiamuua<likuuia<ulikuubiirSaliEia",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.007800000000000029,
+      "primary_top_candidates": [
+        {
+          "surah": 85,
+          "ayah": 1,
+          "score": 0.5231,
+          "ayah_end": 5
+        },
+        {
+          "surah": 7,
+          "ayah": 118,
+          "score": 0.5153,
+          "ayah_end": 119
+        },
+        {
+          "surah": 7,
+          "ayah": 120,
+          "score": 0.5139,
+          "ayah_end": 121
+        },
+        {
+          "surah": 33,
+          "ayah": 41,
+          "score": 0.5089,
+          "ayah_end": 42
+        },
+        {
+          "surah": 7,
+          "ayah": 107,
+          "score": 0.5029,
+          "ayah_end": 108
+        },
+        {
+          "surah": 85,
+          "ayah": 1,
+          "score": 0.5,
+          "ayah_end": 3
+        },
+        {
+          "surah": 85,
+          "ayah": 7,
+          "score": 0.4974,
+          "ayah_end": 8
+        },
+        {
+          "surah": 35,
+          "ayah": 19,
+          "score": 0.4965,
+          "ayah_end": 20
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": [
+        "predicted_span_ayah_range"
+      ]
+    },
+    {
+      "id": "ea_alafasy_multi_073_001_005",
+      "benchmark_file": "ea_alafasy_multi_073_001_005.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "alafasy",
+      "manifest_source": "everyayah",
+      "gold_surah": 73,
+      "gold_ayah": 1,
+      "predicted_surah": 4,
+      "predicted_ayah": 148,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "aa <ayuhaa lmuaum layla <ilaa qaliiniahanuqaliila<ain Ealai wai lur<aana artiilainaa sanulqiEalaqawlan aiilan",
+      "greedy_trim": "aa<uhaa lmuaum laya <iaa qaliiniahauqaliil<ain Eali waili lur<aana artiilinnaa sanulqIEalaka qawlanaiila",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.006800000000000028,
+      "primary_top_candidates": [
+        {
+          "surah": 4,
+          "ayah": 148,
+          "score": 0.5566,
+          "ayah_end": null
+        },
+        {
+          "surah": 12,
+          "ayah": 1,
+          "score": 0.5498,
+          "ayah_end": 2
+        },
+        {
+          "surah": 33,
+          "ayah": 1,
+          "score": 0.5422,
+          "ayah_end": null
+        },
+        {
+          "surah": 43,
+          "ayah": 31,
+          "score": 0.5312,
+          "ayah_end": null
+        },
+        {
+          "surah": 33,
+          "ayah": 18,
+          "score": 0.5299,
+          "ayah_end": null
+        },
+        {
+          "surah": 4,
+          "ayah": 144,
+          "score": 0.5263,
+          "ayah_end": null
+        },
+        {
+          "surah": 33,
+          "ayah": 16,
+          "score": 0.5249,
+          "ayah_end": null
+        },
+        {
+          "surah": 33,
+          "ayah": 63,
+          "score": 0.5244,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": []
+    },
+    {
+      "id": "ea_husary_multi_077_001_007",
+      "benchmark_file": "ea_husary_multi_077_001_007.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "husary",
+      "manifest_source": "everyayah",
+      "gold_surah": 77,
+      "gold_ayah": 1,
+      "predicted_surah": 37,
+      "predicted_ayah": 119,
+      "predicted_ayah_end": 120,
+      "winning_hypothesis_trim": "alusaaai Eufalaaiaai aiaai a aaaiqaaai aliaai un naa Eauuna aaai",
+      "greedy_trim": "lusaaaiaiaaiaiiaaaaiaialaaiuEauunaai",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.010699999999999932,
+      "primary_top_candidates": [
+        {
+          "surah": 37,
+          "ayah": 119,
+          "score": 0.5882,
+          "ayah_end": 120
+        },
+        {
+          "surah": 23,
+          "ayah": 17,
+          "score": 0.5775,
+          "ayah_end": null
+        },
+        {
+          "surah": 20,
+          "ayah": 19,
+          "score": 0.5736,
+          "ayah_end": 20
+        },
+        {
+          "surah": 26,
+          "ayah": 61,
+          "score": 0.5735,
+          "ayah_end": null
+        },
+        {
+          "surah": 69,
+          "ayah": 26,
+          "score": 0.5733,
+          "ayah_end": 28
+        },
+        {
+          "surah": 37,
+          "ayah": 78,
+          "score": 0.5714,
+          "ayah_end": 79
+        },
+        {
+          "surah": 69,
+          "ayah": 27,
+          "score": 0.5691,
+          "ayah_end": 28
+        },
+        {
+          "surah": 12,
+          "ayah": 11,
+          "score": 0.5676,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": [
+        "predicted_span_ayah_range"
+      ]
+    },
+    {
+      "id": "ea_alafasy_multi_079_001_005",
+      "benchmark_file": "ea_alafasy_multi_079_001_005.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "alafasy",
+      "manifest_source": "everyayah",
+      "gold_surah": 79,
+      "gold_ayah": 1,
+      "predicted_surah": 79,
+      "predicted_ayah": 4,
+      "predicted_ayah_end": 5,
+      "winning_hypothesis_trim": "iaaaiqaaiataaiqaati aalmudaaati <amr",
+      "greedy_trim": "iaaaiqaaiataaiqaati aalmudaaati <amr",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.5548,
+      "gold_in_union_pool_hypotheses": true,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.05059999999999998,
+      "primary_top_candidates": [
+        {
+          "surah": 79,
+          "ayah": 4,
+          "score": 0.6914,
+          "ayah_end": 5
+        },
+        {
+          "surah": 79,
+          "ayah": 3,
+          "score": 0.6408,
+          "ayah_end": 5
+        },
+        {
+          "surah": 51,
+          "ayah": 3,
+          "score": 0.6173,
+          "ayah_end": 4
+        },
+        {
+          "surah": 51,
+          "ayah": 2,
+          "score": 0.6019,
+          "ayah_end": 4
+        },
+        {
+          "surah": 20,
+          "ayah": 25,
+          "score": 0.5455,
+          "ayah_end": 26
+        },
+        {
+          "surah": 79,
+          "ayah": 2,
+          "score": 0.544,
+          "ayah_end": 5
+        },
+        {
+          "surah": 79,
+          "ayah": 5,
+          "score": 0.5424,
+          "ayah_end": null
+        },
+        {
+          "surah": 51,
+          "ayah": 1,
+          "score": 0.5316,
+          "ayah_end": 2
+        }
+      ],
+      "classification_bucket": "ranking_error_across_hypotheses",
+      "tags": [
+        "predicted_span_ayah_range",
+        "gold_only_in_secondary_hypothesis"
+      ]
+    },
+    {
+      "id": "ea_husary_multi_080_001_005",
+      "benchmark_file": "ea_husary_multi_080_001_005.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "husary",
+      "manifest_source": "everyayah",
+      "gold_surah": 80,
+      "gold_ayah": 1,
+      "predicted_surah": 42,
+      "predicted_ayah": 17,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "aban awamaa yuiikalahk<aman sagnaa",
+      "greedy_trim": "absawataanawamaayiikalaaaaaaahk<amansagn",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.0242,
+      "primary_top_candidates": [
+        {
+          "surah": 42,
+          "ayah": 17,
+          "score": 0.5735,
+          "ayah_end": null
+        },
+        {
+          "surah": 12,
+          "ayah": 11,
+          "score": 0.5493,
+          "ayah_end": null
+        },
+        {
+          "surah": 25,
+          "ayah": 18,
+          "score": 0.5268,
+          "ayah_end": null
+        },
+        {
+          "surah": 20,
+          "ayah": 1,
+          "score": 0.5128,
+          "ayah_end": 2
+        },
+        {
+          "surah": 35,
+          "ayah": 2,
+          "score": 0.5054,
+          "ayah_end": null
+        },
+        {
+          "surah": 53,
+          "ayah": 1,
+          "score": 0.5,
+          "ayah_end": 2
+        },
+        {
+          "surah": 11,
+          "ayah": 40,
+          "score": 0.4945,
+          "ayah_end": null
+        },
+        {
+          "surah": 5,
+          "ayah": 104,
+          "score": 0.4945,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": []
+    },
+    {
+      "id": "ea_alafasy_multi_089_001_005",
+      "benchmark_file": "ea_alafasy_multi_089_001_005.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "alafasy",
+      "manifest_source": "everyayah",
+      "gold_surah": 89,
+      "gold_ayah": 1,
+      "predicted_surah": 29,
+      "predicted_ayah": 44,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "alawalayaalin a wafi walwatwalayi <ilaa ya al fI*aalika qasamu liii Hi",
+      "greedy_trim": "lawalayaalin awaai walwatwalayi <ilaa yahal fI*aalika qasamui*ii Hi",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.020100000000000007,
+      "primary_top_candidates": [
+        {
+          "surah": 29,
+          "ayah": 44,
+          "score": 0.559,
+          "ayah_end": null
+        },
+        {
+          "surah": 42,
+          "ayah": 1,
+          "score": 0.5389,
+          "ayah_end": 3
+        },
+        {
+          "surah": 42,
+          "ayah": 2,
+          "score": 0.5309,
+          "ayah_end": 3
+        },
+        {
+          "surah": 7,
+          "ayah": 118,
+          "score": 0.5125,
+          "ayah_end": 119
+        },
+        {
+          "surah": 15,
+          "ayah": 37,
+          "score": 0.5075,
+          "ayah_end": 38
+        },
+        {
+          "surah": 51,
+          "ayah": 1,
+          "score": 0.5037,
+          "ayah_end": 3
+        },
+        {
+          "surah": 51,
+          "ayah": 1,
+          "score": 0.5031,
+          "ayah_end": 4
+        },
+        {
+          "surah": 30,
+          "ayah": 22,
+          "score": 0.5,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": []
+    },
+    {
+      "id": "ea_husary_multi_090_001_006",
+      "benchmark_file": "ea_husary_multi_090_001_006.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "husary",
+      "manifest_source": "everyayah",
+      "gold_surah": 90,
+      "gold_ayah": 1,
+      "predicted_surah": 39,
+      "predicted_ayah": 65,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "lasimuiaa lalawa<anaHiumiaa lalaiamalaxalanaaanabayaHsau<alnadialaHaquulu<alaumaalaubada",
+      "greedy_trim": "simiaa alawa<anaHiuaa lawiamalaaqaxalanaaaabaayaHsau<alnadiaal<aHyaquuu<alumlaubada",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.0045999999999999375,
+      "primary_top_candidates": [
+        {
+          "surah": 39,
+          "ayah": 65,
+          "score": 0.5213,
+          "ayah_end": null
+        },
+        {
+          "surah": 19,
+          "ayah": 78,
+          "score": 0.5167,
+          "ayah_end": 79
+        },
+        {
+          "surah": 43,
+          "ayah": 9,
+          "score": 0.5054,
+          "ayah_end": null
+        },
+        {
+          "surah": 35,
+          "ayah": 19,
+          "score": 0.5,
+          "ayah_end": 20
+        },
+        {
+          "surah": 15,
+          "ayah": 31,
+          "score": 0.4975,
+          "ayah_end": 32
+        },
+        {
+          "surah": 40,
+          "ayah": 53,
+          "score": 0.4975,
+          "ayah_end": 54
+        },
+        {
+          "surah": 15,
+          "ayah": 60,
+          "score": 0.4973,
+          "ayah_end": 61
+        },
+        {
+          "surah": 15,
+          "ayah": 70,
+          "score": 0.4972,
+          "ayah_end": 71
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": []
+    },
+    {
+      "id": "ea_alafasy_multi_095_001_005",
+      "benchmark_file": "ea_alafasy_multi_095_001_005.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "alafasy",
+      "manifest_source": "everyayah",
+      "gold_surah": 95,
+      "gold_ayah": 1,
+      "predicted_surah": 12,
+      "predicted_ayah": 60,
+      "predicted_ayah_end": 61,
+      "winning_hypothesis_trim": "aiini wazaywaTuuiwahaa alai lamiilaqa xalanaa laana<aHsani ama adanaahu <asfalasaailiin",
+      "greedy_trim": "aiini wazaywaTuuiwahaa alai lamiilaqa xalanaa laana<aHsani ama adanaahu <asfalasaailiin",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.017299999999999982,
+      "primary_top_candidates": [
+        {
+          "surah": 12,
+          "ayah": 60,
+          "score": 0.5592,
+          "ayah_end": 61
+        },
+        {
+          "surah": 33,
+          "ayah": 39,
+          "score": 0.5419,
+          "ayah_end": null
+        },
+        {
+          "surah": 15,
+          "ayah": 86,
+          "score": 0.5361,
+          "ayah_end": 87
+        },
+        {
+          "surah": 23,
+          "ayah": 11,
+          "score": 0.5361,
+          "ayah_end": 12
+        },
+        {
+          "surah": 15,
+          "ayah": 69,
+          "score": 0.5342,
+          "ayah_end": 70
+        },
+        {
+          "surah": 15,
+          "ayah": 70,
+          "score": 0.5333,
+          "ayah_end": 71
+        },
+        {
+          "surah": 23,
+          "ayah": 11,
+          "score": 0.5328,
+          "ayah_end": 13
+        },
+        {
+          "surah": 15,
+          "ayah": 31,
+          "score": 0.53,
+          "ayah_end": 32
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": [
+        "predicted_span_ayah_range"
+      ]
+    },
+    {
+      "id": "ea_husary_multi_105_001_005",
+      "benchmark_file": "ea_husary_multi_105_001_005.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "husary",
+      "manifest_source": "everyayah",
+      "gold_surah": 105,
+      "gold_ayah": 1,
+      "predicted_surah": 42,
+      "predicted_ayah": 2,
+      "predicted_ayah_end": 3,
+      "winning_hypothesis_trim": "<alamakafalauabi<aHaai ialamyakahum ialia<asalimayaimiaaaiajaEalahum kaEaSi auu",
+      "greedy_trim": "<alamarakaafaEalaauai<aaaialamyaakaahumia<asaaalimayaaimiajaEalahumkaEaiauu",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.01529999999999998,
+      "primary_top_candidates": [
+        {
+          "surah": 42,
+          "ayah": 2,
+          "score": 0.538,
+          "ayah_end": 3
+        },
+        {
+          "surah": 42,
+          "ayah": 1,
+          "score": 0.5227,
+          "ayah_end": 3
+        },
+        {
+          "surah": 29,
+          "ayah": 23,
+          "score": 0.5222,
+          "ayah_end": null
+        },
+        {
+          "surah": 10,
+          "ayah": 33,
+          "score": 0.5185,
+          "ayah_end": null
+        },
+        {
+          "surah": 10,
+          "ayah": 62,
+          "score": 0.5106,
+          "ayah_end": 63
+        },
+        {
+          "surah": 47,
+          "ayah": 8,
+          "score": 0.5098,
+          "ayah_end": 9
+        },
+        {
+          "surah": 12,
+          "ayah": 1,
+          "score": 0.5083,
+          "ayah_end": 2
+        },
+        {
+          "surah": 40,
+          "ayah": 6,
+          "score": 0.506,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": [
+        "predicted_span_ayah_range"
+      ]
+    },
+    {
+      "id": "ea_husary_multi_109_001_006",
+      "benchmark_file": "ea_husary_multi_109_001_006.wav",
+      "manifest_category": "multi",
+      "manifest_reciter": "husary",
+      "manifest_source": "everyayah",
+      "gold_surah": 109,
+      "gold_ayah": 1,
+      "predicted_surah": 7,
+      "predicted_ayah": 120,
+      "predicted_ayah_end": 121,
+      "winning_hypothesis_trim": "ul aa<aaaaaain aaaiuuaaa<an aaiba akumiiinuwalyaiin",
+      "greedy_trim": "ul<aai<anibakumiiwalaii",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.02200000000000002,
+      "primary_top_candidates": [
+        {
+          "surah": 7,
+          "ayah": 120,
+          "score": 0.5574,
+          "ayah_end": 121
+        },
+        {
+          "surah": 15,
+          "ayah": 89,
+          "score": 0.5354,
+          "ayah_end": 90
+        },
+        {
+          "surah": 2,
+          "ayah": 1,
+          "score": 0.5263,
+          "ayah_end": 2
+        },
+        {
+          "surah": 15,
+          "ayah": 36,
+          "score": 0.5152,
+          "ayah_end": 37
+        },
+        {
+          "surah": 15,
+          "ayah": 70,
+          "score": 0.5139,
+          "ayah_end": 71
+        },
+        {
+          "surah": 7,
+          "ayah": 111,
+          "score": 0.5135,
+          "ayah_end": 112
+        },
+        {
+          "surah": 7,
+          "ayah": 5,
+          "score": 0.5094,
+          "ayah_end": null
+        },
+        {
+          "surah": 7,
+          "ayah": 14,
+          "score": 0.5082,
+          "ayah_end": 15
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": [
+        "predicted_span_ayah_range"
+      ]
+    },
+    {
+      "id": "ea_alafasy_055053",
+      "benchmark_file": "ea_alafasy_055053.mp3",
+      "manifest_category": "short",
+      "manifest_reciter": "alafasy",
+      "manifest_source": "everyayah",
+      "gold_surah": 55,
+      "gold_ayah": 53,
+      "predicted_surah": 55,
+      "predicted_ayah": 13,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "fabi<ai <alaa<i raikumaa uka*ibaan",
+      "greedy_trim": "fabi<ai <aaalaaaa<i raikumaa tuka*ibn",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.0,
+      "primary_top_candidates": [
+        {
+          "surah": 55,
+          "ayah": 13,
+          "score": 0.88,
+          "ayah_end": null
+        },
+        {
+          "surah": 55,
+          "ayah": 16,
+          "score": 0.88,
+          "ayah_end": null
+        },
+        {
+          "surah": 55,
+          "ayah": 18,
+          "score": 0.88,
+          "ayah_end": null
+        },
+        {
+          "surah": 55,
+          "ayah": 21,
+          "score": 0.88,
+          "ayah_end": null
+        },
+        {
+          "surah": 55,
+          "ayah": 23,
+          "score": 0.88,
+          "ayah_end": null
+        },
+        {
+          "surah": 55,
+          "ayah": 25,
+          "score": 0.88,
+          "ayah_end": null
+        },
+        {
+          "surah": 55,
+          "ayah": 28,
+          "score": 0.88,
+          "ayah_end": null
+        },
+        {
+          "surah": 55,
+          "ayah": 30,
+          "score": 0.88,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": []
+    },
+    {
+      "id": "ea_husary_088014",
+      "benchmark_file": "ea_husary_088014.mp3",
+      "manifest_category": "short",
+      "manifest_reciter": "husary",
+      "manifest_source": "everyayah",
+      "gold_surah": 88,
+      "gold_ayah": 14,
+      "predicted_surah": 17,
+      "predicted_ayah": 35,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "wa<akwauua",
+      "greedy_trim": "wa<akwauua",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.7931,
+      "gold_in_union_pool_hypotheses": true,
+      "gold_covers_candidate_in_winning_shortlist": true,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.0029000000000000137,
+      "primary_top_candidates": [
+        {
+          "surah": 17,
+          "ayah": 35,
+          "score": 0.796,
+          "ayah_end": null
+        },
+        {
+          "surah": 88,
+          "ayah": 14,
+          "score": 0.7931,
+          "ayah_end": null
+        },
+        {
+          "surah": 4,
+          "ayah": 4,
+          "score": 0.7778,
+          "ayah_end": null
+        },
+        {
+          "surah": 4,
+          "ayah": 2,
+          "score": 0.7778,
+          "ayah_end": null
+        },
+        {
+          "surah": 16,
+          "ayah": 91,
+          "score": 0.7778,
+          "ayah_end": null
+        },
+        {
+          "surah": 6,
+          "ayah": 152,
+          "score": 0.7529,
+          "ayah_end": null
+        },
+        {
+          "surah": 76,
+          "ayah": 15,
+          "score": 0.7507,
+          "ayah_end": null
+        },
+        {
+          "surah": 43,
+          "ayah": 71,
+          "score": 0.7195,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "ranking_error_within_winning_hypothesis_shortlist",
+      "tags": [
+        "predicted_cross_surah_mismatch",
+        "narrow_score_gap_top2"
+      ]
+    },
+    {
+      "id": "ea_alafasy_081019",
+      "benchmark_file": "ea_alafasy_081019.mp3",
+      "manifest_category": "short",
+      "manifest_reciter": "alafasy",
+      "manifest_source": "everyayah",
+      "gold_surah": 81,
+      "gold_ayah": 19,
+      "predicted_surah": 69,
+      "predicted_ayah": 40,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "<inahuu laqawlurasUlin karImn",
+      "greedy_trim": "<innahuuu laqawlurasUlikarIm",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.8387,
+      "gold_in_union_pool_hypotheses": true,
+      "gold_covers_candidate_in_winning_shortlist": true,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.0,
+      "primary_top_candidates": [
+        {
+          "surah": 69,
+          "ayah": 40,
+          "score": 0.8387,
+          "ayah_end": null
+        },
+        {
+          "surah": 81,
+          "ayah": 19,
+          "score": 0.8387,
+          "ayah_end": null
+        },
+        {
+          "surah": 86,
+          "ayah": 13,
+          "score": 0.6923,
+          "ayah_end": null
+        },
+        {
+          "surah": 69,
+          "ayah": 39,
+          "score": 0.6265,
+          "ayah_end": 40
+        },
+        {
+          "surah": 81,
+          "ayah": 18,
+          "score": 0.5909,
+          "ayah_end": 19
+        },
+        {
+          "surah": 86,
+          "ayah": 13,
+          "score": 0.5479,
+          "ayah_end": 14
+        },
+        {
+          "surah": 81,
+          "ayah": 19,
+          "score": 0.5,
+          "ayah_end": 20
+        },
+        {
+          "surah": 51,
+          "ayah": 8,
+          "score": 0.5,
+          "ayah_end": 9
+        }
+      ],
+      "classification_bucket": "ranking_error_within_winning_hypothesis_shortlist",
+      "tags": [
+        "predicted_cross_surah_mismatch",
+        "narrow_score_gap_top2"
+      ]
+    },
+    {
+      "id": "ea_husary_037082",
+      "benchmark_file": "ea_husary_037082.mp3",
+      "manifest_category": "short",
+      "manifest_reciter": "husary",
+      "manifest_source": "everyayah",
+      "gold_surah": 37,
+      "gold_ayah": 82,
+      "predicted_surah": 26,
+      "predicted_ayah": 66,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "umma a<agranaa alaaaariina",
+      "greedy_trim": "umma a<agranaa alaaaariina",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.8889,
+      "gold_in_union_pool_hypotheses": true,
+      "gold_covers_candidate_in_winning_shortlist": true,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.0,
+      "primary_top_candidates": [
+        {
+          "surah": 26,
+          "ayah": 66,
+          "score": 0.8889,
+          "ayah_end": null
+        },
+        {
+          "surah": 37,
+          "ayah": 82,
+          "score": 0.8889,
+          "ayah_end": null
+        },
+        {
+          "surah": 16,
+          "ayah": 27,
+          "score": 0.5897,
+          "ayah_end": null
+        },
+        {
+          "surah": 32,
+          "ayah": 22,
+          "score": 0.5762,
+          "ayah_end": null
+        },
+        {
+          "surah": 45,
+          "ayah": 18,
+          "score": 0.5738,
+          "ayah_end": null
+        },
+        {
+          "surah": 7,
+          "ayah": 64,
+          "score": 0.5672,
+          "ayah_end": null
+        },
+        {
+          "surah": 43,
+          "ayah": 55,
+          "score": 0.5623,
+          "ayah_end": null
+        },
+        {
+          "surah": 10,
+          "ayah": 73,
+          "score": 0.5615,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "ranking_error_within_winning_hypothesis_shortlist",
+      "tags": [
+        "predicted_cross_surah_mismatch",
+        "narrow_score_gap_top2"
+      ]
+    },
+    {
+      "id": "ea_alafasy_030001",
+      "benchmark_file": "ea_alafasy_030001.mp3",
+      "manifest_category": "short",
+      "manifest_reciter": "alafasy",
+      "manifest_source": "everyayah",
+      "gold_surah": 30,
+      "gold_ayah": 1,
+      "predicted_surah": 2,
+      "predicted_ayah": 243,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "<al m",
+      "greedy_trim": "<al",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.0,
+      "primary_top_candidates": [
+        {
+          "surah": 2,
+          "ayah": 243,
+          "score": 0.8889,
+          "ayah_end": null
+        },
+        {
+          "surah": 2,
+          "ayah": 246,
+          "score": 0.8889,
+          "ayah_end": null
+        },
+        {
+          "surah": 2,
+          "ayah": 258,
+          "score": 0.8889,
+          "ayah_end": null
+        },
+        {
+          "surah": 9,
+          "ayah": 70,
+          "score": 0.8889,
+          "ayah_end": null
+        },
+        {
+          "surah": 58,
+          "ayah": 8,
+          "score": 0.8889,
+          "ayah_end": null
+        },
+        {
+          "surah": 4,
+          "ayah": 77,
+          "score": 0.8889,
+          "ayah_end": null
+        },
+        {
+          "surah": 31,
+          "ayah": 20,
+          "score": 0.8889,
+          "ayah_end": null
+        },
+        {
+          "surah": 2,
+          "ayah": 107,
+          "score": 0.8889,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": []
+    },
+    {
+      "id": "ea_husary_026122",
+      "benchmark_file": "ea_husary_026122.mp3",
+      "manifest_category": "short",
+      "manifest_reciter": "husary",
+      "manifest_source": "everyayah",
+      "gold_surah": 26,
+      "gold_ayah": 122,
+      "predicted_surah": 26,
+      "predicted_ayah": 9,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "wa<inaaaka lahuwaaziaHiim",
+      "greedy_trim": "wa<inaaaka lahuwaaziaHiim",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.7463,
+      "gold_in_union_pool_hypotheses": true,
+      "gold_covers_candidate_in_winning_shortlist": true,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.0,
+      "primary_top_candidates": [
+        {
+          "surah": 26,
+          "ayah": 9,
+          "score": 0.7463,
+          "ayah_end": null
+        },
+        {
+          "surah": 26,
+          "ayah": 68,
+          "score": 0.7463,
+          "ayah_end": null
+        },
+        {
+          "surah": 26,
+          "ayah": 104,
+          "score": 0.7463,
+          "ayah_end": null
+        },
+        {
+          "surah": 26,
+          "ayah": 122,
+          "score": 0.7463,
+          "ayah_end": null
+        },
+        {
+          "surah": 26,
+          "ayah": 140,
+          "score": 0.7463,
+          "ayah_end": null
+        },
+        {
+          "surah": 26,
+          "ayah": 159,
+          "score": 0.7463,
+          "ayah_end": null
+        },
+        {
+          "surah": 26,
+          "ayah": 175,
+          "score": 0.7463,
+          "ayah_end": null
+        },
+        {
+          "surah": 26,
+          "ayah": 191,
+          "score": 0.7463,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "ranking_error_within_winning_hypothesis_shortlist",
+      "tags": [
+        "narrow_score_gap_top2"
+      ]
+    },
+    {
+      "id": "ea_husary_028014",
+      "benchmark_file": "ea_husary_028014.mp3",
+      "manifest_category": "medium",
+      "manifest_reciter": "husary",
+      "manifest_source": "everyayah",
+      "gold_surah": 28,
+      "gold_ayah": 14,
+      "predicted_surah": 12,
+      "predicted_ayah": 22,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "alamaa balastaaataynaauaka*iajzi uHsiiina",
+      "greedy_trim": "alambalaataukaiaaiuHsiniin",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.5985,
+      "gold_in_union_pool_hypotheses": true,
+      "gold_covers_candidate_in_winning_shortlist": true,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.006199999999999983,
+      "primary_top_candidates": [
+        {
+          "surah": 12,
+          "ayah": 22,
+          "score": 0.6047,
+          "ayah_end": null
+        },
+        {
+          "surah": 28,
+          "ayah": 14,
+          "score": 0.5985,
+          "ayah_end": null
+        },
+        {
+          "surah": 28,
+          "ayah": 1,
+          "score": 0.5783,
+          "ayah_end": 2
+        },
+        {
+          "surah": 21,
+          "ayah": 88,
+          "score": 0.5299,
+          "ayah_end": null
+        },
+        {
+          "surah": 41,
+          "ayah": 11,
+          "score": 0.5001,
+          "ayah_end": null
+        },
+        {
+          "surah": 2,
+          "ayah": 1,
+          "score": 0.5,
+          "ayah_end": 2
+        },
+        {
+          "surah": 7,
+          "ayah": 76,
+          "score": 0.4956,
+          "ayah_end": null
+        },
+        {
+          "surah": 53,
+          "ayah": 13,
+          "score": 0.4948,
+          "ayah_end": 14
+        }
+      ],
+      "classification_bucket": "ranking_error_within_winning_hypothesis_shortlist",
+      "tags": [
+        "predicted_cross_surah_mismatch",
+        "narrow_score_gap_top2"
+      ]
+    },
+    {
+      "id": "ea_husary_002061",
+      "benchmark_file": "ea_husary_002061.mp3",
+      "manifest_category": "long",
+      "manifest_reciter": "husary",
+      "manifest_source": "everyayah",
+      "gold_surah": 2,
+      "gold_ayah": 61,
+      "predicted_surah": 3,
+      "predicted_ayah": 112,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "a<i luaa lanabia alaa aaai anaa a uilanaa iaa i a baihanaa a uilanaa iaa i a aiaa iaa aaa aaa aliaaa astaiuuna a anaa a ina a<auiba Ealim au walakanaia aaia <anaum aan afuuunaaai aai a naina igai a aa",
+      "greedy_trim": "<illanabiaalaaaaiaanaaaak uianaaiaaihaanaaaak uianaaiaaiaaaaaaalia ataiuuna n<uuribaEalim uwalakanaagaaia <anumnyauunaaaiiaata anagiaia imaa aSa yaEtauun",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.5778,
+      "gold_in_union_pool_hypotheses": true,
+      "gold_covers_candidate_in_winning_shortlist": true,
+      "matcher_hypothesis_count": 2,
+      "matcher_candidate_rows_summed_over_hyps": 36,
+      "top1_top2_gap": 0.022199999999999998,
+      "primary_top_candidates": [
+        {
+          "surah": 3,
+          "ayah": 112,
+          "score": 0.6,
+          "ayah_end": null
+        },
+        {
+          "surah": 2,
+          "ayah": 61,
+          "score": 0.5778,
+          "ayah_end": null
+        },
+        {
+          "surah": 23,
+          "ayah": 106,
+          "score": 0.5697,
+          "ayah_end": 109
+        },
+        {
+          "surah": 3,
+          "ayah": 111,
+          "score": 0.5649,
+          "ayah_end": 112
+        },
+        {
+          "surah": 12,
+          "ayah": 81,
+          "score": 0.5646,
+          "ayah_end": 82
+        },
+        {
+          "surah": 7,
+          "ayah": 187,
+          "score": 0.5643,
+          "ayah_end": null
+        },
+        {
+          "surah": 7,
+          "ayah": 89,
+          "score": 0.5629,
+          "ayah_end": null
+        },
+        {
+          "surah": 11,
+          "ayah": 29,
+          "score": 0.5625,
+          "ayah_end": 30
+        }
+      ],
+      "classification_bucket": "ranking_error_within_winning_hypothesis_shortlist",
+      "tags": [
+        "predicted_cross_surah_mismatch"
+      ]
+    },
+    {
+      "id": "user_ikhlas_2_3",
+      "benchmark_file": "ikhlas_2_3.m4a",
+      "manifest_category": "multi",
+      "manifest_reciter": null,
+      "manifest_source": "user",
+      "gold_surah": 112,
+      "gold_ayah": 2,
+      "predicted_surah": 112,
+      "predicted_ayah": 3,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "<aumalmyalidwalamyulad",
+      "greedy_trim": "<umalamyalidwalamlad",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.7,
+      "gold_in_union_pool_hypotheses": true,
+      "gold_covers_candidate_in_winning_shortlist": true,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.0727000000000001,
+      "primary_top_candidates": [
+        {
+          "surah": 112,
+          "ayah": 3,
+          "score": 0.7727,
+          "ayah_end": null
+        },
+        {
+          "surah": 112,
+          "ayah": 2,
+          "score": 0.7,
+          "ayah_end": 3
+        },
+        {
+          "surah": 112,
+          "ayah": 1,
+          "score": 0.5238,
+          "ayah_end": 3
+        },
+        {
+          "surah": 6,
+          "ayah": 82,
+          "score": 0.5024,
+          "ayah_end": null
+        },
+        {
+          "surah": 8,
+          "ayah": 72,
+          "score": 0.5024,
+          "ayah_end": null
+        },
+        {
+          "surah": 28,
+          "ayah": 80,
+          "score": 0.4888,
+          "ayah_end": null
+        },
+        {
+          "surah": 17,
+          "ayah": 111,
+          "score": 0.4866,
+          "ayah_end": null
+        },
+        {
+          "surah": 60,
+          "ayah": 8,
+          "score": 0.484,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "ranking_error_within_winning_hypothesis_shortlist",
+      "tags": []
+    },
+    {
+      "id": "tlog_m008_107_001",
+      "benchmark_file": "tlog_m008_107_001.wav",
+      "manifest_category": "medium",
+      "manifest_reciter": null,
+      "manifest_source": "tlog",
+      "gold_surah": 106,
+      "gold_ayah": 4,
+      "predicted_surah": 107,
+      "predicted_ayah": 1,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "<aTamahum h a<yta * yukanibu bn",
+      "greedy_trim": "<aTamahum h a<yta * yukanibu bn",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.0,
+      "gold_in_union_pool_hypotheses": false,
+      "gold_covers_candidate_in_winning_shortlist": false,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.0806,
+      "primary_top_candidates": [
+        {
+          "surah": 107,
+          "ayah": 1,
+          "score": 0.5797,
+          "ayah_end": null
+        },
+        {
+          "surah": 28,
+          "ayah": 34,
+          "score": 0.4991,
+          "ayah_end": null
+        },
+        {
+          "surah": 6,
+          "ayah": 33,
+          "score": 0.4923,
+          "ayah_end": null
+        },
+        {
+          "surah": 44,
+          "ayah": 58,
+          "score": 0.4773,
+          "ayah_end": null
+        },
+        {
+          "surah": 26,
+          "ayah": 158,
+          "score": 0.4771,
+          "ayah_end": null
+        },
+        {
+          "surah": 16,
+          "ayah": 39,
+          "score": 0.4709,
+          "ayah_end": null
+        },
+        {
+          "surah": 14,
+          "ayah": 25,
+          "score": 0.4607,
+          "ayah_end": null
+        },
+        {
+          "surah": 45,
+          "ayah": 10,
+          "score": 0.459,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "decode_or_candidate_miss",
+      "tags": []
+    },
+    {
+      "id": "tlog_m020_010_105",
+      "benchmark_file": "tlog_m020_010_105.wav",
+      "manifest_category": "medium",
+      "manifest_reciter": null,
+      "manifest_source": "tlog",
+      "gold_surah": 10,
+      "gold_ayah": 105,
+      "predicted_surah": 55,
+      "predicted_ayah": 2,
+      "predicted_ayah_end": 3,
+      "winning_hypothesis_trim": "amwan alan alaaananam$iknan",
+      "greedy_trim": "amwan alan alaaananam$iknan",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.5333,
+      "gold_in_union_pool_hypotheses": true,
+      "gold_covers_candidate_in_winning_shortlist": true,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.045499999999999985,
+      "primary_top_candidates": [
+        {
+          "surah": 55,
+          "ayah": 2,
+          "score": 0.6032,
+          "ayah_end": 3
+        },
+        {
+          "surah": 11,
+          "ayah": 79,
+          "score": 0.5577,
+          "ayah_end": null
+        },
+        {
+          "surah": 37,
+          "ayah": 150,
+          "score": 0.5432,
+          "ayah_end": null
+        },
+        {
+          "surah": 55,
+          "ayah": 1,
+          "score": 0.5405,
+          "ayah_end": 3
+        },
+        {
+          "surah": 34,
+          "ayah": 35,
+          "score": 0.54,
+          "ayah_end": null
+        },
+        {
+          "surah": 43,
+          "ayah": 76,
+          "score": 0.5385,
+          "ayah_end": null
+        },
+        {
+          "surah": 11,
+          "ayah": 87,
+          "score": 0.5358,
+          "ayah_end": null
+        },
+        {
+          "surah": 55,
+          "ayah": 1,
+          "score": 0.5357,
+          "ayah_end": 2
+        }
+      ],
+      "classification_bucket": "ranking_error_within_winning_hypothesis_shortlist",
+      "tags": [
+        "predicted_span_ayah_range",
+        "predicted_cross_surah_mismatch"
+      ]
+    },
+    {
+      "id": "tlog_m059_010_053",
+      "benchmark_file": "tlog_m059_010_053.wav",
+      "manifest_category": "medium",
+      "manifest_reciter": null,
+      "manifest_source": "tlog",
+      "gold_surah": 6,
+      "gold_ayah": 134,
+      "predicted_surah": 10,
+      "predicted_ayah": 53,
+      "predicted_ayah_end": null,
+      "winning_hypothesis_trim": "<ani<uunak aHqun huw qul wai nah laHa wamaa <antum bimuEjiiin",
+      "greedy_trim": "<ani<uunak aHqun huw qul wai nah laHa wamaa <antum bimuEjiiin",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.6897,
+      "gold_in_union_pool_hypotheses": true,
+      "gold_covers_candidate_in_winning_shortlist": true,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.0685,
+      "primary_top_candidates": [
+        {
+          "surah": 10,
+          "ayah": 53,
+          "score": 0.7582,
+          "ayah_end": null
+        },
+        {
+          "surah": 6,
+          "ayah": 134,
+          "score": 0.6897,
+          "ayah_end": null
+        },
+        {
+          "surah": 11,
+          "ayah": 33,
+          "score": 0.6165,
+          "ayah_end": null
+        },
+        {
+          "surah": 36,
+          "ayah": 3,
+          "score": 0.5172,
+          "ayah_end": 4
+        },
+        {
+          "surah": 51,
+          "ayah": 53,
+          "score": 0.5143,
+          "ayah_end": 54
+        },
+        {
+          "surah": 17,
+          "ayah": 85,
+          "score": 0.5122,
+          "ayah_end": null
+        },
+        {
+          "surah": 7,
+          "ayah": 119,
+          "score": 0.5037,
+          "ayah_end": 120
+        },
+        {
+          "surah": 5,
+          "ayah": 88,
+          "score": 0.5,
+          "ayah_end": null
+        }
+      ],
+      "classification_bucket": "ranking_error_within_winning_hypothesis_shortlist",
+      "tags": [
+        "predicted_cross_surah_mismatch"
+      ]
+    },
+    {
+      "id": "tlog_l011_010_012",
+      "benchmark_file": "tlog_l011_010_012.wav",
+      "manifest_category": "long",
+      "manifest_reciter": null,
+      "manifest_source": "tlog",
+      "gold_surah": 10,
+      "gold_ayah": 12,
+      "predicted_surah": 20,
+      "predicted_ayah": 45,
+      "predicted_ayah_end": 46,
+      "winning_hypothesis_trim": "a aa asa naana aaa liani <aw aain aw aa<imn a aaa anaa ah a <an lm auunaa iaa a a a a",
+      "greedy_trim": "aa asa naana n aEaa lijani <awaaEidn <aw aa<imnaa aanaa n h aaka <anlam aEuunaa <iaa a",
+      "beam_hypotheses_n": 4,
+      "pool_best_cover_score_for_gold": 0.557,
+      "gold_in_union_pool_hypotheses": true,
+      "gold_covers_candidate_in_winning_shortlist": true,
+      "matcher_hypothesis_count": 4,
+      "matcher_candidate_rows_summed_over_hyps": 72,
+      "top1_top2_gap": 0.014699999999999935,
+      "primary_top_candidates": [
+        {
+          "surah": 20,
+          "ayah": 45,
+          "score": 0.5769,
+          "ayah_end": 46
+        },
+        {
+          "surah": 20,
+          "ayah": 50,
+          "score": 0.5622,
+          "ayah_end": 51
+        },
+        {
+          "surah": 20,
+          "ayah": 118,
+          "score": 0.5581,
+          "ayah_end": 119
+        },
+        {
+          "surah": 10,
+          "ayah": 12,
+          "score": 0.557,
+          "ayah_end": null
+        },
+        {
+          "surah": 15,
+          "ayah": 31,
+          "score": 0.5556,
+          "ayah_end": 32
+        },
+        {
+          "surah": 23,
+          "ayah": 106,
+          "score": 0.554,
+          "ayah_end": 107
+        },
+        {
+          "surah": 19,
+          "ayah": 92,
+          "score": 0.5524,
+          "ayah_end": 93
+        },
+        {
+          "surah": 23,
+          "ayah": 94,
+          "score": 0.5503,
+          "ayah_end": 95
+        }
+      ],
+      "classification_bucket": "ranking_error_within_winning_hypothesis_shortlist",
+      "tags": [
+        "predicted_span_ayah_range",
+        "predicted_cross_surah_mismatch",
+        "narrow_score_gap_top2"
+      ]
+    }
+  ]
+}
