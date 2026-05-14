@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T01:20:14.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "2/3",
+  "task_id": null,
+  "autopilot_key": null,
+  "change_class": "empty_queue_after_autopilot_retirement_and_blocked_candidates",
+  "tier2_delta_correct": null,
+  "experiment_family": "empty_autopilot_queue",
+  "negative_memory": "Shard 2/3 (task_queue shard_index=1): bounded cycle after pip install -e '.[dev]', task_queue init, autopilot plan --target-backlog 8 yielded queued=0 (not FIFO steal). Sole prior queued reference_port task-6a8e2bead04b baseline.reference_shipped_fastconformer_v4_tlog.75 was autopilot-retired failure_memory; replenish added no rows—baseline.82+escalates skipped for blocked_change_classes (reference_port, asr_model_evidence, smoke_runtime, reference_ctc_fusion, ...) and smoke_runtime_plateau=true with missing_dependency chains. Do not fabricate matcher-only Modal/greedy/rerank probes on phoneme_matcher_joint02 as a substitute when ASR/model/reference_port backlog is logically blocked.",
+  "run_id": "shard2-no-queued-task-20260514T012014Z-de03"
+}
