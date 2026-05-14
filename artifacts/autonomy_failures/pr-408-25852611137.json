@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T09:28:29.911533+00:00",
+  "workflow_run_id": "25852611137",
+  "pr_number": 408,
+  "title": "89.45% champion hold, +0.0pp \u2014 Autopilot offline-tarteel state: boundary rescue tie \u2014 preflight joint02_bsm_rescue vs joint02 19/32",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/408",
+  "base_ref": "cursor-autonomy-base-25849198757-0",
+  "base_sha": "c77a3f247f364b8ada843a400e2fe4c99cf78d9c",
+  "head_ref": "cursor/joint02-bsm-rescue-48aa",
+  "head_sha": "5ef8c1b7046f383e302b1fb7dd8ee82bdf95cc0b",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-d5745f3fb02b-boundary-rescue-preflight-20260514T092612Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-d5745f3fb02b-20260514T092612Z.json"
+  ],
+  "blocked_file_hints": []
+}
