@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T04:49:44.000000+00:00",
+  "reason": "no_queued_task_for_shard_autopilot_plan_empty_queue",
+  "shard": "3/3",
+  "task_id": null,
+  "autopilot_key": null,
+  "change_class": "queue_routing_autopilot_blocked",
+  "tier2_delta_correct": null,
+  "experiment_family": null,
+  "negative_memory": "20260514T044944Z shard 3/3: autopilot_key slice .84-* blocked (reference_port, asr_model_evidence, lightweight_audio_baseline) or escalate joint_model_runtime siblings missing_dependency on blocked parents; planner added zero queued rows. task_queue next --shard-index 2 returned empty → do not spoof matcher-only joint02 follow-ups against phoneme_matcher_joint02; unblock reference_port/model_only dependencies on shards 1/2 or replenish non-blocked queue keys before rerunning Tier-2 preflight on shard 3.",
+  "run_id": "shard3-no-queued-task-20260514T044944Z-2ff5b13"
+}
