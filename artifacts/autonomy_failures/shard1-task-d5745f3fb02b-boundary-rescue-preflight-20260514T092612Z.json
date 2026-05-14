@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T09:26:12.503746+00:00",
+  "reason": "preflight_strict_gate_failed",
+  "shard": "1/3",
+  "task_id": "task-d5745f3fb02b",
+  "autopilot_key": "manual.boundary_bsm_rescue.01",
+  "change_class": "boundary_bsm_rescue",
+  "tier2_delta_correct": 0,
+  "experiment_family": "manual.boundary_bsm_rescue.01",
+  "negative_memory": "20260514T092612Z shard 1/3 task-d5745f3fb02b: phoneme_matcher_joint02_bsm_rescue applied transcript-only BSM-prefix ratio tie-breaking vs phoneme_matcher_joint02 (+bonus ayah1 vs ayah2 singles after merging ayah1/ayah2 best scores from top-30 sorted singles+spans). Tier-2 test_corpus_v3 --limit 32 tied champion at 19/32 correct (~59.375%); surrogate composite slice objective ~0.634375 vs ~0.634375 (0.55acc components identical). Rescue fires on many clips but swaps wins and regressions cancel — naive ayah1/2 score-margin boosts without acoustic alignment do not strictly beat joint02 on the canonical slice. Avoid repeating pure matcher tie-break rescues on joint02 decode; need tighter coupling to logits/multi-span hypotheses or ASR-side change.",
+  "run_id": "task-d5745f3fb02b-20260514T092612Z"
+}
