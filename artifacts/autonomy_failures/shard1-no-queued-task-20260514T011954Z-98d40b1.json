@@ -1,0 +1,12 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T01:19:54.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "1/3",
+  "task_id": null,
+  "autopilot_key": "escalate.non_smoke.joint_model_runtime.25.02",
+  "experiment_family": "escalate.non_smoke.joint_model_runtime.25.02",
+  "change_class": "queue_idle",
+  "negative_memory": "20260514T011954Z shard 1/3: after autopilot plan --target-backlog 8 the queue had 0 queued tasks (plan retired task-6a8e2bead04b; new tasks skipped due to blocked_change_class reference_port/asr_model_evidence/lightweight_audio_baseline/smoke_runtime and missing_dependency chains). task_queue next(shard_index=1,total=3) empty — do not run matcher-only probes until reference/model tasks unblock or queue gets joint/decode work; repeating reference_port on plateau is blocked.",
+  "run_id": "shard1-no-queued-task-20260514T011954Z-98d40b1"
+}
