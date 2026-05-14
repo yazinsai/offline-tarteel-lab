@@ -1,0 +1,21 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T07:35:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-b22c5173a054",
+  "autopilot_key": "manual.champion_miss_atlas.01",
+  "experiment_family": "manual.champion_miss_atlas.01",
+  "change_class": "failure_atlas",
+  "tier2_delta_correct": 0,
+  "reason": "Diagnostics-only manual task: same experiment phoneme_matcher_joint02 re-evaluated full Tier-2 (229/256) with candidate_objective tied champion (0.905078). Controller rejected champion_objective_not_improved. Atlas JSON committed under benchmark/results/; probe harness reverted per autonomy revert-of-code policy.",
+  "negative_memory": "failure_atlas manual.champion_miss_atlas.01: champion phoneme_matcher_joint02 cannot promote without strict objective lift; re-running the same experiment is a tie. Miss-class counts from generated atlas (27 misses): decode_missing=1, candidate_missing=9, ranking_error=10, bsm_boundary_error=5, multi_verse_span_error=2 — use for follow-on tasks (acoustic rerank, ambiguity-gated decode) not for another state-only joint02 re-eval.",
+  "preflight": {
+    "limit": 32,
+    "experiment": "phoneme_matcher_joint02",
+    "duplicate_tier2_correct_both": 19,
+    "duplicate_tier2_objective_approx": 0.634375,
+    "note": "Mandatory slice preflight: two identical eval_tier runs tie 19/32; controller skips strict preflight when candidate experiment equals ledger champion experiment."
+  },
+  "atlas_artifact": "benchmark/results/champion_miss_atlas_phoneme_matcher_joint02.json",
+  "run_id": "task-b22c5173a054-20260514T073034Z"
+}
