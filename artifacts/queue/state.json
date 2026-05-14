@@ -5938,14 +5938,14 @@
         "change_class": "reference_port"
       },
       "created_at": "2026-05-11T11:21:41.974123+00:00",
-      "updated_at": "2026-05-14T05:27:47.435555+00:00",
+      "updated_at": "2026-05-12T07:46:12.992587+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
       "judge_reasons": [
-        "manual_autonomy_pause"
+        "autopilot_failure_memory_retired"
       ],
-      "notes": "Manually paused on 2026-05-14: scheduled/autopilot experiment generation is stopped. Future work should be loaded intentionally as manual tasks focused on escaping the 89.45% champion plateau."
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-917c233756e1",
@@ -5961,14 +5961,14 @@
         "change_class": "asr_model_evidence"
       },
       "created_at": "2026-05-11T11:21:41.980291+00:00",
-      "updated_at": "2026-05-14T05:27:47.435696+00:00",
+      "updated_at": "2026-05-12T07:46:12.992601+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
       "judge_reasons": [
-        "manual_autonomy_pause"
+        "autopilot_failure_memory_retired"
       ],
-      "notes": "Manually paused on 2026-05-14: scheduled/autopilot experiment generation is stopped. Future work should be loaded intentionally as manual tasks focused on escaping the 89.45% champion plateau."
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-115568905fe6",
@@ -6006,14 +6006,14 @@
         "change_class": "lightweight_audio_baseline"
       },
       "created_at": "2026-05-11T11:21:41.993161+00:00",
-      "updated_at": "2026-05-14T05:27:47.435699+00:00",
+      "updated_at": "2026-05-12T07:46:12.992604+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
       "judge_reasons": [
-        "manual_autonomy_pause"
+        "autopilot_failure_memory_retired"
       ],
-      "notes": "Manually paused on 2026-05-14: scheduled/autopilot experiment generation is stopped. Future work should be loaded intentionally as manual tasks focused on escaping the 89.45% champion plateau."
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-f344e8bf02e1",
@@ -6116,6 +6116,613 @@
       "notes": "Retired during autopilot guardrail merge so the active backlog stays focused on reference reproduction plus two audio/model evidence tasks."
     },
     {
+      "id": "task-59ac7ab4f3ec",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "reference_port",
+        "plateau_failures": 18,
+        "reference_repo": "../offline-tarteel",
+        "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+        "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+        "target_corpus": "test_corpus_v3",
+        "target_correct_range": [
+          223,
+          225
+        ],
+        "target_recall": 0.893,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.46"
+      },
+      "created_at": "2026-05-12T07:46:13.003228+00:00",
+      "updated_at": "2026-05-12T11:33:16.804157+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-3423ba8da397",
+      "status": "rejected",
+      "kind": "model_only",
+      "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "asr_model_evidence",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+        "autopilot_key": "escalate.non_smoke.model_only.46.01"
+      },
+      "created_at": "2026-05-12T07:46:13.008795+00:00",
+      "updated_at": "2026-05-12T09:50:13.164364+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "artifacts/runs/task-3423ba8da397-20260512T095002Z.json",
+      "judge_reasons": [
+        "wrong_task_ordering_smoke_runtime_plateau",
+        "blocked_fifo_reference_port_46"
+      ],
+      "notes": "Blocked before preflight: FIFO still has baseline.reference_shipped_fastconformer_v4_tlog.46 (task-59ac7ab4f3ec) queued ahead while smoke_runtime_plateau=true; shard 2/3 must not run model_only 46.01 until that reference port completes."
+    },
+    {
+      "id": "task-d271cc87a224",
+      "status": "rejected",
+      "kind": "model_only",
+      "title": "Probe lightweight offline recognition baseline variant 03",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "lightweight_audio_baseline",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+        "autopilot_key": "escalate.non_smoke.model_only.46.03"
+      },
+      "created_at": "2026-05-12T07:46:13.014368+00:00",
+      "updated_at": "2026-05-12T07:47:14.640364+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "artifacts/runs/task-d271cc87a224-20260512T074700Z.json",
+      "judge_reasons": [
+        "wrong_task_ordering_smoke_runtime_plateau",
+        "blocked_fifo_reference_and_model_only_46"
+      ],
+      "notes": "Blocked before preflight: FIFO still has baseline.reference_shipped_fastconformer_v4_tlog.46 and escalate.non_smoke.model_only.46.01 ahead while smoke_runtime_plateau=true."
+    },
+    {
+      "id": "task-3722834bacd7",
+      "status": "rejected",
+      "kind": "model_only",
+      "title": "Evaluate non-smoke ASR candidate on full corpus variant 05",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "asr_model_evidence",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+        "autopilot_key": "escalate.non_smoke.model_only.46.05"
+      },
+      "created_at": "2026-05-12T07:46:13.019995+00:00",
+      "updated_at": "2026-05-12T08:49:26.000000+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "artifacts/runs/task-3722834bacd7-20260512T084926Z.json",
+      "judge_reasons": [
+        "wrong_task_ordering_smoke_runtime_plateau",
+        "blocked_fifo_reference_and_model_only_46"
+      ],
+      "notes": "Blocked before preflight: FIFO still has baseline.reference_shipped_fastconformer_v4_tlog.46 (task-59ac7ab4f3ec) and escalate.non_smoke.model_only.46.01 (task-3423ba8da397) ahead while smoke_runtime_plateau=true; shard 3/3 must not run later 46.x model_only until those complete."
+    },
+    {
+      "id": "task-6dafbc7624f3",
+      "status": "rejected",
+      "kind": "model_only",
+      "title": "Probe lightweight offline recognition baseline variant 07",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "lightweight_audio_baseline",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+        "autopilot_key": "escalate.non_smoke.model_only.46.07"
+      },
+      "created_at": "2026-05-12T07:46:13.025484+00:00",
+      "updated_at": "2026-05-12T11:33:16.804180+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-9667099fb53c",
+      "status": "rejected",
+      "kind": "model_only",
+      "title": "Evaluate non-smoke ASR candidate on full corpus variant 09",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "asr_model_evidence",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+        "autopilot_key": "escalate.non_smoke.model_only.46.09"
+      },
+      "created_at": "2026-05-12T07:46:13.030929+00:00",
+      "updated_at": "2026-05-12T10:46:06.084102+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "artifacts/runs/task-9667099fb53c-20260512T104550Z.json",
+      "judge_reasons": [
+        "wrong_task_ordering_smoke_runtime_plateau",
+        "blocked_fifo_reference_port_46"
+      ],
+      "notes": "Blocked before preflight: FIFO still has baseline.reference_shipped_fastconformer_v4_tlog.46 (task-59ac7ab4f3ec) queued ahead while smoke_runtime_plateau=true; shard 3/3 must not run model_only 46.09 until that reference port completes."
+    },
+    {
+      "id": "task-17e978540b37",
+      "status": "rejected",
+      "kind": "model_only",
+      "title": "Probe lightweight offline recognition baseline variant 11",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "lightweight_audio_baseline",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+        "autopilot_key": "escalate.non_smoke.model_only.46.11"
+      },
+      "created_at": "2026-05-12T07:46:13.036308+00:00",
+      "updated_at": "2026-05-12T13:23:35.128906+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "artifacts/runs/task-17e978540b37-20260512T132500Z.json",
+      "judge_reasons": [
+        "preflight_strict_gate_failed",
+        "champion_slice_not_strictly_improved"
+      ],
+      "notes": "Shard 1/3: Tier-2 preflight test_corpus_v3 --limit 32 lightweight_global_cmvn4611 (global CMVN on log-mel, else joint02 stack) 18/32 vs champion phoneme_matcher_joint02 19/32; strict gate failed \u2014 experiment code reverted, state-only update."
+    },
+    {
+      "id": "task-cb6f4a7eae93",
+      "status": "rejected",
+      "kind": "model_only",
+      "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "asr_model_evidence",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+        "autopilot_key": "escalate.non_smoke.model_only.47.01",
+        "experiment_probe": "phoneme_dual_preemph47"
+      },
+      "created_at": "2026-05-12T08:48:31.001740+00:00",
+      "updated_at": "2026-05-12T12:38:51.527262+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "artifacts/runs/task-cb6f4a7eae93-20260512T123700Z.json",
+      "judge_reasons": [
+        "preflight_strict_gate_failed",
+        "champion_slice_not_strictly_improved"
+      ],
+      "notes": "Shard 2/3 model_only 47.01: Tier-2 preflight test_corpus_v3 --limit 32 candidate phoneme_dual_preemph47 (dual preemph 0.97/0.88 + prob-fused logprobs, then joint02 beam/matcher) 18/32 correct vs champion phoneme_matcher_joint02 19/32; slice objectives ~0.606 vs ~0.634 (surrogate 0.9\u00b7acc+0.1\u00b7latency). Experiment code removed after probe."
+    },
+    {
+      "id": "task-bd471ed65bbe",
+      "status": "rejected",
+      "kind": "model_only",
+      "title": "Probe lightweight offline recognition baseline variant 03",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "lightweight_audio_baseline",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+        "autopilot_key": "escalate.non_smoke.model_only.47.03"
+      },
+      "created_at": "2026-05-12T08:48:31.007565+00:00",
+      "updated_at": "2026-05-12T11:47:00.000000+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "artifacts/runs/task-bd471ed65bbe-20260512T114700Z.json",
+      "judge_reasons": [
+        "preflight_strict_gate_failed",
+        "champion_slice_not_strictly_improved"
+      ],
+      "notes": "Shard 3/3: Tier-2 preflight test_corpus_v3 --limit 32 candidate lightweight_phoneme_rms_trim4703 (RMS edge trim 0.10 + greedy CTC + reference matcher) scored 14/32 correct vs champion phoneme_matcher_joint02 19/32; strict gate requires greater correct count and slice objective \u2014 experiment code reverted, state-only PR."
+    },
+    {
+      "id": "task-77fee1ba643b",
+      "status": "rejected",
+      "kind": "model_only",
+      "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "asr_model_evidence",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+        "autopilot_key": "escalate.non_smoke.model_only.48.01"
+      },
+      "created_at": "2026-05-12T09:49:20.247192+00:00",
+      "updated_at": "2026-05-12T16:06:44.516789+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-ea045d5b6ec8",
+      "status": "rejected",
+      "kind": "model_only",
+      "title": "Probe lightweight offline recognition baseline variant 03",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "lightweight_audio_baseline",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+        "autopilot_key": "escalate.non_smoke.model_only.49.03"
+      },
+      "created_at": "2026-05-12T10:45:00.558452+00:00",
+      "updated_at": "2026-05-12T16:19:20.529282+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "artifacts/runs/task-ea045d5b6ec8-20260512T161920Z.json",
+      "judge_reasons": [
+        "preflight_strict_gate_failed",
+        "champion_slice_not_strictly_improved"
+      ],
+      "notes": "Shard 1/3: Tier-2 preflight test_corpus_v3 --limit 32 lightweight_melhop128_4903 (mel hop_length 128 vs joint02 160 on same ONNX+beam)\u2014 12/32 correct vs phoneme_matcher_joint02 19/32; composite objective ~0.437500 vs ~0.634375. Experiment folder removed."
+    },
+    {
+      "id": "task-a7fe29a06488",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "reference_port",
+        "plateau_failures": 18,
+        "reference_repo": "../offline-tarteel",
+        "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+        "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+        "target_corpus": "test_corpus_v3",
+        "target_correct_range": [
+          223,
+          225
+        ],
+        "target_recall": 0.893,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.50"
+      },
+      "created_at": "2026-05-12T11:33:16.815079+00:00",
+      "updated_at": "2026-05-12T16:06:44.516810+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-707d2140d622",
+      "status": "rejected",
+      "kind": "model_only",
+      "title": "Probe lightweight offline recognition baseline variant 03",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "lightweight_audio_baseline",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+        "autopilot_key": "escalate.non_smoke.model_only.50.03"
+      },
+      "created_at": "2026-05-12T11:33:16.820539+00:00",
+      "updated_at": "2026-05-12T16:58:21.011890+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-fba74e3a5bee",
+      "status": "rejected",
+      "kind": "model_only",
+      "title": "Probe lightweight offline recognition baseline variant 07",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "lightweight_audio_baseline",
+        "plateau_failures": 18,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Create a small reviewable experiment baseline that gets surah/ayah from actual audio-derived recognition signals, not corpus metadata. Prefer existing shared audio/Quran utilities and commit no model binaries.",
+        "autopilot_key": "escalate.non_smoke.model_only.50.07"
+      },
+      "created_at": "2026-05-12T11:33:16.826141+00:00",
+      "updated_at": "2026-05-12T17:48:27.085962+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-5b5521b732d1",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "reference_port",
+        "plateau_failures": 18,
+        "reference_repo": "../offline-tarteel",
+        "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+        "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+        "target_corpus": "test_corpus_v3",
+        "target_correct_range": [
+          223,
+          225
+        ],
+        "target_recall": 0.893,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.53"
+      },
+      "created_at": "2026-05-12T16:06:44.527886+00:00",
+      "updated_at": "2026-05-12T18:28:36.416234+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-6e323bb7e1f4",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "reference_port",
+        "plateau_failures": 18,
+        "reference_repo": "../offline-tarteel",
+        "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+        "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+        "target_corpus": "test_corpus_v3",
+        "target_correct_range": [
+          223,
+          225
+        ],
+        "target_recall": 0.893,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.54"
+      },
+      "created_at": "2026-05-12T18:28:36.428899+00:00",
+      "updated_at": "2026-05-12T23:44:31.163521+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-634e497aa3b1",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "reference_port",
+        "plateau_failures": 18,
+        "reference_repo": "../offline-tarteel",
+        "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+        "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+        "target_corpus": "test_corpus_v3",
+        "target_correct_range": [
+          223,
+          225
+        ],
+        "target_recall": 0.893,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.58"
+      },
+      "created_at": "2026-05-12T23:44:31.176353+00:00",
+      "updated_at": "2026-05-13T03:25:00.577858+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-b6cef561d61e",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "reference_port",
+        "plateau_failures": 18,
+        "reference_repo": "../offline-tarteel",
+        "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+        "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+        "target_corpus": "test_corpus_v3",
+        "target_correct_range": [
+          223,
+          225
+        ],
+        "target_recall": 0.893,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.62"
+      },
+      "created_at": "2026-05-13T03:25:00.589439+00:00",
+      "updated_at": "2026-05-13T07:21:59.292796+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-d3443b4beb92",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "reference_port",
+        "plateau_failures": 18,
+        "reference_repo": "../offline-tarteel",
+        "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+        "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+        "target_corpus": "test_corpus_v3",
+        "target_correct_range": [
+          223,
+          225
+        ],
+        "target_recall": 0.893,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.63",
+        "experiment": "reference_phoneme_v4"
+      },
+      "created_at": "2026-05-13T07:21:59.304839+00:00",
+      "updated_at": "2026-05-13T07:21:59.304839+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "artifacts/runs/task-d3443b4beb92-preflight-refv4-greedy-20260513T103600Z.json",
+      "judge_reasons": [
+        "preflight_strict_gate_failed",
+        "champion_slice_not_strictly_improved"
+      ],
+      "notes": "Queue routing 2026-05-13T092913Z: sole queued task lands on shard 1/3 only (FIFO ordinal 0). Shards 2/3 idle until another task is queued or this reference_port completes. Smoke/runtime plateau; do not substitute matcher-only probes for ASR reference port work. | 20260513T103600Z: Tier-2 --limit 32 reference_phoneme_v4 greedy port 16/32 vs phoneme_matcher_joint02 19/32; surrogate objective 0.55 vs 0.634375; bounded autonomous_loop skipped (preflight strict gate)."
+    },
+    {
+      "id": "task-5dca7beac331",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "reference_port",
+        "plateau_failures": 18,
+        "reference_repo": "../offline-tarteel",
+        "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+        "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+        "target_corpus": "test_corpus_v3",
+        "target_correct_range": [
+          223,
+          225
+        ],
+        "target_recall": 0.893,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.67"
+      },
+      "created_at": "2026-05-13T11:19:18.929405+00:00",
+      "updated_at": "2026-05-13T13:55:18.549446+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-72c32b270b87",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "reference_port",
+        "plateau_failures": 18,
+        "reference_repo": "../offline-tarteel",
+        "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+        "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+        "target_corpus": "test_corpus_v3",
+        "target_correct_range": [
+          223,
+          225
+        ],
+        "target_recall": 0.893,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.69"
+      },
+      "created_at": "2026-05-13T13:55:18.561422+00:00",
+      "updated_at": "2026-05-13T20:02:53.759903+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-6a8e2bead04b",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
+      "payload": {
+        "blocked_family": "smoke_runtime_plateau",
+        "change_class": "reference_port",
+        "plateau_failures": 18,
+        "reference_repo": "../offline-tarteel",
+        "reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+        "reference_baseline": "fastconformer-phoneme v4-tlog browser/RN streaming",
+        "target_corpus": "test_corpus_v3",
+        "target_correct_range": [
+          223,
+          225
+        ],
+        "target_recall": 0.893,
+        "min_accuracy": 0.8,
+        "agent_instructions": "Stop using the smoke baseline. Port or wrap the shipped baseline from ../offline-tarteel if present; otherwise clone https://github.com/yazinsai/offline-tarteel.git into /tmp/offline-tarteel-reference. Use fastconformer-phoneme v4-tlog plus the browser/RN RecitationTracker and QuranDB matching behavior. Use the reference files web/frontend/src/lib/{tracker.ts,quran-db.ts,phoneme-trie.ts,normalizer.ts,levenshtein.ts,ctc-rescore.ts,types.ts} and data/quran_phonemes.json as the source of truth. The known v3 baseline is 223-225/256 correct; reproduce that from audio/model/tracker behavior before optimizing. Do not read predictions from stability JSON, filenames, manifests, row order, or sidecar labels.",
+        "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.75"
+      },
+      "created_at": "2026-05-13T20:02:53.772281+00:00",
+      "updated_at": "2026-05-14T01:19:39.519892+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
       "id": "task-71793eaa1a70",
       "status": "queued",
       "kind": "joint_model_runtime",
@@ -6133,8 +6740,8 @@
         "agent_instructions": "Start from phoneme_matcher_joint02. Keep its candidate generation, but for close top-N Quran candidate verses/spans compute a cheap frame-level CTC forced-alignment/Viterbi score against the original ONNX logprobs. Blend matcher score + normalized acoustic alignment + boundary/span prior only when the top matcher candidates are close, so easy wins stay unchanged. First build a diagnostic over the champion's 27 full-corpus misses and report how many are recoverable; then run Tier-2 preflight vs champion on the same limit-32 slice. Do not use filenames, manifests, row order, sidecar labels, or expected verses at inference.",
         "autopilot_key": "manual.acoustic_ctc_verifier_rerank.01"
       },
-      "created_at": "2026-05-14T05:27:47.438342+00:00",
-      "updated_at": "2026-05-14T05:27:47.438342+00:00",
+      "created_at": "2026-05-14T05:35:37.190394+00:00",
+      "updated_at": "2026-05-14T05:35:37.190394+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
@@ -6157,8 +6764,8 @@
         "agent_instructions": "Create a reviewable failure-analysis artifact for phoneme_matcher_joint02 on full test_corpus_v3. For each miss, capture the predicted transcript, top Quran candidates, score gaps, expected first verse, duration/tags, and whether the expected verse appears in top-N candidates before final ranking. Use this to classify the 27 misses into decode missing, candidate missing, ranking error, BSM/boundary error, and multi-verse span error. This task can produce JSON/markdown diagnostics and tests, but should not promote unless it also includes a strictly improving experiment.",
         "autopilot_key": "manual.champion_miss_atlas.01"
       },
-      "created_at": "2026-05-14T05:27:47.440762+00:00",
-      "updated_at": "2026-05-14T05:27:47.440762+00:00",
+      "created_at": "2026-05-14T05:35:37.190394+00:00",
+      "updated_at": "2026-05-14T05:35:37.190394+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
@@ -6181,8 +6788,8 @@
         "agent_instructions": "Implement a bounded two-pass decode/search only for ambiguous clips: run the existing champion path first; if top candidate score gap/confidence is low, re-run with wider CTC beam/top-symbols or more hypotheses, then acoustic-verify candidates. Document CPU/time cap and prove unchanged behavior on confident clips. Reject if the limit-32 preflight does not strictly beat champion accuracy and objective.",
         "autopilot_key": "manual.ambiguity_gated_beam_expansion.01"
       },
-      "created_at": "2026-05-14T05:27:47.443149+00:00",
-      "updated_at": "2026-05-14T05:27:47.443149+00:00",
+      "created_at": "2026-05-14T05:35:37.190394+00:00",
+      "updated_at": "2026-05-14T05:35:37.190394+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
@@ -6205,8 +6812,8 @@
         "agent_instructions": "Use the miss atlas to target only BSM, first-ayah, and multi-verse span boundary confusions. Add narrow rules that are conditioned on acoustic/transcript evidence, not metadata. Do not create broad matcher-only reranks; each rule must name the miss class it fixes and show no net regression on full Tier-2.",
         "autopilot_key": "manual.boundary_bsm_rescue.01"
       },
-      "created_at": "2026-05-14T05:27:47.445472+00:00",
-      "updated_at": "2026-05-14T05:27:47.445472+00:00",
+      "created_at": "2026-05-14T05:35:37.190394+00:00",
+      "updated_at": "2026-05-14T05:35:37.190394+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,

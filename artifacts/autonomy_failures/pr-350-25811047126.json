@@ -1,0 +1,18 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T16:05:10.291422+00:00",
+  "workflow_run_id": "25811047126",
+  "pr_number": 350,
+  "title": "Autopilot offline-tarteel state: 89.5% ledger champion, no Tier-2 \u2014 shard 2/3 FIFO idle; reference_port on shard 1/3 only",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/350",
+  "base_ref": "cursor-autonomy-base-25810759814-1",
+  "base_sha": "fe57025e973d51865ad3849a1bc3ad91a0206f1e",
+  "head_ref": "cursor/shard2-fifo-idle-reference69-2def",
+  "head_sha": "adfa7fcfafc5ff04a4d5098428b841d6712f6035",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-no-queued-task-20260513T164500Z-reference69-fifo.json",
+    "artifacts/queue/state.json"
+  ],
+  "blocked_file_hints": []
+}

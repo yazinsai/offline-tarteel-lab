@@ -1,0 +1,49 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "shard2-no-queued-task-20260513T225451Z-a4ee16",
+  "task_id": null,
+  "created_at_utc": "2026-05-13T22:54:51.000000+00:00",
+  "git_sha": "a4ee167cb8000a9f837ac65bdf0f956984557818",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "shard": "2/3",
+    "shard_index": 1,
+    "shard_total": 3,
+    "policy": "evaluate_only_task_selected_by_shard",
+    "only_queued_task_id": "task-6a8e2bead04b",
+    "only_queued_autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.75",
+    "autopilot_smoke_runtime_plateau": true,
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.75",
+    "blocked_family": "smoke_runtime_plateau",
+    "change_class": "reference_port",
+    "bounded_cycle_notes": "2026-05-13T22:54Z Cursor Cloud autonomy shard 2/3 (shard_index=1): python3 -m pip install -e '.[dev]'; reviewed artifacts/autonomy_failures (shard2 beam43 tie, dual-preemph preflight, queue-order dupes); python3 -m lab_tools.task_queue init; python3 -m lab_tools.autopilot plan --target-backlog 8 (queued=1); python3 -m lab_tools.task_queue list; python3 -m lab_tools.task_queue next --shard-index 1 --shard-total 3 empty; python3 -m lab_tools.experiment_ledger champion phoneme_matcher_joint02; autonomous_loop run --max-cycles 1 --limit 12 --corpus test_corpus_v3 --shard-index 1 --shard-total 3 --allow-modal -> no queued tasks. No Tier-2 preflight or candidate (FIFO wrong shard; reference_repo_url task requires shard-0 port, not matcher-only substitute)."
+  },
+  "metrics": {
+    "blocked_before_eval": true,
+    "no_queued_task_for_shard": true,
+    "queue_ordinal_for_sole_queued": 0,
+    "ordinal_mod_shard_total": 0,
+    "assigned_shard_index_for_sole_task": 0,
+    "assigned_shard_label_for_sole_task": "0/3",
+    "this_shard_idle_reason": "ordinal 0 routes to shard_index 0 only",
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "champion_experiment": "phoneme_matcher_joint02",
+    "champion_tier2_accuracy": 0.89453125,
+    "runner_up_run_id": "task-5858c078713e-20260510T032653Z",
+    "runner_up_objective": 0.866406,
+    "runner_up_experiment": "matcher_asr_path_v02"
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m pip install -e \".[dev]\"",
+    "python3 -m lab_tools.task_queue init",
+    "python3 -m lab_tools.autopilot plan --target-backlog 8",
+    "python3 -m lab_tools.task_queue list",
+    "python3 -m lab_tools.task_queue next --shard-index 1 --shard-total 3",
+    "python3 -m lab_tools.experiment_ledger champion",
+    "python3 -m lab_tools.autonomous_loop run --max-cycles 1 --limit 12 --corpus test_corpus_v3 --shard-index 1 --shard-total 3 --allow-modal"
+  ]
+}

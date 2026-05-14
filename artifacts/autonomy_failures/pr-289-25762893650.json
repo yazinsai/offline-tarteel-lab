@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T21:20:36.019334+00:00",
+  "workflow_run_id": "25762893650",
+  "pr_number": 289,
+  "title": "Autopilot offline-tarteel state: champion unchanged, shard-1 idle \u2014 reference_port owned by shard 0",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/289",
+  "base_ref": "cursor-autonomy-base-25762633826-0",
+  "base_sha": "0112479bc10e07b06aa6538b7f3ad0a97c37ed68",
+  "head_ref": "cursor/shard1-queue-routing-idle-9b26",
+  "head_sha": "f9c2128f6fcb23cd19f25d0680eb56d75a1a41ad",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-no-queued-task-20260512T211630Z-25762633826.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/shard1-no-queued-task-20260512T211630Z.json"
+  ],
+  "blocked_file_hints": []
+}

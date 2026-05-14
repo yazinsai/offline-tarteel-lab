@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T00:34:56.988221+00:00",
+  "workflow_run_id": "25834560098",
+  "pr_number": 387,
+  "title": "Autopilot offline-tarteel state: 89.45%, +0.0pp \u2014 shard 3/3 FIFO idle; champion unchanged",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/387",
+  "base_ref": "cursor-autonomy-base-25833901378-2",
+  "base_sha": "87f0665cfba65268c66c992ff3492d1a4cea63b9",
+  "head_ref": "cursor/shard3-queue-routing-idle-7acf",
+  "head_sha": "231555bac72088c996642e53bde3c7ea712fadfd",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-no-queued-task-20260514T003250Z-87f0665.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/shard3-no-queued-task-20260514T003250Z-87f0665.json"
+  ],
+  "blocked_file_hints": []
+}

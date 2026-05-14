@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T09:50:21.506918+00:00",
+  "workflow_run_id": "25791586407",
+  "pr_number": 332,
+  "title": "Autopilot offline-tarteel state: 89.5%, +0.0pp \u2014 shard 3/3 idle; beam parity tied Tier-2 slice",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/332",
+  "base_ref": "cursor-autonomy-base-25790423727-2",
+  "base_sha": "3c81abc8242bb9a07bcac0b66ce0805cd0e16aa0",
+  "head_ref": "cursor/shard3-reference-v4-t63-preflight-6030",
+  "head_sha": "9a5f0b89a1b075641bc396058573d7ee88ca601b",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-reference-v4-beam-tie-preflight-20260513T095130Z-6030.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/shard3-no-queued-task-20260513T095100Z-6030.json"
+  ],
+  "blocked_file_hints": []
+}

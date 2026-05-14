@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T08:10:08.918964+00:00",
+  "workflow_run_id": "25721947337",
+  "pr_number": 245,
+  "title": "Autopilot offline-tarteel state: 59.4% slice, 0.0pp \u2014 dual-preemph ASR model_only.46.01 preflight tie",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/245",
+  "base_ref": "cursor-autonomy-base-25720750311-1",
+  "base_sha": "9ae4b86635af15528a584cb6f655fc24fcddf633",
+  "head_ref": "cursor/offline-dual-preemph-asr46-938b",
+  "head_sha": "fa1985353b68794daa8fc10abc1ef2c423708e1d",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-dual-preemph46-preflight-tie-20260512T081530Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-5fe0e0a1d46d-20260512T081530Z.json"
+  ],
+  "blocked_file_hints": []
+}

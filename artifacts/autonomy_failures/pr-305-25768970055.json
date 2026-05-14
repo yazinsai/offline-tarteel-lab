@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T23:47:14.644815+00:00",
+  "workflow_run_id": "25768970055",
+  "pr_number": 305,
+  "title": "Autopilot offline-tarteel state: shard 3/3 idle, champion 89.45%/0.905 unchanged \u2014 reference_port .58 binds shard 1/3 only",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/305",
+  "base_ref": "cursor-autonomy-base-25768801317-2",
+  "base_sha": "0f4d69e1d30958d231429baaa1767fd1ce477021",
+  "head_ref": "cursor/shard3-queue-idle-state-e907",
+  "head_sha": "c9260b0ae202ab64b9f2d5da9a34090862273445",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-no-queued-task-20260512T234535Z-e907.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/shard3-no-queued-task-20260512T234535Z-e907.json"
+  ],
+  "blocked_file_hints": []
+}

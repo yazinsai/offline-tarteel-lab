@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T01:22:31.449389+00:00",
+  "workflow_run_id": "25836050282",
+  "pr_number": 390,
+  "title": "Autopilot offline-tarteel state: 89.45%, +0pp idle \u2014 backlog starved (shard 3/3 deadlock)",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/390",
+  "base_ref": "cursor-autonomy-base-25835890648-2",
+  "base_sha": "98d40b135d42eeececc627fef89811ab58a6cdf3",
+  "head_ref": "cursor/offline-tarteel-shard3-backlog-starve-23d7",
+  "head_sha": "46aabee98620132bdc01c5f6a394493d25a02ad3",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-no-queued-task-20260514T013030Z-25835890648.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/shard3-no-queued-task-20260514T013030Z-25835890648.json"
+  ],
+  "blocked_file_hints": []
+}

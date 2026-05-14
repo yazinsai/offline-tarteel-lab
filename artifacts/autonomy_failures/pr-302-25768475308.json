@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T23:33:58.149973+00:00",
+  "workflow_run_id": "25768475308",
+  "pr_number": 302,
+  "title": "Autopilot offline-tarteel state: 43.8% slice, -15.6pp acc vs champ (-14.1pp obj) \u2014 reference discovery budgets probe rejected",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/302",
+  "base_ref": "cursor-autonomy-base-25767860533-0",
+  "base_sha": "7eb1b36a1d10e793fc56e3725581c07c911f170b",
+  "head_ref": "cursor/reference-tracker-v4-tlog-port-2898",
+  "head_sha": "bd3ed904c94e73a6104ab12ca52abf11ebd1e011",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/task-6e323bb7e1f4-reference-discovery-defaults-preflight-20260512T232916Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-6e323bb7e1f4-20260512T232916Z.json"
+  ],
+  "blocked_file_hints": []
+}

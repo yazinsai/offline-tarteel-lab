@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T08:02:52.805886+00:00",
+  "workflow_run_id": "25721603562",
+  "pr_number": 244,
+  "title": "Autopilot offline-tarteel state: 56.3%, -3.1pp acc & -2.8pp objective vs champion slice \u2014 shard1 prep-ensemble preflight",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/244",
+  "base_ref": "cursor-autonomy-base-25720750311-0",
+  "base_sha": "9ae4b86635af15528a584cb6f655fc24fcddf633",
+  "head_ref": "cursor/offline-asr-prep-ensemble-9a20",
+  "head_sha": "b5f8e011f60121b35388b12a61e32450a7fd224a",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-c6923fd11995-prep-ensemble-preflight-20260512Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-c6923fd11995-20260512T081200Z.json"
+  ],
+  "blocked_file_hints": []
+}

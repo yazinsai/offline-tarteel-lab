@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T11:47:00.000000+00:00",
+  "reason": "preflight_strict_gate_failed",
+  "shard": "3/3",
+  "task_id": "task-bd471ed65bbe",
+  "autopilot_key": "escalate.non_smoke.model_only.47.03",
+  "change_class": "lightweight_audio_baseline",
+  "tier2_delta_correct": -5,
+  "experiment_family": "escalate.non_smoke.model_only.47.03",
+  "negative_memory": "Greedy phoneme path + reference matcher with RMS edge-trim (ratio 0.10, 512/160 frame ladder) on test_corpus_v3 first-32 slice: 14/32 vs champion phoneme_matcher_joint02 19/32; slice objective ~0.494 vs ~0.634. Do not retry trim-only front-end on same ONNX expecting to beat joint02 beam decode + widened matcher without decode/search changes.",
+  "run_id": "task-bd471ed65bbe-20260512T114700Z"
+}

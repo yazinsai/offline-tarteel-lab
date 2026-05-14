@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-13T14:11:48.247519+00:00",
+  "workflow_run_id": "25804618518",
+  "pr_number": 347,
+  "title": "Autopilot offline-tarteel state: 59.4% Tier-2 slice, tie +0.0pp objective vs champion \u2014 shard1 CTC rescore probe",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/347",
+  "base_ref": "cursor-autonomy-base-25803550969-0",
+  "base_sha": "a63a3ff1449e10fab1c90242691d48f98f5d3bab",
+  "head_ref": "cursor/reference-ctc-rescore-port69-f4a9",
+  "head_sha": "a1218fb222191d1d626c41f4297a4e66e690e95b",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-task-71e62d7922c2-ctc-rescore-tie-0513T141500Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-71e62d7922c2-preflight-ctc-rescore-20260513T141500Z.json"
+  ],
+  "blocked_file_hints": []
+}

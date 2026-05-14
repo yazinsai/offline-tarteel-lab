@@ -1,0 +1,48 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "shard2-no-queued-task-20260513T022045Z",
+  "task_id": null,
+  "created_at_utc": "2026-05-13T02:20:45.000000+00:00",
+  "git_sha": "28217a7f4c5a9eeb140a31cd8367fd0d8d81368d",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "shard": "2/3",
+    "shard_index": 1,
+    "shard_total": 3,
+    "policy": "evaluate_only_task_selected_by_shard",
+    "only_queued_task_id": "task-634e497aa3b1",
+    "only_queued_autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.58",
+    "only_queued_change_class": "reference_port",
+    "only_queued_reference_repo_url": "https://github.com/yazinsai/offline-tarteel.git",
+    "autopilot_smoke_runtime_plateau": true,
+    "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.58",
+    "blocked_family": "smoke_runtime_plateau",
+    "bounded_cycle_notes": "2026-05-13 Cursor Cloud autonomy (shard 2/3): python3 -m pip install -e '.[dev]'; python3 -m lab_tools.task_queue init; autopilot plan --target-backlog 8; python3 -m lab_tools.task_queue next --shard-index 1 --shard-total 3 -> empty — sole queued task task-634e497aa3b1 occupies FIFO ordinal 0 (shard 1/3 only). Mandatory Tier-2 preflight and bounded autonomous_loop (--max-cycles 1 ...) skipped without a shard-selected queued task.",
+    "champion_runner_up_run_id": "task-5858c078713e-20260510T032653Z",
+    "champion_runner_up_experiment": "matcher_asr_path_v02",
+    "champion_runner_up_tier2_correct": 218
+  },
+  "metrics": {
+    "blocked_before_eval": true,
+    "no_queued_task_for_shard": true,
+    "queue_ordinal_for_sole_queued": 0,
+    "ordinal_mod_shard_total": 0,
+    "assigned_shard_index_for_sole_task": 0,
+    "assigned_human_shard_label_for_sole_task": "1/3",
+    "idle_shard_human_label": "2/3",
+    "idle_shard_index": 1,
+    "this_shard_idle_reason": "ordinal 0 binds to shard_index 0 only under queued_index %% shard_total; shard_index=1 receives no next_queued() task",
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "champion_experiment": "phoneme_matcher_joint02",
+    "champion_tier2_correct": 229,
+    "champion_tier2_accuracy": 0.89453125,
+    "latency_budget_score": 1.0
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "[blocked] shard 2/3 (shard_index=1): python3 -m lab_tools.task_queue next --shard-index 1 --shard-total 3 -> empty. Sole queued task-634e497aa3b1 baseline.reference_shipped_fastconformer_v4_tlog.58 reference_port (joint_model_runtime) ahead on shard 0; do not substitute matcher-only or Modal probes from this shard idling."
+  ]
+}

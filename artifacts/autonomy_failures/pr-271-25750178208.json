@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T17:12:40.041770+00:00",
+  "workflow_run_id": "25750178208",
+  "pr_number": 271,
+  "title": "Autopilot offline-tarteel state: 43.8%, -15.6pp acc / -14.1pp obj \u2014 shard2 reference matchVerse preflight vs joint02",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/271",
+  "base_ref": "cursor-autonomy-base-25749293290-1",
+  "base_sha": "c60b56ef511524d67479c325387c46be4bbca6e4",
+  "head_ref": "cursor/reference-shipped-v4tlog-53-preflight-688e",
+  "head_sha": "7cc7a25ac49e5641a5981d8436fc7baa294a0858",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-5b5521b732d1-matchverse-port-preflight-20260512T171500Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-5b5521b732d1-20260512T171500Z.json"
+  ],
+  "blocked_file_hints": []
+}

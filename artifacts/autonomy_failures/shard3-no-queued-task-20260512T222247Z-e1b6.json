@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T22:22:47.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "3/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.54",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog",
+  "negative_memory": "Cursor Cloud bounded cycle 2026-05-12T22:22:47Z: lab_tools.task_queue.next_queued(shard_index=2, shard_total=3) returned None with exactly one queued task task-6e323bb7e1f4 (joint_model_runtime reference_port). Queue ordinal 0 satisfies 0 mod 3 == 0 → routed only to shard 1/3. Autopilot smoke_runtime_plateau=true; blocked_change_classes include smoke_runtime; ASR/reference_port is the real dependency before further joint matcher work elsewhere. Do not clone reference_repo or run matcher-only probes from shard 3/3 until backlog yields ordinals congruent to 2 mod 3 or the reference_port task completes. Related: shard3-no-queued-task-20260512T211752Z-25762633826.json.",
+  "run_id": "shard3-no-queued-task-20260512T222247Z-e1b6"
+}

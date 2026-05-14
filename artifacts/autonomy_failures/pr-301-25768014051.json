@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T23:21:22.649892+00:00",
+  "workflow_run_id": "25768014051",
+  "pr_number": 301,
+  "title": "Autopilot offline-tarteel state: idle, fifo excludes shard 2/3 vs champion 89.45%, +0pp \u2014 bounded cycle",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/301",
+  "base_ref": "main",
+  "base_sha": "7eb1b36a1d10e793fc56e3725581c07c911f170b",
+  "head_ref": "cursor/offline-autonomy-shard2-idle-c0d6",
+  "head_sha": "248693502d0e7bbf3a9e4e77d904140cd0086af8",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-no-queued-task-20260512T231800Z-queue-routing-25767860533.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/shard2-no-queued-task-20260512T231800Z.json"
+  ],
+  "blocked_file_hints": []
+}

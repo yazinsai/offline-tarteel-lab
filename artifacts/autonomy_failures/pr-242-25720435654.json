@@ -1,0 +1,21 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T07:37:18.209023+00:00",
+  "workflow_run_id": "25720435654",
+  "pr_number": 242,
+  "title": "Autopilot offline-tarteel state: 59.4% Tier-2@32, +0.0pp tie \u2014 shard3 lightweight 46.03 preflight vetoed",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/242",
+  "base_ref": "cursor-autonomy-base-25718102151-2",
+  "base_sha": "3e2fdcb05595e84f96c8d0bd52cf9a2f8a96904f",
+  "head_ref": "cursor/lightweight-rms-cmvn-4603-99ac",
+  "head_sha": "13d09ed3bb6958499f429b23d58a6e5aee0d3e56",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-task-d6eb1cc8382d-preflight-tie-acoustic-microtune-20260512T073426Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-d6eb1cc8382d-20260512T073426Z.json",
+    "tests/test_autopilot.py"
+  ],
+  "blocked_file_hints": []
+}

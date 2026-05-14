@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T22:14:29.795543+00:00",
+  "workflow_run_id": "25765361671",
+  "pr_number": 293,
+  "title": "Autopilot offline-tarteel state: 59.38%, +0.0pp objective tie \u2014 reference CTC fusion preflight vs joint02",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/293",
+  "base_ref": "cursor-autonomy-base-25764215298-0",
+  "base_sha": "f8b173ec6ec8bb0023f882d2da75109a1b31b57f",
+  "head_ref": "cursor/autopilot-fusion54-preflight-tie-state-4e03",
+  "head_sha": "9d21aba8565d9348b41a849095584673da8f3cc7",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard0-task-6e323bb7e1f4-fusion54-preflight-tie-20260512T221330Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-6e323bb7e1f4-fusion54-preflight-20260512T221330Z.json"
+  ],
+  "blocked_file_hints": []
+}

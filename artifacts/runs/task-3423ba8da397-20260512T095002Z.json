@@ -1,0 +1,31 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-3423ba8da397-20260512T095002Z",
+  "task_id": "task-3423ba8da397",
+  "created_at_utc": "2026-05-12T09:50:02.000000+00:00",
+  "git_sha": "330502ea3d03b02b5200c80a8564fbc988930ce9",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "model_only",
+  "parameter_vector": {
+    "blocked_family": "smoke_runtime_plateau",
+    "change_class": "asr_model_evidence",
+    "plateau_failures": 18,
+    "min_accuracy": 0.8,
+    "agent_instructions": "Build or wire a real non-smoke ASR experiment under experiments/ that predicts from audio/model output. Do not tune smoke runtime parameters. Do not submit beam/temp/length-norm/logprob-sharpen/hypothesis-ordering-only changes unless they add new acoustic/model evidence. If Modal is unavailable, prepare deterministic local evaluation scaffolding and reject honestly rather than emitting another smoke-runtime probe.",
+    "autopilot_key": "escalate.non_smoke.model_only.46.01",
+    "shard": "2/3"
+  },
+  "metrics": {
+    "policy_block": "wrong_task_ordering_smoke_runtime_plateau",
+    "blocked_fifo_dependency_keys": [
+      "baseline.reference_shipped_fastconformer_v4_tlog.46"
+    ],
+    "blocked_queued_before_task_ids": [
+      "task-59ac7ab4f3ec"
+    ],
+    "note": "Shard 2/3 selected escalate.non_smoke.model_only.46.01 while baseline.reference_shipped_fastconformer_v4_tlog.46 (task-59ac7ab4f3ec) remains queued FIFO-ahead under smoke_runtime_plateau; no tier evaluation."
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": []
+}

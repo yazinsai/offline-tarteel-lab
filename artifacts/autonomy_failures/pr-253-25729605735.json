@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-12T10:48:28.278173+00:00",
+  "workflow_run_id": "25729605735",
+  "pr_number": 253,
+  "title": "Autopilot offline-tarteel state: no eval (FIFO ref-port block), champ ~89.5% / 0.905 \u2014 shard 2/3 task-6dafbc7624f3",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/253",
+  "base_ref": "cursor-autonomy-base-25729359781-1",
+  "base_sha": "7c006d9f2cb001af3c8a37358d94fa9afb86c885",
+  "head_ref": "cursor/shard2-queue-order-6dafbc-9247",
+  "head_sha": "89b10a5bb493f23601e1feb464f404a1276e01e3",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-6dafbc7624f3-queue-order-ref46-20260512T105500Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-6dafbc7624f3-20260512T105500Z.json"
+  ],
+  "blocked_file_hints": []
+}
