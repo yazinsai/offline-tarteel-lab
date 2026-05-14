@@ -1,0 +1,47 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "shard3-no-queued-task-20260514T080806Z-c77a3f2",
+  "task_id": null,
+  "created_at_utc": "2026-05-14T08:08:06.000000+00:00",
+  "git_sha": "c77a3f247f364b8ada843a400e2fe4c99cf78d9c",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "shard": "3/3",
+    "shard_index": 2,
+    "shard_total": 3,
+    "policy": "evaluate_only_task_selected_by_shard",
+    "bounded_cycle_notes": "2026-05-14 Cursor Cloud shard 3/3 (cursor-autonomy-base-25849198757-2): python3 -m pip install -e '.[dev]'; artifacts/autonomy_failures reviewed (recent PRs note FIFO shard idle / matcher-only-on-joint02 preflight failures). lab_tools.task_queue init. Procedure step 6: did NOT run lab_tools.autopilot plan. Globally artifacts/queue/state.json has exactly two status=queued manual joint_model_runtime tasks — task-71793eaa1a70 (fifo index 0 → shard_index 0) and task-d5745f3fb02b (fifo index 1 → shard_index 1); shard_index 2 therefore has zero selectable queued tasks under modulo FIFO routing. Mandatory Tier-2 --limit 32 preflight skipped (no shard-selected runnable task per steps 12–13). Ran lab_tools.autonomous_loop run --max-cycles 1 --limit 32 --corpus test_corpus_v3 --shard-index 2 --shard-total 3 --allow-modal → 'no queued tasks'. pytest 56 passed. Champion unchanged phoneme_matcher_joint02.",
+    "fifo_queued_manual_task_ids_observed": [
+      "task-71793eaa1a70",
+      "task-d5745f3fb02b"
+    ],
+    "fifo_queued_tasks_total": 2,
+    "champion_runner_up_run_id": "task-5858c078713e-20260510T032653Z",
+    "champion_runner_up_experiment": "matcher_asr_path_v02",
+    "champion_runner_up_objective_approx": 0.866406
+  },
+  "metrics": {
+    "blocked_before_eval": true,
+    "no_queued_task_for_shard": true,
+    "fifo_queued_tasks_total": 2,
+    "fifo_modulo_conflict": true,
+    "this_shard_idle_reason": "FIFO routing: queued task indices 0 and 1 map to shard_index 0 and 1; shard_index 2 (3/3) has no assignment until a third queued task exists or queue order changes",
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "champion_experiment": "phoneme_matcher_joint02",
+    "champion_tier2_correct": 229,
+    "champion_tier2_manifest_samples": 256,
+    "champion_tier2_accuracy_proxy": 0.89453125,
+    "latency_budget_score": 1.0
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.task_queue init",
+    "python3 -m lab_tools.task_queue next --shard-index 2 --shard-total 3  # empty",
+    "python3 -m lab_tools.experiment_ledger champion",
+    "python3 -m lab_tools.autonomous_loop run --max-cycles 1 --limit 32 --corpus test_corpus_v3 --shard-index 2 --shard-total 3 --allow-modal",
+    "pytest (56 passed)"
+  ]
+}
