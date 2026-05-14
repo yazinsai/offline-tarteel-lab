@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T06:23:59.548809+00:00",
+  "reason": "preflight_strict_gate_failed",
+  "shard": "3/3",
+  "task_id": "task-115a08c27560",
+  "autopilot_key": "manual.ambiguity_gated_beam_expansion.01",
+  "change_class": "ambiguity_gated_decode_search",
+  "tier2_delta_correct": -1,
+  "experiment_family": "manual.ambiguity_gated_beam_expansion.01",
+  "negative_memory": "20260514T063200Z shard 3/3 task-115a08c: phoneme_joint02_ambig_beam (ambiguity-gated pass-2 CTC beam 14\u00d714 after tight log-margin or matcher top-1/top-2 gap) Tier-2 test_corpus_v3 --limit 32 scored 18/32 vs champion phoneme_matcher_joint02 19/32; surrogate slice objective ~0.606 vs ~0.634 (0.9\u00b7acc+0.1\u00b7latency). Repeats shard2 beam-widen tie pattern: wider/second-pass decode alone does not strictly beat joint02 on the canonical slice; need ASR model change or matcher-side integration with new evidence\u2014not duplicate beam-only probes on joint02 decode.",
+  "run_id": "shard3-task-115a08c-ambig-beam-preflight-20260514T063200Z"
+}
