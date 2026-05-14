@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T03:28:15.713494+00:00",
+  "workflow_run_id": "25839901657",
+  "pr_number": 395,
+  "title": "Autopilot offline-tarteel state: 89.45% acc, +0.0pp vs champion \u2014 shard3/3 idle, queue empty after plan",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/395",
+  "base_ref": "main",
+  "base_sha": "99f56d37f8e7d01f53054df585c3b4cf285c04e4",
+  "head_ref": "cursor/shard3-queue-empty-f107",
+  "head_sha": "ae412c8496c43ac719334b5c4c394677403a4e50",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-no-queued-task-20260514T032653Z-99f56d37.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/runs/shard3-no-queued-task-20260514T032653Z-99f56d37.json"
+  ],
+  "blocked_file_hints": []
+}
