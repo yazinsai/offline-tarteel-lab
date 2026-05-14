@@ -92,7 +92,7 @@ const runCommand = [
 ].join(" ");
 
 const prompt = `Run a bounded autonomous offline-tarteel lab cycle in Cursor Cloud.
-This is queue shard ${shardIndex + 1}/${shardTotal}; only evaluate the queued task selected by that shard.
+This is zero-based queue shard index ${shardIndex} of ${shardTotal} total shards (display ${shardIndex + 1}/${shardTotal}); use --shard-index ${shardIndex} --shard-total ${shardTotal} when selecting or running the queued task for this shard.
 Modal mode is ${modalMode}; Modal launches are ${allowModal ? "enabled for this run" : "disabled because credentials are absent or the mode is false"}.
 
 Follow this exact operating procedure:

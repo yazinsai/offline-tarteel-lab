@@ -75,3 +75,11 @@ def test_cloud_autonomy_is_manual_load_by_default():
     assert triggers["workflow_dispatch"]["inputs"]["target_backlog"]["default"] == "0"
     assert 'readBoolDefault("LAB_AUTONOMY_PLAN", false)' in source
     assert "Process only tasks that were manually loaded" in source
+
+
+def test_cloud_autonomy_prompt_uses_zero_based_shard_index_for_commands():
+    source = _cloud_autonomy_source()
+
+    assert "zero-based queue shard index ${shardIndex}" in source
+    assert "use --shard-index ${shardIndex} --shard-total ${shardTotal}" in source
+    assert "This is queue shard ${shardIndex + 1}/${shardTotal}" not in source

@@ -6803,7 +6803,7 @@
     },
     {
       "id": "task-d5745f3fb02b",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual: BSM and multi-verse boundary rescue rules",
       "payload": {
@@ -6818,12 +6818,14 @@
         "autopilot_key": "manual.boundary_bsm_rescue.01"
       },
       "created_at": "2026-05-14T05:35:37.190394+00:00",
-      "updated_at": "2026-05-14T05:35:37.190394+00:00",
+      "updated_at": "2026-05-14T09:38:24.490482+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "boundary_rescue_completed_preflight_no_lift"
+      ],
+      "notes": "Ran in workflow 25849198757 via PRs #407/#408. Candidate boundary rescue matched champion on limit-32 preflight (19/32 vs 19/32; objective 0.634375 vs 0.634375), so keep rejected and do not rerun."
     }
   ]
 }
