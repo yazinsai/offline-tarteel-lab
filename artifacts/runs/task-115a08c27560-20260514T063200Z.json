@@ -1,0 +1,54 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-115a08c27560-20260514T063200Z",
+  "task_id": "task-115a08c27560",
+  "created_at_utc": "2026-05-14T06:23:59.548559+00:00",
+  "git_sha": "1b001cf568d935fb5305f5a41efbc3b54f48cacc",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "agent_instructions": "Implement a bounded two-pass decode/search only for ambiguous clips: run the existing champion path first; if top candidate score gap/confidence is low, re-run with wider CTC beam/top-symbols or more hypotheses, then acoustic-verify candidates. Document CPU/time cap and prove unchanged behavior on confident clips. Reject if the limit-32 preflight does not strictly beat champion accuracy and objective.",
+    "autopilot_key": "manual.ambiguity_gated_beam_expansion.01",
+    "champion_experiment": "phoneme_matcher_joint02",
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "change_class": "ambiguity_gated_decode_search",
+    "min_accuracy": 0.95,
+    "priority": 3,
+    "source": "manual",
+    "target_corpus": "test_corpus_v3"
+  },
+  "metrics": {
+    "preflight_limit": 32,
+    "preflight_candidate_experiment": "phoneme_joint02_ambig_beam",
+    "preflight_champion_experiment": "phoneme_matcher_joint02",
+    "preflight_candidate_correct": 18,
+    "preflight_champion_correct": 19,
+    "preflight_candidate_accuracy": 0.5625,
+    "preflight_champion_accuracy": 0.59375,
+    "surrogate_objective_candidate_slice": 0.60625,
+    "surrogate_objective_champion_slice": 0.634375,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "champion_full_corpus_correct": 229,
+    "champion_full_corpus_manifest_samples": 256,
+    "champion_full_corpus_accuracy_proxy": 0.89453125,
+    "champion_forensics": "Champion task-0aa3b7531952 phoneme_matcher_joint02 (objective 0.905078, 229/256) vs runner-up task-5858c078713e matcher_asr_path_v02 (~0.866, 218/256): joint ASR/decode + matcher/streaming stack moved the needle\u2014not packaging-only.",
+    "needle_subsystem_vs_runner_up": "ASR/decode + matcher (joint_model_runtime phoneme_matcher_joint02)",
+    "preflight_commands": [
+      "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_joint02_ambig_beam",
+      "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+    ],
+    "tier2_accuracy": 0.5625,
+    "target_recall": 0.5625,
+    "streaming_alignment_accuracy": 0.5625,
+    "correction_precision": 0.5625,
+    "verse_boundary_f1": 0.5625,
+    "latency_budget_score": 1.0
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_joint02_ambig_beam",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}
