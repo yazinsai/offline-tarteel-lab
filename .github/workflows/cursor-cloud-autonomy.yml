@@ -14,7 +14,7 @@ on:
       seed_sweeps:
         description: "Replenish autonomous task backlog"
         required: false
-        default: "true"
+        default: "false"
         type: choice
         options: ["false", "true"]
       allow_modal:
@@ -26,9 +26,7 @@ on:
       target_backlog:
         description: "Desired queued/running task backlog"
         required: false
-        default: "8"
-  schedule:
-    - cron: "*/5 * * * *"
+        default: "0"
 
 concurrency:
   group: cursor-cloud-autonomy
