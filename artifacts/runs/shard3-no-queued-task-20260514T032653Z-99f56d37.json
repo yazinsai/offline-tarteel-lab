@@ -1,0 +1,63 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "shard3-no-queued-task-20260514T032653Z-99f56d37",
+  "task_id": null,
+  "created_at_utc": "2026-05-14T03:26:53.000000+00:00",
+  "git_sha": "99f56d37f8e7d01f53054df585c3b4cf285c04e4",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "shard": "3/3",
+    "shard_index": 2,
+    "shard_total": 3,
+    "policy": "evaluate_only_task_selected_by_shard",
+    "autopilot_smoke_runtime_plateau": true,
+    "autopilot_plan_queued_after": 0,
+    "autopilot_plan_target_backlog": 8,
+    "autopilot_blocked_change_classes": [
+      "asr_model_evidence",
+      "lightweight_audio_baseline",
+      "reference_port",
+      "smoke_runtime",
+      "reference_ctc_fusion"
+    ],
+    "autopilot_skipped_sample_keys": [
+      "baseline.reference_shipped_fastconformer_v4_tlog.83",
+      "escalate.non_smoke.model_only.83.01",
+      "escalate.non_smoke.model_only.83.03",
+      "escalate.non_smoke.model_only.83.05",
+      "escalate.non_smoke.model_only.83.07",
+      "escalate.non_smoke.model_only.83.09",
+      "escalate.non_smoke.model_only.83.11",
+      "escalate.non_smoke.joint_model_runtime.83.02",
+      "escalate.non_smoke.joint_model_runtime.83.04",
+      "escalate.non_smoke.joint_model_runtime.83.06",
+      "escalate.non_smoke.joint_model_runtime.83.08",
+      "escalate.non_smoke.joint_model_runtime.83.10",
+      "escalate.non_smoke.joint_model_runtime.83.12"
+    ],
+    "bounded_cycle_notes": "2026-05-14 Cursor Cloud shard 3/3: python3 -m pip install -e '.[dev]'; sampled artifacts/autonomy_failures (queue-order/preflight blocks, no duplicate paths); lab_tools.task_queue init; lab_tools.autopilot plan --target-backlog 8 → queued=0 with smoke_runtime_plateau and blocked_change_class skips (reference_port + ASR evidence families). python3 -m lab_tools.task_queue next --shard-index 2 --shard-total 3 empty. python3 -m lab_tools.autonomous_loop run --max-cycles 1 --limit 12 --corpus test_corpus_v3 --shard-index 2 --shard-total 3 --allow-modal → immediate no queued tasks (no strict preflight / promotion path). Champion phoneme_matcher_joint02 unchanged.",
+    "champion_runner_up_run_id": "task-5858c078713e-20260510T032653Z",
+    "champion_runner_up_experiment": "matcher_asr_path_v02",
+    "champion_runner_up_objective_approx": 0.866406
+  },
+  "metrics": {
+    "blocked_before_eval": true,
+    "no_queued_task_for_shard": true,
+    "queue_queued_tasks_total_after_autopilot_plan": 0,
+    "this_shard_idle_reason": "FIFO queue has zero status=queued tasks; shard_index 2 modulo routing never activates",
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "champion_experiment": "phoneme_matcher_joint02",
+    "champion_tier2_correct": 229,
+    "champion_tier2_manifest_samples": 256,
+    "champion_tier2_accuracy_proxy": 0.89453125,
+    "latency_budget_score": 1.0
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.autonomous_loop run --max-cycles 1 --limit 12 --corpus test_corpus_v3 --shard-index 2 --shard-total 3 --allow-modal → no queued tasks",
+    "[blocked] shard 3/3 (shard_index=2): python3 -m lab_tools.task_queue next --shard-index 2 --shard-total 3 → empty; Tier-2 preflight and promotion skipped without shard-selected runnable task."
+  ]
+}
