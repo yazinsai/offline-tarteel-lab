@@ -5917,7 +5917,7 @@
     },
     {
       "id": "task-0e459076da7b",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Port shipped fastconformer-phoneme v4-tlog baseline from reference repo",
       "payload": {
@@ -5938,16 +5938,18 @@
         "change_class": "reference_port"
       },
       "created_at": "2026-05-11T11:21:41.974123+00:00",
-      "updated_at": "2026-05-11T11:21:41.974123+00:00",
+      "updated_at": "2026-05-14T05:27:47.435555+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "manual_autonomy_pause"
+      ],
+      "notes": "Manually paused on 2026-05-14: scheduled/autopilot experiment generation is stopped. Future work should be loaded intentionally as manual tasks focused on escaping the 89.45% champion plateau."
     },
     {
       "id": "task-917c233756e1",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Evaluate non-smoke ASR candidate on full corpus variant 01",
       "payload": {
@@ -5959,12 +5961,14 @@
         "change_class": "asr_model_evidence"
       },
       "created_at": "2026-05-11T11:21:41.980291+00:00",
-      "updated_at": "2026-05-11T11:21:41.980291+00:00",
+      "updated_at": "2026-05-14T05:27:47.435696+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "manual_autonomy_pause"
+      ],
+      "notes": "Manually paused on 2026-05-14: scheduled/autopilot experiment generation is stopped. Future work should be loaded intentionally as manual tasks focused on escaping the 89.45% champion plateau."
     },
     {
       "id": "task-115568905fe6",
@@ -5990,7 +5994,7 @@
     },
     {
       "id": "task-3958d3b8cf22",
-      "status": "queued",
+      "status": "rejected",
       "kind": "model_only",
       "title": "Probe lightweight offline recognition baseline variant 03",
       "payload": {
@@ -6002,12 +6006,14 @@
         "change_class": "lightweight_audio_baseline"
       },
       "created_at": "2026-05-11T11:21:41.993161+00:00",
-      "updated_at": "2026-05-11T11:21:41.993161+00:00",
+      "updated_at": "2026-05-14T05:27:47.435699+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "manual_autonomy_pause"
+      ],
+      "notes": "Manually paused on 2026-05-14: scheduled/autopilot experiment generation is stopped. Future work should be loaded intentionally as manual tasks focused on escaping the 89.45% champion plateau."
     },
     {
       "id": "task-f344e8bf02e1",
@@ -6108,6 +6114,104 @@
         "autopilot_backlog_trimmed"
       ],
       "notes": "Retired during autopilot guardrail merge so the active backlog stays focused on reference reproduction plus two audio/model evidence tasks."
+    },
+    {
+      "id": "task-71793eaa1a70",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual: add acoustic CTC verifier rerank on champion near-misses",
+      "payload": {
+        "source": "manual",
+        "priority": 1,
+        "champion_experiment": "phoneme_matcher_joint02",
+        "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+        "target_corpus": "test_corpus_v3",
+        "target_correct": 244,
+        "target_delta_correct": 15,
+        "change_class": "acoustic_ctc_verifier_rerank",
+        "min_accuracy": 0.95,
+        "agent_instructions": "Start from phoneme_matcher_joint02. Keep its candidate generation, but for close top-N Quran candidate verses/spans compute a cheap frame-level CTC forced-alignment/Viterbi score against the original ONNX logprobs. Blend matcher score + normalized acoustic alignment + boundary/span prior only when the top matcher candidates are close, so easy wins stay unchanged. First build a diagnostic over the champion's 27 full-corpus misses and report how many are recoverable; then run Tier-2 preflight vs champion on the same limit-32 slice. Do not use filenames, manifests, row order, sidecar labels, or expected verses at inference.",
+        "autopilot_key": "manual.acoustic_ctc_verifier_rerank.01"
+      },
+      "created_at": "2026-05-14T05:27:47.438342+00:00",
+      "updated_at": "2026-05-14T05:27:47.438342+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-b22c5173a054",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual: champion miss atlas and recoverability harness",
+      "payload": {
+        "source": "manual",
+        "priority": 2,
+        "champion_experiment": "phoneme_matcher_joint02",
+        "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+        "target_corpus": "test_corpus_v3",
+        "change_class": "failure_atlas",
+        "min_accuracy": 0.89453125,
+        "agent_instructions": "Create a reviewable failure-analysis artifact for phoneme_matcher_joint02 on full test_corpus_v3. For each miss, capture the predicted transcript, top Quran candidates, score gaps, expected first verse, duration/tags, and whether the expected verse appears in top-N candidates before final ranking. Use this to classify the 27 misses into decode missing, candidate missing, ranking error, BSM/boundary error, and multi-verse span error. This task can produce JSON/markdown diagnostics and tests, but should not promote unless it also includes a strictly improving experiment.",
+        "autopilot_key": "manual.champion_miss_atlas.01"
+      },
+      "created_at": "2026-05-14T05:27:47.440762+00:00",
+      "updated_at": "2026-05-14T05:27:47.440762+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-115a08c27560",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual: ambiguity-gated two-pass CTC beam expansion",
+      "payload": {
+        "source": "manual",
+        "priority": 3,
+        "champion_experiment": "phoneme_matcher_joint02",
+        "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+        "target_corpus": "test_corpus_v3",
+        "change_class": "ambiguity_gated_decode_search",
+        "min_accuracy": 0.95,
+        "agent_instructions": "Implement a bounded two-pass decode/search only for ambiguous clips: run the existing champion path first; if top candidate score gap/confidence is low, re-run with wider CTC beam/top-symbols or more hypotheses, then acoustic-verify candidates. Document CPU/time cap and prove unchanged behavior on confident clips. Reject if the limit-32 preflight does not strictly beat champion accuracy and objective.",
+        "autopilot_key": "manual.ambiguity_gated_beam_expansion.01"
+      },
+      "created_at": "2026-05-14T05:27:47.443149+00:00",
+      "updated_at": "2026-05-14T05:27:47.443149+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-d5745f3fb02b",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual: BSM and multi-verse boundary rescue rules",
+      "payload": {
+        "source": "manual",
+        "priority": 4,
+        "champion_experiment": "phoneme_matcher_joint02",
+        "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+        "target_corpus": "test_corpus_v3",
+        "change_class": "boundary_bsm_rescue",
+        "min_accuracy": 0.95,
+        "agent_instructions": "Use the miss atlas to target only BSM, first-ayah, and multi-verse span boundary confusions. Add narrow rules that are conditioned on acoustic/transcript evidence, not metadata. Do not create broad matcher-only reranks; each rule must name the miss class it fixes and show no net regression on full Tier-2.",
+        "autopilot_key": "manual.boundary_bsm_rescue.01"
+      },
+      "created_at": "2026-05-14T05:27:47.445472+00:00",
+      "updated_at": "2026-05-14T05:27:47.445472+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
     }
   ]
 }

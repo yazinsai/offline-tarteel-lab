@@ -116,6 +116,27 @@ jobs:
           esac
           export MODE="$mode"
 
+          if [ "$mode" = "state" ]; then
+            TITLE="$title" python - <<'PY'
+          import os
+          import sys
+
+          title = os.environ["TITLE"]
+          prefix = "Autopilot offline-tarteel state:"
+          subject = title[len(prefix):].strip()
+          title_head = subject.split("—", 1)[0].lower()
+          if "champion hold" not in title_head and "full-corpus" not in title_head:
+              print(
+                  "Misleading state PR title reports preflight slice before champion full-corpus status: "
+                  + title,
+              )
+              print(
+                  "State PR titles must lead with champion hold or full-corpus status; put slice details after the dash.",
+              )
+              sys.exit(1)
+          PY
+          fi
+
           if [ "${WORKFLOW_RUN_CONCLUSION}" != "success" ] && [ "${WORKFLOW_RUN_CONCLUSION}" != "manual" ]; then
             echo "CI did not succeed: ${WORKFLOW_RUN_CONCLUSION}"
             exit 1

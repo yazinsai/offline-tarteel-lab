@@ -45,7 +45,7 @@ const corpus = process.env.LAB_AUTONOMY_CORPUS ?? "test_corpus_v3";
 const modalMode = readModalMode();
 const hasModalCredentials = Boolean(process.env.MODAL_TOKEN_ID && process.env.MODAL_TOKEN_SECRET);
 const allowModal = modalMode === "true" || (modalMode === "auto" && hasModalCredentials);
-const autopilotPlan = readBoolDefault("LAB_AUTONOMY_PLAN", true);
+const autopilotPlan = readBoolDefault("LAB_AUTONOMY_PLAN", false);
 const shardIndex = readInt("LAB_AUTONOMY_SHARD_INDEX", 0);
 const shardTotal = readInt("LAB_AUTONOMY_SHARD_TOTAL", 1);
 
@@ -101,7 +101,7 @@ Follow this exact operating procedure:
 3. Review prior blocked attempts: ls artifacts/autonomy_failures || true; if present, inspect the recent JSON files and avoid repeating rejected paths, binary artifacts, or policy violations.
 4. If ${allowModal ? "a model_only or ASR-side joint_model_runtime task needs GPU training, install the Modal CLI if missing (python3 -m pip install modal) and launch the documented training command detached with modal run --detach." : "a task needs GPU training, record it as blocked without spending local time on matcher-only substitutes; Modal is not available in this run."}
 5. Ensure the task queue exists: python3 -m lab_tools.task_queue init.
-6. ${autopilotPlan ? `Replenish the autonomous backlog: python3 -m lab_tools.autopilot plan --target-backlog ${targetBacklog}.` : "Do not replenish the backlog unless explicitly needed by the queue state."}
+6. ${autopilotPlan ? `Replenish the autonomous backlog: python3 -m lab_tools.autopilot plan --target-backlog ${targetBacklog}.` : "Do not run autopilot plan or add autonomous sweep tasks. Process only tasks that were manually loaded into artifacts/queue/state.json."}
 7. Inspect the next queued task with python3 -m lab_tools.task_queue list.
 8. Before editing, read the current champion: python3 -m lab_tools.experiment_ledger champion. Open the champion's run record from artifacts/runs and name which subsystem moved the needle versus the runner-up: ASR/decode, matcher, tracker/runtime, or packaging/resource budget. Mutate that subsystem unless a preflight proves another path wins.
 9. If the champion is a joint ASR + matcher stack, do not ship matcher-only follow-ups (reranks, blends, shortlist tweaks, fragment-head reranks on the same decode) unless the preflight in step 12 strictly beats the champion. Prefer decode/search changes with documented CPU/time caps, hypothesis merge/rescore or two-pass procedures, or ASR-side work when Modal is allowed.
@@ -115,10 +115,10 @@ Follow this exact operating procedure:
 17. Run verification: pytest. If orchestration TypeScript changed, also run: cd orchestration && npx tsc --noEmit.
 18. Commit only relevant promoted code changes plus JSON metadata under artifacts/queue, artifacts/runs, artifacts/promotions, artifacts/autonomy_failures, and artifacts/experiment_ledger.jsonl.
 19. Open the PR against the ${config.startingRef} branch.
-20. PR titles must include the measured corpus result and the delta versus the current best whenever evaluation produced both values. Use percentage points for accuracy/objective deltas, e.g. "86.3%, +1.5pp", "84.8%, tie", or "84.4%, -0.4pp". Put this near the front of the title so it is visible in GitHub lists.
+20. PR titles must include the measured full-corpus result and the delta versus the current best whenever full-corpus evaluation produced both values. Use percentage points for accuracy/objective deltas, e.g. "86.3%, +1.5pp", "84.8%, tie", or "84.4%, -0.4pp". Put this near the front of the title so it is visible in GitHub lists.
 21. If a task is promoted, make the PR title start with "Promote offline-tarteel experiment: <result>, <delta> —".
 22. If the bounded controller rejects the task or no task is promoted, revert all candidate code, test, and benchmark-manifest edits before committing. The PR must be state-only: artifacts/queue, artifacts/runs, artifacts/autonomy_failures, and artifacts/experiment_ledger.jsonl.
-23. If no task is promoted but queue/run/ledger/failure-memory state changed, make the PR title start with "Autopilot offline-tarteel state: <result>, <delta-or-reason> —" and include only artifacts/queue, artifacts/runs, artifacts/autonomy_failures, and artifacts/experiment_ledger.jsonl.
+23. If no task is promoted but queue/run/ledger/failure-memory state changed, make the PR title start with the current champion full-corpus result, not the failed candidate's preflight slice result. For rejected/state-only PRs, do not put the preflight slice score first. Use a format like "Autopilot offline-tarteel state: 89.45% champion hold, <reason> — preflight <candidate> vs champion <slice result>" and put preflight details after the dash. Include only artifacts/queue, artifacts/runs, artifacts/autonomy_failures, and artifacts/experiment_ledger.jsonl.
 24. Do not open a normal code PR for a rejected autonomous task. Human-review code PRs are only for explicitly useful prototypes that are not rejected controller runs.
 25. The PR description must explain the attempted experiment in concrete terms so reviewers do not need to read the diff to understand it. Include these sections:
    - "Attempted change": the exact parameter/model/tracker/rule change tried, with before -> after values when applicable.
