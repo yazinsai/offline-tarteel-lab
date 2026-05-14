@@ -1,0 +1,21 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T07:33:07.109812+00:00",
+  "workflow_run_id": "25847938749",
+  "pr_number": 403,
+  "title": "Autopilot offline-tarteel state: 89.45% champion hold, tie \u2014 champion_objective_not_improved \u2014 preflight phoneme_matcher_joint02 dup 19/32 slice (59.38%)",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/403",
+  "base_ref": "cursor-autonomy-base-25843994898-1",
+  "base_sha": "1b001cf568d935fb5305f5a41efbc3b54f48cacc",
+  "head_ref": "cursor/champion-miss-atlas-2f07",
+  "head_sha": "e5a2d955301ab35db0a0a35c02018b9ddc9f7fa5",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-b22c5173a054-miss-atlas-20260514T073034Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-b22c5173a054-20260514T073034Z.json",
+    "benchmark/results/champion_miss_atlas_phoneme_matcher_joint02.json"
+  ],
+  "blocked_file_hints": []
+}
