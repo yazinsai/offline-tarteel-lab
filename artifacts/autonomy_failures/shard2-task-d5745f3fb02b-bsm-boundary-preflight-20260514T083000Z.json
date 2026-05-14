@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T08:30:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-d5745f3fb02b",
+  "autopilot_key": "manual.boundary_bsm_rescue.01",
+  "experiment_family": "phoneme_joint02_bsm_rescue",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "reason": "Tier-2 preflight (test_corpus_v3, --limit 32): candidate phoneme_joint02_bsm_rescue tied champion phoneme_matcher_joint02 at 19/32 correct (59.375% accuracy). Surrogate composite with DEFAULT_WEIGHTS (streaming_alignment_accuracy=precision=boundary=accuracy on slice, latency=1.0) yields ~0.634375 for both. Strict gate requires strictly greater correct count and objective versus champion on the same slice; tie fails champion_objective_not_improved. Full Tier-2 limit=0 and bounded controller were not run.",
+  "negative_memory": "Do not retry marginal BSM-prefix-only transcript boosts + span atomic tie-break + per-(surah,ayah) multi-hypothesis merge on top of joint02 decode/matcher without a new acoustic or search primitive; first-32 slice remained 19/32 vs joint02.",
+  "run_id": "task-d5745f3fb02b-20260514T083000Z"
+}

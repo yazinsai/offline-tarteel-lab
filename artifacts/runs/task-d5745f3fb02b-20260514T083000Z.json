@@ -1,0 +1,43 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-d5745f3fb02b-20260514T083000Z",
+  "task_id": "task-d5745f3fb02b",
+  "created_at_utc": "2026-05-14T08:30:00.000000+00:00",
+  "git_sha": "c77a3f247f364b8ada843a400e2fe4c99cf78d9c",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "source": "manual",
+    "autopilot_key": "manual.boundary_bsm_rescue.01",
+    "change_class": "boundary_bsm_rescue",
+    "experiment": "phoneme_joint02_bsm_rescue",
+    "champion_experiment": "phoneme_matcher_joint02",
+    "target_corpus": "test_corpus_v3",
+    "preflight_only": true,
+    "preflight_sample_limit": 32
+  },
+  "metrics": {
+    "tier2_experiment": "phoneme_joint02_bsm_rescue",
+    "tier2_accuracy": 0.59375,
+    "tier2_correct": 19,
+    "tier2_samples": 32,
+    "tier2_evaluated_samples": 32,
+    "champion_slice_experiment": "phoneme_matcher_joint02",
+    "champion_slice_correct": 19,
+    "champion_slice_accuracy": 0.59375,
+    "streaming_alignment_accuracy": 0.59375,
+    "correction_precision": 0.59375,
+    "verse_boundary_f1": 0.59375,
+    "latency_budget_score": 1.0,
+    "candidate_objective_proxy": 0.634375,
+    "champion_objective_proxy": 0.634375,
+    "preflight_strict_gate_passed": false,
+    "rejection_reason": "champion_objective_not_improved_slice_tie"
+  },
+  "tier_completed": [2],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_joint02_bsm_rescue",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}
