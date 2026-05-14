@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T00:32:50.192440+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "3/3",
+  "task_id": null,
+  "autopilot_key": "baseline.reference_shipped_fastconformer_v4_tlog.75",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.75",
+  "negative_memory": "next_queued(shard_index=2, shard_total=3) empty while sole queued task-6a8e2bead04b (joint_model_runtime reference_port baseline.reference_shipped_fastconformer_v4_tlog.75; smoke_runtime_plateau) sits at FIFO ordinal 0 -> 0 mod 3 = shard_index 0 only. Shard 3/3 must not implement reference_port smoke substitutes or matcher-only greedy-decode probes; dependency ordering requires shard 0/+ASR backlog before parallel shards promote. unblock: enqueue second queued worker-bound task or repartition FIFO so shard_index=2 claims real audio-driven experiments.",
+  "run_id": "shard3-no-queued-task-20260514T003250Z-87f0665"
+}
