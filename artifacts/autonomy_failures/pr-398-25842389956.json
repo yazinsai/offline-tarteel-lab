@@ -1,0 +1,19 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T04:51:28.905762+00:00",
+  "workflow_run_id": "25842389956",
+  "pr_number": 398,
+  "title": "Autopilot offline-tarteel state: 89.45% ledger champion idle, tie +0.0pp \u2014 shard 3/3 backlog empty (no runnable queued task)",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/398",
+  "base_ref": "main",
+  "base_sha": "610f87af21e58f66b68b0391ad3daf9762eb4526",
+  "head_ref": "cursor/offline-tarteel-shard3-empty-queue-0449-aefc",
+  "head_sha": "25dd5129f1e2e3aed5ebb8b5cb23cb19ec0d1758",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard3-no-queued-task-20260514T044944Z-2ff5b13.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/runs/shard3-no-queued-task-20260514T044944Z-2ff5b13.json"
+  ],
+  "blocked_file_hints": []
+}
