@@ -1,0 +1,55 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "shard2-no-queued-task-20260514T032706Z-base25839792965",
+  "task_id": null,
+  "created_at_utc": "2026-05-14T03:27:06.000000+00:00",
+  "git_sha": "99f56d37f8e7d01f53054df585c3b4cf285c04e4",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "shard": "2/3",
+    "shard_index": 1,
+    "shard_total": 3,
+    "policy": "evaluate_only_task_selected_by_shard",
+    "autopilot_smoke_runtime_plateau": true,
+    "autopilot_plan_queued_after": 0,
+    "autopilot_plan_target_backlog": 8,
+    "autopilot_blocked_change_classes": [
+      "asr_model_evidence",
+      "lightweight_audio_baseline",
+      "reference_port",
+      "smoke_runtime",
+      "reference_ctc_fusion"
+    ],
+    "autopilot_skipped_sample_keys_head": [
+      "baseline.reference_shipped_fastconformer_v4_tlog.83",
+      "escalate.non_smoke.model_only.83.01",
+      "escalate.non_smoke.joint_model_runtime.83.02"
+    ],
+    "bounded_cycle_notes": "2026-05-14 Cursor Cloud shard 2/3 (cursor-autonomy-base-25839792965-1): python3 -m pip install -e '.[dev]'; reviewed artifacts/autonomy_failures (queue-order / matcher-only-on-joint02 / dual-preemph tie memory); lab_tools.task_queue init; lab_tools.autopilot plan --target-backlog 8 -> queued_tasks=0 after replenish (all candidate keys skipped: blocked_change_class and/or missing_dependency; smoke_runtime_plateau). task_queue list shows zero status=queued rows. task_queue next --shard-index 1 --shard-total 3 empty. No payload.agent_instructions task for this shard — skipped mandatory Tier-2 --limit 32 preflight and bounded autonomous_loop --max-cycles 1 (per policy: controller only after strict preflight for a shard-selected runnable task). Modal allowed but unused (no runnable queued task).",
+    "champion_runner_up_run_id": "task-5858c078713e-20260510T032653Z",
+    "champion_runner_up_experiment": "matcher_asr_path_v02",
+    "champion_runner_up_objective_approx": 0.866406,
+    "champion_forensics": "Champion task-0aa3b7531952 phoneme_matcher_joint02 (full Tier-2 229/256, objective 0.905078) vs runner-up task-5858c078713e matcher_asr_path_v02 (218/256): matcher + tracker/runtime joint stack + streaming alignment (joint_model_runtime wiring on phoneme_matcher_joint02) moved the needle versus matcher_asr_path_v02 — not packaging or latency-budget-only.",
+    "autopilot_key": "escalate.non_smoke.joint_model_runtime.25.02"
+  },
+  "metrics": {
+    "blocked_before_eval": true,
+    "no_queued_task_for_shard": true,
+    "queue_queued_tasks_total_after_autopilot_plan": 0,
+    "queue_terminal_tasks_total": 293,
+    "this_shard_idle_reason": "FIFO has zero status=queued tasks; shard_index 1 modulo-3 routing selects no work",
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "champion_experiment": "phoneme_matcher_joint02",
+    "champion_tier2_correct": 229,
+    "champion_tier2_manifest_samples": 256,
+    "champion_tier2_accuracy_proxy": 0.89453125,
+    "latency_budget_score": 1.0
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "[blocked] shard 2/3 (shard_index=1): python3 -m lab_tools.task_queue next --shard-index 1 --shard-total 3 -> empty; autopilot plan --target-backlog 8 produced queued=0; Tier-2 preflight and python3 -m lab_tools.autonomous_loop run --max-cycles 1 --limit 12 --corpus test_corpus_v3 --shard-index 1 --shard-total 3 --allow-modal skipped without shard-selected runnable task."
+  ]
+}
