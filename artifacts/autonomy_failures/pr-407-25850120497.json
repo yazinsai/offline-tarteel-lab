@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T08:29:02.288572+00:00",
+  "workflow_run_id": "25850120497",
+  "pr_number": 407,
+  "title": "Autopilot offline-tarteel state: 89.45% champion hold, preflight tie \u2014 phoneme_joint02_bsm_rescue vs joint02 both 19/32 @59.38%",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/407",
+  "base_ref": "cursor-autonomy-base-25849198757-1",
+  "base_sha": "c77a3f247f364b8ada843a400e2fe4c99cf78d9c",
+  "head_ref": "cursor/offline-tarteel-bsm-rescue-shard2-4f83",
+  "head_sha": "0b024403b08690e51444a2b5bdc2fd310f167744",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-d5745f3fb02b-bsm-boundary-preflight-20260514T083000Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-d5745f3fb02b-20260514T083000Z.json"
+  ],
+  "blocked_file_hints": []
+}
