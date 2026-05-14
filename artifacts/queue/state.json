@@ -6724,7 +6724,7 @@
     },
     {
       "id": "task-71793eaa1a70",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual: add acoustic CTC verifier rerank on champion near-misses",
       "payload": {
@@ -6741,12 +6741,14 @@
         "autopilot_key": "manual.acoustic_ctc_verifier_rerank.01"
       },
       "created_at": "2026-05-14T05:35:37.190394+00:00",
-      "updated_at": "2026-05-14T05:35:37.190394+00:00",
+      "updated_at": "2026-05-14T10:11:08.339803+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "acoustic_ctc_rerank_preflight_regressed"
+      ],
+      "notes": "Ran in workflow 25853113315 via PR #412. Acoustic CTC rerank candidate regressed on limit-32 preflight: 13/32 vs champion 19/32, so keep rejected and do not rerun."
     },
     {
       "id": "task-b22c5173a054",
