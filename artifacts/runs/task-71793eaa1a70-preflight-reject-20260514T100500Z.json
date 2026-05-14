@@ -1,0 +1,58 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-71793eaa1a70-preflight-reject-20260514T100500Z",
+  "task_id": "task-71793eaa1a70",
+  "created_at_utc": "2026-05-14T10:05:00.000000+00:00",
+  "git_sha": "23ca4d2680f851cef7ec1c37b35572f74cd13985",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "source": "manual",
+    "priority": 1,
+    "champion_experiment": "phoneme_matcher_joint02",
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "target_corpus": "test_corpus_v3",
+    "target_correct": 244,
+    "target_delta_correct": 15,
+    "change_class": "acoustic_ctc_verifier_rerank",
+    "min_accuracy": 0.95,
+    "agent_instructions": "Start from phoneme_matcher_joint02. Keep its candidate generation, but for close top-N Quran candidate verses/spans compute a cheap frame-level CTC forced-alignment/Viterbi score against the original ONNX logprobs. Blend matcher score + normalized acoustic alignment + boundary/span prior only when the top matcher candidates are close, so easy wins stay unchanged. First build a diagnostic over the champion's 27 full-corpus misses and report how many are recoverable; then run Tier-2 preflight vs champion on the same limit-32 slice. Do not use filenames, manifests, row order, sidecar labels, or expected verses at inference.",
+    "autopilot_key": "manual.acoustic_ctc_verifier_rerank.01"
+  },
+  "metrics": {
+    "preflight_limit": 32,
+    "preflight_candidate_experiment": "phoneme_matcher_joint02_ctc_rerank",
+    "preflight_champion_experiment": "phoneme_matcher_joint02",
+    "preflight_candidate_correct": 13,
+    "preflight_champion_correct": 19,
+    "preflight_candidate_accuracy": 0.40625,
+    "preflight_champion_accuracy": 0.59375,
+    "surrogate_objective_candidate_slice": 0.465625,
+    "surrogate_objective_champion_slice": 0.634375,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078,
+    "champion_full_corpus_correct": 229,
+    "champion_full_corpus_manifest_samples": 256,
+    "champion_full_corpus_accuracy_proxy": 0.89453125,
+    "champion_forensics": "Champion task-0aa3b7531952 phoneme_matcher_joint02 (objective 0.905078, 229/256) vs runner-up task-5858c078713e matcher_asr_path_v02 (~0.866, 218/256): joint beam decode plus widened phoneme matcher moved accuracy versus the earlier matcher/ASR-path stack.",
+    "needle_subsystem_vs_runner_up": "ASR/decode + matcher (joint_model_runtime phoneme_matcher_joint02)",
+    "requires_full_corpus_gate": true,
+    "requires_champion_improvement": true,
+    "preflight_commands": [
+      "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02_ctc_rerank",
+      "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+    ],
+    "tier2_accuracy": 0.40625,
+    "target_recall": 0.40625,
+    "streaming_alignment_accuracy": 0.40625,
+    "correction_precision": 0.40625,
+    "verse_boundary_f1": 0.40625,
+    "latency_budget_score": 1.0
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02_ctc_rerank",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T10:05:00.000000+00:00",
+  "reason": "preflight_strict_gate_failed",
+  "shard": "1/3",
+  "task_id": "task-71793eaa1a70",
+  "autopilot_key": "manual.acoustic_ctc_verifier_rerank.01",
+  "change_class": "acoustic_ctc_verifier_rerank",
+  "tier2_delta_correct": -6,
+  "experiment_family": "manual.acoustic_ctc_verifier_rerank.01",
+  "negative_memory": "20260514T100500Z shard index 0 / display 1/3 task-71793eaa1a70: phoneme_matcher_joint02_ctc_rerank (CTC Viterbi rerank from ONNX log-probs on ambiguous matcher shortlists; gap 0.032; blend 0.68/0.32) Tier-2 test_corpus_v3 --limit 32 scored 13/32 vs champion phoneme_matcher_joint02 19/32; surrogate objectives ~0.466 vs ~0.634. Strong regression - block naive acoustic reranks on joint02 shortlists until calibration or alignment bugs are ruled out and slice strictly beats champion.",
+  "run_id": "task-71793eaa1a70-preflight-reject-20260514T100500Z"
+}
