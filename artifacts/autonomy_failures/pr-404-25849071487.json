@@ -1,0 +1,17 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T08:02:50.250964+00:00",
+  "workflow_run_id": "25849071487",
+  "pr_number": 404,
+  "title": "Autopilot offline-tarteel state: 89.45% champion hold, miss atlas complete \u2014 preflight tie recorded",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/404",
+  "base_ref": "main",
+  "base_sha": "3ec7f9f1a372c606efe0ada04f01931f40c15f09",
+  "head_ref": "mark-miss-atlas-complete",
+  "head_sha": "7a88f8db4e6be65395f105f7ff0d397f64c438fd",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/queue/state.json"
+  ],
+  "blocked_file_hints": []
+}
