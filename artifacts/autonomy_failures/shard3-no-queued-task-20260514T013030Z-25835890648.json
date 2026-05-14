@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-14T01:30:30.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "3/3",
+  "task_id": null,
+  "autopilot_key": null,
+  "change_class": "queue_routing_autopilot_starvation",
+  "tier2_delta_correct": null,
+  "experiment_family": "baseline.reference_shipped_fastconformer_v4_tlog.82",
+  "negative_memory": "bounded cycle base 25835890648-2: autopilot plan --target-backlog 8 retired last queued baseline.reference_shipped_fastconformer_v4_tlog.75 (task-6a8e2bead04b) via autopilot_failure_memory_retired, leaving queued=0. Replenishment generation 82 skips every candidate: baseline.reference_shipped_fastconformer_v4_tlog.82 blocked_change_class reference_port; model_only and lightweight skips asr_model_evidence/lightweight_audio_baseline blocked; dependent joint_model_runtime.82.xx missing_dependency without baseline+model_only. Ledger blocked_change_classes {reference_port, asr_model_evidence, lightweight_audio_baseline, reference_ctc_fusion, smoke_runtime} deadlock with smoke_runtime_plateau. next_queued(shard_index=2,shard_total=3)=None — not merely FIFO contention. Requires human/policy unblock (reference port shipped off-queue, tighten failure-memory thresholds for one class only, new non-blocked escalation template), not another matcher-only joint02 rerank probe.",
+  "run_id": "shard3-no-queued-task-20260514T013030Z-25835890648"
+}
