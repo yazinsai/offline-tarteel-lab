@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T17:38:06.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "2/3",
+  "task_id": null,
+  "autopilot_key": "escalate.non_smoke.joint_model_runtime.25.02",
+  "change_class": "queue_routing",
+  "tier2_delta_correct": null,
+  "experiment_family": "escalate.non_smoke.joint_model_runtime.25.02",
+  "negative_memory": "After autopilot plan --target-backlog 9 with smoke_runtime_plateau, shard_index=2 of shard_total=3 saw zero FIFO-queued tasks (297 tasks all promoted|rejected). New work is blocked by autopilot skip classes (reference_port, asr_model_evidence, lightweight_audio_baseline, smoke_runtime, reference_ctc_fusion) and missing_dependency chains. Do not synthesize matcher-only probes or Modal ASR placeholders from this shard until the queue surfaces a real status=queued task for this shard route; unblocking requires reference/ASR dependency tasks to be completed or replanned upstream—not another fragment rerank on joint02.",
+  "run_id": "shard2-no-queued-task-20260515T173806Z-27d52e5"
+}
