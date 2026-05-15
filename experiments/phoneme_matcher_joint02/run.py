@@ -172,12 +172,15 @@ def _candidate_verses(no_space_text: str, *, max_candidates: int = 950) -> list[
     return [_verses[i] for i in pick]
 
 
-def _match_phoneme_text(phoneme_text: str, top_k: int = 10) -> list[dict]:
+def _match_phoneme_text(
+    phoneme_text: str, top_k: int = 10, *, max_candidates: int | None = None
+) -> list[dict]:
     if not phoneme_text.strip() or _verses is None:
         return []
     no_space_text = phoneme_text.replace(" ", "")
+    mc = 950 if max_candidates is None else max(int(max_candidates), 80)
     scored: list[list] = []
-    for verse in _candidate_verses(no_space_text):
+    for verse in _candidate_verses(no_space_text, max_candidates=mc):
         ref = verse.get("phonemes_joined", "")
         if not ref:
             continue
