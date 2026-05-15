@@ -1,8 +1,9 @@
 kind: joint_model_runtime
 hypothesis: >
   Same shipped phoneme ONNX and beam decode as phoneme_matcher_joint02, plus a bounded
-  global surah-prefix rescue and a widened n-gram verse shortlist (2800 vs 950) so weakly
-  overlapping gold verses stay in the Levenshtein/span pool when ASR phoneme text is noisy.
+  global surah-prefix rescue for long multi-verse openings. The rescue scores ayah-1
+  spans across surahs so missing-gold prefix cases can enter the candidate pool without
+  using manifest or filename labels.
 owner: ""
 constraints:
   max_onnx_mb: 200

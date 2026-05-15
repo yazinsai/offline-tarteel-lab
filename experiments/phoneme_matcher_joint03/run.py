@@ -28,11 +28,6 @@ OPENING_COLLAPSE_MIN_CHARS = 34
 OPENING_COLLAPSE_MAX_CHARS = 115
 OPENING_COLLAPSE_MIN_SCORE = 0.50
 
-# Joint03: widen weak-overlap shortlist vs joint02 default (950) so gold verses stay in the
-# Levenshtein/span pool under noisy ASR; bounded (~3x candidates vs baseline matcher pass).
-MATCH_NGRAM_SHORTLIST = 2800
-MATCH_TOP_K = 24
-
 _prefix_spans: list[tuple[int, int, str, str]] | None = None
 _global_spans: list[tuple[int, int, int, str, str, set[str], set[str]]] | None = None
 
@@ -158,11 +153,7 @@ def _global_span_candidates(phoneme_text: str) -> list[dict]:
 
 
 def _best_match_for_hypothesis(phoneme_text: str) -> dict | None:
-    top = _base._match_phoneme_text(
-        phoneme_text,
-        top_k=MATCH_TOP_K,
-        max_candidates=MATCH_NGRAM_SHORTLIST,
-    )
+    top = _base._match_phoneme_text(phoneme_text, top_k=_base.TOP_K_LEVENSHTEIN)
     if not top:
         return None
     best = top[0]
