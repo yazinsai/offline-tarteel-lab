@@ -6831,7 +6831,7 @@
     },
     {
       "id": "task-65499c7b5348",
-      "status": "queued",
+      "status": "promoted",
       "kind": "joint_model_runtime",
       "title": "Manual 95: Modal phoneme model training and joint03 integration",
       "payload": {
@@ -6845,10 +6845,10 @@
         "agent_instructions": "Goal: reach 95%+ Tier-2 full-corpus accuracy. Use the committed Modal training entrypoint if ASR-side training is needed. First audit Modal volume/secret readiness, launch a detached quick training/eval job only if data is present, and record run/checkpoint metadata without committing binaries. If a trained artifact is not immediately usable, improve the joint ASR+matcher runtime around phoneme_matcher_joint03 with a measurable strict preflight gain over champion. Do not do matcher-only blind rerank sweeps; target candidate-missing and severe ASR/decode misses."
       },
       "created_at": "2026-05-15T17:40:48.381170+00:00",
-      "updated_at": "2026-05-15T17:40:48.381170+00:00",
+      "updated_at": "2026-05-15T20:23:08.028797+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
+      "run_record_path": "artifacts/runs/task-65499c7b5348-20260515T190659Z.json",
       "judge_reasons": null,
       "notes": ""
     },
