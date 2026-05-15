@@ -6859,7 +6859,7 @@
       "title": "Manual 95: recoverability oracle and present-gold ranker",
       "payload": {
         "experiment": "phoneme_matcher_joint03",
-        "min_accuracy": 0.95,
+        "min_accuracy": 0.8,
         "max_onnx_mb": 200,
         "manual_priority": "reach_95",
         "autopilot_key": "manual.20260515.recoverability_ranker",

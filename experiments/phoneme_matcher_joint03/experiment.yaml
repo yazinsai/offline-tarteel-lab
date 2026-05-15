@@ -1,15 +1,15 @@
 kind: joint_model_runtime
 hypothesis: >
-  Same shipped phoneme ONNX and beam decode as phoneme_matcher_joint02, plus a bounded
-  global surah-prefix rescue for long multi-verse openings. The rescue scores ayah-1
-  spans across surahs so missing-gold prefix cases can enter the candidate pool without
-  using manifest or filename labels.
+  Extends phoneme_matcher_joint02 with (1) bounded ayah-1 prefix rescue unchanged,
+  (2) margin-gated local rerank on the existing matcher shortlist using matcher+fragment
+  combo only when top scores tie within a narrow band — no global span enumeration,
+  (3) beam-hypothesis agreement boost so stable verses win ties without manifest labels.
 owner: ""
 constraints:
   max_onnx_mb: 200
 expected_metrics:
   recall_delta_pp: null
 notes: >
-  Data-driven follow-up from the champion miss atlas: candidate-missing and BSM/boundary
-  misses are concentrated in multi-verse clips starting at ayah 1, where the gold surah
-  is absent from the joint02 shortlist.
+  Recoverability-motivated: present-gold cases often sit in a tight top-N cluster; the
+  rerank uses only transcript text and public verse phoneme strings. Missing-gold /
+  candidate-pool failures are not fixable by local rerank (oracle labels are offline-only).
