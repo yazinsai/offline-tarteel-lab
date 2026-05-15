@@ -6875,7 +6875,7 @@
     },
     {
       "id": "task-2c9df757a388",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95: missing-gold candidate expansion via decode/search",
       "payload": {
@@ -6887,16 +6887,18 @@
         "agent_instructions": "Focus only on cases where the gold verse/span is absent from joint02/joint03 candidate pools. Add bounded decode/search candidate expansion, two-pass hypothesis merge, or span search that can recover missing-gold cases without filename/manifest leakage. Keep CPU/time bounded and prove strict limit-32 improvement over champion before full corpus."
       },
       "created_at": "2026-05-15T17:40:48.444149+00:00",
-      "updated_at": "2026-05-15T17:40:48.444149+00:00",
+      "updated_at": "2026-05-15T19:30:56.541953+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-2c9df757a388-20260515T193056Z.json",
+      "judge_reasons": [
+        "min_accuracy_not_met"
+      ],
       "notes": ""
     },
     {
       "id": "task-2b4ca9bf30ed",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95: multi-verse opening and BSM boundary decoder",
       "payload": {
@@ -6908,11 +6910,13 @@
         "agent_instructions": "Target remaining multi-verse opening misses and BSM/boundary failures. Prefer decode/search or span construction changes over score blending. Preserve the joint03 gains and add tests for any rescue rule. Candidate must pass strict preflight versus champion; tie or regression should be recorded as negative memory and reverted."
       },
       "created_at": "2026-05-15T17:40:48.476071+00:00",
-      "updated_at": "2026-05-15T17:40:48.476071+00:00",
+      "updated_at": "2026-05-15T20:54:29.551402+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "/workspace/artifacts/runs/task-2b4ca9bf30ed-20260515T205429Z.json",
+      "judge_reasons": [
+        "min_accuracy_not_met"
+      ],
       "notes": ""
     },
     {

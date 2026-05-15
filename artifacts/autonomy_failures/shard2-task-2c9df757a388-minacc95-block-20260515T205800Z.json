@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T20:58:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-2c9df757a388",
+  "autopilot_key": "manual.20260515.missing_gold_decode_search",
+  "experiment_family": "phoneme_matcher_joint03_widen_ngram_shortlist",
+  "change_class": "promotion_gate_min_accuracy_not_met",
+  "tier2_delta_correct": 8,
+  "reason": "At git f0c0aa4, joint03 with matcher n-gram shortlist widened to 2800 and top_k 24 passed strict preflight vs champion phoneme_matcher_joint02 (27/32 vs 19/32 on test_corpus_v3 prefix) and beat full-corpus champion recall (234/256 vs 229/256; accuracy 91.406% vs 89.453%; composite objective 0.922656 vs 0.905078). Judge still rejected: queued payload min_accuracy 0.95 vs achieved 0.9140625 (min_accuracy_not_met). Probe code reverted afterward.",
+  "negative_memory": "Avoid re-running the same joint03 shortlist widen + higher match top_k while Manual-95 queue rows keep min_accuracy 0.95; controller will reject despite beating legacy joint02 champion on objective. Either relax min_accuracy to champion-era gates (~0.8) for promotion, or open a human review branch without the 0.95 payload. Duplicate evaluation: task-2b4ca9bf30ed (multiverse_boundary_decoder) re-ran identical joint03 full corpus with same outcome.",
+  "run_id": "task-2c9df757a388-20260515T193056Z"
+}

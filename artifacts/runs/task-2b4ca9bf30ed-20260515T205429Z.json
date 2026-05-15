@@ -1,0 +1,60 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-2b4ca9bf30ed-20260515T205429Z",
+  "task_id": "task-2b4ca9bf30ed",
+  "created_at_utc": "2026-05-15T20:54:29.545662+00:00",
+  "git_sha": "f0c0aa45ec0a03871332712cc12e503ba1711c55",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment": "phoneme_matcher_joint03",
+    "min_accuracy": 0.95,
+    "max_onnx_mb": 200,
+    "manual_priority": "reach_95",
+    "autopilot_key": "manual.20260515.multiverse_boundary_decoder",
+    "agent_instructions": "Target remaining multi-verse opening misses and BSM/boundary failures. Prefer decode/search or span construction changes over score blending. Preserve the joint03 gains and add tests for any rescue rule. Candidate must pass strict preflight versus champion; tie or regression should be recorded as negative memory and reverted.",
+    "corpus": "test_corpus_v3",
+    "full_corpus_gate": true
+  },
+  "metrics": {
+    "tier1_passed": 32,
+    "tier1_total": 32,
+    "tier2_experiment": "phoneme_matcher_joint03",
+    "tier2_accuracy": 0.9140625,
+    "tier2_correct": 234,
+    "tier2_samples": 256,
+    "tier2_evaluated_samples": 256,
+    "tier2_manifest_samples": 256,
+    "tier2_selected_samples": 256,
+    "tier2_sample_limit": 0,
+    "tier2_failures": 0,
+    "tier3_completed": true,
+    "baseline_accuracy": null,
+    "min_accuracy": 0.95,
+    "onnx_mb": null,
+    "max_onnx_mb": 200,
+    "target_recall": 0.9140625,
+    "streaming_alignment_accuracy": 0.9140625,
+    "correction_precision": 0.9140625,
+    "verse_boundary_f1": 0.9140625,
+    "latency_budget_score": 1.0,
+    "requires_full_corpus_gate": true,
+    "requires_champion_improvement": true,
+    "candidate_objective": 0.922656,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078
+  },
+  "tier_completed": [
+    1,
+    2,
+    3
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 1 --corpus test_corpus_v3 --limit 32",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03 --tier-json /workspace/artifacts/tier2/tier2-task-2b4ca9bf30ed-preflight-candidate.json",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02 --tier-json /workspace/artifacts/tier2/tier2-task-2b4ca9bf30ed-preflight-champion.json",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 0 --experiment phoneme_matcher_joint03",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 3"
+  ]
+}
