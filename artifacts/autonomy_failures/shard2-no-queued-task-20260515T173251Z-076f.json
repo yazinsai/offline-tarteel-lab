@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T17:32:51.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "2/3",
+  "task_id": null,
+  "autopilot_key": "escalate.non_smoke.joint_model_runtime.25.02",
+  "change_class": "empty_queue_manual_only",
+  "tier2_delta_correct": null,
+  "experiment_family": "queue_shard_idle",
+  "negative_memory": "Shard 2/3 (task_queue: queued_index % 3 == 2): after pip install -e '.[dev]' and task_queue init, queued_tasks=0 in artifacts/queue/state.json — nothing manually loaded for this shard ordinal. Champion phoneme_matcher_joint02 (89.45% acc / 0.905078 objective on test_corpus_v3 full gate). Do not substitute matcher-only reranks vs joint02 without ASR/decode/two-pass work that clears tier-2 strict gates; prior shard2 failures tied dual-preemph fusion and widened CTC beam without hypothesis merge. Replenish queue with reference_port / model_only / joint_model_runtime rows mapped to this shard before rerunning autonomous_loop.",
+  "run_id": "shard2-no-queued-task-20260515T173251Z-076f"
+}
