@@ -1,0 +1,47 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-8f03546ecd1a-preflight-tie-20260515T232530Z",
+  "task_id": "task-8f03546ecd1a",
+  "created_at_utc": "2026-05-15T23:25:30.000000+00:00",
+  "git_sha": "aa515df14bddda69aacd607e7769210fb1c0e5b9",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment": "phoneme_matcher_joint04",
+    "autopilot_key": "manual.20260515.wave2.missing_gold_decode_search_v2",
+    "agent_instructions": "Focus on remaining cases where the gold verse/span is absent from the joint03 candidate pool. Add a bounded two-pass decode/search or hypothesis-merge expansion with CPU/time caps, preserving joint03 behavior on already-correct examples. Avoid global rerank-only work and naive CTC score blending. Create a new experiment name, add focused tests if rescue logic is added, and require strict limit-32 improvement over the current champion before full Tier-2.",
+    "corpus": "test_corpus_v3",
+    "preflight_limit": 32,
+    "tier2_report_candidate": "artifacts/tier2/tier2-20260515T230913Z.json",
+    "tier2_report_champion": "artifacts/tier2/tier2-20260515T232403Z.json",
+    "shard_index": 1,
+    "shard_total": 3,
+    "bounded_cycle_notes": "Cursor Cloud shard_index=1 total=3 display 2/3: Implemented phoneme_matcher_joint04 cross-hypothesis matcher pool merge + joint03 rescue gates. Tier-2 eval_tier limit=32: joint04 28/32, joint03 28/32 (tie). Surrogate objective components 0.8875 each tie. Reverted joint04 code per strict preflight gate (step 13); no autonomous_loop."
+  },
+  "metrics": {
+    "tier1_passed": null,
+    "tier1_total": null,
+    "tier2_experiment": "phoneme_matcher_joint04",
+    "tier2_accuracy": 0.875,
+    "tier2_correct": 28,
+    "tier2_samples": 32,
+    "tier2_evaluated_samples": 32,
+    "streaming_alignment_accuracy": 0.875,
+    "correction_precision": 0.875,
+    "verse_boundary_f1": 0.875,
+    "latency_budget_score": 1.0,
+    "preflight_champion_experiment": "phoneme_matcher_joint03",
+    "preflight_champion_correct": 28,
+    "preflight_champion_accuracy": 0.875,
+    "preflight_candidate_objective": 0.8875,
+    "preflight_champion_objective": 0.8875,
+    "requires_champion_improvement": true,
+    "tier3_completed": false
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint04 --tier-json artifacts/tier2/tier2-20260515T230913Z.json",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03 --tier-json artifacts/tier2/tier2-20260515T232403Z.json"
+  ]
+}
