@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T23:39:29.295402+00:00",
+  "workflow_run_id": "25946578714",
+  "pr_number": 436,
+  "title": "Autopilot offline-tarteel state: 93.36% champion hold, preflight joint03 matcher-anchor tie \u2014 Tier-2 28/32 vs 28/32, surrogate 0.8875 (+0pp)",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/436",
+  "base_ref": "cursor-autonomy-base-25945558646-0",
+  "base_sha": "5f8bcf8b57bc62979be8539acd2fc400372740da",
+  "head_ref": "cursor/missing-gold-anchor-pool-joint03-357e",
+  "head_sha": "5817ff9c768af9ac7ba04ca9768f8c7d406989f9",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard0-task-0a2ecbb84384-20260515T233746Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-0a2ecbb84384-preflight-reject-20260515T233746Z.json"
+  ],
+  "blocked_file_hints": []
+}
