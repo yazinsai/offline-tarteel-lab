@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T22:52:19.890278+00:00",
+  "workflow_run_id": "25945180651",
+  "pr_number": 432,
+  "title": "Autopilot offline-tarteel state: 93.36% champion hold, wave2 probe preflight tie +0pp \u2014 joint03_wave2 vs joint03 @32-slice",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/432",
+  "base_ref": "main",
+  "base_sha": "e765bb74112f7d72276c50e5fd5677aa30042984",
+  "head_ref": "cursor/wave2-boundary-span-v2-cdbf",
+  "head_sha": "5e08fe34ed4bd77531f83338890b0ee357fb26e7",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/task-4212a81a8145-preflight-tie-20260515T225047Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-4212a81a8145-20260515T225047Z.json"
+  ],
+  "blocked_file_hints": []
+}
