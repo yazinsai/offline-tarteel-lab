@@ -1,0 +1,26 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T17:35:07.612847+00:00",
+  "workflow_run_id": "25932097143",
+  "pr_number": 415,
+  "title": "Autopilot offline-tarteel state: 89.45% champion hold, queue exhausted on shard 2/3 \u2014 no status=queued tasks",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/415",
+  "base_ref": "main",
+  "base_sha": "7eeae09bb39fb38b78d46ac7d0245506047916b3",
+  "head_ref": "cursor/shard1-no-queued-20260515-7f2a",
+  "head_sha": "80d4d291e6fdd20f07ed76403e2459fee961b659",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard1-no-queued-task-20260515T173500Z-7f2a.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/runs/shard1-no-queued-task-20260515T173500Z-7f2a.json",
+    "experiments/phoneme_matcher_joint03/experiment.yaml",
+    "experiments/phoneme_matcher_joint03/run.py",
+    "tests/test_phoneme_matcher_joint03.py",
+    "tests/test_train_fastconformer_phoneme_modal.py",
+    "training/train_fastconformer_phoneme_modal.py"
+  ],
+  "blocked_file_hints": [
+    "training/train_fastconformer_phoneme_modal.py"
+  ]
+}
