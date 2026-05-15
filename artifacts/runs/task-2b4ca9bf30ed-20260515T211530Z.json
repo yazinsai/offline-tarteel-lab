@@ -1,0 +1,54 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-2b4ca9bf30ed-20260515T211530Z",
+  "task_id": "task-2b4ca9bf30ed",
+  "created_at_utc": "2026-05-15T21:15:30.000000+00:00",
+  "git_sha": "c7697b71e06bf2ddf70e0a27fcbf4abcdfc01146",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment_probe": "phoneme_matcher_joint04",
+    "experiment": "phoneme_matcher_joint03",
+    "min_accuracy": 0.95,
+    "max_onnx_mb": 200,
+    "manual_priority": "reach_95",
+    "autopilot_key": "manual.20260515.multiverse_boundary_decoder",
+    "agent_instructions": "Target remaining multi-verse opening misses and BSM/boundary failures. Prefer decode/search or span construction changes over score blending. Preserve the joint03 gains and add tests for any rescue rule. Candidate must pass strict preflight versus champion; tie or regression should be recorded as negative memory and reverted.",
+    "corpus": "test_corpus_v3",
+    "full_corpus_gate": true,
+    "probe_note": "Prototype joint04 = joint03 + dual ayah-1 prefix rows (no-BSM vs full phonemes) with per-(surah,ayah_end) best-of merge; optional PREFIX_MARGIN sweeps. Best limit-32 slice tied champion at 26/32; regressions to 24/32 on aggressive opening/prefix tuning. Code reverted before commit."
+  },
+  "metrics": {
+    "tier2_accuracy": 0.8125,
+    "tier2_correct": 26,
+    "tier2_samples": 32,
+    "tier2_manifest_samples": 256,
+    "tier2_sample_limit": 32,
+    "streaming_alignment_accuracy": 0.8125,
+    "correction_precision": 0.8125,
+    "verse_boundary_f1": 0.8125,
+    "latency_budget_score": 1.0,
+    "requires_champion_improvement": true,
+    "requires_full_corpus_gate": true,
+    "preflight_limit": 32,
+    "preflight_candidate_correct": 26,
+    "preflight_champion_correct": 26,
+    "preflight_candidate_experiment": "phoneme_matcher_joint04",
+    "preflight_champion_experiment": "phoneme_matcher_joint03",
+    "preflight_candidate_accuracy": 0.8125,
+    "preflight_champion_accuracy": 0.8125,
+    "surrogate_objective_candidate_slice": 0.83125,
+    "surrogate_objective_champion_slice": 0.83125,
+    "champion_run_id": "task-94c59d4c1b25-20260515T190057Z",
+    "champion_objective": 0.933203,
+    "candidate_objective": null
+  },
+  "tier_completed": [
+    2
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "/usr/bin/python3 -m lab_tools.tier2_local --root /workspace --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint04",
+    "/usr/bin/python3 -m lab_tools.tier2_local --root /workspace --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03"
+  ]
+}

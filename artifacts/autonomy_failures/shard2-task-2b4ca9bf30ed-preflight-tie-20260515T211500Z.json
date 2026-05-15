@@ -1,0 +1,13 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T21:15:00.000000+00:00",
+  "shard": "2/3",
+  "task_id": "task-2b4ca9bf30ed",
+  "autopilot_key": "manual.20260515.multiverse_boundary_decoder",
+  "experiment_family": "manual.20260515.multiverse_boundary_decoder",
+  "change_class": "preflight_tie_joint04_bsm_prefix",
+  "tier2_delta_correct": 0,
+  "reason": "phoneme_matcher_joint04 (BSM-aware dual prefix rows + best-of merge; PREFIX_MARGIN/topk/span sweeps) reached at best 26/32 correct on test_corpus_v3 limit-32 slice vs champion phoneme_matcher_joint03 26/32 — strict preflight requires strictly greater correct counts; surrogate slice objectives tie at 0.83125. Aggressive margin/span/opening-collapse settings regressed to 24/32.",
+  "negative_memory": "Do not repeat BSM dual-prefix-row merge on joint03 clone expecting limit-32 strict gain without decode/vote changes; pairing no-BSM and full ayah-1 span references ties champion at best and can regress with looser PREFIX_MAX_SPAN or opening-collapse score cuts.",
+  "run_id": "task-2b4ca9bf30ed-20260515T211530Z"
+}
