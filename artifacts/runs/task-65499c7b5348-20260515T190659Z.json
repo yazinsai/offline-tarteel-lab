@@ -1,0 +1,68 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-65499c7b5348-20260515T190659Z",
+  "task_id": "task-65499c7b5348",
+  "created_at_utc": "2026-05-15T19:06:59.587851+00:00",
+  "git_sha": "61851f685b0710333024f70e8cbd479b64abbf9d",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment": "phoneme_matcher_joint03",
+    "modal_training": false,
+    "job_name": "fastconformer-phoneme-95-joint03",
+    "min_accuracy": 0.95,
+    "max_onnx_mb": 200,
+    "manual_priority": "reach_95",
+    "autopilot_key": "manual.20260515.modal_phoneme_joint03",
+    "agent_instructions": "Goal: reach 95%+ Tier-2 full-corpus accuracy. Use the committed Modal training entrypoint if ASR-side training is needed. First audit Modal volume/secret readiness, launch a detached quick training/eval job only if data is present, and record run/checkpoint metadata without committing binaries. If a trained artifact is not immediately usable, improve the joint ASR+matcher runtime around phoneme_matcher_joint03 with a measurable strict preflight gain over champion. Do not do matcher-only blind rerank sweeps; target candidate-missing and severe ASR/decode misses.",
+    "modal_launch_attempt": {
+      "when_utc": "2026-05-15T18:05:51.202798+00:00",
+      "cmd": "modal run --detach training/train_fastconformer_phoneme_modal.py --job-name fastconformer-phoneme-95-joint03",
+      "exit_code": 1,
+      "reason": "Modal volume offline-tarteel-lab-data not found in environment main"
+    },
+    "corpus": "test_corpus_v3",
+    "full_corpus_gate": true
+  },
+  "metrics": {
+    "tier1_passed": 32,
+    "tier1_total": 32,
+    "tier2_experiment": "phoneme_matcher_joint03",
+    "tier2_accuracy": 0.93359375,
+    "tier2_correct": 239,
+    "tier2_samples": 256,
+    "tier2_evaluated_samples": 256,
+    "tier2_manifest_samples": 256,
+    "tier2_selected_samples": 256,
+    "tier2_sample_limit": 0,
+    "tier2_failures": 0,
+    "tier3_completed": true,
+    "baseline_accuracy": null,
+    "min_accuracy": 0.95,
+    "onnx_mb": null,
+    "max_onnx_mb": 200,
+    "target_recall": 0.93359375,
+    "streaming_alignment_accuracy": 0.93359375,
+    "correction_precision": 0.93359375,
+    "verse_boundary_f1": 0.93359375,
+    "latency_budget_score": 1.0,
+    "requires_full_corpus_gate": true,
+    "requires_champion_improvement": true,
+    "candidate_objective": 0.940234,
+    "champion_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_objective": 0.905078
+  },
+  "tier_completed": [
+    1,
+    2,
+    3
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 1 --corpus test_corpus_v3 --limit 32",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03 --tier-json /workspace/artifacts/tier2/tier2-task-65499c7b5348-preflight-candidate.json",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint02 --tier-json /workspace/artifacts/tier2/tier2-task-65499c7b5348-preflight-champion.json",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 0 --experiment phoneme_matcher_joint03",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 3"
+  ]
+}
