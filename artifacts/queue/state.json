@@ -6828,6 +6828,139 @@
         "boundary_rescue_completed_preflight_no_lift"
       ],
       "notes": "Ran in workflow 25849198757 via PRs #407/#408. Candidate boundary rescue matched champion on limit-32 preflight (19/32 vs 19/32; objective 0.634375 vs 0.634375), so keep rejected and do not rerun."
+    },
+    {
+      "id": "task-65499c7b5348",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95: Modal phoneme model training and joint03 integration",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "modal_training": true,
+        "job_name": "fastconformer-phoneme-95-joint03",
+        "min_accuracy": 0.95,
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95",
+        "autopilot_key": "manual.20260515.modal_phoneme_joint03",
+        "agent_instructions": "Goal: reach 95%+ Tier-2 full-corpus accuracy. Use the committed Modal training entrypoint if ASR-side training is needed. First audit Modal volume/secret readiness, launch a detached quick training/eval job only if data is present, and record run/checkpoint metadata without committing binaries. If a trained artifact is not immediately usable, improve the joint ASR+matcher runtime around phoneme_matcher_joint03 with a measurable strict preflight gain over champion. Do not do matcher-only blind rerank sweeps; target candidate-missing and severe ASR/decode misses."
+      },
+      "created_at": "2026-05-15T17:40:48.381170+00:00",
+      "updated_at": "2026-05-15T17:40:48.381170+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-94c59d4c1b25",
+      "status": "promoted",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95: recoverability oracle and present-gold ranker",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "min_accuracy": 0.8,
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95",
+        "autopilot_key": "manual.20260515.recoverability_ranker",
+        "agent_instructions": "Goal: data-driven +15 correct path. Build a recoverability oracle for gold-in-topN versus missing-gold on Tier-2 artifacts, then only tune/train a ranker for present-gold cases. Use labels only for offline evaluation/training artifacts, never at prediction time. Candidate must strictly beat champion on limit-32 accuracy and objective before full corpus. Avoid global rerank and naive CTC blend repeats."
+      },
+      "created_at": "2026-05-15T17:40:48.413281+00:00",
+      "updated_at": "2026-05-15T19:00:57.674735+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "/workspace/artifacts/runs/task-94c59d4c1b25-20260515T190057Z.json",
+      "judge_reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "task-2c9df757a388",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95: missing-gold candidate expansion via decode/search",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "min_accuracy": 0.95,
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95",
+        "autopilot_key": "manual.20260515.missing_gold_decode_search",
+        "agent_instructions": "Focus only on cases where the gold verse/span is absent from joint02/joint03 candidate pools. Add bounded decode/search candidate expansion, two-pass hypothesis merge, or span search that can recover missing-gold cases without filename/manifest leakage. Keep CPU/time bounded and prove strict limit-32 improvement over champion before full corpus."
+      },
+      "created_at": "2026-05-15T17:40:48.444149+00:00",
+      "updated_at": "2026-05-15T19:35:39.413925+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "/workspace/artifacts/runs/task-2c9df757a388-20260515T193539Z.json",
+      "judge_reasons": [
+        "min_accuracy_not_met",
+        "champion_objective_not_improved"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "task-2b4ca9bf30ed",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95: multi-verse opening and BSM boundary decoder",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "min_accuracy": 0.95,
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95",
+        "autopilot_key": "manual.20260515.multiverse_boundary_decoder",
+        "agent_instructions": "Target remaining multi-verse opening misses and BSM/boundary failures. Prefer decode/search or span construction changes over score blending. Preserve the joint03 gains and add tests for any rescue rule. Candidate must pass strict preflight versus champion; tie or regression should be recorded as negative memory and reverted."
+      },
+      "created_at": "2026-05-15T17:40:48.476071+00:00",
+      "updated_at": "2026-05-15T17:40:48.476071+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-732271dae421",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95: repeated-verse acoustic disambiguator",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "min_accuracy": 0.95,
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95",
+        "autopilot_key": "manual.20260515.repeated_verse_acoustic_disambiguator",
+        "agent_instructions": "Target ambiguous repeated short-verse misses where text similarity is insufficient. Use calibrated acoustic/decode evidence, local context, or confidence features; do not use filenames, manifests, corpus ordering, or labels at prediction time. A naive CTC score blend is known bad, so only ship if strict limit-32 preflight beats champion on both accuracy and objective."
+      },
+      "created_at": "2026-05-15T17:40:48.507626+00:00",
+      "updated_at": "2026-05-15T17:40:48.507626+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-68eed1158c53",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95: decode-missing and severe ASR miss audit",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "modal_training": true,
+        "job_name": "fastconformer-phoneme-95-hard-misses",
+        "min_accuracy": 0.95,
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95",
+        "autopilot_key": "manual.20260515.decode_missing_asr_audit",
+        "agent_instructions": "Focus on severe ASR/search misses and decode-missing cases. If Modal data is ready, launch detached training or evaluation to improve phoneme emissions; otherwise implement a bounded runtime decode/search change that recovers at least one hard miss without regressing joint03. Record exact misses fixed/regressed and require strict preflight before promotion."
+      },
+      "created_at": "2026-05-15T17:40:48.539001+00:00",
+      "updated_at": "2026-05-15T17:40:48.539001+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
     }
   ]
 }

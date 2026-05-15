@@ -1,0 +1,15 @@
+kind: joint_model_runtime
+hypothesis: >
+  Extends phoneme_matcher_joint02 with (1) bounded ayah-1 prefix rescue unchanged,
+  (2) margin-gated local rerank on the existing matcher shortlist using matcher+fragment
+  combo only when top scores tie within a narrow band — no global span enumeration,
+  (3) beam-hypothesis agreement boost so stable verses win ties without manifest labels.
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Recoverability-motivated: present-gold cases often sit in a tight top-N cluster; the
+  rerank uses only transcript text and public verse phoneme strings. Missing-gold /
+  candidate-pool failures are not fixable by local rerank (oracle labels are offline-only).
