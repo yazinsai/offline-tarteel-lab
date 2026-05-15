@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T22:50:20.971166+00:00",
+  "workflow_run_id": "25945116393",
+  "pr_number": 431,
+  "title": "Autopilot offline-tarteel state: 93.36% champion hold \u2014 preflight tie joint04 ASR/hyp merge vs joint03 (28/32 slice, +0pp)",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/431",
+  "base_ref": "main",
+  "base_sha": "1edf4c366088256c13a5682d9a8ce0258875b96c",
+  "head_ref": "cursor/wave2-joint04-asr-hyp-rescore-94b2",
+  "head_sha": "cba3228ea4f0e067807b751cba61c644d7422db8",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard0-task-f464e588a318-preflight-tie-20260515T224820Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-f464e588a318-20260515T224820Z.json"
+  ],
+  "blocked_file_hints": []
+}
