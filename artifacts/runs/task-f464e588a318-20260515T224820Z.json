@@ -1,0 +1,59 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-f464e588a318-20260515T224820Z",
+  "task_id": "task-f464e588a318",
+  "created_at_utc": "2026-05-15T22:48:20.083216+00:00",
+  "git_sha": "aa515df14bddda69aacd607e7769210fb1c0e5b9",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment": "phoneme_matcher_joint03",
+    "candidate_experiment_evaluated": "phoneme_matcher_joint04",
+    "candidate_probe_reverted": true,
+    "autopilot_key": "manual.20260515.wave2.remaining_miss_atlas",
+    "agent_instructions": "Current champion is phoneme_matcher_joint03 at 239/256 = 93.36%; 95% needs 244/256, so find at least five recoverable remaining misses. Build a concrete miss atlas from existing Tier-2 reports/run artifacts, separating gold-in-pool ranking errors from missing-gold decode/search misses, BSM/boundary, multi-verse, repeated-verse, and severe ASR misses. Implement only if the atlas identifies a bounded change likely to recover misses; otherwise record exact per-case next actions as state. Do not use filename, manifest ordering, labels, or gold at prediction time. Candidate must strictly beat champion on fixed limit-32 accuracy and objective before full corpus.",
+    "corpus": "test_corpus_v3",
+    "full_corpus_gate": true,
+    "change_class": "asr_hypothesis_merge_widen_beam",
+    "champion_run_id": "task-65499c7b5348-20260515T190659Z",
+    "probe_summary": "phoneme_matcher_joint04: env beam 8/top_symbols 9/max_hyps 5; hypothesis selection max(match_score + 0.38*beam_lp/T) vs joint03 match-only; code reverted after preflight tie."
+  },
+  "metrics": {
+    "preflight_limit": 32,
+    "preflight_candidate_experiment": "phoneme_matcher_joint04",
+    "preflight_champion_experiment": "phoneme_matcher_joint03",
+    "preflight_candidate_correct": 28,
+    "preflight_champion_correct": 28,
+    "preflight_candidate_accuracy": 0.875,
+    "preflight_champion_accuracy": 0.875,
+    "surrogate_objective_candidate_slice": 0.8875,
+    "surrogate_objective_champion_slice": 0.8875,
+    "champion_run_id": "task-65499c7b5348-20260515T190659Z",
+    "champion_objective": 0.940234,
+    "champion_full_corpus_correct": 239,
+    "champion_full_corpus_manifest_samples": 256,
+    "champion_full_corpus_accuracy_proxy": 0.93359375,
+    "tier2_delta_correct": 0,
+    "champion_forensics": "Champion task-65499c7b5348 phoneme_matcher_joint03 (full-corpus 239/256, objective 0.940234) superseded task-0aa3b7531952 phoneme_matcher_joint02 (229/256, 0.905078): moving from joint02 to joint03 (prefix/global-span rescue + same ONNX/beam path) lifted recall\u2014the needle is the joint decode/search + matcher stack, not packaging-only.",
+    "needle_subsystem_vs_runner_up": "ASR/decode + matcher (joint phoneme stack; joint03 span rescue vs joint02 baseline)",
+    "preflight_commands": [
+      "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03",
+      "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint04"
+    ],
+    "shard_display": "1/3",
+    "tier2_accuracy": 0.875,
+    "tier2_correct": 28,
+    "tier2_samples": 32,
+    "streaming_alignment_accuracy": 0.875,
+    "correction_precision": 0.875,
+    "verse_boundary_f1": 0.875,
+    "latency_budget_score": 1.0,
+    "candidate_objective": 0.8875
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint04"
+  ]
+}
