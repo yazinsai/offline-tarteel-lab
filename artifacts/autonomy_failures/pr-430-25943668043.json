@@ -1,0 +1,18 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T22:06:07.564416+00:00",
+  "workflow_run_id": "25943668043",
+  "pr_number": 430,
+  "title": "Autopilot offline-tarteel state: 93.36% champion hold, shard 2/3 idle \u2014 no runnable queued task after autopilot retire + blocked .85 wave",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/430",
+  "base_ref": "cursor-autonomy-base-25943524255-2",
+  "base_sha": "161e62fa0a4e252f0e5370738d528caf545b79c3",
+  "head_ref": "cursor/offline-tarteel-shard2-idle-2e82",
+  "head_sha": "035381e865808734035b1a7a792007582c98b657",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-no-queued-task-20260515T220800Z-cursor-autonomy-base-2.json",
+    "artifacts/queue/state.json"
+  ],
+  "blocked_file_hints": []
+}
