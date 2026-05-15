@@ -1,0 +1,14 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T23:37:46.205144+00:00",
+  "shard": "0/3",
+  "shard_display": "1/3",
+  "task_id": "task-0a2ecbb84384",
+  "run_id": "task-0a2ecbb84384-preflight-reject-20260515T233746Z",
+  "autopilot_key": "manual.20260515.solo.missing_gold_decode_search_finish",
+  "experiment_family": "manual.20260515.solo.missing_gold_decode_search_finish",
+  "change_class": "tier2_preflight_tie_joint03_same_experiment_anchor_pool",
+  "tier2_delta_correct": 0,
+  "reason": "preflight_strict_gate_failed",
+  "negative_memory": "shard 0/3 20260515Z: Matcher multi-anchor pool (ranks #1..#8 each feeding prefix/global rescue margins) tied champion phoneme_matcher_joint03 on fixed test_corpus_v3 Tier-2 limit-32 slice: 28/32 correct vs 28/32, surrogate objective tie 0.8875 (< strict >both required vs same baseline revision). Modal offline; duplicate joint03-named experiment comparisons need decode-side or distinct experiment label for gated promotion. Retry with decode/two-pass expansion that changes hypotheses, not only deeper matcher pool on identical ASR hypotheses."
+}

@@ -1,0 +1,49 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-0a2ecbb84384-preflight-reject-20260515T233746Z",
+  "task_id": "task-0a2ecbb84384",
+  "created_at_utc": "2026-05-15T23:37:46.205144+00:00",
+  "git_sha": "5f8bcf8b57bc62979be8539acd2fc400372740da",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment": "phoneme_matcher_joint03",
+    "autopilot_key": "manual.20260515.solo.missing_gold_decode_search_finish",
+    "bounded_cycle_notes": "Cursor Cloud shard 0/3 (display 1/3): Mandatory Tier-2 preflight (--limit 32, test_corpus_v3) evaluated baseline champion phoneme_matcher_joint03 then multi-anchor matcher pool candidate; both landed 28/32 correct with objective 0.8875 tie. Candidate code reverted; autonomous_loop not invoked (LAB_AUTONOMY_ALLOW_MODAL false). pytest passed after revert.",
+    "attempted_change": "phoneme_matcher_joint03 `_best_match_for_hypothesis`: pooled surah-prefix and global-span rescues against matcher ranks #1..#8 anchors (MATCHER_ANCHORS) instead of matcher rank #1 only; reverted.",
+    "champion_forensics": "Ledger champion task-65499c7b5348 (phoneme_matcher_joint03) moved versus runner-up task-0aa3b7531952 phoneme_matcher_joint02 (229 vs 239 correct tier-2 full): matcher/tracker-runtime layer (bounded surah-prefix + global-span candidate expansion on phoneme ONNX CTC beam hypotheses), decode backbone unchanged versus joint02-only matcher.",
+    "files_changed_during_probe": [
+      "experiments/phoneme_matcher_joint03/run.py"
+    ],
+    "shard_display": "1/3",
+    "shard_index": 0,
+    "shard_total": 3
+  },
+  "metrics": {
+    "tier2_sample_limit": 32,
+    "preflight_limit": 32,
+    "preflight_candidate_correct": 28,
+    "preflight_champion_correct": 28,
+    "preflight_candidate_accuracy": 0.875,
+    "preflight_champion_accuracy": 0.875,
+    "preflight_candidate_objective_surrogate": 0.8875,
+    "preflight_champion_objective_surrogate": 0.8875,
+    "preflight_candidate_experiment": "phoneme_matcher_joint03",
+    "preflight_champion_experiment": "phoneme_matcher_joint03",
+    "streaming_alignment_accuracy": 0.875,
+    "correction_precision": 0.875,
+    "verse_boundary_f1": 0.875,
+    "latency_budget_score": 1.0,
+    "requires_champion_improvement": true,
+    "candidate_objective": null,
+    "champion_objective": 0.940234
+  },
+  "tier_completed": [
+    2
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03 --tier-json artifacts/tier2/tier2-preflight-baseline-joint03-shard0.json (deleted after capture)",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03 --tier-json artifacts/tier2/tier2-preflight-candidate-anchor-pool-shard0.json (deleted after capture); candidate == multi-anchor `_pool_best_match_from_anchors` patch"
+  ]
+}
