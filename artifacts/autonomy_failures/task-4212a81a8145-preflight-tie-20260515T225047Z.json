@@ -1,0 +1,12 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.probe.v1",
+  "created_at_utc": "2026-05-15T22:50:47.890344+00:00",
+  "task_id": "task-4212a81a8145",
+  "experiment_family": "manual.20260515.wave2.boundary_multiverse_v2",
+  "change_class": "joint_matcher_span_rescore_prefix8_global_min",
+  "tier2_delta_correct": 0,
+  "reason": "Preflight limit-32 on test_corpus_v3: phoneme_matcher_joint03_wave2 tied phoneme_matcher_joint03 (28/32, 0.8875 objective). Fragment-blend span rescoring + PREFIX_MAX_SPAN 8 + GLOBAL_SPAN_MIN_SCORE 0.535 did not strictly beat champion; do not repeat this micro-tune on joint03 without a new hypothesis.",
+  "blocked_paths": [
+    "experiments/phoneme_matcher_joint03_wave2"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-4212a81a8145-20260515T225047Z",
+  "task_id": "task-4212a81a8145",
+  "created_at_utc": "2026-05-15T22:50:47.884048+00:00",
+  "git_sha": "aa515df14bddda69aacd607e7769210fb1c0e5b9",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment": "phoneme_matcher_joint03",
+    "autopilot_key": "manual.20260515.wave2.boundary_multiverse_v2",
+    "manual_priority": "reach_95_wave2",
+    "max_onnx_mb": 200,
+    "candidate_experiment_probe": "phoneme_matcher_joint03_wave2",
+    "note": "Probe reverted: span shortlist fragment rescoring + prefix depth 8 + global span min score 0.535"
+  },
+  "metrics": {
+    "tier1_passed": null,
+    "tier1_total": null,
+    "preflight_limit": 32,
+    "preflight_corpus": "test_corpus_v3",
+    "preflight_wave2_correct": 28,
+    "preflight_champion_correct": 28,
+    "preflight_wave2_accuracy": 0.875,
+    "preflight_champion_accuracy": 0.875,
+    "preflight_wave2_objective": 0.8875,
+    "preflight_champion_objective_proxy": 0.8875,
+    "tier2_strict_gate_passed": false,
+    "rejection_reason": "preflight_slice_tie_champion_objective_not_improved"
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03_wave2",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03"
+  ]
+}
