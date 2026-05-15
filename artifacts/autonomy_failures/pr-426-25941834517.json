@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T21:17:37.543938+00:00",
+  "workflow_run_id": "25941834517",
+  "pr_number": 426,
+  "title": "Autopilot offline-tarteel state: 92.58% champion hold, preflight tie \u2014 joint04 dual-BSM prefix vs joint03 (26/32 slice)",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/426",
+  "base_ref": "cursor-autonomy-base-25938077971-1",
+  "base_sha": "c7697b71e06bf2ddf70e0a27fcbf4abcdfc01146",
+  "head_ref": "cursor/multiverse-bsm-joint04-064c",
+  "head_sha": "b1fc965155ad53af2c7647603160c0ec4ccfeac3",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-2b4ca9bf30ed-preflight-tie-20260515T211500Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-2b4ca9bf30ed-20260515T211530Z.json"
+  ],
+  "blocked_file_hints": []
+}
