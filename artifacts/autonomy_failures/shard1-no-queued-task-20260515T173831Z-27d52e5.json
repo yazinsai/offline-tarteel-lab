@@ -1,0 +1,12 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T17:38:31.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "1/3",
+  "task_id": null,
+  "autopilot_key": "escalate.non_smoke.joint_model_runtime.25.02",
+  "experiment_family": "escalate.non_smoke.joint_model_runtime.25.02",
+  "change_class": "queue_idle",
+  "negative_memory": "20260515T173831Z shard 1/3 (shard_index 0): autopilot plan --target-backlog 9 produced queued=0 (reference_port/asr_model_evidence/lightweight_audio_baseline/smoke_runtime/reference_ctc_fusion blocked_change_classes + blocked_family joint_model_runtime.25.02 + missing_dependency for v85 chains). task_queue next empty — do not spawn matcher-only joint02 reranks/beam widen; unblock reference_port/model_only FIFO or enqueue decode/search work with new acoustic evidence. Bounded loop correctly no-op.",
+  "run_id": "shard1-no-queued-task-20260515T173831Z-27d52e5"
+}
