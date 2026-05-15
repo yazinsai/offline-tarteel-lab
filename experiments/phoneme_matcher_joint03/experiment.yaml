@@ -1,0 +1,15 @@
+kind: joint_model_runtime
+hypothesis: >
+  Same shipped phoneme ONNX and beam decode as phoneme_matcher_joint02, plus a bounded
+  global surah-prefix rescue for long multi-verse openings. The rescue scores ayah-1
+  spans across surahs so missing-gold prefix cases can enter the candidate pool without
+  using manifest or filename labels.
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Data-driven follow-up from the champion miss atlas: candidate-missing and BSM/boundary
+  misses are concentrated in multi-verse clips starting at ayah 1, where the gold surah
+  is absent from the joint02 shortlist.
