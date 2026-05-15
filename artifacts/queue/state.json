@@ -6967,6 +6967,26 @@
         "autopilot_failure_memory_retired"
       ],
       "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
+    },
+    {
+      "id": "task-0a2ecbb84384",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 solo: missing-gold decode/search expansion finish",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_solo",
+        "autopilot_key": "manual.20260515.solo.missing_gold_decode_search_finish",
+        "agent_instructions": "Current merged champion is phoneme_matcher_joint03 at 239/256 = 93.36%; reaching >=95% needs about five more correct examples. This solo run continues the shard-1 wave2 missing-gold task that was canceled before it could produce a result. Focus only on cases where the gold verse/span is absent from joint03 candidates, and implement one bounded decode/search or two-pass hypothesis-merge expansion with CPU/time caps. Avoid broad beam widening, naive CTC score blending, boundary-only heuristics, and matcher-only rerank sweeps that already tied or regressed. Must finish with either: (a) strict limit-32 preflight improvement over joint03 and then full Tier-2, or (b) a state-only rejection/negative-memory PR. Do not leave the run without a PR/result record; timebox the probe and revert candidate code if the strict gate fails."
+      },
+      "created_at": "2026-05-15T23:04:13.724069+00:00",
+      "updated_at": "2026-05-15T23:04:13.724069+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
     }
   ]
 }
