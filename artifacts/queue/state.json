@@ -6899,7 +6899,7 @@
     },
     {
       "id": "task-2b4ca9bf30ed",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95: multi-verse opening and BSM boundary decoder",
       "payload": {
@@ -6911,16 +6911,18 @@
         "agent_instructions": "Target remaining multi-verse opening misses and BSM/boundary failures. Prefer decode/search or span construction changes over score blending. Preserve the joint03 gains and add tests for any rescue rule. Candidate must pass strict preflight versus champion; tie or regression should be recorded as negative memory and reverted."
       },
       "created_at": "2026-05-15T17:40:48.476071+00:00",
-      "updated_at": "2026-05-15T17:40:48.476071+00:00",
+      "updated_at": "2026-05-15T22:03:36.316010+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-732271dae421",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95: repeated-verse acoustic disambiguator",
       "payload": {
@@ -6932,16 +6934,18 @@
         "agent_instructions": "Target ambiguous repeated short-verse misses where text similarity is insufficient. Use calibrated acoustic/decode evidence, local context, or confidence features; do not use filenames, manifests, corpus ordering, or labels at prediction time. A naive CTC score blend is known bad, so only ship if strict limit-32 preflight beats champion on both accuracy and objective."
       },
       "created_at": "2026-05-15T17:40:48.507626+00:00",
-      "updated_at": "2026-05-15T17:40:48.507626+00:00",
+      "updated_at": "2026-05-15T22:03:36.316031+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     },
     {
       "id": "task-68eed1158c53",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95: decode-missing and severe ASR miss audit",
       "payload": {
@@ -6955,12 +6959,14 @@
         "agent_instructions": "Focus on severe ASR/search misses and decode-missing cases. If Modal data is ready, launch detached training or evaluation to improve phoneme emissions; otherwise implement a bounded runtime decode/search change that recovers at least one hard miss without regressing joint03. Record exact misses fixed/regressed and require strict preflight before promotion."
       },
       "created_at": "2026-05-15T17:40:48.539001+00:00",
-      "updated_at": "2026-05-15T17:40:48.539001+00:00",
+      "updated_at": "2026-05-15T22:03:36.316035+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "judge_reasons": [
+        "autopilot_failure_memory_retired"
+      ],
+      "notes": "Retired by autopilot after repeated autonomous merge-gate failures. Future work should be split into runtime-only auto-merge tasks or normal human-review PRs for training/plumbing changes."
     }
   ]
 }

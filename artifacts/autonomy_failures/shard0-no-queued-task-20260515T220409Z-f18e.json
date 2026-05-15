@@ -1,0 +1,12 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T22:04:09.000000+00:00",
+  "reason": "no_queued_task_for_shard",
+  "shard": "1/3",
+  "task_id": null,
+  "autopilot_key": "manual.20260515.modal_phoneme_joint03",
+  "experiment_family": "manual.20260515.modal_phoneme_joint03",
+  "change_class": "queue_idle",
+  "negative_memory": "20260515T220409Z shard 0/3 (display 1/3): python3 -m lab_tools.task_queue init; autopilot plan --target-backlog 6 added 0 tasks — queue has zero status=queued rows after recent retirements (manual.95 tasks rejected). Plan skipped all replenish candidates: blocked_change_classes include reference_port, asr_model_evidence, lightweight_audio_baseline, smoke_runtime, reference_ctc_fusion; escalate.non_smoke.* chains missing_dependency on unpromoted baseline/model keys; smoke_runtime_plateau=true. task_queue next --shard-index 0 --shard-total 3 empty. Do not invent matcher-only probes; next progress needs unblocked reference/model tasks, Modal data volume for train_fastconformer_phoneme_modal, or new autopilot keys outside blocked classes.",
+  "run_id": "shard0-no-queued-task-20260515T220409Z-f18e"
+}
