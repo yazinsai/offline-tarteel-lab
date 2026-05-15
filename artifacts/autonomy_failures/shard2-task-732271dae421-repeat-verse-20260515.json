@@ -1,0 +1,26 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T20:12:30.000000+00:00",
+  "workflow_run_id": "",
+  "pr_number": null,
+  "title": "",
+  "url": "",
+  "base_ref": "cursor-autonomy-base-25938077971-2",
+  "base_sha": "c7697b71e06bf2ddf70e0a27fcbf4abcdfc01146",
+  "head_ref": "",
+  "head_sha": "",
+  "reason": "preflight_strict_gate_failed",
+  "change_class": "repeated_verse_acoustic_beam_lp_disambiguator",
+  "experiment_family": "manual.20260515.repeated_verse_acoustic_disambiguator",
+  "autopilot_key": "manual.20260515.repeated_verse_acoustic_disambiguator",
+  "tier2_delta_correct": 0,
+  "tier2_candidate_correct_limit32": 26,
+  "tier2_baseline_joint03_correct_limit32": 26,
+  "notes": "Do not rerun this exact beam-normalized intra-clip LP tie-break atop phoneme_matcher_joint03 recoverability ranker stack without a stronger acoustic feature: Tier-2@32 ties committed joint03 baseline (composite objective 0.83125). Same gate as naive CTC blend risks — marginal matcher-only deltas.",
+  "changed_files": [
+    "artifacts/queue/state.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/runs/task-732271dae421-20260515T201212Z.json"
+  ],
+  "blocked_file_hints": []
+}
