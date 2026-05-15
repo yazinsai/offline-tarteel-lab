@@ -1,0 +1,21 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-15T20:57:25.980391+00:00",
+  "workflow_run_id": "25941041752",
+  "pr_number": 425,
+  "title": "Autopilot offline-tarteel state: 89.45% champion hold, min_accuracy 0.95 blocked joint03 \u2014 91.41% (+1.96pp acc, +1.76pp obj); preflight 27/32 vs 19/32",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/425",
+  "base_ref": "cursor-autonomy-base-25932412665-2",
+  "base_sha": "61851f685b0710333024f70e8cbd479b64abbf9d",
+  "head_ref": "cursor/missing-gold-candidate-widen-2143",
+  "head_sha": "656e3556ddfedcd730edb74b9b068332f8eee18d",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-2c9df757a388-minacc95-block-20260515T205800Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-2b4ca9bf30ed-20260515T205429Z.json",
+    "artifacts/runs/task-2c9df757a388-20260515T193056Z.json"
+  ],
+  "blocked_file_hints": []
+}
