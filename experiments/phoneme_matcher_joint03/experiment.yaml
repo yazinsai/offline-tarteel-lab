@@ -12,4 +12,5 @@ expected_metrics:
 notes: >
   Data-driven follow-up from the champion miss atlas: candidate-missing and BSM/boundary
   misses are concentrated in multi-verse clips starting at ayah 1, where the gold surah
-  is absent from the joint02 shortlist.
+  is absent from the joint02 shortlist. Decode-surface (wave3): gated second CTC beam
+  pass with wider beam/top_symbols when matcher confidence or mean frame posterior is weak.

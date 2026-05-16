@@ -5,6 +5,7 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 
+import numpy as np
 from Levenshtein import ratio
 
 _DIR = Path(__file__).resolve().parent
@@ -27,6 +28,14 @@ GLOBAL_SPAN_SHORTLIST = 320
 OPENING_COLLAPSE_MIN_CHARS = 34
 OPENING_COLLAPSE_MAX_CHARS = 115
 OPENING_COLLAPSE_MIN_SCORE = 0.50
+
+# Second-pass CTC decode: wider beam / symbol fan-out when the first beam+matcher
+# stack is ambiguous (proxy for gold-absent-from-shortlist). Bounded extra work.
+SECOND_PASS_MATCH_GATE = 0.63
+SECOND_PASS_FRAME_MEAN_MAX_LOGP = -0.42
+DECODE2_BEAM_WIDTH = 11
+DECODE2_TOP_SYMBOLS = 12
+DECODE2_MAX_EXTRA_STRS = 4
 
 _prefix_spans: list[tuple[int, int, str, str]] | None = None
 _global_spans: list[tuple[int, int, int, str, str, set[str], set[str]]] | None = None
@@ -206,6 +215,42 @@ def _best_match_for_hypothesis(phoneme_text: str) -> dict | None:
     return best
 
 
+def _mean_frame_max_logp(logprobs: np.ndarray) -> float:
+    return float(np.mean(np.max(logprobs, axis=1)))
+
+
+def _wants_decode_surface_second_pass(
+    logprobs: np.ndarray,
+    *,
+    best_matcher_score: float,
+) -> bool:
+    """Gate extra beam search: low matcher confidence or globally uncertain frames."""
+    if best_matcher_score < SECOND_PASS_MATCH_GATE:
+        return True
+    return _mean_frame_max_logp(logprobs) < SECOND_PASS_FRAME_MEAN_MAX_LOGP
+
+
+def _decode_surface_second_pass_strings(
+    logprobs: np.ndarray,
+    already: set[str],
+) -> list[str]:
+    """Additional hypotheses via wider CTC prefix beam (same logprobs, larger search)."""
+    out: list[str] = []
+    for labeling, _ in _base._ctc_prefix_beam_decode(
+        logprobs,
+        beam_width=DECODE2_BEAM_WIDTH,
+        top_symbols=DECODE2_TOP_SYMBOLS,
+    ):
+        s = _base._labels_to_phoneme_string(labeling)
+        if not s.strip() or s in already:
+            continue
+        already.add(s)
+        out.append(s)
+        if len(out) >= DECODE2_MAX_EXTRA_STRS:
+            break
+    return out
+
+
 def predict(audio_path: str) -> dict:
     _base._ensure_loaded()
     assert _base._onnx_session is not None
@@ -223,6 +268,18 @@ def predict(audio_path: str) -> dict:
             best_rank = float(hit["score"])
             best_hit = hit
             best_transcript = hyp
+
+    if _wants_decode_surface_second_pass(logprobs, best_matcher_score=best_rank):
+        seen = set(hyps)
+        for hyp in _decode_surface_second_pass_strings(logprobs, seen):
+            hit = _best_match_for_hypothesis(hyp)
+            if hit is None:
+                continue
+            if float(hit["score"]) > best_rank:
+                best_rank = float(hit["score"])
+                best_hit = hit
+                best_transcript = hyp
+
     if not best_hit:
         fallback = _base._labels_to_phoneme_string(_base._greedy_decode_ids(logprobs))
         return {"surah": 0, "ayah": 0, "ayah_end": None, "score": 0.0, "transcript": fallback}
