@@ -1,0 +1,39 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-8fb1967a4608-20260516T060638Z",
+  "task_id": "task-8fb1967a4608",
+  "created_at_utc": "2026-05-16T06:06:38.856122+00:00",
+  "git_sha": "1dae77ee0a903e764c91f1c8d79e0965c2291967",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment": "phoneme_matcher_joint03",
+    "modal_training": true,
+    "job_name": "offline-tarteel-95-hard-miss-asr-entrypoint",
+    "max_onnx_mb": 200,
+    "manual_priority": "reach_95_solo",
+    "autopilot_key": "manual.20260516.solo.modal_entrypoint_launch_hard_miss_asr",
+    "agent_instructions": "Current champion is phoneme_matcher_joint03 at 240/256 = 93.75%, objective 0.94375. Previous Modal audit showed credentials work but training/train_fastconformer_phoneme_modal.py has no Modal functions/local entrypoints, so modal run --detach cannot launch it. Use Modal docs pattern: define modal.App, wrap training/eval in @app.function with suitable image/volumes/secrets, and define @app.local_entrypoint that calls the remote function. Do not print secrets or commit model binaries. First make the script runnable with modal run --detach for a hard-miss ASR fine-tune/eval/audit job; launch it if data/volumes are present, record app/run/checkpoint/log metadata in artifacts. If data paths are missing, record exact missing volume/path and stop state-only. Only integrate a checkpoint into phoneme_matcher_joint03 if strict limit-32 preflight and full Tier-2 beat the 240/256 champion; target >=244/256. Do not implement matcher-only substitutes.",
+    "modal_launch_attempt_final": {
+      "when_utc": "2026-05-16T06:06:38.856122+00:00",
+      "cmd": "modal run --detach training/train_fastconformer_phoneme_modal.py --job-name offline-tarteel-95-hard-miss-asr-entrypoint",
+      "exit_code": 1,
+      "reason": "Modal Volume 'offline-tarteel-lab-data' not found in environment 'main' (detach init image build succeeded; volume bind blocks scheduling)"
+    }
+  },
+  "metrics": {
+    "modal_launch_failed": true,
+    "modal_volume_missing": true,
+    "modal_volume_name": "offline-tarteel-lab-data",
+    "modal_modal_environment": "main",
+    "tier_completed_before_failure": [],
+    "champion_hold_experiment": "phoneme_matcher_joint03",
+    "champion_hold_accuracy_pct": 93.75,
+    "note": "No tier-1/eval; controller exits when Modal launch is non-success"
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "modal run --detach training/train_fastconformer_phoneme_modal.py --job-name offline-tarteel-95-hard-miss-asr-entrypoint"
+  ]
+}
