@@ -3,7 +3,7 @@
   "run_id": "task-21c9e57a72bf-20260516T021500Z",
   "task_id": "task-21c9e57a72bf",
   "created_at_utc": "2026-05-16T02:15:00.000000+00:00",
-  "git_sha": "8f52d8629eb02ad24ef0de1255efd3879649ab96",
+  "git_sha": "c8e67c029c37f1c40a3fa1d638561b556f451b83",
   "dataset_revision": "test_corpus_v3@2026-05-10",
   "experiment_kind": "joint_model_runtime",
   "parameter_vector": {
