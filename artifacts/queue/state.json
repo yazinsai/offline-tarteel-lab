@@ -6990,7 +6990,7 @@
     },
     {
       "id": "task-21c9e57a72bf",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95 solo: present-gold calibrated ranker finish",
       "payload": {
@@ -7001,11 +7001,15 @@
         "agent_instructions": "Current merged champion is phoneme_matcher_joint03 at 239/256 = 93.36%; reaching >=95% needs at least 244/256, about five more correct. Focus only on examples where the gold verse/span is already present in the joint03 top-N candidate pool. Build a data-driven calibrated ranker/rescorer using recoverability labels and candidate features already available at inference. Do not do another global heuristic rerank, naive acoustic CTC blend, broad beam widening, boundary-only BSM rescue, or matcher-only candidate pooling; those tied or regressed. Split evaluation by gold-in-pool versus gold-absent and report fixed/regressed miss IDs. Must finish with either: (a) strict limit-32 preflight improvement over joint03 and then full Tier-2 candidate result, or (b) a state-only rejection/negative-memory PR. Do not leave the run without a PR/result record; timebox the probe and revert candidate code if the strict gate fails."
       },
       "created_at": "2026-05-16T00:59:02.638798+00:00",
-      "updated_at": "2026-05-16T00:59:02.638798+00:00",
+      "updated_at": "2026-05-16T02:24:58.921838+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "artifacts/runs/task-21c9e57a72bf-20260516T021500Z.json",
+      "judge_reasons": [
+        "preflight_tie_limit32",
+        "champion_objective_not_improved",
+        "acoustic_matcher_tie_break_ties_champion_on_first32"
+      ],
       "notes": ""
     }
   ]

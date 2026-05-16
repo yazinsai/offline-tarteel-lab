@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T02:15:00.000000+00:00",
+  "reason": "preflight_tie_limit32",
+  "shard": "1/3",
+  "task_id": "task-21c9e57a72bf",
+  "autopilot_key": "manual.20260516.solo.present_gold_ranker_finish",
+  "change_class": "joint_model_runtime_probe",
+  "tier2_delta_correct": 0,
+  "negative_memory": "phoneme_matcher_joint03_gpr (beam log-prob tie-break within MATCHER_TIE_EPS over per-hypothesis matcher picks + expanded _collect_candidates) tied champion phoneme_matcher_joint03 at 28/32 correct on manifest[:32] (~87.5% accuracy, ~0.888 objective from flat components). Do not retry naive acoustic z-score pool rescore over top-16 (regressed to 25/32); tie-break-only variant adds no strict preflight lift vs joint03.",
+  "preflight": {
+    "corpus": "test_corpus_v3",
+    "limit": 32,
+    "candidate_experiment": "phoneme_matcher_joint03_gpr",
+    "candidate_correct": 28,
+    "champion_experiment": "phoneme_matcher_joint03",
+    "champion_correct": 28
+  },
+  "run_id": "task-21c9e57a72bf-20260516T021500Z"
+}
