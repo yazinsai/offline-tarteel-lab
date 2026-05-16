@@ -7080,7 +7080,7 @@
     },
     {
       "id": "task-f77fd37090f3",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95 solo: decode2pass v2 remaining-miss expansion",
       "payload": {
@@ -7091,7 +7091,29 @@
         "agent_instructions": "Current merged champion is phoneme_matcher_joint03 after gated second-pass CTC decode: 240/256 = 93.75%, objective 0.94375. Reaching >=95% needs at least 244/256, four more correct. Continue only the successful decode-surface family: analyze remaining misses under the new champion and improve the bounded second-pass decode gate/surface (thresholds, entropy/blank-collapse alternatives, novel transcript budget, span construction) with explicit CPU caps. Do not repeat the rejected trim probe (26/32), present-gold small-coef rerank/tie-break (28/32 tie), z-score acoustic pool (25/32 regression), broad beam widening, naive CTC score blending, BSM-only rescue, or matcher-anchor pooling. Must compare baseline current champion vs candidate on the same limit-32 slice; promote any strict full-corpus improvement, with target >=244/256. If no strict preflight lift, revert candidate code and record negative memory."
       },
       "created_at": "2026-05-16T03:50:31.394449+00:00",
-      "updated_at": "2026-05-16T03:50:31.394449+00:00",
+      "updated_at": "2026-05-16T05:56:22.887057+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-79dac23ce84c",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 solo: Modal ASR hard-miss training or audit",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "modal_training": true,
+        "job_name": "offline-tarteel-95-hard-miss-asr",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_solo",
+        "autopilot_key": "manual.20260516.solo.modal_asr_hard_miss_train_or_audit",
+        "agent_instructions": "Current merged champion is phoneme_matcher_joint03 with gated second-pass CTC decode: 240/256 = 93.75%, objective 0.94375. Runtime-only probes now plateaued: decode2pass_v2 tied 29/32, trim probe regressed 26/32, present-gold rerank tied/regressed, repeat resolver tied, matcher-anchor pooling tied. Use Modal/ASR-side path if credentials and data are available. First audit mounted volumes/datasets/checkpoints without printing secrets. If enough labeled/audio data exists, launch a detached Modal training or hard-miss fine-tune/eval job aimed at remaining Tier-2 misses; record Modal app/run/checkpoint metadata and do not commit model binaries. If training cannot be launched safely, record exactly what data/secret/command is missing and implement no matcher-only substitute. Only integrate a model/checkpoint if a strict limit-32 preflight and full Tier-2 beat current champion; target >=244/256. State-only PR is acceptable for launched detached training or blocked audit metadata."
+      },
+      "created_at": "2026-05-16T05:56:23.039624+00:00",
+      "updated_at": "2026-05-16T05:56:23.039624+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
