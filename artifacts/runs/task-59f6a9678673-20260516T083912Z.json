@@ -1,0 +1,33 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-59f6a9678673-20260516T083912Z",
+  "task_id": "task-59f6a9678673",
+  "created_at_utc": "2026-05-16T08:39:12.541739+00:00",
+  "git_sha": "094675ab86f6cd1e2759a6f82b934f584683253a",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "autopilot_key": "manual.20260516.wave4.recoverability_oracle_surgical_patch",
+    "experiment": "phoneme_matcher_joint03",
+    "probe": "decode2_extra_gates: location_score_gap<0.037 OR multi_verse_span_score<0.714 on top of existing wave3 second-pass"
+  },
+  "metrics": {
+    "preflight_passed": false,
+    "preflight_reason": "champion_slice_tie",
+    "tier2_slice_samples": 32,
+    "champion_correct": 29,
+    "candidate_correct": 29,
+    "champion_accuracy": 0.90625,
+    "candidate_accuracy": 0.90625,
+    "champion_objective_approx": 0.915625,
+    "candidate_objective_approx": 0.915625,
+        "tier2_json_provenance": "Champion and candidate tier2_local outputs were written to /tmp/tier2_champion_n32.json and /tmp/tier2_candidate_n32.json (not committed); metrics copied into this run_record.",
+    "current_champion_full_corpus": "240/256 tier2_accuracy 0.9375 objective 0.94375 task-8ec0f326b09f"
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.tier2_local --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03 --json /tmp/tier2_champion_n32.json  # baseline tree",
+    "python3 -m lab_tools.tier2_local --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03 --json /tmp/tier2_candidate_n32.json  # probe then reverted"
+  ]
+}
