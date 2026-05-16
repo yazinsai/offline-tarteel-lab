@@ -1,0 +1,38 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-79dac23ce84c-20260516T055937Z",
+  "task_id": "task-79dac23ce84c",
+  "created_at_utc": "2026-05-16T05:59:37.871696+00:00",
+  "git_sha": "4eba086fc67b8f3b7a293d70e14e5864f3229a3b",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment": "phoneme_matcher_joint03",
+    "modal_training": true,
+    "job_name": "offline-tarteel-95-hard-miss-asr",
+    "max_onnx_mb": 200,
+    "manual_priority": "reach_95_solo",
+    "autopilot_key": "manual.20260516.solo.modal_asr_hard_miss_train_or_audit",
+    "agent_instructions": "Current merged champion is phoneme_matcher_joint03 with gated second-pass CTC decode: 240/256 = 93.75%, objective 0.94375. Runtime-only probes now plateaued: decode2pass_v2 tied 29/32, trim probe regressed 26/32, present-gold rerank tied/regressed, repeat resolver tied, matcher-anchor pooling tied. Use Modal/ASR-side path if credentials and data are available. First audit mounted volumes/datasets/checkpoints without printing secrets. If enough labeled/audio data exists, launch a detached Modal training or hard-miss fine-tune/eval job aimed at remaining Tier-2 misses; record Modal app/run/checkpoint metadata and do not commit model binaries. If training cannot be launched safely, record exactly what data/secret/command is missing and implement no matcher-only substitute. Only integrate a model/checkpoint if a strict limit-32 preflight and full Tier-2 beat current champion; target >=244/256. State-only PR is acceptable for launched detached training or blocked audit metadata.",
+    "corpus": "test_corpus_v3",
+    "full_corpus_gate": true,
+    "modal_launch_attempt": {
+      "when_utc": "2026-05-16T05:59:37.871680+00:00",
+      "cmd": "modal run --detach training/train_fastconformer_phoneme_modal.py --job-name offline-tarteel-95-hard-miss-asr",
+      "exit_code": 1,
+      "reason": "Modal CLI: training/train_fastconformer_phoneme_modal.py has no Modal functions or local entrypoints (committed file is a plain argparse script). Launch fails before token/volume mount audit; no detached run id."
+    }
+  },
+  "metrics": {
+    "modal_launch_exit_code": 1,
+    "requires_full_corpus_gate": true,
+    "requires_champion_improvement": true,
+    "tier2_preflight_skipped": true,
+    "tier2_preflight_skip_reason": "modal_launch_failed_before_eval"
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "modal run --detach training/train_fastconformer_phoneme_modal.py --job-name offline-tarteel-95-hard-miss-asr"
+  ]
+}
