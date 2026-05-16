@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T08:41:08.413926+00:00",
+  "workflow_run_id": "25957564208",
+  "pr_number": 460,
+  "title": "Autopilot offline-tarteel state: 93.75% champion hold, slice tie +0.0pp \u2014 wave4 decode2 preflight task-59f6a9678673",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/460",
+  "base_ref": "main",
+  "base_sha": "34dd79ce5c534f4aadabdb157e1ff42e3b4fdfe8",
+  "head_ref": "cursor/wave4-recoverability-decode2-gates-8d0e",
+  "head_sha": "5de8b98d8c391c7f88da00d58b36bfc6f26daf4c",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard-idx0-wave4-oracle-decode2gates-tie-20260516T083912Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-59f6a9678673-20260516T083912Z.json"
+  ],
+  "blocked_file_hints": []
+}
