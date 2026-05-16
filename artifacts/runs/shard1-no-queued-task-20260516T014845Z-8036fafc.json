@@ -1,0 +1,43 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "shard1-no-queued-task-20260516T014845Z-8036fafc",
+  "task_id": null,
+  "created_at_utc": "2026-05-16T01:48:45.000000+00:00",
+  "git_sha": "8036fafc988cadb8bc6df8e3755d4e47ca69c36b",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "shard": "2/3",
+    "shard_index": 1,
+    "shard_total": 3,
+    "policy": "evaluate_only_task_selected_by_shard_FIFO",
+    "only_queued_task_id": "task-21c9e57a72bf",
+    "only_queued_autopilot_key": "manual.20260516.solo.present_gold_ranker_finish",
+    "only_queued_experiment": "phoneme_matcher_joint03",
+    "only_queued_kind": "joint_model_runtime",
+    "bounded_cycle_notes": "2026-05-16 Cursor Cloud shard index 1 of 3 (display 2/3): pip install -e '.[dev]'; lab_tools.task_queue init; task_queue list; task_queue next --shard-index 1 --shard-total 3 -> empty. Sole queued ordinal 0 maps queued_index %% 3 == 0 -> shard_index 0 only. Tier-2 preflight skipped (no shard-local candidate). autonomous_loop run --max-cycles 1 --limit 32 --corpus test_corpus_v3 --shard-index 1 --shard-total 3 -> no queued tasks. Modal disabled (LAB_AUTONOMY_ALLOW_MODAL false/absent)."
+  },
+  "metrics": {
+    "blocked_before_eval": true,
+    "no_queued_task_for_shard": true,
+    "queue_ordinal_for_sole_queued": 0,
+    "ordinal_mod_shard_total": 0,
+    "assigned_shard_index_for_sole_task": 0,
+    "assigned_shard_label_for_sole_task": "1/3",
+    "this_shard_idle_reason": "ordinal 0 routes to shard_index 0 only",
+    "champion_run_id": "task-65499c7b5348-20260515T190659Z",
+    "champion_objective": 0.940234,
+    "champion_experiment": "phoneme_matcher_joint03",
+    "champion_tier2_accuracy": 0.93359375,
+    "runner_up_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "runner_up_objective": 0.905078,
+    "runner_up_experiment": "phoneme_matcher_joint02",
+    "champion_needle_subsystem": "joint_model_runtime",
+    "champion_needle_note": "joint03 vs joint02 full Tier-2: +10 correct (239 vs 229 / 256) with proportional lift across streaming_alignment_accuracy, correction_precision, and verse_boundary_f1 → joint ASR+matcher stack delta, not an isolated rerank knob."
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "[blocked] shard_index=1 shard_total=3: python3 -m lab_tools.task_queue next -> empty while task-21c9e57a72bf occupies FIFO ordinal 0 (routes shard 0/3). python3 -m lab_tools.autonomous_loop run --max-cycles 1 --limit 32 --corpus test_corpus_v3 --shard-index 1 --shard-total 3 -> no queued tasks."
+  ]
+}
