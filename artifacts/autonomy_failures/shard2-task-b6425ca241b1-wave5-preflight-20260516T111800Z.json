@@ -1,0 +1,18 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T11:07:38.324013+00:00",
+  "shard_display": "3/3",
+  "queue_shard_index_zero_based": 2,
+  "shard_total": 3,
+  "task_id": "task-b6425ca241b1",
+  "autopilot_key": "manual.20260516.wave5.head_slice_miss_specialist_c",
+  "experiment_family": "manual.20260516.wave5.head_slice_miss_specialist_c",
+  "change_class": "decode_surface_prefix_window_then_decode2_mild",
+  "tier2_delta_correct": -1,
+  "reason": "Mandatory Tier-2 preflight test_corpus_v3 --limit 32 after mild joint03 second-pass widener (beam 12 top_sym 13 max_extra 5): 28/32 correct (0.875) vs champion phoneme_matcher_joint03 snapshot 29/32 (0.90625); surrogate objective ~0.8875 vs ~0.915625 \u2014 strict simultaneous accuracy+objective gate failed (champion_objective_not_improved). Prior diagnostic: three head-slice misses were surah-37 long-span locks with gold absent from matcher top-40 on all base+second-pass hyps for two IDs; prefix-window early-slice hypotheses regressed two IDs (wrong high-scoring ayah-1 false opening).",
+  "negative_memory": "Do not add audio-length-gated prefix-window-only CTC+matcher rescue atop phoneme_matcher_joint03 for wave5 head-slice \u2014 regresses canonical limit-32 vs champion. Do not bump only DECODE2_BEAM_WIDTH/TOP_SYMBOLS/MAX_EXTRA_STRS by (+1,+1,+1) from champion 11/12/4 \u2014 observed 28/32 vs 29/32 on the same slice. Any retry needs materially different hypothesis surface (ASR/Modal when allowed, or novel bounded multi-pass not equivalent to decode2pass_v2/blank-bias ties per autonomy_failures) with gold-in-pool recoverability proof.",
+  "run_id": "task-b6425ca241b1-20260516T111800Z",
+  "probe_files_touched_reverted": [
+    "experiments/phoneme_matcher_joint03/run.py"
+  ]
+}

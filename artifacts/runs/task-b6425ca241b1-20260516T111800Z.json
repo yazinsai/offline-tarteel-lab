@@ -1,0 +1,45 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-b6425ca241b1-20260516T111800Z",
+  "task_id": "task-b6425ca241b1",
+  "created_at_utc": "2026-05-16T11:07:38.323743+00:00",
+  "git_sha": "0e2298280dd32fafdb5acec16887de1c14a0f26e",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment": "phoneme_matcher_joint03",
+    "autopilot_key": "manual.20260516.wave5.head_slice_miss_specialist_c",
+    "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256 and only 3 misses remain in limit-32. Build a focused diagnostic for those misses, choose the one with highest recoverability, and implement a minimal runtime fix. Do not repeat wave4 tied candidates. The goal is to get prefix slice to at least 30/32 without full regression; then run full Tier-2 and promote any objective improvement.",
+    "modal_training": false
+  },
+  "metrics": {
+    "tier2_experiment": "phoneme_matcher_joint03",
+    "tier2_accuracy": 0.875,
+    "tier2_correct": 28,
+    "tier2_samples": 32,
+    "champion_preflight_correct": 29,
+    "champion_preflight_accuracy": 0.90625,
+    "champion_preflight_objective": 0.915625,
+    "candidate_preflight_objective": 0.8875,
+    "preflight_strict_gate_passed": false,
+    "preflight_rejection_reason": "champion_objective_not_improved",
+    "champion_tier2_json": "artifacts/tier2/tier2-20260516T094925Z.json",
+    "candidate_tier2_json": "artifacts/tier2/tier2-20260516T110701Z.json",
+    "probe_sequence": [
+      "reverted: prefix-window logprob-slice decode (diagnostic: +1 wrong vs champion on limit-32 for two head-slice IDs; gold absent from matcher top-k)",
+      "reverted: mild decode2 expansion DECODE2_BEAM_WIDTH 11->12, DECODE2_TOP_SYMBOLS 12->13, DECODE2_MAX_EXTRA_STRS 4->5 (Tier-2 limit-32 28/32 vs champion 29/32)"
+    ],
+    "streaming_alignment_accuracy": 0.875,
+    "correction_precision": 0.875,
+    "verse_boundary_f1": 0.875,
+    "latency_budget_score": 1.0
+  },
+  "tier_completed": [
+    2
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03",
+    "python3 -m lab_tools.experiment_ledger champion"
+  ]
+}

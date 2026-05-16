@@ -7204,7 +7204,7 @@
     },
     {
       "id": "task-b6425ca241b1",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95 wave5: head-slice miss specialist C",
       "payload": {
@@ -7215,12 +7215,15 @@
         "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256 and only 3 misses remain in limit-32. Build a focused diagnostic for those misses, choose the one with highest recoverability, and implement a minimal runtime fix. Do not repeat wave4 tied candidates. The goal is to get prefix slice to at least 30/32 without full regression; then run full Tier-2 and promote any objective improvement."
       },
       "created_at": "2026-05-16T09:20:58.641495+00:00",
-      "updated_at": "2026-05-16T09:20:58.641495+00:00",
+      "updated_at": "2026-05-16T11:07:38.329566+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "run_record_path": "/workspace/artifacts/runs/task-b6425ca241b1-20260516T111800Z.json",
+      "judge_reasons": [
+        "champion_objective_not_improved",
+        "tier2_preflight_regression"
+      ],
+      "notes": "20260516T111800Z shard 3/3: Head-slice specialist \u2014 prefix-window probe reverted after diagnostic regression; mild decode2 12/13/5 probe Tier-2 --limit 32 28/32 vs champion 29/32 (artifacts/tier2/tier2-20260516T110701Z vs tier2-20260516T094925Z). Bounded controller skipped. See artifacts/autonomy_failures/shard2-task-b6425ca241b1-wave5-preflight-20260516T111800Z.json"
     },
     {
       "id": "task-c81ed3d667b8",
