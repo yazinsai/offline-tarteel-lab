@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T08:47:44.245083+00:00",
+  "workflow_run_id": "25957696881",
+  "pr_number": 461,
+  "title": "Autopilot offline-tarteel state: 93.75% champion hold, multiverse span preflight tie \u2014 shard 2/3; 29/32 vs snapshot +0.0pp objective",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/461",
+  "base_ref": "main",
+  "base_sha": "c68ab8a08eb5fa8411dfb05af8f88c79d77a4408",
+  "head_ref": "cursor/multiverse-span-constructor-449c",
+  "head_sha": "812f6a816af8429f2b325960445784788166d0cd",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard-idx2-task-f6a2c8a2204f-preflight-tie-20260516T084200Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-f6a2c8a2204f-20260516T084300Z.json"
+  ],
+  "blocked_file_hints": []
+}
