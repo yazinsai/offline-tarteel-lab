@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T03:33:04.998736+00:00",
+  "workflow_run_id": "25951705775",
+  "pr_number": 446,
+  "title": "Autopilot offline-tarteel state: 93.36% champion hold, limit-32 \u22126.25pp slice \u2014 phoneme-hypothesis-trim probe rejected (shard 1/3)",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/446",
+  "base_ref": "cursor-autonomy-base-25950640497-0",
+  "base_sha": "7e0c573655e202bde7325b41a155ab6b3d51ca13",
+  "head_ref": "cursor/offline-hypothesis-surfaces-543c",
+  "head_sha": "8d10076dd9a3cd62cda06eeb37b8bcad33e5cf34",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard0-task-57c107b1967c-trims-preflight-20260516T033126Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-57c107b1967c-20260516T033126Z.json"
+  ],
+  "blocked_file_hints": []
+}
