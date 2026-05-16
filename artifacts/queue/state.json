@@ -7164,7 +7164,7 @@
     },
     {
       "id": "task-28816625feb0",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95 wave5: head-slice miss specialist A",
       "payload": {
@@ -7175,11 +7175,14 @@
         "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256 and 29/32 on the mandatory prefix slice. To pass the gate, first identify the exact 3 incorrect examples in test_corpus_v3 --limit 32 for current champion, including predicted/gold, candidate pool presence, and miss type. Pick one miss not already solved by existing failed branches and implement a narrowly targeted non-leaky fix for that miss class. Avoid broad reranks, decode2pass_v2 retunes, blank-bias surface_v3, multiverse span constructor, BSM/margin gates, Modal missing-volume path. Must improve prefix slice >29/32 and full Tier-2; report fixed/regressed IDs."
       },
       "created_at": "2026-05-16T09:20:58.335068+00:00",
-      "updated_at": "2026-05-16T09:20:58.335068+00:00",
+      "updated_at": "2026-05-16T10:47:58.230539+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
+      "run_record_path": "artifacts/runs/task-28816625feb0-20260516T105500Z.json",
+      "judge_reasons": [
+        "preflight_strict_gate_failed: candidate 25/32 vs champion 29/32 (test_corpus_v3 prefix); champion_objective_not_improved",
+        "reverted probe: phoneme_matcher_joint03 head-window auxiliary ONNX forward + hypothesis merge"
+      ],
       "notes": ""
     },
     {
