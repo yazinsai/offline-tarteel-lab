@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T11:09:03.223094+00:00",
+  "workflow_run_id": "25960398666",
+  "pr_number": 465,
+  "title": "Autopilot offline-tarteel state: 93.75% champion hold, slice acc -3.1pp \u2014 wave5 head-slice task-b6425ca241b1 preflight 28/32 vs 29/32",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/465",
+  "base_ref": "cursor-autonomy-base-25958324749-2",
+  "base_sha": "0e2298280dd32fafdb5acec16887de1c14a0f26e",
+  "head_ref": "cursor/offline-tarteel-wave5-headslice-preflight-reject-aae3",
+  "head_sha": "dd35193b1585335f11095dc6785e017010b63db3",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard2-task-b6425ca241b1-wave5-preflight-20260516T111800Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-b6425ca241b1-20260516T111800Z.json"
+  ],
+  "blocked_file_hints": []
+}
