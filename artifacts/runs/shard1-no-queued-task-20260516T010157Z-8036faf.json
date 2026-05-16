@@ -1,0 +1,41 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "shard1-no-queued-task-20260516T010157Z-8036faf",
+  "task_id": null,
+  "created_at_utc": "2026-05-16T01:01:57.000000+00:00",
+  "git_sha": "8036fafc988cadb8bc6df8e3755d4e47ca69c36b",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "shard_display": "2/3",
+    "shard_index": 1,
+    "shard_total": 3,
+    "policy": "evaluate_only_task_selected_by_shard_FIFO",
+    "bounded_cycle_notes": "2026-05-16 Cursor Cloud bounded offline-tarteel: python3 -m pip install -e '.[dev]'; reviewed artifacts/autonomy_failures heads; python3 -m lab_tools.task_queue init; NO autopilot plan (manual queue only per procedure). Sole status=queued task task-21c9e57a72bf occupies FIFO ordinal 0; next_queued(shard_index=1,total=3) is empty because 0 %% 3 == 0 binds shard_index 0 only. Skipped eval_tier preflight (--limit 32) and full Tier-2; python3 -m lab_tools.autonomous_loop run --max-cycles 1 --limit 32 --corpus test_corpus_v3 --shard-index 1 --shard-total 3 printed 'no queued tasks'. LAB_AUTONOMY_ALLOW_MODAL false / absent (no Modal).",
+    "only_queued_task_id": "task-21c9e57a72bf",
+    "only_queued_autopilot_key": "manual.20260516.solo.present_gold_ranker_finish",
+    "only_queued_experiment_payload": "phoneme_matcher_joint03",
+    "modal_training_allowed": false
+  },
+  "metrics": {
+    "blocked_before_eval": true,
+    "no_queued_task_for_shard": true,
+    "fifo_sole_task_routes_shard0_only": true,
+    "champion_run_id": "task-65499c7b5348-20260515T190659Z",
+    "champion_experiment": "phoneme_matcher_joint03",
+    "champion_tier2_correct": 239,
+    "champion_tier2_samples": 256,
+    "champion_tier2_accuracy": 0.93359375,
+    "champion_objective": 0.940234,
+    "champion_runner_up_run_id": "task-0aa3b7531952-20260510T033442Z",
+    "champion_runner_up_experiment": "phoneme_matcher_joint02",
+    "runner_up_subsystem_note": "Promotion from joint02 to joint03 stacked +10 Tier-2 correct (239 vs 229 / 256) with identical latency_budget_score—ASR/decode coupling + matcher/search in the joint_model_runtime phoneme stack moved the needle versus prior joint02, not packaging alone."
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.task_queue next --shard-index 1 --shard-total 3 -> (empty)",
+    "python3 -m lab_tools.autonomous_loop run --max-cycles 1 --limit 32 --corpus test_corpus_v3 --shard-index 1 --shard-total 3 -> no queued tasks",
+    "[skipped] python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32: no shard-selected runnable task without stealing FIFO shard 0 work"
+  ]
+}
