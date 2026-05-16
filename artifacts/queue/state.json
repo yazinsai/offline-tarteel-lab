@@ -7184,7 +7184,7 @@
     },
     {
       "id": "task-1307c7fdb289",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95 wave5: head-slice miss specialist B",
       "payload": {
@@ -7195,12 +7195,15 @@
         "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256 and 29/32 on mandatory prefix slice. Extract the first-32 miss atlas, then target a different first-32 miss than specialist A if visible from failure memory/PRs. Use recoverability: if gold in pool, fix selection with calibrated features; if absent, change candidate generation/span construction. No filename/manifest/order leakage. Avoid all known tied/regressed families. Need strict prefix preflight >29/32 and full Tier-2 improvement."
       },
       "created_at": "2026-05-16T09:20:58.488742+00:00",
-      "updated_at": "2026-05-16T09:20:58.488742+00:00",
+      "updated_at": "2026-05-16T10:48:50.658463+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
-      "judge_reasons": null,
-      "notes": ""
+      "run_record_path": "artifacts/runs/task-1307c7fdb289-20260516T104850Z.json",
+      "judge_reasons": [
+        "preflight_strict_gate_failed",
+        "champion_slice_not_strictly_improved"
+      ],
+      "notes": "2026-05-16 shard 1/3: mandatory Tier-2 slice --limit 32 preflight tie 29/32 vs champion; wave5b head-slice rescue decode retune did not strictly improve correct or objective."
     },
     {
       "id": "task-b6425ca241b1",

@@ -1,0 +1,26 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T10:48:50.667787+00:00",
+  "workflow_run_id": "25958324749",
+  "task_id": "task-1307c7fdb289",
+  "shard": "2/3",
+  "shard_index": 1,
+  "shard_total": 3,
+  "title": "wave5b head-slice specialist: Tier-2 prefix slice 29/32 tie vs joint03",
+  "reason": "preflight_strict_gate_failed",
+  "autopilot_key": "manual.20260516.wave5.head_slice_miss_specialist_b",
+  "experiment_family": "manual.20260516.wave5.head_slice_miss_specialist_b",
+  "change_class": "joint_decode_rescue_retune",
+  "candidate_experiment": "phoneme_matcher_joint03_wave5b",
+  "champion_experiment": "phoneme_matcher_joint03",
+  "tier2_delta_correct": 0,
+  "tier2_slice_limit": 32,
+  "preflight_correct_candidate": 29,
+  "preflight_correct_champion": 29,
+  "accuracy_slice": 0.90625,
+  "objective_slice": 0.915625,
+  "blocked_paths": [
+    "Marginal PREFIX_MIN_SCORE / PREFIX_MARGIN / GLOBAL_SPAN_MIN_SCORE relax + PREFIX_MAX_SPAN 8 + LOW_CONF 0.575--0.59 + SECOND_PASS_FRAME -0.38 on joint03-class stack without new hypothesis surface"
+  ],
+  "run_record": "artifacts/runs/task-1307c7fdb289-20260516T104850Z.json"
+}
