@@ -1,0 +1,14 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T02:42:17.000000+00:00",
+  "shard_display": "3/3",
+  "queue_shard_index_zero_based": 2,
+  "shard_total": 3,
+  "task_id": null,
+  "autopilot_key": "manual.20260516.solo.targeted_decode_surface_finish",
+  "experiment_family": "queue_shard_routing_idle",
+  "change_class": "no_queued_task_for_shard",
+  "reason": "FIFO task_queue routing: sole queued task task-57c107b1967c (ordinal 0) maps to shard_index 0 only (0 % 3 == 0). Zero-based shard_index 2 has no next_queued() selection; bounded autonomous_loop printed no queued tasks. Tier-2 preflight not invoked (procedure step 12 requires a shard-selected candidate).",
+  "negative_memory": "When only manual.20260516.solo.targeted_decode_surface_finish is queued at FIFO ordinal 0, shard_indices 1 and 2 idle by design unless additional tasks enqueue so ordinals 1-2 map to those shards; run that task from shard_index 0 or add queued work.",
+  "run_id": "shard-idx2-no-queued-task-20260516T024217Z"
+}

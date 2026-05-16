@@ -7021,12 +7021,12 @@
         "agent_instructions": "Current merged champion is phoneme_matcher_joint03 at 239/256 = 93.36%; reaching >=95% needs at least 244/256, about five more correct. Present-gold ranker/rescore probes have now tied or regressed (joint03_gpr tied 28/32; z-score acoustic pool regressed 25/32), so do not implement another small-coef rerank over the same candidate pool. Focus only on gold-absent / candidate-missing cases: add bounded decode/search surface expansion, two-pass hypothesis merge, or span construction that can add the missing gold verse/span to the candidate pool without filename/manifest/corpus-order leakage. Keep CPU/time caps explicit. Avoid broad beam widening, naive CTC score blending, BSM-only boundary rescue, matcher-anchor pooling, and same-hypothesis ASR union; these already tied/regressed. Must split/report gold-in-pool vs gold-absent recoverability and fixed/regressed miss IDs. Finish with either: (a) strict limit-32 preflight improvement over joint03 and then full Tier-2 candidate result, or (b) state-only rejection/negative-memory PR. Revert candidate code if strict gate fails."
       },
       "created_at": "2026-05-16T02:37:17.319088+00:00",
-      "updated_at": "2026-05-16T02:37:17.319088+00:00",
+      "updated_at": "2026-05-16T02:43:36.023066+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
       "judge_reasons": null,
-      "notes": ""
+      "notes": "20260516T024217Z autonomy shard idx2 (display 3/3): next_queued(2,3) empty sole fifo0 task binds shard_index 0 (task-57c107b1967c manual targeted_decode_surface_finish). See artifacts/runs/shard-idx2-no-queued-task-20260516T024217Z.json."
     }
   ]
 }
