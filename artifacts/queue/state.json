@@ -7144,7 +7144,7 @@
     },
     {
       "id": "task-173ce0648851",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95 solo: learned BSM/span gates on 240 champion",
       "payload": {
@@ -7155,7 +7155,129 @@
         "agent_instructions": "Current champion is phoneme_matcher_joint03 at 240/256 = 93.75%, objective 0.94375. Need >=244/256 for 95%. Modal training path is blocked by missing offline-tarteel-lab-data volume and placeholder training script, so do not attempt Modal or ASR training in this task. Target only remaining BSM/boundary/multi-verse span errors under the 240 champion. Build a data-driven gate using objective labels/features available at inference (alignment confidence, verse boundary candidates, prefix/global span evidence, BSM markers, candidate margins), not filename/manifest/order leakage. Avoid old blind BSM rescue that tied, boundary-only heuristics, matcher-only rerank, broad beam widening, and decode2pass_v2 tie. Must report miss IDs fixed/regressed by category. Candidate must strictly beat current champion on the same limit-32 preflight and then full Tier-2; otherwise revert code and record negative memory."
       },
       "created_at": "2026-05-16T06:08:07.379173+00:00",
-      "updated_at": "2026-05-16T06:08:07.379173+00:00",
+      "updated_at": "2026-05-16T07:13:48.087885+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-59f6a9678673",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave4: recoverability oracle and surgical patch",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave4",
+        "autopilot_key": "manual.20260516.wave4.recoverability_oracle_surgical_patch",
+        "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256 = 93.75%, objective 0.94375. Need >=244/256. Build a recoverability oracle over current champion misses: classify gold-in-pool vs gold-absent vs boundary/span vs decode-missing, then implement exactly one surgical patch that targets the largest recoverable bucket. Do not ship another small rerank/tie-break, BSM/margin gate, trim, broad beam, matcher-anchor pooling, or naive CTC blend; all tied/regressed. Must report miss IDs fixed/regressed and promote only strict limit-32 + full Tier-2 improvement."
+      },
+      "created_at": "2026-05-16T07:13:48.262298+00:00",
+      "updated_at": "2026-05-16T07:13:48.262298+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-d49c7cc5e804",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave4: decode surface v3 targeted miss expansion",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave4",
+        "autopilot_key": "manual.20260516.wave4.decode_surface_v3_targeted_misses",
+        "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256. Continue only if you can change hypothesis surface for remaining gold-absent misses, not retune decode2pass_v2 gates that tied at 29/32. Try bounded alternate blank-collapse/top-symbol entropy/local frame alternatives/span construction with CPU caps and novel transcript budget. Avoid trim probe (26/32), broad beam, same-hyp union, matcher pooling, present-gold rerank. Strict preflight and full Tier-2 improvement required; target >=244/256."
+      },
+      "created_at": "2026-05-16T07:13:48.436974+00:00",
+      "updated_at": "2026-05-16T07:13:48.436974+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-f6a2c8a2204f",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave4: multi-verse span constructor on current misses",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave4",
+        "autopilot_key": "manual.20260516.wave4.multiverse_span_constructor",
+        "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256. Target only remaining multi-verse opening/span-construction failures, not BSM-only gates. Add bounded construction of cross-ayah spans from decode evidence and Quran phoneme sequence, with no filename/manifest/order leakage. Report miss IDs. Do not repeat learned BSM/margin gates that tied. Strict limit-32 and full Tier-2 improvement required."
+      },
+      "created_at": "2026-05-16T07:13:48.612432+00:00",
+      "updated_at": "2026-05-16T07:13:48.612432+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-0e88119900a4",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave4: Modal volume-safe ASR job path",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "modal_training": true,
+        "job_name": "offline-tarteel-95-volume-safe-asr",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave4",
+        "autopilot_key": "manual.20260516.wave4.modal_volume_safe_asr_path",
+        "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256. Modal credentials work, but volume offline-tarteel-lab-data is missing and training script is placeholder. Do not print secrets. Either create a guarded no-volume Modal smoke/eval path using repo-available assets or record exact provisioning command needed; do not mount missing volume blindly. If a real data path/checkpoint exists, launch detached and record metadata. No matcher-only substitute. Integrate only with strict preflight + full Tier-2 improvement."
+      },
+      "created_at": "2026-05-16T07:13:48.784692+00:00",
+      "updated_at": "2026-05-16T07:13:48.784692+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-08af76e64354",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave4: context-aware fallback selector",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave4",
+        "autopilot_key": "manual.20260516.wave4.context_aware_fallback_selector",
+        "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256. Investigate whether any remaining misses are corrected by older joint02/joint03 pre-second-pass behavior or alternate conservative paths. Implement a context-aware fallback selector only when inference-time confidence features predict champion failure. Avoid label leakage and global rerank. Must show fixed/regressed miss IDs; strict preflight/full Tier-2 improvement required."
+      },
+      "created_at": "2026-05-16T07:13:48.959337+00:00",
+      "updated_at": "2026-05-16T07:13:48.959337+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-e8fd5057cb7c",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave4: hard-miss atlas plus one non-rerank fix",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave4",
+        "autopilot_key": "manual.20260516.wave4.hard_miss_atlas_nonrerank_fix",
+        "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256. Produce hard-miss atlas and implement one non-rerank fix from it: decode/search/span/tracker behavior only. No matcher-only score blend, present-gold tie-break, BSM margin gate, trim, broad beam, or Modal missing-volume path. Strict preflight/full Tier-2 improvement required; target >=244/256."
+      },
+      "created_at": "2026-05-16T07:13:49.133335+00:00",
+      "updated_at": "2026-05-16T07:13:49.133335+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
