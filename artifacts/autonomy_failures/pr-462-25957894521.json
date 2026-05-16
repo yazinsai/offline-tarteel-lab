@@ -1,0 +1,20 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T08:58:24.075603+00:00",
+  "workflow_run_id": "25957894521",
+  "pr_number": 462,
+  "title": "Autopilot offline-tarteel state: 93.75% champion hold, slice tie (+0.0pp) \u2014 wave4 blank-bias decode tied joint03 @29/32 limit 32",
+  "url": "https://github.com/yazinsai/offline-tarteel-lab/pull/462",
+  "base_ref": "main",
+  "base_sha": "a668aa70fc906eeec059a3d7bc5b36ef40ec0de3",
+  "head_ref": "cursor/offline-tarteel-wave4-surface-v3-13d3",
+  "head_sha": "2bf40095d7774b04cfd3306c6f0ae9a476849da0",
+  "reason": "merge_gate_rejected",
+  "changed_files": [
+    "artifacts/autonomy_failures/shard-idx1-task-d49c7cc5e804-preflight-tie-20260516T085651Z.json",
+    "artifacts/experiment_ledger.jsonl",
+    "artifacts/queue/state.json",
+    "artifacts/runs/task-d49c7cc5e804-20260516T085651Z.json"
+  ],
+  "blocked_file_hints": []
+}
