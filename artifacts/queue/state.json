@@ -7204,7 +7204,7 @@
     },
     {
       "id": "task-f6a2c8a2204f",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95 wave4: multi-verse span constructor on current misses",
       "payload": {
@@ -7215,10 +7215,10 @@
         "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256. Target only remaining multi-verse opening/span-construction failures, not BSM-only gates. Add bounded construction of cross-ayah spans from decode evidence and Quran phoneme sequence, with no filename/manifest/order leakage. Report miss IDs. Do not repeat learned BSM/margin gates that tied. Strict limit-32 and full Tier-2 improvement required."
       },
       "created_at": "2026-05-16T07:13:48.612432+00:00",
-      "updated_at": "2026-05-16T07:13:48.612432+00:00",
+      "updated_at": "2026-05-16T08:45:44.239270+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
+      "run_record_path": "artifacts/runs/task-f6a2c8a2204f-20260516T084300Z.json",
       "judge_reasons": null,
       "notes": ""
     },

@@ -1,0 +1,18 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T08:42:00.000000+00:00",
+  "shard_display": "3/3",
+  "queue_shard_index_zero_based": 2,
+  "shard_total": 3,
+  "task_id": "task-f6a2c8a2204f",
+  "autopilot_key": "manual.20260516.wave4.multiverse_span_constructor",
+  "experiment_family": "joint_model_runtime",
+  "change_class": "decode_split_multiverse_span_constructor",
+  "reason": "Mandatory limit-32 Tier-2 preflight: candidate (decode-guided split alignment over surah-hinted span shortlist) tied champion phoneme_matcher_joint03 snapshot at 29/32 correct (90.625%). Strict gate requires strictly greater accuracy and objective on the same fixed manifest prefix; tie fails promotion.",
+  "negative_memory": "Do not retry bounded multi-verse decode-split span constructor on phoneme_matcher_joint03 without a new idea: on test_corpus_v3 manifest prefix [0:32] it duplicated champion git 8d9b46fb at 29/32 (zero tier2_delta_correct). Surah-hint filter + SPLIT_SPAN_SHORTLIST=96 + five split fractions. Learned BSM/margin gates already negative-memory elsewhere.",
+  "run_id": "shard-idx2-task-f6a2c8a2204f-preflight-tie-20260516T084200Z",
+  "tier2_delta_correct": 0,
+  "preflight_limit": 32,
+  "preflight_candidate_correct": 29,
+  "preflight_champion_correct": 29
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-f6a2c8a2204f-20260516T084300Z",
+  "task_id": "task-f6a2c8a2204f",
+  "created_at_utc": "2026-05-16T08:43:00.000000+00:00",
+  "git_sha": "094675ab86f6cd1e2759a6f82b934f584683253a",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment": "phoneme_matcher_joint03",
+    "max_onnx_mb": 200,
+    "manual_priority": "reach_95_wave4",
+    "autopilot_key": "manual.20260516.wave4.multiverse_span_constructor",
+    "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256. Target only remaining multi-verse opening/span-construction failures, not BSM-only gates. Add bounded construction of cross-ayah spans from decode evidence and Quran phoneme sequence, with no filename/manifest/order leakage. Report miss IDs. Do not repeat learned BSM/margin gates that tied. Strict limit-32 and full Tier-2 improvement required."
+  },
+  "metrics": {
+    "tier2_accuracy": 0.90625,
+    "streaming_alignment_accuracy": 0.90625,
+    "correction_precision": 0.90625,
+    "verse_boundary_f1": 0.90625,
+    "latency_budget_score": 1.0,
+    "preflight_limit": 32,
+    "preflight_candidate_correct": 29,
+    "preflight_champion_correct": 29,
+    "preflight_candidate_accuracy": 0.90625,
+    "preflight_champion_accuracy": 0.90625,
+    "preflight_candidate_objective": 0.915625,
+    "preflight_champion_objective": 0.915625,
+    "tier2_experiment": "phoneme_matcher_joint03",
+    "champion_run_id": "task-8ec0f326b09f-20260516T022658Z",
+    "champion_objective": 0.94375,
+    "requires_full_corpus_gate": true,
+    "requires_champion_improvement": true
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03 --tier-json /workspace/artifacts/tier2/tier2-task-f6a2c8a2204f-preflight-candidate.json",
+    "/usr/bin/python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03 --tier-json /workspace/artifacts/tier2/tier2-task-f6a2c8a2204f-preflight-champion.json",
+    "champion_snapshot_git_sha=8d9b46fb718d5c4ca4460578f81e1b6629e1445c"
+  ]
+}
