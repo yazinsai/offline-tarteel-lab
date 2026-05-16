@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T08:56:51.812592+00:00",
+  "reason": "preflight_strict_gate_failed",
+  "shard_display": "2/3",
+  "queue_shard_index_zero_based": 1,
+  "shard_total": 3,
+  "task_id": "task-d49c7cc5e804",
+  "autopilot_key": "manual.20260516.wave4.decode_surface_v3_targeted_misses",
+  "experiment_family": "manual.20260516.wave4.decode_surface_v3_targeted_misses",
+  "change_class": "biased_blank_decode_surface_wave4_v3",
+  "tier2_delta_correct": 0,
+  "negative_memory": "phoneme_matcher_joint03_wave4_surface_v3 added gated auxiliary hypotheses: blank log-prob biases (-0.41,+0.26) greedy + shifted-blank beam (shift -0.33, beam 9 top_sym 11 cap 2 strings) after existing decode2pass; test_corpus_v3 first-32 slice tied champion phoneme_matcher_joint03 at 29/32 correct (90.625%), identical surrogate objective (~0.9156); ~37min vs ~26min wall per tier2 slice eval \u2014 CPU-heavy no slice lift. Do not retry small blank-bias-only tweaks stacked on joint03 decode2pass without a proven slice delta.",
+  "run_id": "task-d49c7cc5e804-20260516T085651Z"
+}
