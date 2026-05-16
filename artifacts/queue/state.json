@@ -7027,6 +7027,56 @@
       "run_record_path": null,
       "judge_reasons": null,
       "notes": ""
+    },
+    {
+      "id": "task-8ec0f326b09f",
+      "status": "promoted",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave3: targeted decode-surface expansion",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "current_champion": "phoneme_matcher_joint03 task-65499c7b5348 239/256 93.36% objective 0.940234",
+        "target_accuracy": 0.95,
+        "accept_incremental_improvement": true,
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave3",
+        "focus_bucket": "gold_absent_decode_surface",
+        "autopilot_key": "manual.20260516.wave3.targeted_decode_surface",
+        "agent_instructions": "Attack only gold-absent cases. Implement a bounded two-pass decode or candidate-generation change that changes the hypothesis surface, not just matcher pooling: e.g. low-confidence/late-span gated alternate blank-collapse, top-symbol entropy expansion, or local per-frame alternatives with strict CPU caps. Do not repeat broad beam widening, ASR/hypothesis top-K union that tied, matcher-only multi-anchor pooling, or naive CTC score blending. Must record gold-in-beam/top-N recoverability before/after and reject honestly if no preflight lift. Promote any strict full-corpus improvement; target >=244/256."
+      },
+      "created_at": "2026-05-16T00:26:23.591005+00:00",
+      "updated_at": "2026-05-16T02:26:58.703647+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "/workspace/artifacts/runs/task-8ec0f326b09f-20260516T022658Z.json",
+      "judge_reasons": [],
+      "notes": ""
+    },
+    {
+      "id": "task-aee7d82846b2",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave3: repeated-verse confusion resolver v2",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "current_champion": "phoneme_matcher_joint03 task-65499c7b5348 239/256 93.36% objective 0.940234",
+        "target_accuracy": 0.95,
+        "accept_incremental_improvement": true,
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave3",
+        "focus_bucket": "repeated_near_duplicate_confusions",
+        "autopilot_key": "manual.20260516.wave3.repeated_confusion_resolver_v2",
+        "agent_instructions": "Build a labeled confusion atlas for repeated/near-duplicate verses among current joint03 misses and implement a gated resolver that is active only on those confusion sets. Do not repeat the rejected beam-LP-only disambiguator. Use validated features such as phoneme coverage asymmetry, verse-length fit, boundary timing, neighboring ayah consistency, and calibrated margins. Must show no regression on non-confusion rows in preflight and pass strict > champion slice gate before full eval."
+      },
+      "created_at": "2026-05-16T00:26:23.601404+00:00",
+      "updated_at": "2026-05-16T03:42:44.524576+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "/workspace/artifacts/runs/task-aee7d82846b2-20260516T034244Z.json",
+      "judge_reasons": [
+        "champion_objective_not_improved"
+      ],
+      "notes": ""
     }
   ]
 }
