@@ -1,0 +1,16 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T02:21:02.411598+00:00",
+  "workflow_run_id": null,
+  "pr_number": null,
+  "title": "",
+  "url": "",
+  "base_ref": "cursor-autonomy-base-25949619594-0",
+  "base_sha": "8036fafc988cadb8bc6df8e3755d4e47ca69c36b",
+  "head_ref": "cursor/present-gold-ranker-joint03-7eee",
+  "head_sha": "8036fafc988cadb8bc6df8e3755d4e47ca69c36b",
+  "reason": "preflight_strict_gate_failed",
+  "changed_files": [],
+  "blocked_file_hints": [],
+  "negative_memory": "20260516 shard 0/3 task-21c9e57a72bf manual.20260516.solo.present_gold_ranker_finish: present-gold fragment-gap pool rescore (+cluster tie-break) on phoneme_matcher_joint03 tier2_delta_correct=0 vs baseline snapshot run.py on same limit=32 slice (28/28 tied); approx objective tie 0.8875. Do not repeat small coef tweaks without decode/search or learned weights from held-out tier artifacts \u2014 mirrors recoverability rerank plateau on joint03."
+}

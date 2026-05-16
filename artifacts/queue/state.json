@@ -6990,7 +6990,7 @@
     },
     {
       "id": "task-21c9e57a72bf",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95 solo: present-gold calibrated ranker finish",
       "payload": {
@@ -7001,12 +7001,12 @@
         "agent_instructions": "Current merged champion is phoneme_matcher_joint03 at 239/256 = 93.36%; reaching >=95% needs at least 244/256, about five more correct. Focus only on examples where the gold verse/span is already present in the joint03 top-N candidate pool. Build a data-driven calibrated ranker/rescorer using recoverability labels and candidate features already available at inference. Do not do another global heuristic rerank, naive acoustic CTC blend, broad beam widening, boundary-only BSM rescue, or matcher-only candidate pooling; those tied or regressed. Split evaluation by gold-in-pool versus gold-absent and report fixed/regressed miss IDs. Must finish with either: (a) strict limit-32 preflight improvement over joint03 and then full Tier-2 candidate result, or (b) a state-only rejection/negative-memory PR. Do not leave the run without a PR/result record; timebox the probe and revert candidate code if the strict gate fails."
       },
       "created_at": "2026-05-16T00:59:02.638798+00:00",
-      "updated_at": "2026-05-16T00:59:02.638798+00:00",
+      "updated_at": "2026-05-16T02:20:53.589189+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
-      "run_record_path": null,
+      "run_record_path": "/workspace/artifacts/runs/task-21c9e57a72bf-20260516T022053Z.json",
       "judge_reasons": null,
-      "notes": ""
+      "notes": "Shard 1/3 (idx 0): present-gold fragment-gap pool rescorer on phoneme_matcher_joint03; Tier-2 preflight test_corpus_v3 limit 32 tied baseline champion slice (28/32 correct each); strict gate failed (accuracy/objective not strictly greater)."
     }
   ]
 }
