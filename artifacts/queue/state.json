@@ -7122,7 +7122,7 @@
     },
     {
       "id": "task-8fb1967a4608",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95 solo: add Modal entrypoint and launch ASR hard-miss job",
       "payload": {
@@ -7135,7 +7135,27 @@
         "agent_instructions": "Current champion is phoneme_matcher_joint03 at 240/256 = 93.75%, objective 0.94375. Previous Modal audit showed credentials work but training/train_fastconformer_phoneme_modal.py has no Modal functions/local entrypoints, so modal run --detach cannot launch it. Use Modal docs pattern: define modal.App, wrap training/eval in @app.function with suitable image/volumes/secrets, and define @app.local_entrypoint that calls the remote function. Do not print secrets or commit model binaries. First make the script runnable with modal run --detach for a hard-miss ASR fine-tune/eval/audit job; launch it if data/volumes are present, record app/run/checkpoint/log metadata in artifacts. If data paths are missing, record exact missing volume/path and stop state-only. Only integrate a checkpoint into phoneme_matcher_joint03 if strict limit-32 preflight and full Tier-2 beat the 240/256 champion; target >=244/256. Do not implement matcher-only substitutes."
       },
       "created_at": "2026-05-16T06:02:28.222670+00:00",
-      "updated_at": "2026-05-16T06:02:28.222670+00:00",
+      "updated_at": "2026-05-16T06:08:07.227396+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-173ce0648851",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 solo: learned BSM/span gates on 240 champion",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_solo",
+        "autopilot_key": "manual.20260516.solo.learned_bsm_span_gates_240",
+        "agent_instructions": "Current champion is phoneme_matcher_joint03 at 240/256 = 93.75%, objective 0.94375. Need >=244/256 for 95%. Modal training path is blocked by missing offline-tarteel-lab-data volume and placeholder training script, so do not attempt Modal or ASR training in this task. Target only remaining BSM/boundary/multi-verse span errors under the 240 champion. Build a data-driven gate using objective labels/features available at inference (alignment confidence, verse boundary candidates, prefix/global span evidence, BSM markers, candidate margins), not filename/manifest/order leakage. Avoid old blind BSM rescue that tied, boundary-only heuristics, matcher-only rerank, broad beam widening, and decode2pass_v2 tie. Must report miss IDs fixed/regressed by category. Candidate must strictly beat current champion on the same limit-32 preflight and then full Tier-2; otherwise revert code and record negative memory."
+      },
+      "created_at": "2026-05-16T06:08:07.379173+00:00",
+      "updated_at": "2026-05-16T06:08:07.379173+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
