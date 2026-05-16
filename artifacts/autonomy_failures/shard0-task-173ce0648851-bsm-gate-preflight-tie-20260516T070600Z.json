@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T07:06:00.000000+00:00",
+  "shard_display": "1/3",
+  "queue_shard_index_zero_based": 0,
+  "shard_total": 3,
+  "task_id": "task-173ce0648851",
+  "autopilot_key": "manual.20260516.solo.learned_bsm_span_gates_240",
+  "experiment_family": "phoneme_matcher_joint03",
+  "change_class": "bsm_margin_span_gate",
+  "tier2_delta_correct": 0,
+  "reason": "preflight_strict_gate_failed_tie",
+  "negative_memory": "learned_bsm_span_gates on phoneme_matcher_joint03 (MATCH_MARGIN_AMBIGUOUS 0.026 + BSM_OPENING_GATE 0.53 pool expansion; narrow-margin extra prefix/global slack; post-BSM tail rematch when surah!=1 and (ayah>1 or ayah_end)) on test_corpus_v3 first-32 slice: 29/32 vs baseline joint03 29/32 tie (reports tier2-20260516T063737Z vs tier2-20260516T070327Z). Slice objective proxy ties; strict > champion gate failed. Repeating this matcher/runtime gate stack without decode/search changes is unlikely to break the plateau.",
+  "run_id": "task-173ce0648851-20260516T070600Z"
+}
