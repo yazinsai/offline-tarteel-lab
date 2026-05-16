@@ -7144,7 +7144,7 @@
     },
     {
       "id": "task-173ce0648851",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95 solo: learned BSM/span gates on 240 champion",
       "payload": {
@@ -7155,7 +7155,130 @@
         "agent_instructions": "Current champion is phoneme_matcher_joint03 at 240/256 = 93.75%, objective 0.94375. Need >=244/256 for 95%. Modal training path is blocked by missing offline-tarteel-lab-data volume and placeholder training script, so do not attempt Modal or ASR training in this task. Target only remaining BSM/boundary/multi-verse span errors under the 240 champion. Build a data-driven gate using objective labels/features available at inference (alignment confidence, verse boundary candidates, prefix/global span evidence, BSM markers, candidate margins), not filename/manifest/order leakage. Avoid old blind BSM rescue that tied, boundary-only heuristics, matcher-only rerank, broad beam widening, and decode2pass_v2 tie. Must report miss IDs fixed/regressed by category. Candidate must strictly beat current champion on the same limit-32 preflight and then full Tier-2; otherwise revert code and record negative memory."
       },
       "created_at": "2026-05-16T06:08:07.379173+00:00",
-      "updated_at": "2026-05-16T06:08:07.379173+00:00",
+      "updated_at": "2026-05-16T09:20:58.183542+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-28816625feb0",
+      "status": "rejected",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave5: head-slice miss specialist A",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave5",
+        "autopilot_key": "manual.20260516.wave5.head_slice_miss_specialist_a",
+        "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256 and 29/32 on the mandatory prefix slice. To pass the gate, first identify the exact 3 incorrect examples in test_corpus_v3 --limit 32 for current champion, including predicted/gold, candidate pool presence, and miss type. Pick one miss not already solved by existing failed branches and implement a narrowly targeted non-leaky fix for that miss class. Avoid broad reranks, decode2pass_v2 retunes, blank-bias surface_v3, multiverse span constructor, BSM/margin gates, Modal missing-volume path. Must improve prefix slice >29/32 and full Tier-2; report fixed/regressed IDs."
+      },
+      "created_at": "2026-05-16T09:20:58.335068+00:00",
+      "updated_at": "2026-05-16T10:47:58.230539+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": "artifacts/runs/task-28816625feb0-20260516T105500Z.json",
+      "judge_reasons": [
+        "preflight_strict_gate_failed: candidate 25/32 vs champion 29/32 (test_corpus_v3 prefix); champion_objective_not_improved",
+        "reverted probe: phoneme_matcher_joint03 head-window auxiliary ONNX forward + hypothesis merge"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "task-1307c7fdb289",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave5: head-slice miss specialist B",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave5",
+        "autopilot_key": "manual.20260516.wave5.head_slice_miss_specialist_b",
+        "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256 and 29/32 on mandatory prefix slice. Extract the first-32 miss atlas, then target a different first-32 miss than specialist A if visible from failure memory/PRs. Use recoverability: if gold in pool, fix selection with calibrated features; if absent, change candidate generation/span construction. No filename/manifest/order leakage. Avoid all known tied/regressed families. Need strict prefix preflight >29/32 and full Tier-2 improvement."
+      },
+      "created_at": "2026-05-16T09:20:58.488742+00:00",
+      "updated_at": "2026-05-16T09:20:58.488742+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-b6425ca241b1",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave5: head-slice miss specialist C",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave5",
+        "autopilot_key": "manual.20260516.wave5.head_slice_miss_specialist_c",
+        "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256 and only 3 misses remain in limit-32. Build a focused diagnostic for those misses, choose the one with highest recoverability, and implement a minimal runtime fix. Do not repeat wave4 tied candidates. The goal is to get prefix slice to at least 30/32 without full regression; then run full Tier-2 and promote any objective improvement."
+      },
+      "created_at": "2026-05-16T09:20:58.641495+00:00",
+      "updated_at": "2026-05-16T09:20:58.641495+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-c81ed3d667b8",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave5: prefix-miss oracle plus full-corpus nonregression",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave5",
+        "autopilot_key": "manual.20260516.wave5.prefix_miss_oracle_nonregression",
+        "agent_instructions": "Compute current champion prefix-slice miss oracle and full-corpus miss overlap. Implement one fix that improves at least one first-32 miss and is validated against full corpus. Prefer changes that also recover non-prefix siblings. Avoid known failed approaches. Strict preflight and full Tier-2 required."
+      },
+      "created_at": "2026-05-16T09:20:58.793562+00:00",
+      "updated_at": "2026-05-16T09:20:58.793562+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-2515c5fcc113",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave5: conservative fallback for one prefix miss",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave5",
+        "autopilot_key": "manual.20260516.wave5.conservative_prefix_fallback",
+        "agent_instructions": "Investigate whether any of the 3 current prefix-slice misses are corrected by prior champion snapshots, joint02 behavior, or champion candidate runner-up. If yes, implement a conservative inference-time fallback selector for that miss class using confidence/candidate features only. Avoid global fallback that regresses full corpus. Strict prefix >29/32 and full improvement required."
+      },
+      "created_at": "2026-05-16T09:20:58.945502+00:00",
+      "updated_at": "2026-05-16T09:20:58.945502+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-a88ae50882db",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 wave5: prefix candidate-generation fix",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_wave5",
+        "autopilot_key": "manual.20260516.wave5.prefix_candidate_generation_fix",
+        "agent_instructions": "For the 3 current first-32 misses, identify any gold-absent candidate-generation miss and implement a bounded generation/span fix specific to that class. Do not retune scores if gold is absent. Avoid prior tied decode surface variants unless materially different and miss-targeted. Strict prefix >29/32 and full Tier-2 improvement required."
+      },
+      "created_at": "2026-05-16T09:20:59.098586+00:00",
+      "updated_at": "2026-05-16T09:20:59.098586+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,

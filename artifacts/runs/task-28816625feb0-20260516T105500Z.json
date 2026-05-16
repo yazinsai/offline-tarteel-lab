@@ -1,0 +1,56 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-28816625feb0-20260516T105500Z",
+  "task_id": "task-28816625feb0",
+  "created_at_utc": "2026-05-16T10:55:00.000000+00:00",
+  "git_sha": "0e2298280dd32fafdb5acec16887de1c14a0f26e",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment": "phoneme_matcher_joint03",
+    "autopilot_key": "manual.20260516.wave5.head_slice_miss_specialist_a",
+    "manual_priority": "reach_95_wave5",
+    "max_onnx_mb": 200,
+    "agent_instructions": "Champion is phoneme_matcher_joint03 at 240/256 and 29/32 on the mandatory prefix slice. To pass the gate, first identify the exact 3 incorrect examples in test_corpus_v3 --limit 32 for current champion, including predicted/gold, candidate pool presence, and miss type. Pick one miss not already solved by existing failed branches and implement a narrowly targeted non-leaky fix for that miss class. Avoid broad reranks, decode2pass_v2 retunes, blank-bias surface_v3, multiverse span constructor, BSM/margin gates, Modal missing-volume path. Must improve prefix slice >29/32 and full Tier-2; report fixed/regressed IDs.",
+    "corpus": "test_corpus_v3",
+    "full_corpus_gate": true,
+    "preflight_probe_summary": "Attempted bounded head-window auxiliary decode: +1 ONNX forward on clips>=28s using first 16s audio merged into CTC hypothesis union (experiments/phoneme_matcher_joint03/run.py), then reverted after preflight.",
+    "preflight_miss_forensics_limit32": "Champion misses (shard 0 diagnostic, no promotion probe): ea_alafasy_multi_044_001_005 gold(44,1)->pred(37,109); ea_husary_multi_050_001_005 gold(50,1)->pred(37,152); ea_husary_multi_077_001_007 gold(77,1)->pred(37,119). Gold single-verse not in _candidate_verses top-950 for primary hyps; global ratio rank of gold ~1828 for case 44 — recoverability requires better hypothesis surface or ASR, not matcher shortlist tweaks alone."
+  },
+  "metrics": {
+    "preflight_limit": 32,
+    "preflight_candidate_experiment": "phoneme_matcher_joint03",
+    "preflight_champion_experiment": "phoneme_matcher_joint03",
+    "preflight_candidate_correct": 25,
+    "preflight_champion_correct": 29,
+    "preflight_candidate_accuracy": 0.78125,
+    "preflight_champion_accuracy": 0.90625,
+    "surrogate_objective_candidate_slice": 0.803125,
+    "surrogate_objective_champion_slice": 0.915625,
+    "champion_run_id": "task-8ec0f326b09f-20260516T022658Z",
+    "champion_objective": 0.94375,
+    "champion_full_corpus_correct": 240,
+    "champion_full_corpus_manifest_samples": 256,
+    "champion_full_corpus_accuracy_proxy": 0.9375,
+    "champion_forensics": "Champion task-8ec0f326b09f phoneme_matcher_joint03 (240/256, objective 0.94375) beat runner-up task-65499c7b5348 (239/256, 0.940234): targeted decode/search surface expansion (two-pass CTC + matcher) moved accuracy, not packaging-only.",
+    "needle_subsystem_vs_runner_up": "ASR/decode + matcher (joint phoneme_matcher_joint03 stack)",
+    "tier2_accuracy": 0.78125,
+    "target_recall": 0.78125,
+    "streaming_alignment_accuracy": 0.78125,
+    "correction_precision": 0.78125,
+    "verse_boundary_f1": 0.78125,
+    "latency_budget_score": 1.0,
+    "preflight_rejection_reason": "champion_objective_not_improved_strict_gate",
+    "preflight_commands": [
+      "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03 --tier-json /workspace/artifacts/tier2/tier2-task-288166-preflight-candidate.json",
+      "champion slice reference: prior baseline phoneme_matcher_joint03 on same manifest prefix reports 29/32 correct (see /workspace/artifacts/tier2/tier2-20260516T094922Z.json and bounded_cycle_notes)"
+    ],
+    "tier3_completed": false,
+    "bounded_cycle_notes": "Shard 1/3 (index 0). Modal disabled. Mandatory Tier-2 preflight: head-aux candidate 25/32 vs champion 29/32 — failed strict > champion on both accuracy and surrogate objective; candidate edits reverted before full corpus. Skipped autonomous_loop promotion cycles."
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03 --tier-json /workspace/artifacts/tier2/tier2-task-288166-preflight-candidate.json"
+  ]
+}

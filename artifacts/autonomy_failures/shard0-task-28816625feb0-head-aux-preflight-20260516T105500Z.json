@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T10:55:00.000000+00:00",
+  "shard_display": "1/3",
+  "queue_shard_index_zero_based": 0,
+  "shard_total": 3,
+  "task_id": "task-28816625feb0",
+  "autopilot_key": "manual.20260516.wave5.head_slice_miss_specialist_a",
+  "experiment_family": "manual.20260516.wave5.head_slice_miss_specialist_a",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": -4,
+  "reason": "Merged extra ONNX forward on first 16s for clips>=28s into phoneme_matcher_joint03 hypothesis list; limit-32 Tier-2 regressed 29->25 correct vs unmodified champion on same slice (surrogate objective 0.915625 vs 0.803125). Reverted code; do not repeat naive head-only hypothesis union without per-hypothesis gating.",
+  "negative_memory": "Head-window auxiliary decode (16s prefix + hypothesis union) on phoneme_matcher_joint03 plateaus/worsens limit-32 despite targeting long multi-verse Bismillah/opening confusion class; three stable misses (44:1, 50:1, 77:1) map to surah-37-style hypotheses with gold not in ngram top-950 and global Levenshtein rank ~1800+. Next attempts need ASR/Modal, different windowing policy with confidence gating, or matcher-safe candidate expansion — not blind extra head forward.",
+  "run_id": "task-28816625feb0-20260516T105500Z"
+}
