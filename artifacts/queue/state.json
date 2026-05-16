@@ -7100,7 +7100,7 @@
     },
     {
       "id": "task-79dac23ce84c",
-      "status": "queued",
+      "status": "rejected",
       "kind": "joint_model_runtime",
       "title": "Manual 95 solo: Modal ASR hard-miss training or audit",
       "payload": {
@@ -7113,7 +7113,29 @@
         "agent_instructions": "Current merged champion is phoneme_matcher_joint03 with gated second-pass CTC decode: 240/256 = 93.75%, objective 0.94375. Runtime-only probes now plateaued: decode2pass_v2 tied 29/32, trim probe regressed 26/32, present-gold rerank tied/regressed, repeat resolver tied, matcher-anchor pooling tied. Use Modal/ASR-side path if credentials and data are available. First audit mounted volumes/datasets/checkpoints without printing secrets. If enough labeled/audio data exists, launch a detached Modal training or hard-miss fine-tune/eval job aimed at remaining Tier-2 misses; record Modal app/run/checkpoint metadata and do not commit model binaries. If training cannot be launched safely, record exactly what data/secret/command is missing and implement no matcher-only substitute. Only integrate a model/checkpoint if a strict limit-32 preflight and full Tier-2 beat current champion; target >=244/256. State-only PR is acceptable for launched detached training or blocked audit metadata."
       },
       "created_at": "2026-05-16T05:56:23.039624+00:00",
-      "updated_at": "2026-05-16T05:56:23.039624+00:00",
+      "updated_at": "2026-05-16T06:02:28.072157+00:00",
+      "cursor_agent_id": null,
+      "cursor_run_id": null,
+      "run_record_path": null,
+      "judge_reasons": null,
+      "notes": ""
+    },
+    {
+      "id": "task-8fb1967a4608",
+      "status": "queued",
+      "kind": "joint_model_runtime",
+      "title": "Manual 95 solo: add Modal entrypoint and launch ASR hard-miss job",
+      "payload": {
+        "experiment": "phoneme_matcher_joint03",
+        "modal_training": true,
+        "job_name": "offline-tarteel-95-hard-miss-asr-entrypoint",
+        "max_onnx_mb": 200,
+        "manual_priority": "reach_95_solo",
+        "autopilot_key": "manual.20260516.solo.modal_entrypoint_launch_hard_miss_asr",
+        "agent_instructions": "Current champion is phoneme_matcher_joint03 at 240/256 = 93.75%, objective 0.94375. Previous Modal audit showed credentials work but training/train_fastconformer_phoneme_modal.py has no Modal functions/local entrypoints, so modal run --detach cannot launch it. Use Modal docs pattern: define modal.App, wrap training/eval in @app.function with suitable image/volumes/secrets, and define @app.local_entrypoint that calls the remote function. Do not print secrets or commit model binaries. First make the script runnable with modal run --detach for a hard-miss ASR fine-tune/eval/audit job; launch it if data/volumes are present, record app/run/checkpoint/log metadata in artifacts. If data paths are missing, record exact missing volume/path and stop state-only. Only integrate a checkpoint into phoneme_matcher_joint03 if strict limit-32 preflight and full Tier-2 beat the 240/256 champion; target >=244/256. Do not implement matcher-only substitutes."
+      },
+      "created_at": "2026-05-16T06:02:28.222670+00:00",
+      "updated_at": "2026-05-16T06:02:28.222670+00:00",
       "cursor_agent_id": null,
       "cursor_run_id": null,
       "run_record_path": null,
