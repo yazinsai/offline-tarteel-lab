@@ -1,0 +1,41 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-aee7d82846b2-preflight-repeat-conf-v2-20260516T012500Z",
+  "task_id": "task-aee7d82846b2",
+  "created_at_utc": "2026-05-16T01:25:00.000000+00:00",
+  "git_sha": "fbbfdf590abf2310e75d9d20e0694cb17f5145b2",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "autopilot_key": "manual.20260516.wave3.repeated_confusion_resolver_v2",
+    "agent_instructions": "Build a labeled confusion atlas for repeated/near-duplicate verses among current joint03 misses and implement a gated resolver that is active only on those confusion sets. Do not repeat the rejected beam-LP-only disambiguator. Use validated features such as phoneme coverage asymmetry, verse-length fit, boundary timing, neighboring ayah consistency, and calibrated margins. Must show no regression on non-confusion rows in preflight and pass strict > champion slice gate before full eval.",
+    "candidate_experiment_probe": "phoneme_matcher_joint03_repeat_conf_resolver_v2",
+    "champion_experiment": "phoneme_matcher_joint03",
+    "preflight_note": "Probe code reverted after Tier-2 tie. Initial buggy shortlist ordering dropped slice to 26/32; anchor-preserving fix restored 28/32 equal to joint03.",
+    "champion_run_id": "task-65499c7b5348-20260515T190659Z",
+    "corpus": "test_corpus_v3",
+    "preflight_limit": 32
+  },
+  "metrics": {
+    "tier2_sample_limit": 32,
+    "preflight_candidate_correct": 28,
+    "preflight_champion_correct": 28,
+    "tier2_accuracy": 0.875,
+    "streaming_alignment_accuracy": 0.875,
+    "correction_precision": 0.875,
+    "verse_boundary_f1": 0.875,
+    "latency_budget_score": 1.0,
+    "surrogate_objective_candidate_slice": 0.8875,
+    "surrogate_objective_champion_slice": 0.8875,
+    "requires_champion_improvement": true,
+    "candidate_objective": null,
+    "champion_objective": 0.940234,
+    "rejection_reason": "preflight_tie_strict_gate_champion_objective_not_improved"
+  },
+  "tier_completed": [],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03_repeat_conf_resolver_v2",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03"
+  ]
+}

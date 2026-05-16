@@ -1,0 +1,15 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T01:25:00.000000+00:00",
+  "shard_display": "3/3",
+  "queue_shard_index_zero_based": 2,
+  "shard_total": 3,
+  "task_id": "task-aee7d82846b2",
+  "autopilot_key": "manual.20260516.wave3.repeated_confusion_resolver_v2",
+  "experiment_family": "phoneme_matcher_joint03_repeat_conf_resolver_v2",
+  "change_class": "preflight_strict_gate_failed",
+  "tier2_delta_correct": 0,
+  "reason": "Tier-2 preflight on test_corpus_v3 limit 32 after fixing anchor ordering: candidate phoneme_matcher_joint03_repeat_conf_resolver_v2 scored 28/32 correct (87.5% accuracy) matching champion phoneme_matcher_joint03 28/32. Canonical slice objectives both ~0.8875 (streaming/correction/boundary 0.875, latency 1.0). Strict promotion requires strictly greater accuracy and composite objective versus champion on the same slice; tie fails champion_objective_not_improved.",
+  "negative_memory": "Do not relaunch another joint03 repeat-verse confusion atlas resolver that only reranks within a static phonetic cluster when the first-32 smoke slice ties joint03 at identical correct count; need a decode/search or ASR-side delta, or a resolver that demonstrably moves a distinct error bucket on the limit-32 slice before any full-corpus attempt. First implementation regressed to 26/32 by letting merged shortlist reorder ahead of joint03 anchor—always keep _best_match_for_hypothesis as default unless resolver swaps with proof on slice.",
+  "run_id": "task-aee7d82846b2-preflight-repeat-conf-v2-20260516T012500Z"
+}
