@@ -1,0 +1,14 @@
+{
+  "schema": "offline-tarteel.autonomy_failure.v1",
+  "created_at_utc": "2026-05-16T03:52:43.000000+00:00",
+  "shard_display": "2/3",
+  "queue_shard_index_zero_based": 1,
+  "shard_total": 3,
+  "task_id": null,
+  "autopilot_key": "manual.20260516.solo.decode2pass_v2_remaining_misses",
+  "experiment_family": "queue_shard_routing_idle",
+  "change_class": "no_queued_task_for_shard",
+  "reason": "FIFO task_queue routing: sole queued task task-f77fd37090f3 (ordinal 0) maps to shard_index 0 only (0 %% 3 == 0). Zero-based shard index 1 has no next_queued() work; bounded autonomous_loop exited immediately.",
+  "negative_memory": "When only manual.20260516.solo.decode2pass_v2_remaining_misses is queued at FIFO ordinal 0, shard indices 1 and 2 idle by design; run it on shard 1/3 (zero-based index 0) or prepend filler queued tasks so ordinals 1-2 map to other shards.",
+  "run_id": "shard-idx1-no-queued-task-20260516T035243Z"
+}
