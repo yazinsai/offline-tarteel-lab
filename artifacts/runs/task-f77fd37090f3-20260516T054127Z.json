@@ -1,0 +1,55 @@
+{
+  "schema": "offline-tarteel.run_record.v1",
+  "run_id": "task-f77fd37090f3-20260516T054127Z",
+  "task_id": "task-f77fd37090f3",
+  "created_at_utc": "2026-05-16T05:41:27.594881+00:00",
+  "git_sha": "04952917c6b22c81207f55ebc3d976913ea24c6d",
+  "dataset_revision": "test_corpus_v3@2026-05-10",
+  "experiment_kind": "joint_model_runtime",
+  "parameter_vector": {
+    "experiment": "phoneme_matcher_joint03",
+    "max_onnx_mb": 200,
+    "manual_priority": "reach_95_solo",
+    "autopilot_key": "manual.20260516.solo.decode2pass_v2_remaining_misses",
+    "corpus": "test_corpus_v3",
+    "shard_display": "1/3",
+    "shard_index": 0,
+    "shard_total": 3,
+    "preflight_note": "Manual Tier-2 limit-32 preflight per bounded autonomy procedure 12: baseline champion phoneme_matcher_joint03 scored 29/32 (90.625%). Candidate A: wider second-pass beam + phoneme-vs-blank tilt + extra decode strings \u2014 still 29/32. Candidate B: confident-hit micro alternate beam (2 strings) + boosted tilt (1 string) before ambiguous-only wide pass \u2014 still 29/32. First 16 manifest rows stayed 16/16 on all runs; all regressions/ties from rows 17\u201332. autonomous_loop full Tier-2 limit 0 not run.",
+    "champion_forensics": "Ledger champion task-8ec0f326b09f / phoneme_matcher_joint03 at 240/256 (93.75%), objective 0.94375; needle vs runner-up phoneme_matcher_joint02 (task-65499c7b5348 lineage) is joint_model_runtime (joint ASR CTC decode + matcher + rescue spans), not packaging-only.",
+    "files_changed_during_probe": [
+      "experiments/phoneme_matcher_joint03/run.py"
+    ]
+  },
+  "metrics": {
+    "tier2_sample_limit": 32,
+    "tier2_manifest_samples": 256,
+    "preflight_limit": 32,
+    "preflight_candidate_correct": 29,
+    "preflight_champion_correct": 29,
+    "preflight_candidate_accuracy": 0.90625,
+    "preflight_champion_accuracy": 0.90625,
+    "preflight_candidate_experiment": "phoneme_matcher_joint03",
+    "preflight_champion_experiment": "phoneme_matcher_joint03",
+    "streaming_alignment_accuracy": 0.90625,
+    "correction_precision": 0.90625,
+    "verse_boundary_f1": 0.90625,
+    "latency_budget_score": 1.0,
+    "requires_full_corpus_gate": true,
+    "requires_champion_improvement": true,
+    "candidate_objective": 0.915625,
+    "champion_objective": 0.94375,
+    "champion_run_id": "task-8ec0f326b09f-20260516T022658Z",
+    "tier2_correct": 29,
+    "tier2_samples": 32,
+    "tier2_accuracy": 0.90625
+  },
+  "tier_completed": [
+    2
+  ],
+  "artifact_hashes": {},
+  "commands": [
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03 --tier-json artifacts/tier2/tier2-task-f77fd37090f3-preflight-champion.json",
+    "python3 -m lab_tools.eval_tier --tier 2 --corpus test_corpus_v3 --limit 32 --experiment phoneme_matcher_joint03 (candidate probes decode2pass_v2; reverted)"
+  ]
+}
