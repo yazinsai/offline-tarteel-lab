@@ -1,0 +1,15 @@
+kind: joint_model_runtime
+hypothesis: >
+  Same shipped phoneme ONNX and beam decode as phoneme_matcher_joint03, plus bounded
+  short-verse ambiguity handling. Short ayah-1 prefix rescues blend a head-alignment
+  score over the first 8/12/16 phoneme characters, and late spans starting shortly
+  after ayah 1 may rewind only within the same surah to ayah-1-to-current-end when
+  the calibrated score is close enough. No manifest or filename labels are used.
+owner: ""
+constraints:
+  max_onnx_mb: 200
+expected_metrics:
+  recall_delta_pp: null
+notes: >
+  Follow-up to joint03's global-span rescue: target residual short-surah ambiguity
+  and cases where a clip is recognized as a suffix span inside the correct surah.

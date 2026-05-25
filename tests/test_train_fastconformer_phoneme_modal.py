@@ -24,6 +24,7 @@ def test_config_from_args_defaults_output_to_modal_volume() -> None:
     assert config.job_name == "reviewable-smoke"
     assert config.max_steps == 7
     assert config.output_dir == "/outputs/reviewable-smoke"
+    assert config.precision == "16"
     assert config.export_onnx is True
 
 
@@ -59,10 +60,23 @@ def test_generated_training_script_contains_train_export_steps() -> None:
     script = modal_train.build_nemo_training_script()
 
     assert "EncDecCTCModel" in script
+    assert "import pytorch_lightning as pl" in script
     assert "model.change_vocabulary" in script
+    assert '"name": "adamw"' in script
     assert "trainer.fit(model)" in script
     assert "model.save_to" in script
     assert "model.export" in script
+
+
+def test_modal_image_pins_binary_data_stack_before_nemo_install() -> None:
+    source = Path(modal_train.__file__).read_text()
+    assert '"Cython", "datasets>=2.18", "numpy<2", "pyarrow>=14", "wheel"' in source
+    assert '"nemo_toolkit[asr]==1.23.0"' in source
+    assert '"pytorch-lightning==2.0.7"' in source
+
+
+def test_hf_secret_defaults_to_optional() -> None:
+    assert modal_train.HF_SECRET_NAME == ""
 
 
 def test_cli_dry_run_prints_json_plan(capsys) -> None:
@@ -74,3 +88,32 @@ def test_cli_dry_run_prints_json_plan(capsys) -> None:
     assert plan["config"]["job_name"] == "dry-run"
     assert plan["config"]["export_onnx"] is False
     assert "modal run --detach training/train_fastconformer_phoneme_modal.py" in out
+
+
+def test_launch_spawns_remote_training_without_blocking(monkeypatch, capsys) -> None:
+    calls = []
+
+    class FakeCall:
+        object_id = "fc-123"
+
+    class FakeTrainRemote:
+        def remote(self, _payload):
+            raise AssertionError("detached training must not use remote()")
+
+        def spawn(self, payload):
+            calls.append(payload)
+            return FakeCall()
+
+    monkeypatch.setattr(modal_train, "modal", object())
+    monkeypatch.setattr(modal_train, "train_remote", FakeTrainRemote())
+
+    modal_train.launch(modal_train.TrainingJobConfig(job_name="spawned-smoke"))
+
+    out = json.loads(capsys.readouterr().out)
+    assert calls[0]["job_name"] == "spawned-smoke"
+    assert out == {
+        "job_name": "spawned-smoke",
+        "output_dir": "/outputs/fastconformer-phoneme-smoke",
+        "function_call_id": "fc-123",
+        "status": "spawned",
+    }

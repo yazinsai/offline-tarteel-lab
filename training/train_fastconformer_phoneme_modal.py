@@ -20,7 +20,7 @@ from typing import Any
 APP_NAME = "offline-tarteel-fastconformer-phoneme"
 DATA_VOLUME_NAME = os.getenv("TARTEEL_MODAL_DATA_VOLUME", "offline-tarteel-lab-data")
 OUTPUT_VOLUME_NAME = os.getenv("TARTEEL_MODAL_OUTPUT_VOLUME", "offline-tarteel-lab-models")
-HF_SECRET_NAME = os.getenv("TARTEEL_MODAL_HF_SECRET", "huggingface-secret")
+HF_SECRET_NAME = os.getenv("TARTEEL_MODAL_HF_SECRET", "").strip()
 
 DATA_ROOT = Path("/data")
 OUTPUT_ROOT = Path("/outputs")
@@ -44,7 +44,7 @@ class TrainingJobConfig:
     max_epochs: int = 1
     batch_size: int = 8
     learning_rate: float = 1e-4
-    precision: str = "16-mixed"
+    precision: str = "16"
     export_onnx: bool = True
 
     def normalized(self) -> "TrainingJobConfig":
@@ -97,7 +97,7 @@ def build_nemo_training_script() -> str:
         import os
         from pathlib import Path
 
-        import lightning.pytorch as pl
+        import pytorch_lightning as pl
         from nemo.collections.asr.models import EncDecCTCModel
 
 
@@ -150,7 +150,7 @@ def build_nemo_training_script() -> str:
             )
             model.setup_optimization(
                 optim_config={
-                    "optimizer": "adamw",
+                    "name": "adamw",
                     "lr": config["learning_rate"],
                     "betas": [0.9, 0.98],
                     "weight_decay": 0.001,
@@ -197,14 +197,20 @@ if modal is not None:
     app = modal.App(APP_NAME)
     data_volume = modal.Volume.from_name(DATA_VOLUME_NAME, create_if_missing=False)
     output_volume = modal.Volume.from_name(OUTPUT_VOLUME_NAME, create_if_missing=True)
+    secrets = (
+        [modal.Secret.from_name(HF_SECRET_NAME, required_keys=["HF_TOKEN"])]
+        if HF_SECRET_NAME
+        else []
+    )
     image = (
-        modal.Image.debian_slim(python_version="3.11")
+        modal.Image.debian_slim(python_version="3.10")
         .apt_install("ffmpeg", "libsndfile1")
+        .pip_install("Cython", "datasets>=2.18", "numpy<2", "pyarrow>=14", "wheel")
         .pip_install(
-            "nemo_toolkit[asr]",
+            "nemo_toolkit[asr]==1.23.0",
+            "pytorch-lightning==2.0.7",
             "torch",
             "torchaudio",
-            "lightning",
             "huggingface_hub",
         )
     )
@@ -213,7 +219,7 @@ if modal is not None:
         image=image,
         gpu=DEFAULT_GPU,
         volumes={DATA_ROOT: data_volume, OUTPUT_ROOT: output_volume},
-        secrets=[modal.Secret.from_name(HF_SECRET_NAME, required_keys=["HF_TOKEN"])],
+        secrets=secrets,
         timeout=DEFAULT_TIMEOUT_SECONDS,
     )
     def train_remote(config_payload: dict[str, Any]) -> dict[str, Any]:
@@ -265,8 +271,19 @@ def launch(config: TrainingJobConfig) -> None:
             "Modal SDK is not importable here; install/authenticate Modal or use modal run from a "
             "Modal-capable environment."
         )
-    result = train_remote.remote(asdict(config.normalized()))  # type: ignore[attr-defined]
-    print(json.dumps(result, indent=2))
+    normalized = config.normalized()
+    call = train_remote.spawn(asdict(normalized))  # type: ignore[attr-defined]
+    print(
+        json.dumps(
+            {
+                "job_name": normalized.job_name,
+                "output_dir": normalized.output_dir,
+                "function_call_id": getattr(call, "object_id", None),
+                "status": "spawned",
+            },
+            indent=2,
+        )
+    )
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
