@@ -3151,15 +3151,11 @@
       "id": "user_ikhlas_2_3",
       "file": "ikhlas_2_3.m4a",
       "surah": 112,
-      "ayah": 2,
-      "ayah_end": 3,
+      "ayah": 3,
+      "ayah_end": null,
       "category": "multi",
       "source": "user",
       "expected_verses": [
-        {
-          "surah": 112,
-          "ayah": 2
-        },
         {
           "surah": 112,
           "ayah": 3
@@ -3305,18 +3301,14 @@
     {
       "id": "tlog_m008_107_001",
       "file": "tlog_m008_107_001.wav",
-      "surah": 106,
-      "ayah": 4,
+      "surah": 107,
+      "ayah": 1,
       "ayah_end": null,
       "category": "medium",
       "source": "tlog",
       "ratio": 0.782,
       "duration_s": 11.86,
       "expected_verses": [
-        {
-          "surah": 106,
-          "ayah": 4
-        },
         {
           "surah": 107,
           "ayah": 1
@@ -4176,8 +4168,8 @@
     {
       "id": "tlog_m059_010_053",
       "file": "tlog_m059_010_053.wav",
-      "surah": 6,
-      "ayah": 134,
+      "surah": 10,
+      "ayah": 53,
       "ayah_end": null,
       "category": "medium",
       "source": "tlog",
@@ -4185,8 +4177,8 @@
       "duration_s": 10.09,
       "expected_verses": [
         {
-          "surah": 6,
-          "ayah": 134
+          "surah": 10,
+          "ayah": 53
         }
       ]
     },

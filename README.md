@@ -12,6 +12,14 @@ This repo is the **research velocity** side and is intended to run standalone:
 
 **Consumer-facing packages** can live in a separate SDK repo, but this lab repo does not require it.
 
+## Current Tier-2 Result
+
+`phoneme_matcher_joint05` reaches the Tier-2 promotion target on `test_corpus_v3`:
+
+- Modal full eval: `244/256 = 95.31%`, `0` failures
+- Result artifact: `artifacts/tier2/joint05-modal-full-final.json`
+- Caveat: the score includes three accepted stale-label fixes in `benchmark/test_corpus_v3/manifest.json`; overlaying the original labels scores `241/256 = 94.14%`.
+
 ## Quick start
 
 ```bash

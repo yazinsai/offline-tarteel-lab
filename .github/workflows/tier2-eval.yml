@@ -1,0 +1,49 @@
+name: Tier-2 Experiment Eval
+
+on:
+  workflow_dispatch:
+    inputs:
+      experiment:
+        description: "Experiment name under experiments/"
+        required: true
+        default: "phoneme_matcher_joint03"
+      corpus:
+        description: "Corpus under benchmark/"
+        required: false
+        default: "test_corpus_v3"
+      limit:
+        description: "Sample limit; 0 means full corpus"
+        required: false
+        default: "0"
+
+jobs:
+  tier2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: python -m pip install -e ".[dev]"
+
+      - name: Run Tier-2 eval
+        run: |
+          python -m lab_tools.eval_tier \
+            --tier 2 \
+            --corpus "${{ github.event.inputs.corpus }}" \
+            --limit "${{ github.event.inputs.limit }}" \
+            --experiment "${{ github.event.inputs.experiment }}" \
+            --tier-json "artifacts/tier2/${{ github.event.inputs.experiment }}-${{ github.event.inputs.corpus }}-limit${{ github.event.inputs.limit }}.json"
+
+      - name: Upload Tier-2 report
+        uses: actions/upload-artifact@v4
+        with:
+          name: tier2-${{ github.event.inputs.experiment }}-${{ github.event.inputs.corpus }}-limit${{ github.event.inputs.limit }}
+          path: artifacts/tier2/*.json
