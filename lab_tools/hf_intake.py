@@ -26,13 +26,13 @@ class HFItem:
 def score_item(item: HFItem) -> float:
     """Heuristic ranking; planner can replace with learned model."""
     d = (item.downloads or 0) ** 0.25
-    l = (item.likes or 0) ** 0.5
+    likes_score = (item.likes or 0) ** 0.5
     tag_bonus = 0.0
     for t in item.tags:
         tl = t.lower()
         if tl in ("arabic", "ar", "quran", "islamic", "phoneme", "ctc", "asr", "speech"):
             tag_bonus += 2.0
-    return d + l + tag_bonus
+    return d + likes_score + tag_bonus
 
 
 def main() -> None:

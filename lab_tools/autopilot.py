@@ -189,7 +189,7 @@ def candidates(entries: list[dict[str, Any]] | None = None) -> list[Candidate]:
             },
         ),
     ]
-    planned = ledger_guided_candidates(entries) + static + adaptive_runtime_candidates()
+    planned = population_guided_candidates(entries) + ledger_guided_candidates(entries) + static + adaptive_runtime_candidates()
     if smoke_runtime_plateau(entries):
         planned = non_smoke_escalation_candidates(entries) + [
             c for c in planned if not _candidate_blocked_by_smoke_runtime_plateau(c)
@@ -401,6 +401,63 @@ def ledger_guided_candidates(entries: list[dict[str, Any]] | None = None) -> lis
             },
         ),
     )
+    return out
+
+
+def _population_score(entry: dict[str, Any]) -> float:
+    population = entry.get("population") or {}
+    try:
+        return float(population.get("search_rating"))
+    except (TypeError, ValueError):
+        try:
+            return float(entry.get("objective") or 0.0)
+        except (TypeError, ValueError):
+            return 0.0
+
+
+def population_guided_candidates(entries: list[dict[str, Any]] | None = None) -> list[Candidate]:
+    entries = entries if entries is not None else read_entries()
+    ranked = [
+        entry
+        for entry in entries
+        if isinstance(entry.get("population"), dict)
+        and entry.get("run_id")
+        and entry.get("objective") is not None
+        and entry.get("status") in {"promoted", "accepted", "merged", "rejected"}
+    ]
+    ranked.sort(key=_population_score, reverse=True)
+
+    out: list[Candidate] = []
+    for entry in ranked[:3]:
+        population = entry.get("population") or {}
+        params = dict(entry.get("parameters") or {})
+        family = _key_token(entry.get("experiment_family") or "population")
+        run_token = _key_token(entry.get("run_id"))
+        lineage_depth = int(population.get("lineage_depth") or 0) + 1
+        mutation_type = str(population.get("mutation_type") or params.get("change_class") or "population_refine")
+        out.append(
+            Candidate(
+                key=f"population.refine.{family}.{run_token}",
+                kind=str(entry.get("experiment_kind") or "joint_model_runtime"),
+                title=f"Refine high-rated population candidate: {family}",
+                payload={
+                    "experiment": params.get("experiment"),
+                    "parent_run_id": entry.get("run_id"),
+                    "parent_objective": entry.get("objective"),
+                    "parent_search_rating": population.get("search_rating"),
+                    "lineage_depth": lineage_depth,
+                    "mutation_type": mutation_type,
+                    "novelty_tags": population.get("novelty_tags") or [],
+                    "min_accuracy": max(0.8, float(entry.get("objective") or 0.0)),
+                    "agent_instructions": (
+                        "Start from this parent run's parameter vector and diagnostics. Make one "
+                        "bounded mutation that preserves the same validation contract, records "
+                        "per-sample Tier-2 diagnostics, and rejects honestly if the mandatory "
+                        "champion preflight does not strictly improve."
+                    ),
+                },
+            ),
+        )
     return out
 
 

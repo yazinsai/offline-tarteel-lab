@@ -73,6 +73,53 @@ def test_append_run_record_creates_ledger_entry(tmp_path, monkeypatch):
     assert entry["objective"] == 0.7775
     assert entry["artifacts"]["run_record"] == "artifacts/runs/run.json"
     assert entry["failure_modes"] == ["min_accuracy_not_met"]
+    assert entry["population"]["mutation_type"] == "runtime_only"
+    assert entry["population"]["search_rating"] == 0.7775
+
+
+def test_append_run_record_captures_population_lineage(tmp_path, monkeypatch):
+    monkeypatch.setattr(ledger, "lab_root", lambda: tmp_path)
+    run_record = tmp_path / "artifacts" / "runs" / "run.json"
+    run_record.parent.mkdir(parents=True)
+    run_record.write_text(
+        json.dumps(
+            {
+                "schema": "offline-tarteel.run_record.v1",
+                "run_id": "run-child",
+                "task_id": "task-child",
+                "dataset_revision": "test_corpus_v3",
+                "experiment_kind": "joint_model_runtime",
+                "parameter_vector": {
+                    "autopilot_key": "population.child",
+                    "parent_run_id": "run-parent",
+                    "mutation_type": "candidate_generation",
+                    "lineage_depth": 2,
+                    "novelty_tags": ["gold_absent", "prefix"],
+                    "experiment": "phoneme_matcher_joint05",
+                },
+                "metrics": {
+                    "tier2_accuracy": 0.9,
+                    "target_precision": 0.9,
+                    "verse_boundary_f1": 0.9,
+                    "tier2_rows": 4,
+                },
+            },
+        ),
+        encoding="utf-8",
+    )
+
+    entry = ledger.append_run_record(
+        run_record,
+        status="judged",
+        decision={"accept": True, "reasons": []},
+    )
+
+    assert entry["status"] == "promoted"
+    assert entry["population"]["parent_run_id"] == "run-parent"
+    assert entry["population"]["mutation_type"] == "candidate_generation"
+    assert entry["population"]["lineage_depth"] == 2
+    assert entry["population"]["novelty_tags"] == ["gold_absent", "prefix"]
+    assert entry["population"]["search_rating"] == 1.04
 
 
 def test_champion_ignores_invalidated_promotions():

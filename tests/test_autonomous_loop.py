@@ -169,6 +169,8 @@ def test_run_once_promotes_accepted_task(tmp_path, monkeypatch):
     assert record["metrics"]["latency_budget_score"] == 1.0
     assert record["metrics"]["tier2_evaluated_samples"] == 12
     assert record["metrics"]["tier2_manifest_samples"] == 12
+    assert record["metrics"]["tier2_rows"] == 0
+    assert record["metrics"]["tier2_incorrect_rows"] == 0
     assert record["metrics"]["requires_full_corpus_gate"] is True
     assert record["metrics"]["champion_objective"] is None
     assert record["parameter_vector"]["full_corpus_gate"] is True

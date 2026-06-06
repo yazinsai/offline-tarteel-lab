@@ -67,6 +67,14 @@ Accepted runs become `promoted` tasks and receive:
 
 Rejected runs keep their run record and judge reasons in `artifacts/queue/state.json`.
 
+Tier-2 reports include per-sample rows under each experiment result. These rows
+record expected and predicted first verses, correctness, category, and any
+runtime error. Run records keep compact row/miss counts, while
+`artifacts/experiment_ledger.jsonl` stores population metadata such as parent
+run, mutation type, novelty tags, lineage depth, visit count, and search rating.
+Autopilot uses that population metadata to seed bounded refinements of strong
+prior runs instead of relying only on static sweep families.
+
 ## Promotion Policy
 
 The local judge currently treats Tier-2 first-verse accuracy as the available proxy

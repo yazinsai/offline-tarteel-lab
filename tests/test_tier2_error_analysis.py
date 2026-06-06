@@ -19,6 +19,24 @@ def test_incorrect_rows_returns_only_rows_with_transcripts() -> None:
     assert [row["index"] for row in rows] == [2]
 
 
+def test_incorrect_rows_accepts_nested_tier2_result_rows() -> None:
+    report = {
+        "results": [
+            {
+                "experiment": "demo",
+                "rows": [
+                    {"index": 1, "correct": False, "predicted": {"transcript": "aaa"}},
+                    {"index": 2, "correct": False, "predicted": None},
+                ],
+            }
+        ]
+    }
+
+    rows = incorrect_rows(report)
+
+    assert [row["index"] for row in rows] == [1]
+
+
 def test_analyze_miss_reports_candidate_groups_and_expected_ranks() -> None:
     row = {
         "index": 7,

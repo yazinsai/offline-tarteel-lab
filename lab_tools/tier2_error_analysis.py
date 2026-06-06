@@ -11,7 +11,12 @@ from typing import Any
 
 def incorrect_rows(report: dict[str, Any]) -> list[dict[str, Any]]:
     rows = []
-    for row in report.get("rows", []):
+    source_rows = list(report.get("rows", []))
+    if not source_rows:
+        for result in report.get("results", []):
+            if isinstance(result, dict):
+                source_rows.extend(result.get("rows", []))
+    for row in source_rows:
         pred = row.get("predicted") if isinstance(row, dict) else None
         transcript = pred.get("transcript") if isinstance(pred, dict) else None
         if not row.get("correct", False) and transcript:

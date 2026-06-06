@@ -42,6 +42,7 @@ packages = ["lab_tools"]
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+extend-exclude = [".worktrees"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

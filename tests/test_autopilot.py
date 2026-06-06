@@ -101,6 +101,46 @@ def test_plan_uses_ledger_champion_and_worst_slice(tmp_path, monkeypatch):
     assert state.tasks[1].payload["champion_run_id"] == "run-champ"
 
 
+def test_population_guided_candidates_refine_high_rated_runs():
+    planned = ap.population_guided_candidates(
+        [
+            {
+                "schema": "offline-tarteel.experiment_ledger.v1",
+                "run_id": "run-low",
+                "status": "rejected",
+                "experiment_kind": "runtime_only",
+                "experiment_family": "runtime.low",
+                "objective": 0.4,
+                "parameters": {"experiment": "smoke"},
+                "population": {"search_rating": 0.41, "mutation_type": "threshold"},
+            },
+            {
+                "schema": "offline-tarteel.experiment_ledger.v1",
+                "run_id": "run-high",
+                "status": "promoted",
+                "experiment_kind": "joint_model_runtime",
+                "experiment_family": "joint.high",
+                "objective": 0.94,
+                "parameters": {"experiment": "phoneme_matcher_joint05"},
+                "population": {
+                    "parent_run_id": "run-parent",
+                    "search_rating": 1.04,
+                    "mutation_type": "candidate_generation",
+                    "lineage_depth": 2,
+                    "novelty_tags": ["gold_absent"],
+                },
+            },
+        ],
+    )
+
+    assert planned[0].key == "population.refine.joint.high.run-high"
+    assert planned[0].kind == "joint_model_runtime"
+    assert planned[0].payload["parent_run_id"] == "run-high"
+    assert planned[0].payload["lineage_depth"] == 3
+    assert planned[0].payload["mutation_type"] == "candidate_generation"
+    assert planned[0].payload["novelty_tags"] == ["gold_absent"]
+
+
 def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):
     monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
     monkeypatch.setattr(
