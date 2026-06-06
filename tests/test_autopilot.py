@@ -136,9 +136,88 @@ def test_population_guided_candidates_refine_high_rated_runs():
     assert planned[0].key == "population.refine.joint.high.run-high"
     assert planned[0].kind == "joint_model_runtime"
     assert planned[0].payload["parent_run_id"] == "run-high"
+    assert planned[0].payload["selection_policy"] == "pucb_v1"
+    assert planned[0].payload["selection_rank"] == 1
+    assert planned[0].payload["selection_score"] > planned[0].payload["exploitation_score"]
     assert planned[0].payload["lineage_depth"] == 3
     assert planned[0].payload["mutation_type"] == "candidate_generation"
     assert planned[0].payload["novelty_tags"] == ["gold_absent"]
+
+
+def test_population_policy_boosts_under_visited_mutation_families():
+    entries = [
+        {
+            "schema": "offline-tarteel.experiment_ledger.v1",
+            "run_id": f"run-common-{i}",
+            "status": "rejected",
+            "experiment_kind": "joint_model_runtime",
+            "experiment_family": f"joint.common.{i}",
+            "objective": 0.91,
+            "parameters": {"experiment": "phoneme_matcher_joint05"},
+            "population": {
+                "search_rating": 0.91,
+                "mutation_type": "selector_calibration",
+                "novelty_tags": ["gold_in_pool"],
+            },
+        }
+        for i in range(6)
+    ]
+    entries.append(
+        {
+            "schema": "offline-tarteel.experiment_ledger.v1",
+            "run_id": "run-rare",
+            "status": "rejected",
+            "experiment_kind": "joint_model_runtime",
+            "experiment_family": "joint.rare",
+            "objective": 0.9,
+            "parameters": {"experiment": "phoneme_matcher_joint05"},
+            "population": {
+                "search_rating": 0.9,
+                "mutation_type": "candidate_generation",
+                "novelty_tags": ["gold_absent"],
+            },
+        }
+    )
+
+    picks = ap.population_policy_picks(entries)
+
+    assert picks[0].entry["run_id"] == "run-rare"
+    assert picks[0].exploration > picks[1].exploration
+    assert picks[0].mutation_visits == 1
+
+
+def test_plan_reports_population_policy(tmp_path, monkeypatch):
+    monkeypatch.setattr(tq, "lab_root", lambda: tmp_path)
+    monkeypatch.setattr(
+        ap,
+        "read_entries",
+        lambda: [
+            {
+                "schema": "offline-tarteel.experiment_ledger.v1",
+                "run_id": "run-parent",
+                "status": "promoted",
+                "experiment_kind": "joint_model_runtime",
+                "experiment_family": "joint.parent",
+                "objective": 0.94,
+                "parameters": {
+                    "experiment": "phoneme_matcher_joint05",
+                    "full_corpus_gate": True,
+                },
+                "population": {
+                    "search_rating": 1.04,
+                    "mutation_type": "candidate_generation",
+                    "novelty_tags": ["gold_absent"],
+                },
+            }
+        ],
+    )
+    tq.save_state(tq.QueueState())
+
+    result = ap.plan(1)
+
+    assert result["population_policy"][0]["run_id"] == "run-parent"
+    assert result["population_policy"][0]["mutation_type"] == "candidate_generation"
+    assert result["population_policy"][0]["novelty_tags"] == ["gold_absent"]
 
 
 def test_plan_skips_repeatedly_failed_ledger_families(tmp_path, monkeypatch):

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 from collections import Counter
 from dataclasses import dataclass
@@ -22,6 +23,9 @@ from lab_tools.task_queue import (
 SMOKE_RUNTIME_PLATEAU_THRESHOLD = 4
 SMOKE_RUNTIME_PLATEAU_MAX_ALIGNMENT = 0.01
 CHANGE_CLASS_FAILURE_THRESHOLD = 2
+POPULATION_REFINE_LIMIT = 5
+POPULATION_EXPLORATION_WEIGHT = 0.14
+POPULATION_DIVERSITY_WEIGHT = 0.04
 
 
 @dataclass(frozen=True)
@@ -30,6 +34,17 @@ class Candidate:
     kind: str
     title: str
     payload: dict[str, Any]
+
+
+@dataclass(frozen=True)
+class PopulationPick:
+    entry: dict[str, Any]
+    exploitation: float
+    exploration: float
+    diversity: float
+    score: float
+    visits: int
+    mutation_visits: int
 
 
 def _key_token(value: Any) -> str:
@@ -415,9 +430,49 @@ def _population_score(entry: dict[str, Any]) -> float:
             return 0.0
 
 
-def population_guided_candidates(entries: list[dict[str, Any]] | None = None) -> list[Candidate]:
+def _population_mutation_type(entry: dict[str, Any]) -> str:
+    population = entry.get("population") or {}
+    params = entry.get("parameters") or {}
+    return str(
+        population.get("mutation_type")
+        or params.get("mutation_type")
+        or params.get("change_class")
+        or entry.get("experiment_kind")
+        or "unknown"
+    )
+
+
+def _population_visit_count(entry: dict[str, Any]) -> int:
+    population = entry.get("population") or {}
+    try:
+        explicit = int(population.get("visit_count") or 0)
+    except (TypeError, ValueError):
+        explicit = 0
+    return max(1, explicit + 1)
+
+
+def _population_novelty_tags(entry: dict[str, Any]) -> set[str]:
+    population = entry.get("population") or {}
+    params = entry.get("parameters") or {}
+    tags = set()
+    for value in (
+        population.get("novelty_tags"),
+        params.get("novelty_tags"),
+        params.get("focus_bucket"),
+        params.get("target_slice"),
+        params.get("change_class"),
+    ):
+        if isinstance(value, str):
+            tags.add(value)
+        elif isinstance(value, list | tuple | set):
+            tags.update(str(item) for item in value if item is not None)
+    return {tag for tag in tags if tag}
+
+
+def population_policy_picks(entries: list[dict[str, Any]] | None = None) -> list[PopulationPick]:
+    """Rank prior runs with a deterministic P-UCB-style exploration policy."""
     entries = entries if entries is not None else read_entries()
-    ranked = [
+    eligible = [
         entry
         for entry in entries
         if isinstance(entry.get("population"), dict)
@@ -425,16 +480,62 @@ def population_guided_candidates(entries: list[dict[str, Any]] | None = None) ->
         and entry.get("objective") is not None
         and entry.get("status") in {"promoted", "accepted", "merged", "rejected"}
     ]
-    ranked.sort(key=_population_score, reverse=True)
+    if not eligible:
+        return []
 
+    mutation_counts = Counter(_population_mutation_type(entry) for entry in eligible)
+    tag_counts: Counter[str] = Counter()
+    for entry in eligible:
+        tag_counts.update(_population_novelty_tags(entry))
+
+    total_visits = sum(_population_visit_count(entry) for entry in eligible)
+    picks: list[PopulationPick] = []
+    for entry in eligible:
+        visits = _population_visit_count(entry)
+        mutation_type = _population_mutation_type(entry)
+        mutation_visits = max(1, mutation_counts[mutation_type])
+        exploitation = _population_score(entry)
+        exploration = POPULATION_EXPLORATION_WEIGHT * math.sqrt(
+            math.log(total_visits + 1.0) / mutation_visits
+        )
+        tags = _population_novelty_tags(entry)
+        diversity = 0.0
+        if tags:
+            diversity = POPULATION_DIVERSITY_WEIGHT * sum(1.0 / tag_counts[tag] for tag in tags)
+        score = exploitation + exploration + diversity
+        picks.append(
+            PopulationPick(
+                entry=entry,
+                exploitation=round(exploitation, 6),
+                exploration=round(exploration, 6),
+                diversity=round(diversity, 6),
+                score=round(score, 6),
+                visits=visits,
+                mutation_visits=mutation_visits,
+            ),
+        )
+    return sorted(
+        picks,
+        key=lambda pick: (
+            pick.score,
+            pick.exploitation,
+            str(pick.entry.get("run_id") or ""),
+        ),
+        reverse=True,
+    )
+
+
+def population_guided_candidates(entries: list[dict[str, Any]] | None = None) -> list[Candidate]:
     out: list[Candidate] = []
-    for entry in ranked[:3]:
+    for rank, pick in enumerate(population_policy_picks(entries)[:POPULATION_REFINE_LIMIT], start=1):
+        entry = pick.entry
         population = entry.get("population") or {}
         params = dict(entry.get("parameters") or {})
         family = _key_token(entry.get("experiment_family") or "population")
         run_token = _key_token(entry.get("run_id"))
         lineage_depth = int(population.get("lineage_depth") or 0) + 1
         mutation_type = str(population.get("mutation_type") or params.get("change_class") or "population_refine")
+        novelty_tags = list(population.get("novelty_tags") or [])
         out.append(
             Candidate(
                 key=f"population.refine.{family}.{run_token}",
@@ -442,17 +543,29 @@ def population_guided_candidates(entries: list[dict[str, Any]] | None = None) ->
                 title=f"Refine high-rated population candidate: {family}",
                 payload={
                     "experiment": params.get("experiment"),
+                    "selection_policy": "pucb_v1",
+                    "selection_rank": rank,
+                    "selection_score": pick.score,
+                    "exploitation_score": pick.exploitation,
+                    "exploration_bonus": pick.exploration,
+                    "diversity_bonus": pick.diversity,
+                    "population_visits": pick.visits,
+                    "mutation_visits": pick.mutation_visits,
                     "parent_run_id": entry.get("run_id"),
                     "parent_objective": entry.get("objective"),
                     "parent_search_rating": population.get("search_rating"),
                     "lineage_depth": lineage_depth,
                     "mutation_type": mutation_type,
-                    "novelty_tags": population.get("novelty_tags") or [],
+                    "novelty_tags": novelty_tags,
                     "min_accuracy": max(0.8, float(entry.get("objective") or 0.0)),
                     "agent_instructions": (
                         "Start from this parent run's parameter vector and diagnostics. Make one "
-                        "bounded mutation that preserves the same validation contract, records "
-                        "per-sample Tier-2 diagnostics, and rejects honestly if the mandatory "
+                        "bounded mutation selected by the population P-UCB policy. Prioritize "
+                        "changes that can recover at least one current miss toward 95%+ full-corpus "
+                        "accuracy: if the gold verse is absent from the candidate pool, change "
+                        "candidate generation/span construction; if gold is present but low-rank, "
+                        "change selector features or calibration. Preserve the validation contract, "
+                        "record per-sample Tier-2 diagnostics, and reject honestly if the mandatory "
                         "champion preflight does not strictly improve."
                     ),
                 },
@@ -625,6 +738,7 @@ def plan(target_backlog: int) -> dict[str, Any]:
     weak = worst_slice(entries)
     active = count_active()
     plateau = smoke_runtime_plateau(entries)
+    policy_picks = population_policy_picks(entries)
     for candidate in candidates(entries):
         if candidate.key in blocked_families:
             skipped.append({"key": candidate.key, "reason": "blocked_family"})
@@ -679,6 +793,21 @@ def plan(target_backlog: int) -> dict[str, Any]:
         "blocked_families": sorted(blocked_families),
         "blocked_change_classes": sorted(blocked_change_classes),
         "smoke_runtime_plateau": plateau,
+        "population_policy": [
+            {
+                "run_id": pick.entry.get("run_id"),
+                "family": pick.entry.get("experiment_family"),
+                "mutation_type": _population_mutation_type(pick.entry),
+                "score": pick.score,
+                "exploitation": pick.exploitation,
+                "exploration": pick.exploration,
+                "diversity": pick.diversity,
+                "visits": pick.visits,
+                "mutation_visits": pick.mutation_visits,
+                "novelty_tags": sorted(_population_novelty_tags(pick.entry)),
+            }
+            for pick in policy_picks[:POPULATION_REFINE_LIMIT]
+        ],
     }
 
 

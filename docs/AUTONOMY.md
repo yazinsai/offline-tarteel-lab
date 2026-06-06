@@ -75,6 +75,17 @@ run, mutation type, novelty tags, lineage depth, visit count, and search rating.
 Autopilot uses that population metadata to seed bounded refinements of strong
 prior runs instead of relying only on static sweep families.
 
+Population refinements are selected with a deterministic P-UCB-style policy:
+
+- exploitation: the ledger `search_rating` for a parent run
+- exploration: a bonus for under-visited mutation families
+- diversity: a bonus for uncommon novelty tags such as gold-absent misses
+
+This intentionally keeps some pressure on lower-visited candidate-generation
+families even when selector/rerank families have many near-tie attempts. The
+goal is to bias follow-up work toward mutations that can recover at least one
+remaining miss on the path to 95%+ full-corpus accuracy.
+
 ## Promotion Policy
 
 The local judge currently treats Tier-2 first-verse accuracy as the available proxy
