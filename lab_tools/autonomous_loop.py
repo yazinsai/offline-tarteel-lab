@@ -122,6 +122,7 @@ def _metrics_from_reports(
         except (TypeError, ValueError):
             tier2_evaluated = tier2_samples
     manifest_samples = best.get("manifest_samples", tier2.get("manifest_samples"))
+    tier2_rows = best.get("rows") if isinstance(best.get("rows"), list) else []
     metrics: dict[str, Any] = {
         "tier1_passed": tier1.get("passed"),
         "tier1_total": tier1.get("total"),
@@ -134,6 +135,8 @@ def _metrics_from_reports(
         "tier2_selected_samples": tier2.get("selected_samples"),
         "tier2_sample_limit": tier2.get("sample_limit"),
         "tier2_failures": tier2_failures,
+        "tier2_rows": len(tier2_rows),
+        "tier2_incorrect_rows": sum(1 for row in tier2_rows if isinstance(row, dict) and not row.get("correct")),
         "tier3_completed": bool(tier3.get("completed")),
         "baseline_accuracy": payload.get("baseline_accuracy", payload.get("baseline_recall")),
         "min_accuracy": payload.get("min_accuracy"),

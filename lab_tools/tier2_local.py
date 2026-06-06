@@ -34,6 +34,10 @@ def _expected_first(sample: dict[str, Any]) -> tuple[int, int] | None:
     return None
 
 
+def _jsonable(value: Any) -> Any:
+    return json.loads(json.dumps(value, default=str))
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description="Tier-2 local benchmark")
     p.add_argument("--root", type=Path, default=None)
@@ -87,17 +91,47 @@ def main() -> None:
         correct = 0
         total = 0
         failures = 0
-        for s in samples:
+        rows: list[dict[str, Any]] = []
+        for index, s in enumerate(samples):
             sid = str(s.get("id", "?"))
             ap = bench / str(s.get("file", ""))
             exp = _expected_first(s)
+            expected = {"surah": exp[0], "ayah": exp[1]} if exp else None
             try:
                 pred = mod.predict(str(ap))
                 total += 1
-                if exp and int(pred.get("surah", 0)) == exp[0] and int(pred.get("ayah", 0)) == exp[1]:
+                is_correct = bool(
+                    exp
+                    and int(pred.get("surah", 0)) == exp[0]
+                    and int(pred.get("ayah", 0)) == exp[1]
+                )
+                if is_correct:
                     correct += 1
+                rows.append(
+                    {
+                        "index": index,
+                        "id": sid,
+                        "file": s.get("file"),
+                        "category": s.get("category"),
+                        "expected": expected,
+                        "predicted": _jsonable(pred),
+                        "correct": is_correct,
+                    },
+                )
             except Exception as e:
                 failures += 1
+                rows.append(
+                    {
+                        "index": index,
+                        "id": sid,
+                        "file": s.get("file"),
+                        "category": s.get("category"),
+                        "expected": expected,
+                        "predicted": None,
+                        "correct": False,
+                        "error": str(e),
+                    },
+                )
                 print(f"[{name}] {sid}: {e}", file=sys.stderr)
 
         acc = (correct / total) if total else 0.0
@@ -110,6 +144,7 @@ def main() -> None:
                 "correct": correct,
                 "accuracy": acc,
                 "failures": failures,
+                "rows": rows,
             },
         )
 

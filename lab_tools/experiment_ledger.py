@@ -61,6 +61,57 @@ def _status_from_decision(status: str, decision: dict[str, Any] | None) -> str:
     return "promoted" if (decision or {}).get("accept") else "rejected"
 
 
+def _list_field(value: Any) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, list | tuple | set):
+        return [str(item) for item in value if item is not None]
+    return [str(value)]
+
+
+def _population_metadata(
+    record: dict[str, Any],
+    score: dict[str, Any],
+    decision: dict[str, Any] | None,
+) -> dict[str, Any]:
+    params = record.get("parameter_vector") or {}
+    metrics = record.get("metrics") or {}
+    parent_run_id = (
+        params.get("parent_run_id")
+        or params.get("champion_run_id")
+        or metrics.get("champion_run_id")
+    )
+    mutation_type = (
+        params.get("mutation_type")
+        or params.get("change_class")
+        or params.get("param")
+        or params.get("focus_bucket")
+        or record.get("experiment_kind")
+    )
+    novelty_tags = []
+    novelty_tags.extend(_list_field(params.get("novelty_tags")))
+    novelty_tags.extend(_list_field(params.get("target_slice")))
+    novelty_tags.extend(_list_field(params.get("focus_bucket")))
+    novelty_tags.extend(_list_field(params.get("change_class")))
+    novelty_tags = sorted(set(novelty_tags))
+
+    objective = float(score.get("objective") or 0.0)
+    accepted_bonus = 0.1 if (decision or {}).get("accept") else 0.0
+    diagnostic_bonus = 0.03 if metrics.get("tier2_rows") or metrics.get("miss_diagnostics") else 0.0
+    regression_penalty = 0.04 if "champion_objective_not_improved" in set((decision or {}).get("reasons") or []) else 0.0
+
+    return {
+        "parent_run_id": parent_run_id,
+        "mutation_type": str(mutation_type or "unknown"),
+        "lineage_depth": int(params.get("lineage_depth") or 0),
+        "visit_count": int(params.get("visit_count") or 0),
+        "novelty_tags": novelty_tags,
+        "search_rating": round(objective + accepted_bonus + diagnostic_bonus - regression_penalty, 6),
+    }
+
+
 def entry_from_run_record(
     record: dict[str, Any],
     *,
@@ -92,6 +143,7 @@ def entry_from_run_record(
         "slices": score["slices"],
         "artifacts": artifacts,
         "failure_modes": list((decision or {}).get("reasons") or []),
+        "population": _population_metadata(record, score, decision),
     }
 
 
